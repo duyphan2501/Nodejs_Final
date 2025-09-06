@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    username: { type: String },
+    name: { type: String },
     email: { type: String, required: true, unique: true },
     purchasePoint: { type: Number, default: 0 },
     password: { type: String, required: true },
@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema(
     phone: String,
     verificationToken: String,
     verificationTokenExpireAt: Date,
+    avatar: String
   },
   { timestamps: true, collection: "users" }
 
