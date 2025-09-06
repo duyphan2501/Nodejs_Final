@@ -97,4 +97,18 @@ const login = async (req, res, next) => {
   }
 };
 
-export { signUp, verifyAccount, login };
+const logout = (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.clearCookie("connect.sid");
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+  });
+};
+
+export { signUp, verifyAccount, login, logout };
