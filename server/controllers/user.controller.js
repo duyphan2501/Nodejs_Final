@@ -1,6 +1,7 @@
 import CreateError from "http-errors";
 import {
-  checkExistingUser,
+  getUserByEmail,
+  checkPassword,
   createNewUser,
   getUnverifiedUser,
   hashPassword,
@@ -16,7 +17,7 @@ const signUp = async (req, res, next) => {
       throw CreateError.BadRequest("Please fill in all fields!");
 
     // check user exist
-    const isExistingUser = await checkExistingUser(email);
+    const isExistingUser = await getUserByEmail(email);
     if (isExistingUser)
       throw CreateError.Conflict("Email is already registerd");
 
@@ -27,7 +28,7 @@ const signUp = async (req, res, next) => {
     const newUser = await createNewUser(name, email, hashedPassword);
 
     // send verification email
-    await sendVerificationEmailtoUser(newUser)
+    await sendVerificationEmailtoUser(newUser);
 
     return res.status(201).json({
       message: "Sign up sucessfully",
@@ -49,7 +50,7 @@ const verifyAccount = async (req, res, next) => {
 
     if (foundUser.verificationTokenExpireAt < new Date()) {
       // resend verification email
-      await sendVerificationEmailtoUser(foundUser)
+      await sendVerificationEmailtoUser(foundUser);
       throw CreateError.BadRequest(
         "Link expired! We sent new verification email to you"
       );
@@ -67,4 +68,33 @@ const verifyAccount = async (req, res, next) => {
   }
 };
 
-export { signUp, verifyAccount };
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password)
+      throw CreateError.BadRequest("Email or password is missing");
+
+    const foundUser = await getUserByEmail(email);
+
+    if (!foundUser) throw CreateError.NotFound("User does not exist");
+
+    const isCorrectPassword = await checkPassword(password, foundUser.password);
+    if (!isCorrectPassword)
+      throw CreateError.Unauthorized("Password is not correct");
+
+    // store session
+    req.session.userId = foundUser._id;
+    req.session.isAdmin = foundUser.isAdmin;
+
+    return res.status(200).json({
+      message: "Login sucessfully!",
+      success: true,
+      user: filterFieldUser(foundUser),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { signUp, verifyAccount, login };

@@ -11,8 +11,12 @@ const userSchema = new mongoose.Schema(
     phone: String,
     verificationToken: String,
     verificationTokenExpireAt: Date,
+    accessToken: String,
+    accessTokenTokenExpireAt: Date,
     avatar: String,
-    isVerified: {type: Boolean, default: false}
+    isVerified: {type: Boolean, default: false},
+    status: {type: String, enum: ["active", "inactive"], default: "active"},
+    isAdmin: {type: Boolean, default: false}
   },
   { timestamps: true, collection: "users" }
 

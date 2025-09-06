@@ -5,7 +5,8 @@ const filterFieldUser = (user) => {
         phone: user.phone,
         avatar: user.avatar,
         email: user.email,
-        purchasePoint: user.purchasePoint
+        purchasePoint: user.purchasePoint,
+        isAdmin: user.isAdmin
     }
 }
 

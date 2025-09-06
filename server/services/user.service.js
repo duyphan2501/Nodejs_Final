@@ -2,7 +2,7 @@ import UserModel from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { sendVerificationEmail } from "./email.service.js";
 
-const checkExistingUser = async (email) => {
+const getUserByEmail = async (email) => {
   const user = await UserModel.findOne({
     email,
   });
@@ -36,7 +36,7 @@ const getUnverifiedUser = async (verificationToken) => {
 const sendVerificationEmailtoUser = async (user) => {
   // send varification email
   const verificationToken = await sendVerificationEmail(user.name, user.email);
-  
+
   // update verification token in db
   const verificationTokenExpireAt = new Date(Date.now() + 1000 * 30);
   user.verificationToken = verificationToken;
@@ -44,4 +44,20 @@ const sendVerificationEmailtoUser = async (user) => {
   await user.save();
 };
 
-export { checkExistingUser, hashPassword, createNewUser, getUnverifiedUser, sendVerificationEmailtoUser };
+const checkPassword = (password, hashedPassword) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, hashedPassword, (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+};
+
+export {
+  getUserByEmail,
+  hashPassword,
+  createNewUser,
+  getUnverifiedUser,
+  sendVerificationEmailtoUser,
+  checkPassword
+};
