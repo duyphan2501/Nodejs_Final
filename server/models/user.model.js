@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema(
     phone: String,
     verificationToken: String,
     verificationTokenExpireAt: Date,
-    avatar: String
+    avatar: String,
+    isVerified: {type: Boolean, default: false}
   },
   { timestamps: true, collection: "users" }
 

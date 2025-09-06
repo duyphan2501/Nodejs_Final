@@ -1,15 +1,11 @@
 import UserModel from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import { sendVerificationEmail } from "./email.service.js";
 
 const checkExistingUser = async (email) => {
   const user = await UserModel.findOne({
     email,
-    $or: [
-      { verificationTokenExpireAt: { $gt: new Date() } },
-      { verificationTokenExpireAt: { $exists: false } },
-    ],
   });
-
   return user;
 };
 
@@ -31,4 +27,21 @@ const createNewUser = async (name, email, password) => {
   return newUser;
 };
 
-export { checkExistingUser, hashPassword, createNewUser };
+const getUnverifiedUser = async (verificationToken) => {
+  return await UserModel.findOne({
+    verificationToken,
+  });
+};
+
+const sendVerificationEmailtoUser = async (user) => {
+  // send varification email
+  const verificationToken = await sendVerificationEmail(user.name, user.email);
+  
+  // update verification token in db
+  const verificationTokenExpireAt = new Date(Date.now() + 1000 * 30);
+  user.verificationToken = verificationToken;
+  user.verificationTokenExpireAt = verificationTokenExpireAt;
+  await user.save();
+};
+
+export { checkExistingUser, hashPassword, createNewUser, getUnverifiedUser, sendVerificationEmailtoUser };
