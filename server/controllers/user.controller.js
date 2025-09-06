@@ -6,6 +6,8 @@ import {
   getUnverifiedUser,
   hashPassword,
   sendVerificationEmailtoUser,
+  sendForgotPasswordEmailtoUser,
+  getForgotPasswordUser,
 } from "../services/user.service.js";
 import { filterFieldUser } from "../helpers/filterField.js";
 
@@ -61,8 +63,10 @@ const verifyAccount = async (req, res, next) => {
     foundUser.verificationTokenExpireAt = undefined;
     await foundUser.save();
 
-    const loginPageUrl = `${process.env.CLIENT_URL}/login`;
-    return res.redirect(loginPageUrl);
+    return res.status(200).json({
+      message: "Verify account successfully!",
+      success: true,
+    });
   } catch (error) {
     next(error);
   }
@@ -111,4 +115,84 @@ const logout = (req, res, next) => {
   });
 };
 
-export { signUp, verifyAccount, login, logout };
+const forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) throw CreateError.BadRequest("Please provide email!");
+
+    const foundUser = await getUserByEmail(email);
+
+    if (!foundUser) throw CreateError.NotFound("User does not exist");
+
+    await sendForgotPasswordEmailtoUser(foundUser);
+
+    return res.status(200).json({
+      message: `Recovery password email sent to ${email}`,
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const recoveryPassword = async (req, res, next) => {
+  try {
+    const { email, otpCode, password, confirmPassword } = req.body;
+
+    // check missing fields
+    if (!email || !password || !confirmPassword) {
+      throw CreateError.BadRequest("Email, password and confirm password are required");
+    }
+
+    if (!otpCode) throw CreateError.BadRequest("OTP code is missing");
+
+    const foundUser = await getUserByEmail(email);
+    if (!foundUser) throw CreateError.NotFound("User does not exist");
+
+    // check otp
+    if (foundUser.forgotPasswordToken !== otpCode) {
+      throw CreateError.BadRequest("OTP is not correct");
+    }
+
+    // check expire
+    if (foundUser.forgotPasswordTokenExpireAt < new Date()) {
+      await sendForgotPasswordEmailtoUser(foundUser);
+      throw CreateError.BadRequest(
+        "OTP expired! We sent a new recovery password email to you"
+      );
+    }
+
+    // check confirm password
+    if (password !== confirmPassword) {
+      throw CreateError.BadRequest("Password and confirm password do not match");
+    }
+
+    // hash and update new password
+    const hashedPassword = await hashPassword(password);
+    foundUser.password = hashedPassword;
+
+    // clear otp info
+    foundUser.forgotPasswordToken = undefined;
+    foundUser.forgotPasswordTokenExpireAt = undefined;
+
+    await foundUser.save();
+
+    return res.status(200).json({
+      message: "Password reset successfully!",
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export {
+  signUp,
+  verifyAccount,
+  login,
+  logout,
+  forgotPassword,
+  recoveryPassword,
+};

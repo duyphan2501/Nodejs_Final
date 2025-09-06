@@ -1,6 +1,9 @@
 import UserModel from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import { sendVerificationEmail } from "./email.service.js";
+import {
+  sendForgotPasswordEmail,
+  sendVerificationEmail,
+} from "./email.service.js";
 
 const getUserByEmail = async (email) => {
   const user = await UserModel.findOne({
@@ -38,10 +41,19 @@ const sendVerificationEmailtoUser = async (user) => {
   const verificationToken = await sendVerificationEmail(user.name, user.email);
 
   // update verification token in db
-  const verificationTokenExpireAt = new Date(Date.now() + 1000 * 30);
+  const verificationTokenExpireAt = new Date(Date.now() + 1000 * 60 * 60 * 24);
   user.verificationToken = verificationToken;
   user.verificationTokenExpireAt = verificationTokenExpireAt;
   await user.save();
+};
+
+const sendForgotPasswordEmailtoUser = async (user) => {
+  const otp = await sendForgotPasswordEmail(user.name, user.email);
+
+  const forgotPasswordTokenExpireAt = new Date(Date.now() + 1000 * 60 * 5);
+  user.forgotPasswordTokenExpireAt = forgotPasswordTokenExpireAt;
+  user.forgotPasswordToken = otp;
+  user.save();
 };
 
 const checkPassword = (password, hashedPassword) => {
@@ -53,11 +65,20 @@ const checkPassword = (password, hashedPassword) => {
   });
 };
 
+const getForgotPasswordUser = async (email, forgotPasswordToken) => {
+  return await UserModel.findOne({
+    email,
+    forgotPasswordToken,
+  });
+};
+
 export {
   getUserByEmail,
   hashPassword,
   createNewUser,
   getUnverifiedUser,
   sendVerificationEmailtoUser,
-  checkPassword
+  sendForgotPasswordEmailtoUser,
+  getForgotPasswordUser,
+  checkPassword,
 };
