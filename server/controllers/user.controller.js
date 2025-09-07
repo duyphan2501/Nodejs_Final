@@ -10,6 +10,7 @@ import {
   getForgotPasswordUser,
 } from "../services/user.service.js";
 import { filterFieldUser } from "../helpers/filterField.js";
+import UserModel from "../models/user.model.js";
 
 const signUp = async (req, res, next) => {
   try {
@@ -142,7 +143,9 @@ const recoveryPassword = async (req, res, next) => {
 
     // check missing fields
     if (!email || !password || !confirmPassword) {
-      throw CreateError.BadRequest("Email, password and confirm password are required");
+      throw CreateError.BadRequest(
+        "Email, password and confirm password are required"
+      );
     }
 
     if (!otpCode) throw CreateError.BadRequest("OTP code is missing");
@@ -165,7 +168,9 @@ const recoveryPassword = async (req, res, next) => {
 
     // check confirm password
     if (password !== confirmPassword) {
-      throw CreateError.BadRequest("Password and confirm password do not match");
+      throw CreateError.BadRequest(
+        "Password and confirm password do not match"
+      );
     }
 
     // hash and update new password
@@ -187,6 +192,76 @@ const recoveryPassword = async (req, res, next) => {
   }
 };
 
+const updateUserDetail = async (req, res, next) => {
+  try {
+    const userId = req.session.userId;
+    if (!userId) throw CreateError.Unauthorized("You have to login first")
+
+    const { name, phone } = req.body;
+
+    if (!name || !phone)
+      throw CreateError.BadRequest("Name and phone are required")
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) 
+      throw CreateError.NotFound("User does not exist")
+
+    if (name !== user.name) user.name = name;
+    if (phone !== user.phone) user.phone = phone;
+
+    await user.save();
+    return res.status(200).json({
+      user: filterFieldUser(user),
+      message: "Update user detail successfully",
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      success: false,
+    });
+  }
+};
+
+const changePassword = async (req, res, next) => {
+  try {
+    const userId = req.session.userId;
+
+    if (!userId)
+      throw CreateError.Unauthorized("You have to login first")
+
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+
+    if (!currentPassword || !newPassword || !confirmPassword)
+      throw CreateError.BadRequest("Please fill in all password!")
+
+    if (newPassword !== confirmPassword)
+      throw CreateError.BadRequest("New password and confirm password do not match!")
+
+    const user = await UserModel.findById(userId);
+
+    if (!user)
+      throw CreateError.NotFound("User does not exist")
+
+    const isCorrectPassword = await checkPassword(currentPassword, user.password)
+
+    if (!isCorrectPassword)
+      throw CreateError.Forbidden("Password is not correct")
+
+    const hashedNewPassword = await hashPassword(newPassword)
+
+    user.password = hashedNewPassword;
+    await user.save();
+
+    return res.status(200).json({
+      message: "Changed password successfully",
+      success: false,
+    });
+  } catch (error) {
+    next(error)
+  }
+};
 
 export {
   signUp,
@@ -195,4 +270,6 @@ export {
   logout,
   forgotPassword,
   recoveryPassword,
+  changePassword,
+  updateUserDetail,
 };
