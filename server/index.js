@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import userRouter from "./routes/user.route.js"
 import connectToDB from "./database/connectMongoDB.js"
 import session from "express-session"
+import cors from "cors"
 dotenv.config({quiet:true})
 
 const app = express()
@@ -25,8 +26,14 @@ app.use(
   })
 );
 
+app.use(cors({
+  origin: ["http://localhost:5173", "http://localhost:5174"], 
+  credentials: true               
+}));
+
+
 //routes
-app.use("/api/v1/user", userRouter)
+app.use("/api/user", userRouter)
 
 app.use(errorHandeler)
 

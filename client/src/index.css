@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+.remember-me .MuiFormControlLabel-label {
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    color: rgb(70, 70, 70);
+}
