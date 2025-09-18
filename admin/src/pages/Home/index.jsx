@@ -24,6 +24,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import AdvanceOverallDashboard from "../../components/AdvanceOverallDashboard";
 import AdvanceProductDashboard from "../../components/AdvanceProductDashboard";
 
 function Home() {
@@ -94,6 +95,10 @@ function Home() {
           </Box>
 
           <Box mt={3}>
+            <AdvanceOverallDashboard />
+          </Box>
+
+          <Box mt={3} mb={3}>
             <AdvanceProductDashboard />
           </Box>
         </Container>
