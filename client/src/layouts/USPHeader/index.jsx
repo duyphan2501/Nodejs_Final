@@ -43,30 +43,14 @@ const UspHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [uspData, setUspData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showHeader, setShowHeader] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [currentTitle, setCurrentTitle] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
-        setShowHeader(false);
-      } else {
-        setShowHeader(true);
-      }
-      setLastScrollY(window.scrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
 
   useEffect(() => {
     if (!uspData?.headerTexts) return;
 
     const interval = setInterval(() => {
       setCurrentTitle((prev) => (prev + 1) % uspData.headerTexts.length);
-    }, 3000); // đổi sau 3 giây
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [uspData?.headerTexts?.length]);
@@ -107,9 +91,8 @@ const UspHeader = () => {
     <div className="relative z-50">
       {/* Header Bar */}
       <div
-        className={`fixed top-0 left-0 right-0 bg-black text-white py-3 cursor-pointer select-none 
-              hover:bg-gray-800 transition-transform duration-500 z-50
-              ${showHeader ? "translate-y-0" : "-translate-y-full"}`}
+        className={`bg-black text-white py-3 cursor-pointer select-none hover:bg-gray-800 transition-colors
+          `}
         onClick={togglePanel}
       >
         <div className="max-w-7xl mx-auto px-4">
@@ -151,13 +134,14 @@ const UspHeader = () => {
 
       {/* Dropdown Panel */}
       <div
-        className={`absolute left-0 right-0 bg-white border-b border-gray-200 shadow-lg
+        className={`fixed left-0 right-0 bg-white border-b border-gray-200 shadow-lg
               transition-all duration-300 ease-in-out z-50
               ${
                 isOpen
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 -translate-y-4 pointer-events-none"
-              }`}
+              }
+              `}
       >
         <div className="max-w-7xl mx-auto px-4 py-8">
           {/* Close Button */}

@@ -1,153 +1,442 @@
 import React, { useState, useEffect } from "react";
+import Navbar from "./Navbar";
 
 // Mock API function
 const fetchMenuData = async () => {
   await new Promise((resolve) => setTimeout(resolve, 500));
   return {
     categories: [
+      // Flyout Menu 1 - Shoes Focus
       {
-        id: "men",
-        title: "Men",
-        subcategories: [
+        id: "shoes",
+        type: "shoes",
+        title: "GIÀY",
+
+        sections: [
           {
-            name: "Shoes",
-            link: "/men/shoes",
+            title: "GIÀY HÀNG MỚI VỀ",
             items: [
-              "Running",
-              "Football",
-              "Basketball",
-              "Lifestyle",
-              "Outdoor",
+              { name: "SL 72", link: "/shoes/sl72" },
+              { name: "Stan Smith", link: "/shoes/stan-smith" },
+              { name: "Low Profile Collection", link: "/shoes/low-profile" },
             ],
           },
           {
-            name: "Clothing",
-            link: "/men/clothing",
-            items: ["T-Shirts", "Hoodies", "Jackets", "Pants", "Shorts"],
+            title: "TRENDING SHOES",
+            items: [
+              { name: "Every Day Running", link: "/shoes/running" },
+              { name: "Tiếp sức đường chạy", link: "/shoes/running-support" },
+              { name: "Race to win", link: "/shoes/race" },
+              { name: "Giày đi bộ", link: "/shoes/walking" },
+            ],
+          },
+        ],
+        featured: [
+          { name: "SAMBA", image: "/images/samba.jpg", link: "/shoes/samba" },
+          {
+            name: "GAZELLE",
+            image: "/images/gazelle.jpg",
+            link: "/shoes/gazelle",
           },
           {
-            name: "Sports",
-            link: "/men/sports",
-            items: ["Football", "Running", "Training", "Basketball", "Tennis"],
+            name: "CAMPUS",
+            image: "/images/campus.jpg",
+            link: "/shoes/campus",
+          },
+          {
+            name: "SPEZIAL",
+            image: "/images/spezial.jpg",
+            link: "/shoes/spezial",
+          },
+          {
+            name: "SUPERSTAR",
+            image: "/images/superstar.jpg",
+            link: "/shoes/superstar",
           },
         ],
       },
+
+      // Flyout Menu 2 - Man Flyout
       {
-        id: "women",
-        title: "Women",
-        subcategories: [
+        id: "man",
+        type: "man",
+        title: "Nam",
+        sections: [
           {
-            name: "Shoes",
-            link: "/women/shoes",
-            items: ["Running", "Lifestyle", "Training", "Outdoor", "Yoga"],
+            title: "NỔI BẬT",
+            items: [
+              { name: "Hàng Mới Về", link: "/new-arrivals" },
+              { name: "Độc quyền hội viên", link: "/member-exclusive" },
+            ],
           },
           {
-            name: "Clothing",
-            link: "/women/clothing",
-            items: ["Sports Bras", "Leggings", "Tops", "Jackets", "Dresses"],
-          },
-          {
-            name: "Sports",
-            link: "/women/sports",
-            items: ["Yoga", "Running", "Training", "Dance", "Pilates"],
-          },
-        ],
-      },
-      {
-        id: "kids",
-        title: "Kids",
-        subcategories: [
-          {
-            name: "Boys",
-            link: "/kids/boys",
-            items: ["Shoes", "T-Shirts", "Hoodies", "Sports", "School"],
-          },
-          {
-            name: "Girls",
-            link: "/kids/girls",
-            items: ["Shoes", "Dresses", "Activewear", "Dance", "School"],
-          },
-          {
-            name: "Infants",
-            link: "/kids/infants",
-            items: ["First Steps", "Bodysuits", "Sets", "Accessories"],
+            title: "ĐƯỢC YÊU THÍCH TRONG THÁNG",
+            items: [
+              { name: "LIVERPOOL FC 25/26 KITS", link: "/liverpool-kits" },
+              { name: "Slide into Summer", link: "/summer-collection" },
+              { name: "Superstar", link: "/superstar" },
+              { name: "Low Profile Collection", link: "/low-profile" },
+              { name: "T-toe Collection", link: "/t-toe" },
+              { name: "Padel Tennis", link: "/padel-tennis" },
+            ],
           },
         ],
+        categories: [
+          {
+            title: "GIÀY",
+            items: [
+              { name: "Hàng mới về", link: "/shoes/new" },
+              { name: "Originals", link: "/shoes/originals" },
+              { name: "Bóng đá", link: "/shoes/football" },
+              { name: "Chạy bộ", link: "/shoes/running" },
+              { name: "Tập", link: "/shoes/training" },
+              { name: "Ngoài trời", link: "/shoes/outdoor" },
+              { name: "Bóng rổ", link: "/shoes/basketball" },
+              { name: "Dép & Dép xỏ ngón", link: "/shoes/slides" },
+              { name: "Quần vợt", link: "/shoes/tennis" },
+              { name: "Sportswear", link: "/shoes/sportswear" },
+              { name: "Giày sneaker đen", link: "/shoes/black-sneakers" },
+              { name: "Đánh gôn", link: "/shoes/golf" },
+              { name: 'GIÀY "MUST-HAVE"', link: "/shoes/must-have" },
+              { name: "Walking Shoes", link: "/shoes/walking" },
+            ],
+          },
+          {
+            title: "QUẦN ÁO",
+            items: [
+              { name: "Áo thun & Áo polo", link: "/clothing/tshirts" },
+              { name: "Áo Jersey", link: "/clothing/jerseys" },
+              { name: "Áo hoodie", link: "/clothing/hoodies" },
+              { name: "Bộ đồ thể thao", link: "/clothing/tracksuits" },
+              { name: "Quần", link: "/clothing/pants" },
+              { name: "Quần bơ", link: "/clothing/swimwear" },
+              { name: "Quần short", link: "/clothing/shorts" },
+              { name: "Sportswear", link: "/clothing/sportswear" },
+              { name: "Áo khoác", link: "/clothing/jackets" },
+              { name: "CỠ BẢN", link: "/clothing/basics" },
+              { name: "Tracksuits", link: "/clothing/tracksuits-full" },
+            ],
+          },
+          {
+            title: "PHỤ KIỆN",
+            items: [
+              { name: "Tất Cả Túi", link: "/accessories/bags" },
+              { name: "Tất", link: "/accessories/socks" },
+              { name: "Mũ Lưỡi Trai & Đội Đầu", link: "/accessories/hats" },
+              { name: "Găng Tay", link: "/accessories/gloves" },
+              {
+                name: "Ốp bao vệ ống chân & Băng buộc",
+                link: "/accessories/protection",
+              },
+              { name: "Ball", link: "/accessories/balls" },
+            ],
+          },
+          {
+            title: "THỂ THAO",
+            items: [
+              { name: "Bóng đá", link: "/sports/football" },
+              { name: "Chạy", link: "/sports/running" },
+              { name: "Tập luyện", link: "/sports/training" },
+              { name: "Basketball", link: "/sports/basketball" },
+              { name: "Bơi lội", link: "/sports/swimming" },
+              { name: "Đánh gôn", link: "/sports/golf" },
+              { name: "Quần vợt", link: "/sports/tennis" },
+            ],
+          },
+        ],
+        promotion: {
+          title: "EVO SL. FEEL FAST.",
+          image: "/images/evo-sl-promotion.jpg",
+          link: "/evo-sl-collection",
+        },
+        bottomCategories: [
+          { name: "Tất cả sản phẩm dành cho nam", link: "/men/all" },
+          { name: "Tất cả giày nam", link: "/men/shoes/all" },
+          {
+            name: "Tất cả phụ kiện dành cho nam",
+            link: "/men/accessories/all",
+          },
+          { name: "All Men's Sports", link: "/men/sports/all" },
+        ],
       },
+
+      // {
+      //   id: "men",
+      //   title: "NAM",
+      //   subcategories: [
+      //     {
+      //       name: "GIÀY",
+      //       link: "/men/shoes",
+
+      //       items: [
+      //         "Tất cả giày nam",
+      //         "Hàng mới về",
+      //         "Giày sneaker",
+      //         "Giày chay bộ",
+      //         "Giày bóng đá",
+      //         "Giày tập",
+      //         "Lifestyle",
+      //         "Giày bóng rổ",
+      //         "Giày quần vợt",
+      //         "Dép & Dép xỏ ngón",
+      //         "Giày Golf",
+      //       ],
+      //     },
+      //     {
+      //       name: "QUẦN ÁO",
+      //       link: "/men/clothing",
+      //       items: [
+      //         "Áo thun",
+      //         "Áo hoodie",
+      //         "Áo khoác",
+      //         "Quần dài",
+      //         "Quần short",
+      //       ],
+      //     },
+      //     {
+      //       name: "PHỤ KIỆN",
+      //       link: "/men/accessories",
+      //       items: ["Túi xách", "Mũ", "Tất", "Găng tay", "Khăn"],
+      //     },
+      //   ],
+      // },
+      // {
+      //   id: "women",
+      //   title: "NỮ",
+      //   subcategories: [
+      //     {
+      //       name: "GIÀY",
+      //       link: "/women/shoes",
+      //       items: [
+      //         "Giày chay bộ",
+      //         "Lifestyle",
+      //         "Giày tập",
+      //         "Giày ngoài trời",
+      //         "Yoga",
+      //       ],
+      //     },
+      //     {
+      //       name: "QUẦN ÁO",
+      //       link: "/women/clothing",
+      //       items: [
+      //         "Áo ngực thể thao",
+      //         "Quần legging",
+      //         "Áo",
+      //         "Áo khoác",
+      //         "Váy",
+      //       ],
+      //     },
+      //     {
+      //       name: "PHỤ KIỆN",
+      //       link: "/women/accessories",
+      //       items: ["Túi xách", "Mũ", "Tất", "Khăn"],
+      //     },
+      //   ],
+      // },
+      // {
+      //   id: "kids",
+      //   title: "TRẺ EM",
+      //   subcategories: [
+      //     {
+      //       name: "BÉ TRAI",
+      //       link: "/kids/boys",
+      //       items: ["Giày", "Áo thun", "Áo hoodie", "Thể thao", "Đi học"],
+      //     },
+      //     {
+      //       name: "BÉ GÁI",
+      //       link: "/kids/girls",
+      //       items: ["Giày", "Váy", "Đồ thể thao", "Khiêu vũ", "Đi học"],
+      //     },
+      //   ],
+      // },
+
+      // {
+      //   id: "brands",
+      //   title: "CÁC THƯƠNG HIỆU",
+      //   subcategories: [
+      //     {
+      //       name: "ADIDAS ORIGINALS",
+      //       link: "/brands/originals",
+      //       items: ["Giày", "Quần áo", "Phụ kiện"],
+      //     },
+      //     {
+      //       name: "ADIDAS PERFORMANCE",
+      //       link: "/brands/performance",
+      //       items: ["Thể thao", "Tập luyện", "Chạy bộ"],
+      //     },
+      //   ],
+      // },
+      // {
+      //   id: "outlet",
+      //   title: "OUTLET",
+      //   subcategories: [
+      //     {
+      //       name: "GIẢM GIÁ",
+      //       link: "/outlet/sale",
+      //       items: ["Giày giảm giá", "Quần áo giảm giá", "Phụ kiện giảm giá"],
+      //     },
+      //   ],
+      // },
     ],
   };
 };
 
-const AdidasHeader = () => {
+const Header = ({
+  logoText = "adidas",
+
+  customLogo = null,
+}) => {
   const [menuData, setMenuData] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [flyoutOpen, setFlyoutOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(null);
-  const [flyoutPosition, setFlyoutPosition] = useState({ x: 0, y: 0 });
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  // Mobile menu states
+  const [mobileActiveCategory, setMobileActiveCategory] = useState(null);
+  const [mobileActiveSubcategory, setMobileActiveSubcategory] = useState(null);
+  const [mobileBreadcrumb, setMobileBreadcrumb] = useState([]);
 
   useEffect(() => {
     fetchMenuData().then(setMenuData);
   }, []);
 
-  const handleMouseEnter = (event, category) => {
-    const rect = event.target.getBoundingClientRect();
-    setFlyoutPosition({
-      x: rect.left,
-      y: rect.bottom,
-    });
-    setActiveCategory(category);
-    setFlyoutOpen(true);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY && window.scrollY > 100) {
+        setShowHeader(false);
+      } else {
+        setShowHeader(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen(true);
+    setShowHeader(true);
+    document.body.style.overflow = "hidden";
   };
 
-  const handleMouseLeave = () => {
-    setTimeout(() => {
-      setFlyoutOpen(false);
-      setActiveCategory(null);
-    }, 150);
+  const handleMobileCategoryClick = (category) => {
+    setMobileActiveCategory(category);
+    setMobileBreadcrumb([category.title]);
   };
 
-  const FlyoutMenu = () => {
-    if (!activeCategory || !flyoutOpen) return null;
+  const handleMobileSubcategoryClick = (subcategory) => {
+    setMobileActiveSubcategory(subcategory);
+    setMobileBreadcrumb([mobileActiveCategory.title, subcategory.name]);
+  };
+
+  const handleMobileBack = () => {
+    if (mobileActiveSubcategory) {
+      setMobileActiveSubcategory(null);
+      setMobileBreadcrumb([mobileActiveCategory.title]);
+    } else if (mobileActiveCategory) {
+      setMobileActiveCategory(null);
+      setMobileBreadcrumb([]);
+    }
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setMobileActiveCategory(null);
+    setMobileActiveSubcategory(null);
+    setMobileBreadcrumb([]);
+    document.body.style.overflow = "";
+  };
+
+  const MobileMenuContent = () => {
+    if (mobileActiveSubcategory) {
+      return (
+        <div
+          className={`p-0 transform transition-transform duration-300 ${
+            mobileActiveSubcategory ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="p-4 space-y-4 max-h-[90vh] overflow-y-auto">
+            {mobileActiveSubcategory.items.map((item, index) => (
+              <a
+                key={index}
+                href={item.link || "#"}
+                className="block py-2 text-gray-800 hover:text-black border-b border-gray-100 last:border-b-0 transform transition-all duration-200 hover:translate-x-1"
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (mobileActiveCategory) {
+      return (
+        <div
+          className={`p-0 transform transition-transform duration-300 ${
+            mobileActiveCategory ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="p-4 space-y-0">
+            {mobileActiveCategory.categories.map((sub, index) => (
+              <button
+                key={index}
+                onClick={() => handleMobileSubcategoryClick(sub)}
+                className="w-full flex items-center justify-between py-4 text-left text-gray-800 hover:text-black border-b border-gray-100 last:border-b-0 transition-all duration-200 hover:bg-gray-50 hover:translate-x-1"
+              >
+                <span className="font-medium">{sub.title}</span>
+                <svg
+                  className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div
-        className="fixed bg-white shadow-2xl border-t-2 border-black z-50 p-8"
-        style={{
-          left: flyoutPosition.x - 100,
-          top: flyoutPosition.y,
-          minWidth: "700px",
-          maxWidth: "900px",
-        }}
-        onMouseEnter={() => setFlyoutOpen(true)}
-        onMouseLeave={handleMouseLeave}
+        className={`p-4 space-y-0 transform transition-transform duration-300 ${
+          !mobileActiveCategory ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-        <div className="grid grid-cols-3 gap-8">
-          {activeCategory.subcategories.map((sub, index) => (
-            <div key={index} className="space-y-4">
-              <h3 className="font-bold text-lg text-black border-b border-gray-200 pb-2">
-                {sub.name}
-              </h3>
-              <ul className="space-y-2">
-                {sub.items.map((item, itemIndex) => (
-                  <li key={itemIndex}>
-                    <a
-                      href="#"
-                      className="text-gray-600 hover:text-black hover:underline text-sm block py-1 transition-colors"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <a
-                href={sub.link}
-                className="inline-block mt-4 text-black font-semibold hover:underline text-sm"
-              >
-                View All {sub.name} →
-              </a>
-            </div>
-          ))}
-        </div>
+        {menuData?.categories.map((category, index) => (
+          <button
+            key={category.id}
+            onClick={() => handleMobileCategoryClick(category)}
+            className={`w-full flex items-center justify-between py-4 text-left font-medium text-gray-800 hover:text-black border-b border-gray-100 last:border-b-0 transition-all duration-200 hover:bg-gray-50 hover:translate-x-1`}
+            style={{
+              animationDelay: `${index * 50}ms`,
+            }}
+          >
+            <span>{category.title}</span>
+            <svg
+              className="w-5 h-5 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        ))}
       </div>
     );
   };
@@ -158,9 +447,40 @@ const AdidasHeader = () => {
         mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="flex justify-between items-center p-4 border-b">
-        <h2 className="text-xl font-bold">Menu</h2>
-        <button onClick={() => setMobileMenuOpen(false)} className="p-2">
+      <div className="flex justify-between items-center p-4 border-b bg-white">
+        <div className="flex items-center">
+          {(mobileActiveCategory || mobileActiveSubcategory) && (
+            <button
+              onClick={handleMobileBack}
+              className="p-2 mr-2 -ml-2 hover:bg-gray-100 rounded transition-colors duration-200"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+          )}
+          <h2 className="text-lg font-bold transition-all duration-300">
+            {mobileActiveSubcategory
+              ? mobileActiveSubcategory.name
+              : mobileActiveCategory
+              ? mobileActiveCategory.title
+              : "Menu"}
+          </h2>
+        </div>
+        <button
+          onClick={closeMobileMenu}
+          className="p-2 hover:bg-gray-100 rounded transition-colors duration-200"
+        >
           <svg
             className="w-6 h-6"
             fill="none"
@@ -176,175 +496,33 @@ const AdidasHeader = () => {
           </svg>
         </button>
       </div>
-      <div className="p-4">
-        {menuData?.categories.map((category) => (
-          <div key={category.id} className="py-4 border-b border-gray-200">
-            <h3 className="font-semibold text-lg mb-3">{category.title}</h3>
-            {category.subcategories.map((sub, index) => (
-              <a
-                key={index}
-                href={sub.link}
-                className="block py-2 text-gray-600 hover:text-black"
-              >
-                {sub.name}
-              </a>
-            ))}
-          </div>
-        ))}
-      </div>
+      <MobileMenuContent />
     </div>
   );
 
   return (
     <>
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="flex items-center justify-between px-4 lg:px-8 h-16">
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-
-          {/* Logo */}
-          <div className="flex items-center">
-            <h1 className="text-2xl lg:text-3xl font-bold text-black tracking-tight">
-              adidas
-            </h1>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {menuData ? (
-              menuData.categories.map((category) => (
-                <button
-                  key={category.id}
-                  className="text-black font-medium text-sm uppercase tracking-wide hover:underline py-2 px-1 transition-all"
-                  onMouseEnter={(e) => handleMouseEnter(e, category)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  {category.title}
-                </button>
-              ))
-            ) : (
-              <div className="flex space-x-8">
-                <div className="h-4 bg-gray-200 rounded w-12 animate-pulse"></div>
-                <div className="h-4 bg-gray-200 rounded w-16 animate-pulse"></div>
-                <div className="h-4 bg-gray-200 rounded w-12 animate-pulse"></div>
-              </div>
-            )}
-          </nav>
-
-          {/* Right Icons */}
-          <div className="flex items-center space-x-3">
-            <button className="p-2 hover:bg-gray-100 rounded">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded relative">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
+      <header className={`bg-white border-b border-gray-200`}>
+        <Navbar
+          menuData={menuData}
+          showHeader={showHeader}
+          logoText={logoText}
+          customLogo={customLogo}
+          onMobileMenuToggle={handleMobileMenuToggle}
+        />
       </header>
 
-      {/* Flyout Menu */}
-      <FlyoutMenu />
-
-      {/* Mobile Menu */}
       <MobileMenu />
 
-      {/* Backdrop for mobile menu */}
       {mobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setMobileMenuOpen(false)}
+          onClick={closeMobileMenu}
         />
       )}
-
-      {/* Demo Content */}
-      <main className="bg-gray-50 min-h-screen p-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Adidas Header Demo</h2>
-          <p className="text-gray-600 mb-4 text-lg">
-            Hover over menu items on desktop to see the flyout menu
-          </p>
-          <div className="bg-white p-6 rounded-lg shadow-md inline-block">
-            <p className="text-sm text-gray-500">
-              API Status:{" "}
-              {menuData ? (
-                <span className="text-green-600 font-semibold">
-                  ✓ Menu data loaded successfully
-                </span>
-              ) : (
-                <span className="text-orange-600 font-semibold">
-                  ⏳ Loading menu data...
-                </span>
-              )}
-            </p>
-            {menuData && (
-              <p className="text-xs text-gray-400 mt-2">
-                {menuData.categories.length} categories loaded with flyout
-                subcategories
-              </p>
-            )}
-          </div>
-        </div>
-      </main>
     </>
   );
 };
 
-export default AdidasHeader;
+export default Header;
