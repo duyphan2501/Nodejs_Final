@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
-import Layouts from "./layouts";
 import { ToastContainer } from "react-toastify";
 import AccountMenu from "./layouts/Header/Navbar/AccountMenu";
 import { useContext } from "react";
