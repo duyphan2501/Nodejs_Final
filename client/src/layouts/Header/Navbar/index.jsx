@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import Flyout from "./FlyoutShoes";
 import MainFlyout from "./MainFlyout";
-import AccountMenu from "./AccountMenu";
+import { MyContext } from "../../../Context/MyContext";
 
 const Navbar = ({
   menuData,
@@ -13,8 +13,7 @@ const Navbar = ({
   const [flyoutOpen, setFlyoutOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [flyoutPosition, setFlyoutPosition] = useState({ x: 0, y: 0 });
-  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
-
+  const { isOpenAccountMenu, setIsOpenAccountMenu } = useContext(MyContext);
   const flyoutTimeoutRef = useRef(null);
 
   useEffect(() => {
@@ -61,22 +60,11 @@ const Navbar = ({
   };
 
   const handleAccountMenuToggle = () => {
-    setAccountMenuOpen(!accountMenuOpen);
-    // Close flyout if open
+    setIsOpenAccountMenu(!isOpenAccountMenu);
     if (flyoutOpen) {
       setFlyoutOpen(false);
       setActiveCategory(null);
     }
-  };
-
-  const handleAccountMenuClose = () => {
-    setAccountMenuOpen(false);
-  };
-
-  const handleAccountMenuItemClick = (item) => {
-    console.log("Account menu item clicked:", item);
-    // Handle navigation or actions here
-    setAccountMenuOpen(false);
   };
 
   return (
@@ -155,7 +143,7 @@ const Navbar = ({
           {/* Account Menu Button */}
           <button
             className={`p-2 hover:bg-gray-100 rounded transition-colors ${
-              accountMenuOpen ? "bg-gray-100" : ""
+              isOpenAccountMenu ? "bg-gray-100" : ""
             }`}
             onClick={handleAccountMenuToggle}
           >
@@ -198,27 +186,6 @@ const Navbar = ({
 
       {/* Category Flyouts */}
       {activeCategory?.type === "man" && (
-        <MainFlyout
-          activeCategory={activeCategory}
-          flyoutOpen={flyoutOpen}
-          flyoutPosition={flyoutPosition}
-          onMouseEnter={handleFlyoutMouseEnter}
-          onMouseLeave={handleFlyoutMouseLeave}
-        />
-      )}
-
-      {activeCategory?.type === "shoes" && (
-        <Flyout
-          activeCategory={activeCategory}
-          flyoutOpen={flyoutOpen}
-          flyoutPosition={flyoutPosition}
-          onMouseEnter={handleFlyoutMouseEnter}
-          onMouseLeave={handleFlyoutMouseLeave}
-        />
-      )}
-
-      {/* Category Flyouts */}
-      {activeCategory?.type === "man" && (
         <div className="absolute top-full left-0 right-0 z-30">
           <MainFlyout
             activeCategory={activeCategory}
@@ -241,13 +208,6 @@ const Navbar = ({
           />
         </div>
       )}
-
-      {/* Account Menu */}
-      <AccountMenu
-        isOpen={accountMenuOpen}
-        onClose={handleAccountMenuClose}
-        onMenuItemClick={handleAccountMenuItemClick}
-      />
     </div>
   );
 };

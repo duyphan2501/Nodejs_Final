@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-const AccountMenu = ({ isOpen, onClose, onMenuItemClick }) => {
+const AccountMenu = ({ onClose }) => {
   const [activeTab, setActiveTab] = useState("for-you");
+  const menuRef = useRef(null);
 
   // Static data - no API needed
   const userSections = [
@@ -41,20 +42,29 @@ const AccountMenu = ({ isOpen, onClose, onMenuItemClick }) => {
     "Điểm adiClub theo đơn hàng của bạn",
   ];
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onClose]);
+
+  const handleMenuItemClick = (item) => {
+    console.log("Menu item clicked:", item);
+  };
+
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
   };
 
-  const handleMenuItemClick = (item) => {
-    if (onMenuItemClick) {
-      onMenuItemClick(item);
-    }
-  };
-
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed top-0 right-0 h-screen w-full sm:w-96 bg-white shadow-2xl border-l border-gray-200 z-50">
+    <div
+      ref={menuRef}
+      className="fixed top-0 right-0 bottom-0 h-screen w-full sm:w-96 bg-white shadow-2xl border-l border-gray-200 z-50"
+    >
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
         <div className="flex items-center space-x-4">
           <h2 className="text-xl font-bold tracking-tight">adiclub</h2>
@@ -116,7 +126,7 @@ const AccountMenu = ({ isOpen, onClose, onMenuItemClick }) => {
 
       {/* Content - hidden scrollbar */}
       <div
-        className="max-h-[80vh] overflow-y-auto"
+        className="max-h-[92vh] overflow-y-auto"
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
@@ -210,7 +220,7 @@ const AccountMenu = ({ isOpen, onClose, onMenuItemClick }) => {
           {/* Benefits */}
           <div className="mt-8">
             <h3 className="font-medium text-base mb-4 text-black">
-              Các lợi ích thời của bạn
+              Các lợi ích của bạn
             </h3>
             <div className="space-y-3">
               {benefits.map((benefit, index) => (
