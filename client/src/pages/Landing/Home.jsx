@@ -6,18 +6,16 @@ import MainBanner from "../../components/MainBanner";
 import FirstSection from "../../components/ProductDisplay/FirstSection";
 import ProductByCategory from "../../components/ProductDisplay/ProductByCategory";
 import StackButton from "../../components/StackButton";
-import Layouts from "../../layouts";
 
 const categories = [
   { _id: 1, name: "Giày nam" },
   { _id: 2, name: "Giày nam" },
   { _id: 3, name: "Giày nam" },
 ];
-
+  
 const Home = () => {
   return (
     <>
-      <Layouts />
       <MainBanner />
       {/*  */}
       <section className="!mt-10 container">
@@ -46,7 +44,6 @@ const Home = () => {
           <StackButton label={"đăng ký ngay"} href={"/login"} />
         </div>
       </section>
-      <Footer />
     </>
   );
 };

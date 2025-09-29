@@ -5,7 +5,9 @@ import AccountMenu from "./layouts/Header/Navbar/AccountMenu";
 import { useContext } from "react";
 import { MyContext } from "./Context/MyContext";
 import DemoContent from "./components/DemoContent";
+import Layouts from "./layouts";
 
+import Home from "./pages/Landing/Home";
 function App() {
   const { isOpenAccountMenu, setIsOpenAccountMenu } = useContext(MyContext);
 
@@ -18,8 +20,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={"/login"} element={<Login />} />
-          <Route path="/" element={<Layouts />}>
-            <Route index element={<DemoContent />} />
+          <Route path="*" element={<Layouts />}>
+            <Route index element={<Home />} />
           </Route>
         </Routes>
       </BrowserRouter>

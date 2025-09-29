@@ -2,7 +2,7 @@ import UspHeader from "./USPHeader";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 
 const Layouts = () => {
   const [showHeader, setShowHeader] = useState(true);

@@ -140,7 +140,7 @@ const Footer = ({
   badge = footerData.badge,
 }) => {
   return (
-    <footer className="bg-black text-white pt-12 pb-8">
+    <footer className="bg-dark border-t-2 border-white text-white pt-12 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 mb-12">
           {columns.map((column, index) => (

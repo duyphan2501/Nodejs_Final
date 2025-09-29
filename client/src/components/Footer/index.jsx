@@ -34,8 +34,8 @@ const categories = [
 
 const Footer = () => {
   return (
-    <footer className="border-t-2 border-white bg-black text-white px-6 py-12">
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-12">
+    <footer className="border-t-2 border-white bg-dark text-white px-6 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-12">
         {categories.map((cat) => (
           <div key={cat._id}>
             <p className="font-bold mb-3 uppercase subtitle">{cat.name}</p>
