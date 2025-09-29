@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import Flyout from "./FlyoutShoes";
 import MainFlyout from "./MainFlyout";
+import CollectionsFlyout from "./CollectionsFlyout";
 import { MyContext } from "../../../Context/MyContext";
 
 const Navbar = ({
@@ -185,7 +186,7 @@ const Navbar = ({
       </div>
 
       {/* Category Flyouts */}
-      {activeCategory?.type === "man" && (
+      {activeCategory?.type === "remaining" && (
         <div className="absolute top-full left-0 right-0 z-30">
           <MainFlyout
             activeCategory={activeCategory}
@@ -200,6 +201,18 @@ const Navbar = ({
       {activeCategory?.type === "shoes" && (
         <div className="absolute top-full left-0 right-0 z-30">
           <Flyout
+            activeCategory={activeCategory}
+            flyoutOpen={flyoutOpen}
+            flyoutPosition={flyoutPosition}
+            onMouseEnter={handleFlyoutMouseEnter}
+            onMouseLeave={handleFlyoutMouseLeave}
+          />
+        </div>
+      )}
+
+      {activeCategory?.type === "collections" && (
+        <div className="absolute top-full left-0 right-0 z-30">
+          <CollectionsFlyout
             activeCategory={activeCategory}
             flyoutOpen={flyoutOpen}
             flyoutPosition={flyoutPosition}

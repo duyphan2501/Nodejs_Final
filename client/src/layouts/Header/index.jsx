@@ -59,7 +59,7 @@ const fetchMenuData = async () => {
       // Flyout Menu 2 - Man Flyout
       {
         id: "man",
-        type: "man",
+        type: "remaining",
         title: "Nam",
         sections: [
           {
@@ -160,124 +160,274 @@ const fetchMenuData = async () => {
         ],
       },
 
-      
-      // {
-      //   id: "men",
-      //   title: "NAM",
-      //   subcategories: [
-      //     {
-      //       name: "GIÀY",
-      //       link: "/men/shoes",
+      // Flyout Menu 3 - woman Flyout
+      {
+        id: "woman",
+        type: "remaining",
+        title: "Nữ",
+        sections: [
+          {
+            title: "NỔI BẬT",
+            items: [
+              { name: "Hàng Mới Về", link: "/new-arrivals" },
+              { name: "Độc quyền hội viên", link: "/member-exclusive" },
+            ],
+          },
+          {
+            title: "ĐƯỢC YÊU THÍCH TRONG THÁNG",
+            items: [
+              { name: "LIVERPOOL FC 25/26 KITS", link: "/liverpool-kits" },
+              { name: "Slide into Summer", link: "/summer-collection" },
+              { name: "Superstar", link: "/superstar" },
+              { name: "Low Profile Collection", link: "/low-profile" },
+              { name: "T-toe Collection", link: "/t-toe" },
+              { name: "Padel Tennis", link: "/padel-tennis" },
+            ],
+          },
+        ],
+        categories: [
+          {
+            title: "GIÀY",
+            items: [
+              { name: "Hàng mới về", link: "/shoes/new" },
+              { name: "Originals", link: "/shoes/originals" },
+              { name: "Bóng đá", link: "/shoes/football" },
+              { name: "Chạy bộ", link: "/shoes/running" },
+              { name: "Tập", link: "/shoes/training" },
+              { name: "Ngoài trời", link: "/shoes/outdoor" },
+              { name: "Bóng rổ", link: "/shoes/basketball" },
+              { name: "Dép & Dép xỏ ngón", link: "/shoes/slides" },
+              { name: "Quần vợt", link: "/shoes/tennis" },
+              { name: "Sportswear", link: "/shoes/sportswear" },
+              { name: "Giày sneaker đen", link: "/shoes/black-sneakers" },
+              { name: "Đánh gôn", link: "/shoes/golf" },
+              { name: 'GIÀY "MUST-HAVE"', link: "/shoes/must-have" },
+              { name: "Walking Shoes", link: "/shoes/walking" },
+            ],
+          },
+          {
+            title: "QUẦN ÁO",
+            items: [
+              { name: "Áo thun & Áo polo", link: "/clothing/tshirts" },
+              { name: "Áo Jersey", link: "/clothing/jerseys" },
+              { name: "Áo hoodie", link: "/clothing/hoodies" },
+              { name: "Bộ đồ thể thao", link: "/clothing/tracksuits" },
+              { name: "Quần", link: "/clothing/pants" },
+              { name: "Quần bơ", link: "/clothing/swimwear" },
+              { name: "Quần short", link: "/clothing/shorts" },
+              { name: "Sportswear", link: "/clothing/sportswear" },
+              { name: "Áo khoác", link: "/clothing/jackets" },
+              { name: "CỠ BẢN", link: "/clothing/basics" },
+              { name: "Tracksuits", link: "/clothing/tracksuits-full" },
+            ],
+          },
+          {
+            title: "PHỤ KIỆN",
+            items: [
+              { name: "Tất Cả Túi", link: "/accessories/bags" },
+              { name: "Tất", link: "/accessories/socks" },
+              { name: "Mũ Lưỡi Trai & Đội Đầu", link: "/accessories/hats" },
+              { name: "Găng Tay", link: "/accessories/gloves" },
+              {
+                name: "Ốp bao vệ ống chân & Băng buộc",
+                link: "/accessories/protection",
+              },
+              { name: "Ball", link: "/accessories/balls" },
+            ],
+          },
+          {
+            title: "THỂ THAO",
+            items: [
+              { name: "Bóng đá", link: "/sports/football" },
+              { name: "Chạy", link: "/sports/running" },
+              { name: "Tập luyện", link: "/sports/training" },
+              { name: "Basketball", link: "/sports/basketball" },
+              { name: "Bơi lội", link: "/sports/swimming" },
+              { name: "Đánh gôn", link: "/sports/golf" },
+              { name: "Quần vợt", link: "/sports/tennis" },
+            ],
+          },
+        ],
+        promotion: {
+          title: "EVO SL. FEEL FAST.",
+          image: "/images/evo-sl-promotion.jpg",
+          link: "/evo-sl-collection",
+        },
+        bottomCategories: [
+          { name: "Tất cả sản phẩm dành cho nam", link: "/men/all" },
+          { name: "Tất cả giày nam", link: "/men/shoes/all" },
+          {
+            name: "Tất cả phụ kiện dành cho nam",
+            link: "/men/accessories/all",
+          },
+          { name: "All Men's Sports", link: "/men/sports/all" },
+        ],
+      },
 
-      //       items: [
-      //         "Tất cả giày nam",
-      //         "Hàng mới về",
-      //         "Giày sneaker",
-      //         "Giày chay bộ",
-      //         "Giày bóng đá",
-      //         "Giày tập",
-      //         "Lifestyle",
-      //         "Giày bóng rổ",
-      //         "Giày quần vợt",
-      //         "Dép & Dép xỏ ngón",
-      //         "Giày Golf",
-      //       ],
-      //     },
-      //     {
-      //       name: "QUẦN ÁO",
-      //       link: "/men/clothing",
-      //       items: [
-      //         "Áo thun",
-      //         "Áo hoodie",
-      //         "Áo khoác",
-      //         "Quần dài",
-      //         "Quần short",
-      //       ],
-      //     },
-      //     {
-      //       name: "PHỤ KIỆN",
-      //       link: "/men/accessories",
-      //       items: ["Túi xách", "Mũ", "Tất", "Găng tay", "Khăn"],
-      //     },
-      //   ],
-      // },
-      // {
-      //   id: "women",
-      //   title: "NỮ",
-      //   subcategories: [
-      //     {
-      //       name: "GIÀY",
-      //       link: "/women/shoes",
-      //       items: [
-      //         "Giày chay bộ",
-      //         "Lifestyle",
-      //         "Giày tập",
-      //         "Giày ngoài trời",
-      //         "Yoga",
-      //       ],
-      //     },
-      //     {
-      //       name: "QUẦN ÁO",
-      //       link: "/women/clothing",
-      //       items: [
-      //         "Áo ngực thể thao",
-      //         "Quần legging",
-      //         "Áo",
-      //         "Áo khoác",
-      //         "Váy",
-      //       ],
-      //     },
-      //     {
-      //       name: "PHỤ KIỆN",
-      //       link: "/women/accessories",
-      //       items: ["Túi xách", "Mũ", "Tất", "Khăn"],
-      //     },
-      //   ],
-      // },
-      // {
-      //   id: "kids",
-      //   title: "TRẺ EM",
-      //   subcategories: [
-      //     {
-      //       name: "BÉ TRAI",
-      //       link: "/kids/boys",
-      //       items: ["Giày", "Áo thun", "Áo hoodie", "Thể thao", "Đi học"],
-      //     },
-      //     {
-      //       name: "BÉ GÁI",
-      //       link: "/kids/girls",
-      //       items: ["Giày", "Váy", "Đồ thể thao", "Khiêu vũ", "Đi học"],
-      //     },
-      //   ],
-      // },
-
-      // {
-      //   id: "brands",
-      //   title: "CÁC THƯƠNG HIỆU",
-      //   subcategories: [
-      //     {
-      //       name: "ADIDAS ORIGINALS",
-      //       link: "/brands/originals",
-      //       items: ["Giày", "Quần áo", "Phụ kiện"],
-      //     },
-      //     {
-      //       name: "ADIDAS PERFORMANCE",
-      //       link: "/brands/performance",
-      //       items: ["Thể thao", "Tập luyện", "Chạy bộ"],
-      //     },
-      //   ],
-      // },
-      // {
-      //   id: "outlet",
-      //   title: "OUTLET",
-      //   subcategories: [
-      //     {
-      //       name: "GIẢM GIÁ",
-      //       link: "/outlet/sale",
-      //       items: ["Giày giảm giá", "Quần áo giảm giá", "Phụ kiện giảm giá"],
-      //     },
-      //   ],
-      // },
+      // Flyout Menu 4 - Kids Flyout
+      {
+        id: "kid",
+        type: "remaining",
+        title: "Trẻ em",
+        sections: [
+          {
+            title: "NỔI BẬT",
+            items: [
+              { name: "Hàng Mới Về", link: "/new-arrivals" },
+              { name: "Độc quyền hội viên", link: "/member-exclusive" },
+            ],
+          },
+          {
+            title: "ĐƯỢC YÊU THÍCH TRONG THÁNG",
+            items: [
+              { name: "LIVERPOOL FC 25/26 KITS", link: "/liverpool-kits" },
+              { name: "Slide into Summer", link: "/summer-collection" },
+              { name: "Superstar", link: "/superstar" },
+              { name: "Low Profile Collection", link: "/low-profile" },
+              { name: "T-toe Collection", link: "/t-toe" },
+              { name: "Padel Tennis", link: "/padel-tennis" },
+            ],
+          },
+        ],
+        categories: [
+          {
+            title: "GIÀY",
+            items: [
+              { name: "Hàng mới về", link: "/shoes/new" },
+              { name: "Originals", link: "/shoes/originals" },
+              { name: "Bóng đá", link: "/shoes/football" },
+              { name: "Chạy bộ", link: "/shoes/running" },
+              { name: "Tập", link: "/shoes/training" },
+              { name: "Ngoài trời", link: "/shoes/outdoor" },
+              { name: "Bóng rổ", link: "/shoes/basketball" },
+              { name: "Dép & Dép xỏ ngón", link: "/shoes/slides" },
+              { name: "Quần vợt", link: "/shoes/tennis" },
+              { name: "Sportswear", link: "/shoes/sportswear" },
+              { name: "Giày sneaker đen", link: "/shoes/black-sneakers" },
+              { name: "Đánh gôn", link: "/shoes/golf" },
+              { name: 'GIÀY "MUST-HAVE"', link: "/shoes/must-have" },
+              { name: "Walking Shoes", link: "/shoes/walking" },
+            ],
+          },
+          {
+            title: "QUẦN ÁO",
+            items: [
+              { name: "Áo thun & Áo polo", link: "/clothing/tshirts" },
+              { name: "Áo Jersey", link: "/clothing/jerseys" },
+              { name: "Áo hoodie", link: "/clothing/hoodies" },
+              { name: "Bộ đồ thể thao", link: "/clothing/tracksuits" },
+              { name: "Quần", link: "/clothing/pants" },
+              { name: "Quần bơ", link: "/clothing/swimwear" },
+              { name: "Quần short", link: "/clothing/shorts" },
+              { name: "Sportswear", link: "/clothing/sportswear" },
+              { name: "Áo khoác", link: "/clothing/jackets" },
+              { name: "CỠ BẢN", link: "/clothing/basics" },
+              { name: "Tracksuits", link: "/clothing/tracksuits-full" },
+            ],
+          },
+          {
+            title: "PHỤ KIỆN",
+            items: [
+              { name: "Tất Cả Túi", link: "/accessories/bags" },
+              { name: "Tất", link: "/accessories/socks" },
+              { name: "Mũ Lưỡi Trai & Đội Đầu", link: "/accessories/hats" },
+              { name: "Găng Tay", link: "/accessories/gloves" },
+              {
+                name: "Ốp bao vệ ống chân & Băng buộc",
+                link: "/accessories/protection",
+              },
+              { name: "Ball", link: "/accessories/balls" },
+            ],
+          },
+          {
+            title: "THỂ THAO",
+            items: [
+              { name: "Bóng đá", link: "/sports/football" },
+              { name: "Chạy", link: "/sports/running" },
+              { name: "Tập luyện", link: "/sports/training" },
+              { name: "Basketball", link: "/sports/basketball" },
+              { name: "Bơi lội", link: "/sports/swimming" },
+              { name: "Đánh gôn", link: "/sports/golf" },
+              { name: "Quần vợt", link: "/sports/tennis" },
+            ],
+          },
+        ],
+        promotion: {
+          title: "EVO SL. FEEL FAST.",
+          image: "/images/evo-sl-promotion.jpg",
+          link: "/evo-sl-collection",
+        },
+        bottomCategories: [
+          { name: "Tất cả sản phẩm dành cho nam", link: "/men/all" },
+          { name: "Tất cả giày nam", link: "/men/shoes/all" },
+          {
+            name: "Tất cả phụ kiện dành cho nam",
+            link: "/men/accessories/all",
+          },
+          { name: "All Men's Sports", link: "/men/sports/all" },
+        ],
+      },
+      // Flyout Menu 5 - Collections Flyout
+      {
+        id: "collection",
+        type: "collections",
+        title: "BỘ SƯU TẬP",
+        brands: [
+          {
+            title: "ORIGINALS",
+            image:
+              "https://tse2.mm.bing.net/th/id/OIP._JbSL_liDg1eZjTBzoBFMQHaEo?rs=1&pid=ImgDetMain&o=7&rm=3",
+            items: [
+              { name: "Hàng Mới Về", link: "/originals/new" },
+              { name: "Giày", link: "/originals/shoes" },
+              { name: "Quần áo", link: "/originals/clothing" },
+              { name: "Phụ kiện", link: "/originals/accessories" },
+              { name: "Superstar", link: "/originals/superstar" },
+              { name: "Samba", link: "/originals/samba" },
+              { name: "Gazelle", link: "/originals/gazelle" },
+              { name: "Spezial", link: "/originals/spezial" },
+              { name: "SL 72", link: "/originals/sl72" },
+              { name: "Bộ sưu tập Premium", link: "/originals/premium" },
+              { name: "Bộ sưu tập T-Toe", link: "/originals/t-toe" },
+            ],
+          },
+          {
+            title: "ADIDAS ATHLETICS",
+            image:
+              "https://cdn3.ivivu.com/2015/06/20-canh-dep-noi-tieng-cua-ha-lan-ivivu-5.jpg",
+            items: [
+              { name: "Giày", link: "/athletics/shoes" },
+              { name: "Quần áo", link: "/athletics/clothing" },
+              { name: "Hàng Mới Về", link: "/athletics/new" },
+              { name: "Ultraboost DNA", link: "/athletics/ultraboost" },
+              { name: "Adilette", link: "/athletics/adilette" },
+              { name: "Essentials", link: "/athletics/essentials" },
+              { name: "Z.N.E", link: "/athletics/zne" },
+            ],
+          },
+          {
+            title: "TERREX",
+            image:
+              "https://www.tourchauau.net/images/news/tin-tuc-du-lich/10-canh-dep-noi-tieng-ha-lan-1.jpg",
+            items: [
+              { name: "About Terrex", link: "/terrex/about" },
+              { name: "Giày", link: "/terrex/shoes" },
+              { name: "Quần áo", link: "/terrex/clothing" },
+              { name: "Phụ kiện", link: "/terrex/accessories" },
+            ],
+          },
+          {
+            title: "Y-3",
+            image:
+              "https://tse1.mm.bing.net/th/id/OIP.WHX-FEw7gp8hxitUXWYz7QHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
+            items: [
+              { name: "giay", link: "/y3/shoes" },
+              { name: "quan_ao", link: "/y3/clothing" },
+              { name: "phu_kien", link: "/y3/accessories" },
+            ],
+          },
+        ],
+      },
     ],
   };
 };
