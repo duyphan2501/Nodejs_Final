@@ -13,10 +13,49 @@ import { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Container from "@mui/material/Container";
+import MenuIcon from "@mui/icons-material/Menu";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import HomeIcon from "@mui/icons-material/Home";
+import CheckroomIcon from "@mui/icons-material/Checkroom";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import DiscountIcon from "@mui/icons-material/Discount";
+import WidgetsIcon from "@mui/icons-material/Widgets";
+import PersonIcon from "@mui/icons-material/Person";
+import ClearIcon from "@mui/icons-material/Clear";
+import { Collapse, Slide } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = ({ active = "products", link }) => {
+  const [anchorNavbar, setAnchorNavbar] = useState(false);
+
+  const [selectedIndex, setSelectedIndex] = useState(active);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
+
+  const handleOpenNavbar = () => {
+    setAnchorNavbar(true);
+  };
+
+  const handleCloseNavbar = () => {
+    setAnchorNavbar(false);
+  };
+
   return (
-    <Box sx={{ background: "#FFFFFF" }}>
+    <Box
+      sx={{
+        background: "#FFFFFF",
+        position: "sticky",
+        top: 0,
+        zIndex: 1100, // nổi trên content
+      }}
+    >
       <AppBar
         position="static"
         color="default"
@@ -26,7 +65,7 @@ const Navbar = ({ active = "products", link }) => {
           background: "#F9FAFB",
         }}
       >
-        <Container>
+        <Container sx={{ display: { xs: "none", sm: "block" } }}>
           <Toolbar>
             <Typography
               variant="h6"
@@ -41,15 +80,174 @@ const Navbar = ({ active = "products", link }) => {
               Tabler
             </Typography>
 
-            <Box flexGrow={1}></Box>
+            {anchorNavbar ? (
+              <Button
+                onClick={handleCloseNavbar}
+                sx={{
+                  color: "black",
+                  padding: 2,
+                  display: { xs: "block", sm: "none" },
+                }}
+              >
+                <ClearIcon />
+              </Button>
+            ) : (
+              <Button
+                onClick={handleOpenNavbar}
+                sx={{
+                  color: "black",
+                  padding: 2,
+                  display: { xs: "block", sm: "none" },
+                }}
+              >
+                <MenuIcon />
+              </Button>
+            )}
 
-            <Button color="black" sx={{ opacity: 0.8 }}>
-              <NotificationsNoneIcon />
-            </Button>
+            <Box flexGrow={1}></Box>
 
             <AvatarUser />
           </Toolbar>
         </Container>
+
+        <Box sx={{ display: { xs: "block", sm: "none" } }}>
+          <Toolbar>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                mr: 2,
+                color: "black",
+                display: { xs: "none", sm: "block" },
+              }}
+            >
+              Tabler
+            </Typography>
+
+            {anchorNavbar ? (
+              <Button
+                onClick={handleCloseNavbar}
+                sx={{
+                  color: "black",
+                  padding: 2,
+                  display: { xs: "block", sm: "none" },
+                }}
+              >
+                <ClearIcon />
+              </Button>
+            ) : (
+              <Button
+                onClick={handleOpenNavbar}
+                sx={{
+                  color: "black",
+                  padding: 2,
+                  display: { xs: "block", sm: "none" },
+                }}
+              >
+                <MenuIcon />
+              </Button>
+            )}
+
+            <Box flexGrow={1}></Box>
+
+            <AvatarUser />
+          </Toolbar>
+
+          <Collapse sx={{ marginTop: 1 }} direction="down" in={anchorNavbar}>
+            <List sx={{ bgcolor: "#f5f5f5", width: "100%" }}>
+              <ListItem disablePadding>
+                <ListItemButton
+                  selected={selectedIndex === "home"}
+                  onClick={(event) => {
+                    handleListItemClick(event, 1);
+                    handleCloseNavbar();
+                  }}
+                >
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Trang Chủ" />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton
+                  selected={selectedIndex === "products"}
+                  onClick={(event) => {
+                    handleListItemClick(event, 2);
+                    handleCloseNavbar();
+                  }}
+                >
+                  <ListItemIcon>
+                    <CheckroomIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Sản Phẩm" />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton
+                  selected={selectedIndex === "orders"}
+                  onClick={(event) => {
+                    handleListItemClick(event, 3);
+                    handleCloseNavbar();
+                  }}
+                >
+                  <ListItemIcon>
+                    <ShoppingBagIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Đơn Hàng" />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton
+                  selected={selectedIndex === "users"}
+                  onClick={(event) => {
+                    handleListItemClick(event, 4);
+                    handleCloseNavbar();
+                  }}
+                >
+                  <ListItemIcon>
+                    <PersonIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Người Dùng" />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton
+                  selected={selectedIndex === "coupon"}
+                  onClick={(event) => {
+                    handleListItemClick(event, 5);
+                    handleCloseNavbar();
+                  }}
+                >
+                  <ListItemIcon>
+                    <DiscountIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Coupon" />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton
+                  selected={selectedIndex === "theme"}
+                  onClick={(event) => {
+                    handleListItemClick(event, 6);
+                    handleCloseNavbar();
+                  }}
+                >
+                  <ListItemIcon>
+                    <WidgetsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Cài Đặt Theme" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Collapse>
+        </Box>
       </AppBar>
       <AppBar
         position="static"
@@ -62,7 +260,9 @@ const Navbar = ({ active = "products", link }) => {
         }}
       >
         <Container>
-          <Box sx={{ position: "relative" }}>
+          <Box
+            sx={{ display: { xs: "none", sm: "flex" }, position: "relative" }}
+          >
             <Toolbar disableGutters sx={{ paddingLeft: "10px" }}>
               <ButtonNavbar label={"Trang Chủ"} />
               <ButtonNavbar label={"Sản Phẩm"} />
@@ -216,20 +416,45 @@ function AvatarUser() {
   );
 }
 
+function renderPath(label) {
+  switch (label) {
+    case "Trang Chủ":
+      return "/admin/home";
+    case "Sản Phẩm":
+      return "/admin/products";
+    case "Đơn Hàng":
+      return "/admin/orders";
+    case "Người Dùng":
+      return "/admin/users";
+    case "Coupon":
+      return "/admin/coupon";
+    case "Cài Đặt Theme":
+      return "/admin/themes";
+    default:
+      return "/404"; // hoặc "#"
+  }
+}
+
 function ButtonNavbar({ label }) {
+  const location = useLocation();
+  const path = renderPath(label);
+  const isActive = location.pathname === path;
+
   return (
-    <>
-      <Button
-        sx={{
-          color: "#374151",
-          height: "",
-          textTransform: "none",
-          padding: "15px",
-        }}
-      >
-        <Typography variant="body1">{label}</Typography>
-      </Button>
-    </>
+    <Button
+      component={Link}
+      to={path}
+      sx={{
+        color: isActive ? "primary.main" : "#374151",
+        textTransform: "none",
+        padding: "15px",
+        fontWeight: isActive ? "bold" : "normal",
+      }}
+    >
+      <Typography variant="body1" sx={{ whiteSpace: "nowrap" }}>
+        {label}
+      </Typography>
+    </Button>
   );
 }
 

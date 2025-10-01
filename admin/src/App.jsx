@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import Products from "./pages/Products";
+import Navbar from "./components/Navbar";
 
 const theme = createTheme({
   palette: {
@@ -25,6 +27,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/admin/home" element={<Home />}></Route>
+            <Route path="/admin/products" element={<Products />}></Route>
           </Routes>
         </Router>
       </ThemeProvider>
