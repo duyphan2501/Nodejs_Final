@@ -1,7 +1,8 @@
 import { Card, CardContent, Box, Typography } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import ShoesIcon from "../../assets/svg/shoes-7-svgrepo-com.svg?react";
 
-export default function DashboardCard({
+function DashboardCard({
   BackgroundColor = "blue",
   icon: Icon = ShoppingCartOutlinedIcon,
   CardHeader = "132 Likes",
@@ -18,21 +19,12 @@ export default function DashboardCard({
           borderRadius: "12px",
         }}
       >
-        <Box
-          sx={{
-            width: 40,
-            height: 40,
-            padding: 3,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: BackgroundColor,
-            borderRadius: "8px",
-            marginRight: 2,
-          }}
+        <div
+          className="p-3 flex items-start justify-center rounded-md mr-2"
+          style={{ backgroundColor: BackgroundColor }}
         >
-          <Icon sx={{ width: 25, height: 25, color: "white" }} />
-        </Box>
+          <Icon style={{ width: 20, height: 20, fill: "white" }} />
+        </div>
 
         <Box
           sx={{
@@ -51,3 +43,49 @@ export default function DashboardCard({
     </>
   );
 }
+
+function DashboardCardProduct({
+  BackgroundColor = "blue",
+  icon: Icon = ShoppingCartOutlinedIcon,
+  CardHeader = "132 Likes",
+  CardDesc = "21 today",
+}) {
+  return (
+    <>
+      <Card
+        sx={{
+          background: "white",
+          width: "100%",
+          padding: "16px",
+          display: "flex",
+          borderRadius: "12px",
+        }}
+      >
+        <Box
+          sx={{
+            maxHeight: "48px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <Typography fontSize={18} fontWeight={500} mb={0}>
+            {CardHeader}
+          </Typography>
+          <Typography>{CardDesc}</Typography>
+        </Box>
+
+        <Box flexGrow={1} />
+
+        <div
+          className="p-3 flex items-start justify-center rounded-md mr-2"
+          style={{ backgroundColor: BackgroundColor }}
+        >
+          <Icon style={{ width: 20, height: 20, fill: "white" }} />
+        </div>
+      </Card>
+    </>
+  );
+}
+
+export { DashboardCard, DashboardCardProduct };

@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import Navbar from "../../components/Navbar";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import DashboardCard from "../../components/DashboardCard";
+import { DashboardCard } from "../../components/DashboardCard";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import AdsClickOutlinedIcon from "@mui/icons-material/AdsClickOutlined";
