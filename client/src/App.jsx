@@ -1,16 +1,38 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import { ToastContainer } from "react-toastify";
+import AccountMenu from "./layouts/Header/Navbar/AccountMenu";
+import { useContext } from "react";
+import { MyContext } from "./Context/MyContext";
+import DemoContent from "./components/DemoContent";
+import Layouts from "./layouts";
 
+import Home from "./pages/Landing/Home";
 function App() {
+  const { isOpenAccountMenu, setIsOpenAccountMenu } = useContext(MyContext);
+
+  const handleAccountMenuClose = () => {
+    setIsOpenAccountMenu(false);
+  };
+
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path={"/login"} element={<Login />} />
+          <Route path="*" element={<Layouts />}>
+            <Route index element={<Home />} />
+          </Route>
         </Routes>
       </BrowserRouter>
-      <ToastContainer autoClose={3000} pauseOnHover={true} position="top-center"/>
+      <ToastContainer
+        autoClose={3000}
+        pauseOnHover={true}
+        position="top-center"
+      />
+
+      {/* Account Menu - Controlled by Context */}
+      {isOpenAccountMenu && <AccountMenu onClose={handleAccountMenuClose} />}
     </>
   );
 }

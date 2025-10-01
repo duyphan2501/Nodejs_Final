@@ -3,10 +3,10 @@ import { createContext, useState } from "react";
 const MyContext = createContext();
 
 const ContextProvider = ({ children }) => {
-    const values = {};
-
+    const [isOpenAccountMenu, setIsOpenAccountMenu] = useState(false);
+    const values = {isOpenAccountMenu, setIsOpenAccountMenu};
     return <MyContext.Provider value={values}>
-        {children}
+        {children}  
     </MyContext.Provider>
 };
 
