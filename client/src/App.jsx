@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { MyContext } from "./Context/MyContext";
 import DemoContent from "./components/DemoContent";
 import Layouts from "./layouts";
+import Cart from "./pages/Cart";
 
 import Home from "./pages/Landing/Home";
 function App() {
@@ -20,6 +21,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={"/login"} element={<Login />} />
+          <Route path="/" element={<Layouts />}>
+            <Route path="cart" element={<Cart />} />
+          </Route>
           <Route path="*" element={<Layouts />}>
             <Route index element={<Home />} />
           </Route>
