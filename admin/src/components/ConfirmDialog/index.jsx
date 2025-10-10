@@ -20,6 +20,8 @@ export default function ConfirmDialog({
       onClose={onClose}
       aria-labelledby="confirm-dialog-title"
       aria-describedby="confirm-dialog-description"
+      disableEnforceFocus
+      disableRestoreFocus
     >
       <DialogTitle id="confirm-dialog-title">Xác nhận</DialogTitle>
       <DialogContent>
@@ -29,7 +31,7 @@ export default function ConfirmDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Hủy</Button>
-        <Button onClick={onConfirm} color="error" autoFocus>
+        <Button onClick={onConfirm} color="error">
           {action}
         </Button>
       </DialogActions>

@@ -29,6 +29,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Collapse, Slide } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
+import CategoryIcon from "@mui/icons-material/Category";
 
 const Navbar = ({ active = "products", link }) => {
   const [anchorNavbar, setAnchorNavbar] = useState(false);
@@ -188,6 +189,21 @@ const Navbar = ({ active = "products", link }) => {
 
               <ListItem disablePadding>
                 <ListItemButton
+                  selected={selectedIndex === "category"}
+                  onClick={(event) => {
+                    handleListItemClick(event, 2);
+                    handleCloseNavbar();
+                  }}
+                >
+                  <ListItemIcon>
+                    <CategoryIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Danh Mục" />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton
                   selected={selectedIndex === "orders"}
                   onClick={(event) => {
                     handleListItemClick(event, 3);
@@ -267,6 +283,7 @@ const Navbar = ({ active = "products", link }) => {
               <ButtonNavbar label={"Trang Chủ"} />
               <ButtonNavbar label={"Sản Phẩm"} />
               <ButtonNavbar label={"Đơn Hàng"} />
+              <ButtonNavbar label={"Danh Mục"} />
               <ButtonNavbar label={"Người Dùng"} />
               <ButtonNavbar label={"Coupon"} />
               <ButtonNavbar label={"Cài Đặt Theme"} />
@@ -422,6 +439,8 @@ function renderPath(label) {
       return "/admin/home";
     case "Sản Phẩm":
       return "/admin/products";
+    case "Danh Mục":
+      return "/admin/category";
     case "Đơn Hàng":
       return "/admin/orders";
     case "Người Dùng":
