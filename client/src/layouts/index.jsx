@@ -24,7 +24,6 @@ const Layouts = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Sticky Header */}
       <div
         className={`sticky top-0 z-50 transition-transform duration-300 ease-in-out 
           ${showHeader ? "translate-y-0" : "-translate-y-full"}`}
@@ -33,12 +32,10 @@ const Layouts = () => {
         <Header />
       </div>
 
-      {/* Nội dung chính co giãn để đẩy Footer xuống */}
       <main className="flex-grow">
         <Outlet />
       </main>
 
-      {/* Footer luôn nằm dưới */}
       <Footer />
     </div>
   );
