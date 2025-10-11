@@ -17,6 +17,16 @@ const TableControlOrder = () => {
   const [anchorAll, setAnchorAll] = useState(null);
   const [anchorFilter, setAnchorFilter] = useState(null);
   const [anchorCustomizeDate, setAnchorCustomizeDate] = useState(false);
+  const { confirmDelete, setConfirmDelete } = useTableControl();
+  const { filter, setFilter } = useTableControl();
+  const { setSelectedItem, orderData } = useTableControl();
+
+  const handleChange = (key, value) => {
+    setFilter((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
 
   return (
     <div className="mt-6 bg-white p-3 rounded-lg shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.2),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_1px_3px_0px_rgba(0,0,0,0.12)]">
@@ -26,6 +36,7 @@ const TableControlOrder = () => {
             type="text"
             className="rounded-full p-2 pl-10 w-full h-full shadow"
             placeholder="Searching"
+            onChange={(e) => handleChange("search", e.target.value)}
           />
           <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
         </div>
@@ -57,8 +68,14 @@ const TableControlOrder = () => {
               horizontal: "center",
             }}
           >
-            <MenuItem>Chọn tất cả</MenuItem>
-            <MenuItem>Xóa tất cả</MenuItem>
+            <MenuItem
+              onClick={() =>
+                setSelectedItem(() => orderData.map((o) => o.orderCode))
+              }
+            >
+              Chọn tất cả
+            </MenuItem>
+            <MenuItem onClick={() => setSelectedItem([])}>Xóa tất cả</MenuItem>
           </Menu>
         </div>
 
@@ -95,15 +112,16 @@ const TableControlOrder = () => {
                   name="radio-buttons-group"
                   onChange={(e) => {
                     setAnchorCustomizeDate(e.target.value === "customize");
+                    handleChange("range", e.target.value);
                   }}
                 >
                   <FormControlLabel
-                    value="Today"
+                    value="today"
                     control={<Radio />}
                     label="Hôm nay"
                   />
                   <FormControlLabel
-                    value="Yesterday"
+                    value="yesterday"
                     control={<Radio />}
                     label="Hôm qua"
                   />
@@ -131,12 +149,14 @@ const TableControlOrder = () => {
                     id="dateFrom"
                     type="date"
                     className="border p-2 rounded-md"
+                    onChange={(e) => handleChange("from", e.target.value)}
                   />
                   <label htmlFor="dateTo">Đến ngày:</label>
                   <input
                     id="dateTo"
                     type="date"
                     className="border p-2 rounded-md"
+                    onChange={(e) => handleChange("to", e.target.value)}
                   />
                 </div>
               )}
@@ -153,6 +173,7 @@ const TableControlOrder = () => {
               color: "#F3F3F3",
             }}
             padding="20"
+            onClick={() => setConfirmDelete(true)}
           >
             <DeleteIcon />
           </Button>
