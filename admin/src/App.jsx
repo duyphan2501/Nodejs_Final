@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Products from "./pages/Products";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
+import Category from "./pages/Category";
 
 const theme = createTheme({
   palette: {
@@ -31,6 +32,7 @@ function App() {
               <Route path="/admin/home" element={<Home />}></Route>
               <Route path="/admin/products" element={<Products />}></Route>
               <Route path="/admin/orders" element={<Orders />}></Route>
+              <Route path="/admin/category" element={<Category />}></Route>
             </Routes>
           </Router>
         </ThemeProvider>

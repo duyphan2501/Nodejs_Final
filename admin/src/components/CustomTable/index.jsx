@@ -1,3 +1,4 @@
+import CustomTableCategoryShoe from "./CustomTableCategoryShoe";
 import CustomTableOrder from "./CustomTableOrder";
 import CustomTableOrderDetail from "./CustomTableOrderDetail";
 
@@ -6,6 +7,7 @@ const CustomTable = ({ type }) => {
     <>
       {type === "order" && <CustomTableOrder />}
       {type === "order-detail" && <CustomTableOrderDetail />}
+      {type === "category-shoe" && <CustomTableCategoryShoe />}
     </>
   );
 };
