@@ -13,7 +13,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
-export default function TableControlCategory() {
+export default function TableControlCategory({ setConfirmDelete }) {
   const [anchorAll, setAnchorAll] = useState(null);
   const [anchorFilter, setAnchorFilter] = useState(null);
   const [anchorCustomizeDate, setAnchorCustomizeDate] = useState(false);
@@ -36,27 +36,6 @@ export default function TableControlCategory() {
             onChange={(e) => handleChange("search", e.target.value)}
           />
           <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-        </div>
-
-        <div className="flex gap-2 flex-wrap md:flex-nowrap">
-          <Menu
-            id="all-button"
-            aria-labelledby="all-button"
-            anchorEl={anchorAll}
-            open={Boolean(anchorAll)}
-            onClose={() => setAnchorAll(null)}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-          >
-            <MenuItem>Chọn tất cả</MenuItem>
-            <MenuItem>Xóa tất cả</MenuItem>
-          </Menu>
         </div>
 
         <div className="flex gap-2 flex-wrap md:flex-nowrap">
@@ -141,6 +120,7 @@ export default function TableControlCategory() {
               color: "#F3F3F3",
             }}
             padding="20"
+            onClick={() => setConfirmDelete(true)}
           >
             <DeleteIcon />
           </Button>

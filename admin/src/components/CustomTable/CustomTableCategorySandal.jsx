@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import CustomModal from "../CustomModal";
 import { Pagination } from "@mui/material";
 
-export default function CustomTableCategoryShoe() {
+export default function CustomTableCategorySandal() {
   const columns = [
     { id: "checkbox", label: "Chọn", minWidth: 20 },
     { id: "image", label: "Hình Ảnh", minWidth: 80 },
@@ -15,40 +15,42 @@ export default function CustomTableCategoryShoe() {
   const [dataCategory, setDataCategory] = useState([
     {
       id: 1,
-      image: "https://m.media-amazon.com/images/I/61BeLM4rxXL._SL1500_.jpg",
-      name: "Nike Air Force 1 Collection",
+      image:
+        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/89bdb689-2e3d-4ef6-9db1-016c83d45972/victori-one-slides-sandals-4RjX4s.png",
+      name: "Nike Victori One Slides",
     },
     {
       id: 2,
       image:
-        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/0e92f6fd-539b-4d0f-9fda-3e18d305d31b/air-jordan-1-mid-shoes-86f1ZW.png",
-      name: "Air Jordan 1 Series",
+        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/a60e1de4-f54c-4b1e-bdb8-27a0ddf38d4f/benassi-jdi-slides-343880-090.png",
+      name: "Nike Benassi JDI Slides",
     },
     {
       id: 3,
       image:
-        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/78b74ac1-efb8-48a7-8a55-97acb2a33b6e/air-max-270-shoes-KkLcGR.png",
-      name: "Nike Air Max Collection",
+        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/59f9a595-b4c9-4a83-87a4-f8a4b26f8a51/air-max-cirro-slides-FbW4hX.png",
+      name: "Nike Air Max Cirro Slides",
     },
     {
       id: 4,
       image:
-        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1f96b6bb-b94e-4e1c-a6c5-7b06e707c90f/pegasus-41-road-running-shoes-VN7B8m.png",
-      name: "Nike Pegasus Running Shoes",
+        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ae5488b6-b020-4047-bd3a-0b3c83eea263/calm-slides-DV2N62.png",
+      name: "Nike Calm Slides",
     },
     {
       id: 5,
       image:
-        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1f96b6bb-b94e-4e1c-a6c5-7b06e707c90f/pegasus-41-road-running-shoes-VN7B8m.png",
-      name: "Nike Chunky",
+        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b66e24df-b4d1-47e7-b5f4-fd4f45820f5a/asuna-2-mens-slides-Vh7mHb.png",
+      name: "Nike Asuna 2 Slides",
     },
     {
       id: 6,
       image:
-        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1f96b6bb-b94e-4e1c-a6c5-7b06e707c90f/pegasus-41-road-running-shoes-VN7B8m.png",
-      name: "Nike Yankee",
+        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/5cb3ce26-68df-4b83-9d04-59a26553ce42/victori-one-womens-slides-4RjX4s.png",
+      name: "Nike Victori One Women’s Slides",
     },
   ]);
+
   const [selectedAll, setSelectedAll] = useState([]);
   const [checkboxAll, setCheckboxAll] = useState(false);
   const [editModal, setEditModal] = useState(null);
@@ -88,7 +90,7 @@ export default function CustomTableCategoryShoe() {
         controlEditModal={{ editModal, setEditModal }}
       />
 
-      <h1 className="text-2xl font-semibold mb-3">Giày</h1>
+      <h1 className="text-2xl font-semibold mb-3">Dép</h1>
 
       <table className="w-full border-collapse">
         <thead>

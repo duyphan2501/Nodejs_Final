@@ -7,8 +7,12 @@ import SandalsIcon from "../../assets/svg/pair-of-flip-flop-svgrepo-com.svg?reac
 import BackpackIcon from "@mui/icons-material/Backpack";
 import TableControlCategory from "../../components/TableControl/TableControlCategory";
 import CustomTable from "../../components/CustomTable";
+import ConfirmDialog from "../../components/ConfirmDialog";
+import { useState } from "react";
 
 const Category = () => {
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
   return (
     <>
       <Navbar active="category" />
@@ -19,6 +23,13 @@ const Category = () => {
           paddingRight: "64px",
         }}
       >
+        <ConfirmDialog
+          open={confirmDelete}
+          onClose={() => setConfirmDelete(false)}
+          onConfirm={() => console.log("Xóa đơn hàng")}
+          content={"Bạn có muốn xóa đơn hàng này?"}
+          action={"Xóa"}
+        />
         <div className="mt-3">
           <Typography variant="body1" color="text.primary">
             OVERVIEW
@@ -49,13 +60,13 @@ const Category = () => {
         </div>
 
         <div className="mt-3">
-          <TableControlCategory />
+          <TableControlCategory setConfirmDelete={setConfirmDelete} />
         </div>
 
         <div className="mt-3 grid md:grid-cols-3 gap-3">
           <CustomTable type={"category-shoe"} />
-          <CustomTable type={"category-shoe"} />
-          <CustomTable type={"category-shoe"} />
+          <CustomTable type={"category-sandal"} />
+          <CustomTable type={"category-bag"} />
         </div>
       </Container>
     </>

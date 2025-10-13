@@ -1,4 +1,6 @@
 import { Modal } from "@mui/material";
+import { Button } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const CustomModalCategory = ({ controlEditModal }) => {
   const { editModal, setEditModal } = controlEditModal;
@@ -16,16 +18,21 @@ const CustomModalCategory = ({ controlEditModal }) => {
             borderRadius: "12px",
             boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
             minWidth: "80%",
-            maxHeight: "600px",
+            height: "130px",
             overflow: "auto",
           }}
         >
           <h1 className="capitalize text-md font-bold">Sửa tên danh mục</h1>
-          <input
-            type="text"
-            className="w-full border border-gray-300 rounded-md mt-3 p-3"
-            placeholder={editModal?.name || ""}
-          />
+          <div className="flex justify-center items-center mt-3">
+            <input
+              type="text"
+              className="flex-grow border border-gray-300 rounded-l-md p-3"
+              placeholder={editModal?.name || ""}
+            />
+            <Button sx={{ color: "green", height: "100%" }}>
+              <CheckCircleIcon sx={{ fontSize: "40px" }} />
+            </Button>
+          </div>
         </div>
       </Modal>
     </>
