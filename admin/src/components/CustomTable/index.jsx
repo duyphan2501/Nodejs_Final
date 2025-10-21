@@ -3,6 +3,7 @@ import CustomTableCategorySandal from "./CustomTableCategorySandal";
 import CustomTableCategoryShoe from "./CustomTableCategoryShoe";
 import CustomTableOrder from "./CustomTableOrder";
 import CustomTableOrderDetail from "./CustomTableOrderDetail";
+import CustomTableUser from "./CustomTableUser";
 
 const CustomTable = ({ type }) => {
   return (
@@ -12,6 +13,7 @@ const CustomTable = ({ type }) => {
       {type === "category-shoe" && <CustomTableCategoryShoe />}
       {type === "category-sandal" && <CustomTableCategorySandal />}
       {type === "category-bag" && <CustomTableCategoryBag />}
+      {type === "user" && <CustomTableUser />}
     </>
   );
 };

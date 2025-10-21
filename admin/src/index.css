@@ -4,6 +4,14 @@
 @layer base {
   body {
     font-family: "Be Vietnam Pro", sans-serif;
-    color: #374151; /* màu chữ mặc định */
+    color: #374151;
+  }
+
+  .scroll-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

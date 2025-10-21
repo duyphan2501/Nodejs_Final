@@ -7,6 +7,7 @@ import Products from "./pages/Products";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
 import Category from "./pages/Category";
+import Users from "./pages/Users";
 
 const theme = createTheme({
   palette: {
@@ -33,6 +34,7 @@ function App() {
               <Route path="/admin/products" element={<Products />}></Route>
               <Route path="/admin/orders" element={<Orders />}></Route>
               <Route path="/admin/category" element={<Category />}></Route>
+              <Route path="/admin/users" element={<Users />}></Route>
             </Routes>
           </Router>
         </ThemeProvider>

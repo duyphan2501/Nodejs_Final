@@ -67,7 +67,7 @@ export default function Products() {
       ;
       <div className="relative w-full h-450 overflow-hidden">
         <div
-          className={`absolute top-0 left-0 w-full h-full overflow-scroll  transition-transform duration-300 ${
+          className={`absolute top-0 left-0 w-full h-full overflow-auto scroll-hidden  transition-transform duration-300 ${
             viewMode === "list" ? "translate-x-0" : "-translate-x-full"
           }`}
         >

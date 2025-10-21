@@ -7,6 +7,7 @@ const TableControlProvider = ({
   controlConfirmDelete,
   controlSelectAll,
   orderData,
+  userData,
   filter,
   setFilter,
   controlSelectDetail,
@@ -26,6 +27,7 @@ const TableControlProvider = ({
         setSelectedItem,
         selectedDetail,
         setSelectedDetail,
+        userData,
       }}
     >
       {children}
