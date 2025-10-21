@@ -16,12 +16,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ProductList from "../../components/ProductList";
 import { Menu } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import {
-  Checkbox,
-  TextField,
-  FormControlLabel,
-  IconButton,
-} from "@mui/material";
+
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CategoryPicker from "../../components/CategoryPicker";
 import VariantManager from "../../components/VariantManager";

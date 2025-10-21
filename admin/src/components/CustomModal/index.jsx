@@ -1,6 +1,7 @@
 import CustomModalCategory from "./CustomModalCategory";
 import CustomModalOrder from "./CustomModalOrder";
 import CustomModalUser from "./CustomModalUser";
+import CustomModalCouponEdit from "./CustomModalCouponEdit";
 
 export default function CustomModal({ type, controlEditModal }) {
   return (
@@ -10,6 +11,7 @@ export default function CustomModal({ type, controlEditModal }) {
         <CustomModalCategory controlEditModal={controlEditModal} />
       )}
       {type === "users" && <CustomModalUser />}
+      {type === "coupon-edit" && <CustomModalCouponEdit />}
     </>
   );
 }

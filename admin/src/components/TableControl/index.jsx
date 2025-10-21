@@ -1,6 +1,7 @@
 import TableControlCategory from "./TableControlCategory";
 import { TableControlOrder } from "./TableControlOrder";
 import { TableControlUser } from "./TableControlUser";
+import { TableControlCoupon } from "./TableControlCoupon";
 
 const TableControl = ({ type, setConfirmDelete }) => {
   return (
@@ -10,6 +11,7 @@ const TableControl = ({ type, setConfirmDelete }) => {
         <TableControlCategory setConfirmDelete={setConfirmDelete} />
       )}
       {type === "user" && <TableControlUser />}
+      {type === "coupon" && <TableControlCoupon />}
     </>
   );
 };

@@ -8,6 +8,7 @@ const TableControlProvider = ({
   controlSelectAll,
   orderData,
   userData,
+  couponData,
   filter,
   setFilter,
   controlSelectDetail,
@@ -28,6 +29,7 @@ const TableControlProvider = ({
         selectedDetail,
         setSelectedDetail,
         userData,
+        couponData,
       }}
     >
       {children}
