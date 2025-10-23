@@ -9,6 +9,7 @@ import Orders from "./pages/Orders";
 import Category from "./pages/Category";
 import Users from "./pages/Users";
 import Coupons from "./pages/Coupon";
+import Themes from "./pages/Themes";
 
 const theme = createTheme({
   palette: {
@@ -37,6 +38,7 @@ function App() {
               <Route path="/admin/category" element={<Category />}></Route>
               <Route path="/admin/users" element={<Users />}></Route>
               <Route path="/admin/coupon" element={<Coupons />}></Route>
+              <Route path="/admin/themes" element={<Themes />}></Route>
             </Routes>
           </Router>
         </ThemeProvider>

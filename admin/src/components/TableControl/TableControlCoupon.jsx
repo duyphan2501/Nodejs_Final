@@ -12,6 +12,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import CustomModal from "../CustomModal";
 
 const TableControlCoupon = () => {
   const [anchorAll, setAnchorAll] = useState(null);
@@ -22,6 +23,8 @@ const TableControlCoupon = () => {
   const { filter, setFilter } = useTableControl();
   const { setSelectedItem, couponData } = useTableControl();
 
+  const [openAddCoupon, setOpenAddCoupon] = useState(false);
+
   const handleChange = (key, value) => {
     setFilter((prev) => ({
       ...prev,
@@ -31,6 +34,10 @@ const TableControlCoupon = () => {
 
   return (
     <div className="mt-6 bg-white p-3 rounded-lg shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.2),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_1px_3px_0px_rgba(0,0,0,0.12)]">
+      <CustomModal
+        type={"coupon-add"}
+        controlAddCoupon={{ openAddCoupon, setOpenAddCoupon }}
+      />
       <div className="flex flex-wrap gap-4">
         {/* Ô tìm kiếm */}
         <div className="relative w-100">
@@ -190,14 +197,13 @@ const TableControlCoupon = () => {
         <div className="flex gap-4 flex-wrap md:flex-nowrap">
           <Button
             variant="contained"
-            color="primary"
             sx={{
               borderRadius: "100px",
-              background: "#1976d2",
+              background: "#00C950",
               textTransform: "none",
             }}
             startIcon={<AddIcon />}
-            onClick={() => alert("Hiển thị modal thêm coupon")}
+            onClick={() => setOpenAddCoupon(true)}
           >
             Thêm Mã Giảm Giá
           </Button>
