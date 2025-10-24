@@ -2,10 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import Button from "@mui/material/Button";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AvatarPNG from "../../assets/avatar.png";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -19,7 +16,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
 import HomeIcon from "@mui/icons-material/Home";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
@@ -27,26 +23,28 @@ import DiscountIcon from "@mui/icons-material/Discount";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import PersonIcon from "@mui/icons-material/Person";
 import ClearIcon from "@mui/icons-material/Clear";
-import { Collapse, Slide } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
 import CategoryIcon from "@mui/icons-material/Category";
+import { Collapse } from "@mui/material";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Navbar = ({ active = "products", link }) => {
+const Navbar = () => {
   const [anchorNavbar, setAnchorNavbar] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const [selectedIndex, setSelectedIndex] = useState(active);
+  const handleOpenNavbar = () => setAnchorNavbar(true);
+  const handleCloseNavbar = () => setAnchorNavbar(false);
 
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
-  };
-
-  const handleOpenNavbar = () => {
-    setAnchorNavbar(true);
-  };
-
-  const handleCloseNavbar = () => {
-    setAnchorNavbar(false);
-  };
+  // Danh sách các mục menu
+  const menuItems = [
+    { label: "Trang Chủ", path: "/admin/home", icon: <HomeIcon /> },
+    { label: "Sản Phẩm", path: "/admin/products", icon: <CheckroomIcon /> },
+    { label: "Danh Mục", path: "/admin/category", icon: <CategoryIcon /> },
+    { label: "Đơn Hàng", path: "/admin/orders", icon: <ShoppingBagIcon /> },
+    { label: "Người Dùng", path: "/admin/users", icon: <PersonIcon /> },
+    { label: "Coupon", path: "/admin/coupon", icon: <DiscountIcon /> },
+    { label: "Cài Đặt Theme", path: "/admin/themes", icon: <WidgetsIcon /> },
+  ];
 
   return (
     <Box
@@ -54,9 +52,10 @@ const Navbar = ({ active = "products", link }) => {
         background: "#FFFFFF",
         position: "sticky",
         top: 0,
-        zIndex: 1100, // nổi trên content
+        zIndex: 1100,
       }}
     >
+      {/* AppBar chính */}
       <AppBar
         position="static"
         color="default"
@@ -66,205 +65,61 @@ const Navbar = ({ active = "products", link }) => {
           background: "#F9FAFB",
         }}
       >
+        {/* Desktop Navbar */}
         <Container sx={{ display: { xs: "none", sm: "block" } }}>
           <Toolbar>
             <Typography
               variant="h6"
               noWrap
-              component="div"
-              sx={{
-                mr: 2,
-                color: "black",
-                display: { xs: "none", sm: "block" },
-              }}
+              sx={{ mr: 2, color: "black", fontWeight: "bold" }}
             >
-              Tabler
+              Admin Control
             </Typography>
-
-            {anchorNavbar ? (
-              <Button
-                onClick={handleCloseNavbar}
-                sx={{
-                  color: "black",
-                  padding: 2,
-                  display: { xs: "block", sm: "none" },
-                }}
-              >
-                <ClearIcon />
-              </Button>
-            ) : (
-              <Button
-                onClick={handleOpenNavbar}
-                sx={{
-                  color: "black",
-                  padding: 2,
-                  display: { xs: "block", sm: "none" },
-                }}
-              >
-                <MenuIcon />
-              </Button>
-            )}
-
             <Box flexGrow={1}></Box>
-
             <AvatarUser />
           </Toolbar>
         </Container>
 
+        {/* Mobile Navbar */}
         <Box sx={{ display: { xs: "block", sm: "none" } }}>
           <Toolbar>
             <Typography
               variant="h6"
               noWrap
-              component="div"
-              sx={{
-                mr: 2,
-                color: "black",
-                display: { xs: "none", sm: "block" },
-              }}
+              sx={{ color: "black", fontWeight: "bold", flexGrow: 1 }}
             >
               Tabler
             </Typography>
 
-            {anchorNavbar ? (
-              <Button
-                onClick={handleCloseNavbar}
-                sx={{
-                  color: "black",
-                  padding: 2,
-                  display: { xs: "block", sm: "none" },
-                }}
-              >
-                <ClearIcon />
-              </Button>
-            ) : (
-              <Button
-                onClick={handleOpenNavbar}
-                sx={{
-                  color: "black",
-                  padding: 2,
-                  display: { xs: "block", sm: "none" },
-                }}
-              >
-                <MenuIcon />
-              </Button>
-            )}
-
-            <Box flexGrow={1}></Box>
-
-            <AvatarUser />
+            <IconButton
+              onClick={anchorNavbar ? handleCloseNavbar : handleOpenNavbar}
+            >
+              {anchorNavbar ? <ClearIcon /> : <MenuIcon />}
+            </IconButton>
           </Toolbar>
 
+          {/* Danh sách menu khi mở */}
           <Collapse sx={{ marginTop: 1 }} direction="down" in={anchorNavbar}>
             <List sx={{ bgcolor: "#f5f5f5", width: "100%" }}>
-              <ListItem disablePadding>
-                <ListItemButton
-                  selected={selectedIndex === "home"}
-                  onClick={(event) => {
-                    handleListItemClick(event, 1);
-                    handleCloseNavbar();
-                  }}
-                >
-                  <ListItemIcon>
-                    <HomeIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Trang Chủ" />
-                </ListItemButton>
-              </ListItem>
-
-              <ListItem disablePadding>
-                <ListItemButton
-                  selected={selectedIndex === "products"}
-                  onClick={(event) => {
-                    handleListItemClick(event, 2);
-                    handleCloseNavbar();
-                  }}
-                >
-                  <ListItemIcon>
-                    <CheckroomIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Sản Phẩm" />
-                </ListItemButton>
-              </ListItem>
-
-              <ListItem disablePadding>
-                <ListItemButton
-                  selected={selectedIndex === "category"}
-                  onClick={(event) => {
-                    handleListItemClick(event, 2);
-                    handleCloseNavbar();
-                  }}
-                >
-                  <ListItemIcon>
-                    <CategoryIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Danh Mục" />
-                </ListItemButton>
-              </ListItem>
-
-              <ListItem disablePadding>
-                <ListItemButton
-                  selected={selectedIndex === "orders"}
-                  onClick={(event) => {
-                    handleListItemClick(event, 3);
-                    handleCloseNavbar();
-                  }}
-                >
-                  <ListItemIcon>
-                    <ShoppingBagIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Đơn Hàng" />
-                </ListItemButton>
-              </ListItem>
-
-              <ListItem disablePadding>
-                <ListItemButton
-                  selected={selectedIndex === "users"}
-                  onClick={(event) => {
-                    handleListItemClick(event, 4);
-                    handleCloseNavbar();
-                  }}
-                >
-                  <ListItemIcon>
-                    <PersonIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Người Dùng" />
-                </ListItemButton>
-              </ListItem>
-
-              <ListItem disablePadding>
-                <ListItemButton
-                  selected={selectedIndex === "coupon"}
-                  onClick={(event) => {
-                    handleListItemClick(event, 5);
-                    handleCloseNavbar();
-                  }}
-                >
-                  <ListItemIcon>
-                    <DiscountIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Coupon" />
-                </ListItemButton>
-              </ListItem>
-
-              <ListItem disablePadding>
-                <ListItemButton
-                  selected={selectedIndex === "theme"}
-                  onClick={(event) => {
-                    handleListItemClick(event, 6);
-                    handleCloseNavbar();
-                  }}
-                >
-                  <ListItemIcon>
-                    <WidgetsIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Cài Đặt Theme" />
-                </ListItemButton>
-              </ListItem>
+              {menuItems.map((item) => (
+                <ListItem key={item.path} disablePadding>
+                  <ListItemButton
+                    component={Link}
+                    to={item.path}
+                    selected={location.pathname === item.path}
+                    onClick={() => handleCloseNavbar()}
+                  >
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.label} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
             </List>
           </Collapse>
         </Box>
       </AppBar>
+
+      {/* Thanh dưới cho desktop */}
       <AppBar
         position="static"
         color="default"
@@ -280,87 +135,14 @@ const Navbar = ({ active = "products", link }) => {
             sx={{ display: { xs: "none", sm: "flex" }, position: "relative" }}
           >
             <Toolbar disableGutters sx={{ paddingLeft: "10px" }}>
-              <ButtonNavbar label={"Trang Chủ"} />
-              <ButtonNavbar label={"Sản Phẩm"} />
-              <ButtonNavbar label={"Đơn Hàng"} />
-              <ButtonNavbar label={"Danh Mục"} />
-              <ButtonNavbar label={"Người Dùng"} />
-              <ButtonNavbar label={"Coupon"} />
-              <ButtonNavbar label={"Cài Đặt Theme"} />
+              {menuItems.map((item) => (
+                <ButtonNavbar
+                  key={item.path}
+                  label={item.label}
+                  path={item.path}
+                />
+              ))}
             </Toolbar>
-            {active === "home" ? (
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 14,
-                  height: "2px",
-                  width: "105px",
-                  bgcolor: "blue",
-                  transition: "all 0.3s ease",
-                }}
-              />
-            ) : active === "products" ? (
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 120,
-                  height: "2px",
-                  width: "106px",
-                  bgcolor: "blue",
-                  transition: "all 0.3s ease",
-                }}
-              />
-            ) : active === "orders" ? (
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 228,
-                  height: "2px",
-                  width: "106px",
-                  bgcolor: "blue",
-                  transition: "all 0.3s ease",
-                }}
-              />
-            ) : active === "users" ? (
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 335,
-                  height: "2px",
-                  width: "118px",
-                  bgcolor: "blue",
-                  transition: "all 0.3s ease",
-                }}
-              />
-            ) : active === "theme" ? (
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 546,
-                  height: "2px",
-                  width: "146px",
-                  bgcolor: "blue",
-                  transition: "all 0.3s ease",
-                }}
-              />
-            ) : active === "coupon" ? (
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 455,
-                  height: "2px",
-                  width: "90px",
-                  bgcolor: "blue",
-                  transition: "all 0.3s ease",
-                }}
-              />
-            ) : null}
           </Box>
         </Container>
       </AppBar>
@@ -369,18 +151,13 @@ const Navbar = ({ active = "products", link }) => {
 };
 
 function AvatarUser() {
-  const [anchorEl, setAnchorE1] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
+  const handleCloseMenu = () => setAnchorEl(null);
 
-  const handleOpenMenu = (event) => {
-    setAnchorE1(event.currentTarget);
-  };
-
-  const handleCloseMenu = (event) => {
-    setAnchorE1(null);
-  };
   return (
     <>
-      <Tooltip title="Open settings">
+      <Tooltip title="Tài khoản">
         <Box
           sx={{
             display: "flex",
@@ -391,11 +168,10 @@ function AvatarUser() {
           onClick={handleOpenMenu}
         >
           <Avatar
-            alt="Paweł Kuna"
+            alt="Admin"
             src="https://i.pravatar.cc/40"
             sx={{ width: 40, height: 40 }}
           />
-
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Typography variant="h6" sx={{ lineHeight: 1 }}>
               Tran Thanh Liem
@@ -406,19 +182,14 @@ function AvatarUser() {
           </Box>
         </Box>
       </Tooltip>
+
       <Menu
         sx={{ mt: "45px" }}
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleCloseMenu}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top", // menu xuất hiện từ top
-          horizontal: "right", // căn phải
-        }}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
         PaperProps={{
           sx: {
             width: anchorEl ? anchorEl.offsetWidth : "auto",
@@ -433,30 +204,8 @@ function AvatarUser() {
   );
 }
 
-function renderPath(label) {
-  switch (label) {
-    case "Trang Chủ":
-      return "/admin/home";
-    case "Sản Phẩm":
-      return "/admin/products";
-    case "Danh Mục":
-      return "/admin/category";
-    case "Đơn Hàng":
-      return "/admin/orders";
-    case "Người Dùng":
-      return "/admin/users";
-    case "Coupon":
-      return "/admin/coupon";
-    case "Cài Đặt Theme":
-      return "/admin/themes";
-    default:
-      return "/404"; // hoặc "#"
-  }
-}
-
-function ButtonNavbar({ label }) {
+function ButtonNavbar({ label, path }) {
   const location = useLocation();
-  const path = renderPath(label);
   const isActive = location.pathname === path;
 
   return (

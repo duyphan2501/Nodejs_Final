@@ -2,6 +2,7 @@ import { Container } from "@mui/system";
 import Navbar from "../../components/Navbar";
 import { Typography } from "@mui/material";
 import CustomSwiper from "../../components/CustomSwiper";
+import SocialMediaConfig from "../../components/SocialMediaConfig";
 
 const Themes = () => {
   return (
@@ -24,6 +25,8 @@ const Themes = () => {
         </div>
 
         <CustomSwiper type="banner" />
+
+        <SocialMediaConfig />
       </Container>
     </>
   );
