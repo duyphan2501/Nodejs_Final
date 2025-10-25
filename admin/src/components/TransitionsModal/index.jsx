@@ -21,7 +21,14 @@ const style = {
   transition: "transform 0.3s ease",
 };
 
-export default function TransitionsModal({ open, onClose, type, content }) {
+export default function TransitionsModal({
+  open,
+  onClose,
+  type,
+  content,
+  Icon = DangerousIcon,
+  color,
+}) {
   return (
     <Modal
       open={open}
@@ -33,7 +40,7 @@ export default function TransitionsModal({ open, onClose, type, content }) {
       <Fade in={open}>
         <Box sx={style}>
           <div className="flex items-center gap-2">
-            <DangerousIcon sx={{ color: "red", fontSize: "40px" }} />
+            <Icon sx={{ color, fontSize: "40px" }} />
             <Typography
               textTransform={"capitalize"}
               id="transition-modal-title"
