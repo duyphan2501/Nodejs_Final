@@ -4,7 +4,8 @@ const MyContext = createContext();
 
 const ContextProvider = ({ children }) => {
     const [isOpenAccountMenu, setIsOpenAccountMenu] = useState(false);
-    const values = {isOpenAccountMenu, setIsOpenAccountMenu};
+    const [selectedProduct, setSelectedProduct] = useState(null)
+    const values = {isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct, setSelectedProduct};
     return <MyContext.Provider value={values}>
         {children}  
     </MyContext.Provider>

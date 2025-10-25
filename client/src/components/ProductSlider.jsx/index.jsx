@@ -13,7 +13,7 @@ const ProductSlider = ({ products }) => {
       spaceBetween={20}
       scrollbar={{ draggable: true }}
       modules={[Scrollbar]}
-      className="mySwiper"
+      className="productSwiper"
       breakpoints={{
         320: { slidesPerView: 1 },
         520: { slidesPerView: 1.3 },

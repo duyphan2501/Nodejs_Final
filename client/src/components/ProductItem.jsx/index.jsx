@@ -1,32 +1,53 @@
 import Button from "@mui/material/Button";
 import { getDiscountedPrice } from "../../utils/formatMoney.js";
 import { BiCartAdd } from "react-icons/bi";
+import { Heart, ScanEye } from "lucide-react";
+import MyTooltip from "../MyTooltip/index.jsx";
+import { useContext, useState } from "react";
+import { MyContext } from "../../Context/MyContext.jsx";
 
 const ProductItem = ({ product }) => {
-  const price = product.variants[0].price;
-  const discount = product.variants[0].discount || 0;
+  const price = product.variants[0].attribute[0].price;
+  const discount = product.variants[0].attribute[0].discount || 0;
   const { formatedPrice, formatedDiscountedPrice } = getDiscountedPrice(
     price,
     discount
   );
-  console.log(formatedPrice);
-  console.log(formatedDiscountedPrice);
+  const { setSelectedProduct } = useContext(MyContext);
+
   return (
-    <div className="w-full mx-auto group flex flex-col flex-1 h-full">
+    <div className="w-full mx-auto group flex flex-col flex-1 h-full relative">
       <div className="relative h-[450px] sm:h-[400px] lg:h-[300px] overflow-hidden">
         <img
-          src={product?.variants?.[0]?.image?.[0]}
+          src={product?.variants?.[0]?.images?.[0]}
           alt={product?.name}
           className="w-full h-full object-cover"
         />
-        {product?.variants?.[0]?.image?.[1] && (
+        {product?.variants?.[0]?.images?.[1] && (
           <img
-            src={product?.variants?.[0]?.image?.[1]}
+            src={product?.variants?.[0]?.images?.[1]}
             alt={product?.name}
-            className="w-full h-full object-cover absolute invisible group-hover:visible group-hover:scale-105 transition-all z-10 inset-0 duration-200"
+            className="w-full h-full object-cover absolute opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all z-10 inset-0 duration-200"
           />
         )}
-        <div className="bg-primary px-2 absolute top-2 left-2 z-20 title">Hàng mới</div>
+        <div className="bg-primary px-2 absolute top-2 left-2 z-20 title">
+          Hàng mới
+        </div>
+      </div>
+      <div className="absolute -top-20 right-2 z-10 space-y-2 group-hover:top-2 transition-all duration-200 opacity-0   group-hover:opacity-100">
+        <div className="p-1 rounded-full hover:text-primary cursor-pointer transition bg-white active:bg-gray-200">
+          <MyTooltip label={"Yêu thích"} position="bottom">
+            <Heart />
+          </MyTooltip>
+        </div>
+        <div
+          className="p-1 rounded-full hover:text-primary cursor-pointer transition bg-white active:bg-gray-200"
+          onClick={() => setSelectedProduct(product)}
+        >
+          <MyTooltip label={"Xem nhanh"} position="bottom">
+            <ScanEye />
+          </MyTooltip>
+        </div>
       </div>
       <div className="flex flex-col justify-between flex-1">
         <div className="p-2">

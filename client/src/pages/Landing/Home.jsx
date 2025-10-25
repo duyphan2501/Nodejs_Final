@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import AutoplayBanner from "../../components/AutoplayBanner";
 import BrandSlider from "../../components/BrandSlider";
 import CategoryDisplay from "../../components/CategoryDisplay";
@@ -12,7 +13,7 @@ const categories = [
   { _id: 2, name: "Giày nam" },
   { _id: 3, name: "Giày nam" },
 ];
-  
+
 const Home = () => {
   return (
     <>
@@ -41,7 +42,9 @@ const Home = () => {
           <p className="uppercase text-white  md:mb-0 mb-5 font-semibold text-3xl lg:text-4xl title">
             Đăng ký để nhận được các ưu đãi sớm nhất
           </p>
-          <StackButton label={"đăng ký ngay"} href={"/login"} />
+          <Link to="/login">
+            <StackButton label={"Đăng ký ngay"} />
+          </Link>
         </div>
       </section>
     </>

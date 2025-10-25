@@ -9,12 +9,15 @@ import Layouts from "./layouts";
 import Cart from "./pages/Cart";
 
 import Home from "./pages/Landing/Home";
+import QuickViewDialog from "./components/QuickViewDialog";
+import ProductPage from "./pages/Products/ProductPage";
 function App() {
-  const { isOpenAccountMenu, setIsOpenAccountMenu } = useContext(MyContext);
+  const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } = useContext(MyContext);
 
   const handleAccountMenuClose = () => {
     setIsOpenAccountMenu(false);
   };
+
 
   return (
     <>
@@ -26,6 +29,8 @@ function App() {
           </Route>
           <Route path="*" element={<Layouts />}>
             <Route index element={<Home />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="products" element={<ProductPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
@@ -34,6 +39,7 @@ function App() {
         pauseOnHover={true}
         position="top-center"
       />
+      {selectedProduct && <QuickViewDialog />}
 
       {/* Account Menu - Controlled by Context */}
       {isOpenAccountMenu && <AccountMenu onClose={handleAccountMenuClose} />}
