@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import Flyout from "./FlyoutShoes";
 import MainFlyout from "./MainFlyout";
 import CollectionsFlyout from "./CollectionsFlyout";
+import CartIcon from "./CartIcon";
 import { MyContext } from "../../../Context/MyContext";
 
 const Navbar = ({
@@ -164,7 +165,7 @@ const Navbar = ({
           </button>
 
           {/* Shopping Cart */}
-          <button className="p-2 hover:bg-gray-100 rounded relative">
+          {/* <button className="p-2 hover:bg-gray-100 rounded relative">
             <svg
               className="w-5 h-5"
               fill="none"
@@ -181,7 +182,8 @@ const Navbar = ({
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
               2
             </span>
-          </button>
+          </button> */}
+          <CartIcon />
         </div>
       </div>
 

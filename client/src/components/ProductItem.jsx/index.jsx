@@ -9,8 +9,6 @@ const ProductItem = ({ product }) => {
     price,
     discount
   );
-  console.log(formatedPrice);
-  console.log(formatedDiscountedPrice);
   return (
     <div className="w-full mx-auto group flex flex-col flex-1 h-full">
       <div className="relative h-[450px] sm:h-[400px] lg:h-[300px] overflow-hidden">
