@@ -4,9 +4,10 @@ import { ToastContainer } from "react-toastify";
 import AccountMenu from "./layouts/Header/Navbar/AccountMenu";
 import { useContext } from "react";
 import { MyContext } from "./Context/MyContext";
-import DemoContent from "./components/DemoContent";
 import Layouts from "./layouts";
 import Cart from "./pages/Cart";
+import CartWithItems from "./components/CartWithItems";
+import MyAccount from "./pages/MyAccount";
 
 import Home from "./pages/Landing/Home";
 import QuickViewDialog from "./components/QuickViewDialog";
@@ -26,6 +27,7 @@ function App() {
           <Route path={"/login"} element={<Login />} />
           <Route path="/" element={<Layouts />}>
             <Route path="cart" element={<Cart />} />
+            <Route path="my-account" element={<MyAccount />} />
           </Route>
           <Route path="*" element={<Layouts />}>
             <Route index element={<Home />} />

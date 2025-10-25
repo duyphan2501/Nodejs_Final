@@ -1,8 +1,10 @@
 import { useState } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import StarRate from "../StarRate";
 
 const ProductCard = ({
+  id,
   name,
   brand,
   price,
@@ -13,11 +15,15 @@ const ProductCard = ({
   active = true,
   checked,
   toggleSelect,
+  chooseToEdit,
 }) => {
   const [isActive, setIsActive] = useState(active);
 
   return (
-    <div className="w-full max-w-xs rounded-2xl shadow-lg overflow-hidden hover:border relative p-4 cursor-pointer transform transition-transform duration-200 hover:scale-105 hover:shadow-xl">
+    <div
+      onClick={() => chooseToEdit(id)}
+      className="w-full max-w-xs rounded-2xl shadow-lg overflow-hidden hover:border relative p-4 cursor-pointer transform transition-transform duration-200 hover:scale-105 hover:shadow-xl"
+    >
       {/* Checkbox chọn sản phẩm */}
       <input
         type="checkbox"
@@ -73,6 +79,10 @@ const ProductCard = ({
           </div>
         </div>
 
+        <div className="mt-2">
+          <StarRate star={4.5} quantity={1000} />
+        </div>
+
         <p className="text-sm text-gray-500">
           <span className="font-medium text-gray-700">Đã bán:</span> {sold} đôi
         </p>
@@ -81,7 +91,12 @@ const ProductCard = ({
   );
 };
 
-const ProductList = ({ products, selectedProducts, setSelectedProducts }) => {
+const ProductList = ({
+  products,
+  selectedProducts,
+  setSelectedProducts,
+  chooseToEdit,
+}) => {
   const toggleSelect = (id) => {
     if (selectedProducts.includes(id)) {
       setSelectedProducts(selectedProducts.filter((item) => item != id));
@@ -110,6 +125,7 @@ const ProductList = ({ products, selectedProducts, setSelectedProducts }) => {
             {...p}
             checked={selectedProducts.includes(p.id)}
             toggleSelect={() => toggleSelect(p.id)}
+            chooseToEdit={chooseToEdit}
           />
         ))}
       </div>
