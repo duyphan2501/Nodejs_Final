@@ -65,7 +65,7 @@ export default function AutoplayBanner() {
                   <h6 className="bg-white w-fit px-2 italic">
                     {banner.subtitle}
                   </h6>
-                  <StackButton label={"Mua ngay"} href={"/"}/>
+                  <StackButton label={"Mua Ngay"} />
                 </div>
               </div>
             </SwiperSlide>

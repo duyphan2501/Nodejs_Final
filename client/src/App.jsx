@@ -9,14 +9,20 @@ import Cart from "./pages/Cart";
 import CartWithItems from "./components/CartWithItems";
 import MyAccount from "./pages/MyAccount";
 import Home from "./pages/Landing/Home";
+<<<<<<< HEAD
 import Address from "./pages/Addresses";
 
+=======
+import QuickViewDialog from "./components/QuickViewDialog";
+import ProductPage from "./pages/Products/ProductPage";
+>>>>>>> 1994d678582025b48076e95a4d927e26fe62ac1b
 function App() {
-  const { isOpenAccountMenu, setIsOpenAccountMenu } = useContext(MyContext);
+  const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } = useContext(MyContext);
 
   const handleAccountMenuClose = () => {
     setIsOpenAccountMenu(false);
   };
+
 
   return (
     <>
@@ -30,6 +36,8 @@ function App() {
           </Route>
           <Route path="*" element={<Layouts />}>
             <Route index element={<Home />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="products" element={<ProductPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
@@ -38,6 +46,7 @@ function App() {
         pauseOnHover={true}
         position="top-center"
       />
+      {selectedProduct && <QuickViewDialog />}
 
       {/* Account Menu - Controlled by Context */}
       {isOpenAccountMenu && <AccountMenu onClose={handleAccountMenuClose} />}
