@@ -1,6 +1,5 @@
 import React from "react";
-import UserProvider from "../../components/UserProvider";
-import ProfileInfo from "../../components/FrofileInfo";
+import AddressBook from "../../components/AddressBook";
 import AccountOverview from "../../components/AccountOverview";
 
 const MyAccount = () => {
@@ -12,10 +11,9 @@ const MyAccount = () => {
             <div className="md:col-span-3">
               <AccountOverview />
             </div>
+
             <div className="md:col-span-9">
-              <UserProvider>
-                <ProfileInfo />
-              </UserProvider>
+              <AddressBook />
             </div>
           </div>
         </div>

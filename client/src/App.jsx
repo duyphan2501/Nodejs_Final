@@ -8,8 +8,9 @@ import Layouts from "./layouts";
 import Cart from "./pages/Cart";
 import CartWithItems from "./components/CartWithItems";
 import MyAccount from "./pages/MyAccount";
-
 import Home from "./pages/Landing/Home";
+import Address from "./pages/Addresses";
+
 function App() {
   const { isOpenAccountMenu, setIsOpenAccountMenu } = useContext(MyContext);
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Layouts />}>
             <Route path="cart" element={<Cart />} />
             <Route path="my-account" element={<MyAccount />} />
+            <Route path="addresses" element={<Address />} />
           </Route>
           <Route path="*" element={<Layouts />}>
             <Route index element={<Home />} />
