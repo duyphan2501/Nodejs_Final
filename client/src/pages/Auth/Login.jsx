@@ -55,7 +55,7 @@ const Login = () => {
         delay={5}
       />
       <div className="rounded-xl shadow border-gray-100 bg-white z-10 w-100 overflow-hidden">
-        <div className="p-5">
+        <form className="p-5">
           <h3 className="font-bold text-center mb-5 text-2xl ">Sign In</h3>
           <div className="flex gap-5 flex-col">
             <TextField
@@ -103,7 +103,7 @@ const Login = () => {
               <FaGoogle />
             </div>
           </div>
-        </div>
+        </form>
           <div className="bg-gray-800 text-center py-2 text-white">
             Don't have account? <a href="sign-up" className="italic hover:underline">Sign up</a>
           </div>

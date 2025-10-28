@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
 import { ToastContainer } from "react-toastify";
 import AccountMenu from "./layouts/Header/Navbar/AccountMenu";
 import { useContext } from "react";
@@ -15,7 +14,8 @@ import Address from "./pages/Addresses";
 =======
 import QuickViewDialog from "./components/QuickViewDialog";
 import ProductPage from "./pages/Products/ProductPage";
->>>>>>> 1994d678582025b48076e95a4d927e26fe62ac1b
+import Login from "./pages/Auth/Login";
+import Signup from "./pages/Auth/Signup";
 function App() {
   const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } = useContext(MyContext);
 
@@ -23,12 +23,12 @@ function App() {
     setIsOpenAccountMenu(false);
   };
 
-
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path={"/login"} element={<Login />} />
+          <Route path={"/sign-up"} element={<Signup />} />
           <Route path="/" element={<Layouts />}>
             <Route path="cart" element={<Cart />} />
             <Route path="my-account" element={<MyAccount />} />

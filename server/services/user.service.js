@@ -1,9 +1,6 @@
+import { sendForgotPasswordEmail, sendVerificationEmail } from "../helpers/email.helper.js";
 import UserModel from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import {
-  sendForgotPasswordEmail,
-  sendVerificationEmail,
-} from "./email.service.js";
 
 const getUserByEmail = async (email) => {
   const user = await UserModel.findOne({
