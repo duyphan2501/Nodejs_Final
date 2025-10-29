@@ -14,14 +14,13 @@ const userSchema = new mongoose.Schema(
     refreshToken: String,
     refreshTokenExpireAt: Date,
     avatar: String,
-    isVerified: {type: Boolean, default: false},
-    status: {type: String, enum: ["active", "inactive"], default: "active"},
-    isAdmin: {type: Boolean, default: false}
+    isVerified: { type: Boolean, default: false },
+    status: { type: String, enum: ["active", "inactive"], default: "active" },
+    isAdmin: { type: Boolean, default: false },
   },
   { timestamps: true, collection: "users" }
-
 );
 
 const UserModel = mongoose.model("User", userSchema);
 
-export default UserModel
+export default UserModel;

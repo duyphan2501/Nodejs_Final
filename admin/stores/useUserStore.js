@@ -1,19 +1,20 @@
 import { create } from "zustand";
 import { toast } from "react-toastify";
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL;
-axios.defaults.withCredentials = true;
+import axiosCustom from "../API/axiosInstance";
 
 const useUserStore = create((set) => {
   const login = async (user) => {
     try {
-      const res = await axios.post(`${API_URL}/user/login`, user);
+      const res = await axiosCustom.post(`/user/login`, user);
       toast.success(res.data.message);
-      set({
-        user: res.data.user,
-        accessToken: res.data.accessToken,
-      });
+      if (res.data.user.isAdmin) {
+        set({
+          user: res.data.user,
+          accessToken: res.data.accessToken,
+        });
+        return true;
+      }
+      return false;
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message || "Failed to login");
@@ -22,7 +23,7 @@ const useUserStore = create((set) => {
 
   const refreshToken = async () => {
     try {
-      const res = await axios.put(`${API_URL}/api/user/refresh-token`);
+      const res = await axiosCustom.put(`/api/user/refresh-token`);
       set({
         user: res.data.user,
         accessToken: res.data.accessToken,

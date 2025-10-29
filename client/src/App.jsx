@@ -8,16 +8,14 @@ import Cart from "./pages/Cart";
 import CartWithItems from "./components/CartWithItems";
 import MyAccount from "./pages/MyAccount";
 import Home from "./pages/Landing/Home";
-<<<<<<< HEAD
 import Address from "./pages/Addresses";
-
-=======
 import QuickViewDialog from "./components/QuickViewDialog";
 import ProductPage from "./pages/Products/ProductPage";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 function App() {
-  const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } = useContext(MyContext);
+  const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } =
+    useContext(MyContext);
 
   const handleAccountMenuClose = () => {
     setIsOpenAccountMenu(false);

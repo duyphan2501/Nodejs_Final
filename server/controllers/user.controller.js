@@ -82,6 +82,8 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
+    const origin = req.origin;
+
     if (!email || !password)
       throw CreateError.BadRequest("Email or password is missing");
 
@@ -117,6 +119,7 @@ const login = async (req, res, next) => {
       message: "Login sucessfully!",
       success: true,
       user: filterFieldUser(foundUser),
+      accessToken: accessToken,
     });
   } catch (error) {
     next(error);
@@ -298,8 +301,7 @@ const changePassword = async (req, res, next) => {
 const refreshToken = async (req, res, next) => {
   try {
     const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken)
-      throw CreateError.BadRequest("Refresh token is missing");
+    if (!refreshToken) throw CreateError.BadRequest("Refresh token is missing");
 
     // Verify refresh token
     const payload = await verifyRefreshToken(refreshToken);
@@ -312,7 +314,7 @@ const refreshToken = async (req, res, next) => {
       refreshTokenExpireAt: { $gt: new Date() },
     });
 
-    if (!user) 
+    if (!user)
       throw CreateError.Unauthorized("Invalid or expired refresh token");
 
     // generate new token
