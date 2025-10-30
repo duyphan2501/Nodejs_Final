@@ -2,7 +2,14 @@ import { create } from "zustand";
 import { toast } from "react-toastify";
 import axiosCustom from "../API/axiosInstance";
 
-const useUserStore = create((set) => {
+const useUserStore = create((set, get) => {
+  const setUser = (user, accessToken = null) => {
+    set({
+      user,
+      accessToken,
+    });
+  };
+
   const login = async (user) => {
     try {
       const res = await axiosCustom.post(`/user/login`, user);
@@ -17,13 +24,13 @@ const useUserStore = create((set) => {
       return false;
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message || "Failed to login");
+      toast.error(error.response.data.message || "Đăng nhập thất bại");
     }
   };
 
   const refreshToken = async () => {
     try {
-      const res = await axiosCustom.put(`/api/user/refresh-token`);
+      const res = await axiosCustom.put(`/user/refresh-token`);
       set({
         user: res.data.user,
         accessToken: res.data.accessToken,
@@ -33,10 +40,16 @@ const useUserStore = create((set) => {
       set({
         message:
           error.response.data.message ||
-          "Token is expired, you have login again!",
+          "Token đã hết hạn. Vui lòng đăng nhập lại!",
       });
       throw error;
     }
+  };
+
+  const logout = async () => {
+    const res = await axiosCustom.delete("/user/logout", {
+      user: get().user,
+    });
   };
 
   return {
@@ -44,6 +57,8 @@ const useUserStore = create((set) => {
     accessToken: null,
     login,
     refreshToken,
+    setUser,
+    logout,
   };
 });
 

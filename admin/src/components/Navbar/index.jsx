@@ -25,15 +25,47 @@ import PersonIcon from "@mui/icons-material/Person";
 import ClearIcon from "@mui/icons-material/Clear";
 import CategoryIcon from "@mui/icons-material/Category";
 import { Collapse } from "@mui/material";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import useUserStore from "../../../stores/useUserStore";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import BiLoader from "../BiLoader";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 const Navbar = () => {
   const [anchorNavbar, setAnchorNavbar] = useState(false);
+  const [loading, setLoading] = useState(false); // <-- trạng thái loader
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleOpenNavbar = () => setAnchorNavbar(true);
   const handleCloseNavbar = () => setAnchorNavbar(false);
+
+  const setUser = useUserStore((state) => state.setUser);
+
+  const axiosPrivate = useAxiosPrivate();
+
+  useEffect(() => {
+    const init = async () => {
+      setLoading(true);
+      try {
+        const res = await axiosPrivate.put("/user/refresh-token");
+        if (res.data.success) {
+          setUser(res.data.user, res.data.refreshToken);
+        }
+      } catch (error) {
+        toast.error("Hết phiên đăng nhập. Vui lòng đăng nhập lại!");
+        navigate("/admin/login");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    init();
+  }, []);
+
+  const user = useUserStore.getState().user;
 
   // Danh sách các mục menu
   const menuItems = [
@@ -55,6 +87,23 @@ const Navbar = () => {
         zIndex: 1100,
       }}
     >
+      {/* Hiển thị loader toàn trang khi loading === true */}
+      {loading && (
+        <Box
+          sx={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "rgba(255,255,255,0.6)",
+          }}
+        >
+          <BiLoader size={200} />
+        </Box>
+      )}
+
       {/* AppBar chính */}
       <AppBar
         position="static"
@@ -76,7 +125,7 @@ const Navbar = () => {
               Admin Control
             </Typography>
             <Box flexGrow={1}></Box>
-            <AvatarUser />
+            <AvatarUser user={user} />
           </Toolbar>
         </Container>
 
@@ -150,7 +199,7 @@ const Navbar = () => {
   );
 };
 
-function AvatarUser() {
+function AvatarUser({ user }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
   const handleCloseMenu = () => setAnchorEl(null);
@@ -174,7 +223,7 @@ function AvatarUser() {
           />
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Typography variant="h6" sx={{ lineHeight: 1 }}>
-              Tran Thanh Liem
+              {user?.name || "Đang tải..."}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Administrator

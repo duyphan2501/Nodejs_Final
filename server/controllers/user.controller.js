@@ -16,6 +16,7 @@ import {
   generateRefreshTokenAndSetCookie,
   verifyRefreshToken,
 } from "../helpers/jwt.helper.js";
+import { verifyToken } from "../helpers/googleAuth.helper.js";
 
 const signUp = async (req, res, next) => {
   try {
@@ -141,7 +142,7 @@ const logout = async (req, res) => {
       refreshTokenExpireAt: undefined,
     });
     return res.status(200).json({
-      message: "Logout successfully",
+      message: "Đăng xuất thành công",
       success: true,
     });
   } catch (error) {
@@ -333,7 +334,7 @@ const refreshToken = async (req, res, next) => {
     return res.status(200).json({
       accessToken,
       refreshToken: newRefreshToken,
-      user: sanitizeUser(user),
+      user: filterFieldUser(user),
       success: true,
     });
   } catch (error) {
@@ -341,10 +342,63 @@ const refreshToken = async (req, res, next) => {
   }
 };
 
+const googleLogin = async (req, res, next) => {
+  try {
+    const { token } = req.body;
+    const payload = await verifyToken(token);
+
+    const user = {
+      email: payload.email,
+      name: payload.name,
+      password: "default",
+    };
+
+    let foundUser = await getUserByEmail(user.email);
+
+    if (!foundUser) {
+      foundUser = await UserModel.create(user);
+    }
+
+    // generate token and set cookie
+    const accessToken = await generateAccessTokenAndSetCookie(
+      res,
+      foundUser._id
+    );
+    const refreshToken = await generateRefreshTokenAndSetCookie(
+      res,
+      foundUser._id
+    );
+
+    // save token in db
+    foundUser.refreshToken = refreshToken;
+    foundUser.refreshTokenExpireAt = new Date(
+      Date.now() + 7 * 24 * 60 * 60 * 1000
+    );
+    foundUser.lastLogin = Date.now();
+    await foundUser.save();
+
+    return res.status(200).json({
+      message: "Đăng nhập thành công!",
+      success: true,
+      user: filterFieldUser(foundUser),
+      accessToken,
+    });
+  } catch (error) {
+    console.error("Google login error:", error);
+    next(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
 export {
   signUp,
   verifyAccount,
   login,
+  googleLogin,
   logout,
   forgotPassword,
   recoveryPassword,

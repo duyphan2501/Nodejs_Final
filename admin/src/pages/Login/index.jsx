@@ -22,6 +22,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import GoogleIcon from "@mui/icons-material/Google"; // Thêm icon Google
 import { useContext } from "react";
 
+import GoogleLoginButton from "../../components/GoogleLoginButton";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -133,15 +135,10 @@ const Login = () => {
             </Button>
 
             {/* Nút Đăng nhập bằng Google */}
-            <Button
-              fullWidth
-              variant="outlined"
-              startIcon={<GoogleIcon />}
-              onClick={handleGoogleLogin}
-              sx={{ mb: 2 }}
-            >
-              Đăng nhập bằng Google
-            </Button>
+
+            <div className="w-full flex justify-center">
+              <GoogleLoginButton />
+            </div>
           </Box>
         </Box>
       </Container>
