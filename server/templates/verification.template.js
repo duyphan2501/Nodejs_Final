@@ -1,4 +1,4 @@
-const verificationEmail = (name, verificationToken, hours=24) => {
+const verificationEmail = (name, otp, hours = 24) => {
   return {
     subject: "Verify Your Account - Our App",
     html: `
@@ -7,24 +7,24 @@ const verificationEmail = (name, verificationToken, hours=24) => {
 
           <!-- Header -->
           <div style="background-color: #4CAF50; color: #ffffff; text-align: center; padding: 16px; font-size: 20px; font-weight: bold;">
-            Welcome to Our App 🚀
+            Account Verification 🔒
           </div>
 
           <!-- Body -->
           <div style="padding: 25px;">
             <p>Hi <strong>${name}</strong>,</p>
 
-            <p>Thank you for signing up for <strong>Our App</strong>! To complete your registration, please verify your account using the token below:</p>
+            <p>Thank you for signing up for <strong>Our App</strong>! Please use the OTP below to verify your account:</p>
 
             <div style="text-align: center; margin: 30px 0;">
-              <div style="display: inline-block; background: #333333; color: #ffffff; font-size: 18px; padding: 12px 25px; border-radius: 6px; letter-spacing: 1px;">
-                ${verificationToken}
+              <div style="display: inline-block; background: #4CAF50; color: #ffffff; font-size: 28px; font-weight: bold; padding: 15px 35px; border-radius: 8px; letter-spacing: 6px;">
+                ${otp}
               </div>
             </div>
 
-            <p>This verification token will expire in <strong>${hours} hours</strong>. Please make sure to verify your account before it expires.</p>
+            <p>This OTP will expire in <strong>${hours} hours</strong>. Please enter it in the app to complete your verification.</p>
 
-            <p>If you didn't create this account, you can safely ignore this email.</p>
+            <p>If you didn't create this account, please ignore this email.</p>
 
             <p style="margin-top: 25px;">Best regards,<br><strong>The Our App Team</strong></p>
           </div>

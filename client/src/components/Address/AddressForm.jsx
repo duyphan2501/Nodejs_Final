@@ -125,31 +125,6 @@ const AddressForm = ({ address, setAddress }) => {
     setIsOpenAddressForm(false);
   };
 
-  // useEffect(() => {
-  //   document.body.style.overflow = isOpenAddrFrm ? "hidden" : "";
-  //   return () => {
-  //     document.body.style.overflow = "";
-  //   };
-  // }, [isOpenAddrFrm]);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (isLoadingAddress) return;
-  //   let success = false;
-  //   if (formData) {
-  //     success = await updateAddress(
-  //       {
-  //         ...formData,
-  //         id: formData._id,
-  //       },
-  //       axiosPrivate
-  //     );
-  //   } else {
-  //     success = await createAddress(formData, axiosPrivate);
-  //   }
-  //   if (success) closeAddrFrm();
-  // };
-
   return (
     <>
       <div className="fixed inset-0 bg-black/40 z-100"></div>
@@ -278,10 +253,9 @@ const AddressForm = ({ address, setAddress }) => {
               />
               <Button
                 type="button"
-                className="!bg-blue-500 !text-white !font-semibold hover:!bg-blue-700"
+                className="!bg-gray-600 !text-white !font-semibold hover:!bg-gray-700"
                 onClick={handleSaveAddress}
               >
-                {/* {isLoadingAddress ? fiLoader : "Lưu"} */}
                 Lưu
               </Button>
             </div>

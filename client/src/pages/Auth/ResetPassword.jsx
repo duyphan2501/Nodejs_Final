@@ -1,4 +1,3 @@
-import { useContext, useState } from "react";
 import FloatingShape from "../../components/FloatingShape";
 import TextField from "@mui/material/TextField";
 import PasswordTextField from "../../components/PasswordTextField";
@@ -7,74 +6,53 @@ import BiLoader from "../../components/BiLoader";
 import { MyContext } from "../../Context/MyContext";
 import useUserStore from "../../store/useUserStore";
 import PasswordStrength from "../../components/PasswordStrength";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import VerificationEmailDialog from "../../components/VerificationEmailDialog";
+import { useState } from "react";
 
-const Verification = () => {
-  const [isVerifying, setIsVerifying] = useState(false);
+const ResetPassword = () => {
   const [passwordScore, setPasswordScore] = useState(0);
-  const navigate = useNavigate();
-  const { verifyAccount, sendVerificationEmail, isLoading } = useUserStore();
-  const { verifyUser } = useContext(MyContext);
-  const [isOpenEmailDialog, setIsOpenEmailDialog] = useState(false);
-
   const [formData, setFormData] = useState({
-    verificationToken: "",
     password: "",
     confirmPassword: "",
   });
+  const token = useParams().token;
+  const navigate = useNavigate();
+  const { isLoading, resetPassword } = useUserStore();
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleResendCode = async () => {
-    if (isLoading.resend) return;
-    if (!verifyUser || !verifyUser.email) {
-      setIsOpenEmailDialog(true);
-    } else {
-      await sendVerificationEmail(verifyUser.email);
-    }
-  };
-
-  const handleVerifyAccount = async (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
-    if (isVerifying) return;
-    setIsVerifying(true);
     if (passwordScore < 5) {
-      toast.info("Mật khẩu chưa đủ mạnh!");
-      setIsVerifying(false);
+      toast.info("Mật khẩu chưu đủ mạnh");
       return;
     }
-    const result = await verifyAccount(formData);
-    if (result) navigate("/login");
-    setIsVerifying(false);
+    if (isLoading.reset) return;
+    const success = await resetPassword(
+      token,
+      formData.password,
+      formData.confirmPassword
+    );
+    if (success) navigate("/login");
   };
 
   return (
     <div className="rounded-xl shadow border-gray-100 bg-white z-10 w-fit overflow-hidden">
       <div className="">
         <div className="w-100">
-          <form className="p-5" onSubmit={handleVerifyAccount}>
+          <form className="p-5" onSubmit={handleResetPassword}>
             <h3 className="font-bold text-center mb-5 text-3xl uppercase title">
-              Xác thực tài khoản
+              Khôi phục mật khẩu
             </h3>
             <div className="flex gap-5 flex-col">
-              <TextField
-                id="outlined-basic"
-                label="Mã xác thực"
-                variant="outlined"
-                value={formData.verificationToken}
-                onChange={(e) =>
-                  handleChange("verificationToken", e.target.value)
-                }
-              />
               <PasswordTextField
                 size={"medium"}
                 value={formData.password}
                 handleChange={(value) => handleChange("password", value)}
-                label="Đặt mật khẩu"
+                label="Mật khẩu mới"
               />
               <PasswordTextField
                 size={"medium"}
@@ -94,27 +72,13 @@ const Verification = () => {
               className="!bg-gray-700 !text-white !min-h-10 !font-bold !uppercase gap-2 items-center !w-full !mt-5 hover:!bg-gray-900"
               type="submit"
             >
-              {!isLoading.verify ? "Xác thực" : <BiLoader size={20} />}
+              {!isLoading.reset ? "Đặt lại mật khẩu" : <BiLoader size={20} />}
             </Button>
           </form>
         </div>
       </div>
-      <div className="bg-gray-800 text-center py-2 text-white text-sm">
-        Chưa nhận được mã?{" "}
-        <button
-          className="italic hover:underline cursor-pointer"
-          onClick={handleResendCode}
-        >
-          {!isLoading.resend ? "Gửi lại mã" : "Đang gửi..."}
-        </button>
-      </div>
-      {isOpenEmailDialog && (
-        <VerificationEmailDialog
-          closeDialog={() => setIsOpenEmailDialog(false)}
-        />
-      )}
     </div>
   );
 };
 
-export default Verification;
+export default ResetPassword;

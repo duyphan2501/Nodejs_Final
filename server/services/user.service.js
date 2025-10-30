@@ -1,4 +1,7 @@
-import { sendForgotPasswordEmail, sendVerificationEmail } from "../helpers/email.helper.js";
+import {
+  sendForgotPasswordEmail,
+  sendVerificationEmail,
+} from "../helpers/email.helper.js";
 import UserModel from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
@@ -36,19 +39,20 @@ const getUnverifiedUser = async (verificationToken) => {
 
 const sendVerificationEmailtoUser = async (user) => {
   // send varification email
-  const verificationToken = await sendVerificationEmail(user.name, user.email);
-  const verificationTokenExpireAt = new Date(Date.now() + 1000 * 60 * 60 * 24);
+  const hours = 24;
+  const verificationToken = await sendVerificationEmail(user.name, user.email, hours);
+  const verificationTokenExpireAt = new Date(Date.now() + 1000 * 60 * 60 * hours);
   user.verificationToken = verificationToken;
   user.verificationTokenExpireAt = verificationTokenExpireAt;
   await user.save();
 };
 
 const sendForgotPasswordEmailtoUser = async (user) => {
-  const otp = await sendForgotPasswordEmail(user.name, user.email);
-
-  const forgotPasswordTokenExpireAt = new Date(Date.now() + 1000 * 60 * 5);
+  const minutes = 10
+  const token = await sendForgotPasswordEmail(user.name, user.email, minutes);
+  const forgotPasswordTokenExpireAt = new Date(Date.now() + 1000 * 60 * minutes);
   user.forgotPasswordTokenExpireAt = forgotPasswordTokenExpireAt;
-  user.forgotPasswordToken = otp;
+  user.forgotPasswordToken = token;
   user.save();
 };
 
@@ -67,6 +71,7 @@ const getForgotPasswordUser = async (email, forgotPasswordToken) => {
     forgotPasswordToken,
   });
 };
+
 
 export {
   getUserByEmail,

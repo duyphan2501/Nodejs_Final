@@ -1,5 +1,5 @@
 import transporter from "../config/email.config.js";
-import otpForgotPasswordEmail from "../templates/forgotPassword.template.js";
+import forgotPasswordEmail from "../templates/forgotPassword.template.js";
 import verificationEmail from "../templates/verification.template.js";
 import crypto from "crypto";
 import dotenv from "dotenv";
@@ -16,18 +16,19 @@ const sendEmail = async (email, subject, html) => {
   console.log("Message sent:", info.messageId);
 };
 
-const sendVerificationEmail = async (name, email) => {
-  const token = crypto.randomBytes(12).toString("hex");
-  const { subject, html } = verificationEmail(name, token);
-  await sendEmail(email, subject, html);
-  return token;
-};
-
-const sendForgotPasswordEmail = async (name, email) => {
+const sendVerificationEmail = async (name, email, hours) => {
   const otpCode = Math.floor(Math.random() * 900000 + 100000);
-  const { subject, html } = otpForgotPasswordEmail(name, otpCode, 5);
+  const { subject, html } = verificationEmail(name, otpCode, hours);
   await sendEmail(email, subject, html);
   return otpCode;
+};
+
+const sendForgotPasswordEmail = async (name, email, minutes) => {
+  const token = crypto.randomBytes(32).toString("hex");
+  const resetLink = `${process.env.CLIENT_URL}/reset-password/${token}`;
+  const { subject, html } = forgotPasswordEmail(name, resetLink, minutes);
+  await sendEmail(email, subject, html);
+  return token;
 };
 
 export { sendEmail, sendVerificationEmail, sendForgotPasswordEmail };

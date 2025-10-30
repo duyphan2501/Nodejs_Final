@@ -101,15 +101,47 @@ const useUserStore = create((set) => {
     }
   };
 
+  const sendForgotPasswordEmail = async (email) => {
+    set({ isLoading: { forgot: true } });
+    try {
+      const res = await API.post(`/api/user/forgot-password`, { email });
+      toast.success(res.data.message);
+      return true;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Failed to send forgot password email");
+      return false;
+    } finally {
+      set({ isLoading: { forgot: false } });
+    } 
+  };
+
+  const resetPassword = async (token, password, confirmPassword) => {
+    set({ isLoading: { reset: true } });
+    try {
+      const res = await API.put(`/api/user/reset-password`, { token, password, confirmPassword });
+      toast.success(res.data.message);
+      return true;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Failed to reset password");
+      return false;
+    } finally {
+      set({ isLoading: { reset: false } });
+    } 
+  };
+
   return {
     user: null,
     accessToken: null,
-    isLoading: {login: false, refresh: false, signUp: false, verify: false, resend: false},
+    isLoading: {login: false, refresh: false, signUp: false, verify: false, resend: false, forgot: false, reset: false},
     login,
     refreshToken,
     signUp,
     verifyAccount,
     sendVerificationEmail,
+    sendForgotPasswordEmail,
+    resetPassword,
   };
 });
 

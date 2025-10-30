@@ -100,8 +100,7 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    if (!email )
-      throw CreateError.BadRequest("Vui lòng điền email!");
+    if (!email) throw CreateError.BadRequest("Vui lòng điền email!");
 
     const foundUser = await getUserByEmail(email);
 
@@ -115,15 +114,11 @@ const login = async (req, res, next) => {
       });
     }
 
-    if (!password)
-      throw CreateError.BadRequest("Vui lòng điền mật khẩu!");
+    if (!password) throw CreateError.BadRequest("Vui lòng điền mật khẩu!");
 
     const isCorrectPassword = await checkPassword(password, foundUser.password);
     if (!isCorrectPassword)
       throw CreateError.Unauthorized("Mật khẩu không đúng");
-
-    if (!foundUser.isVerified)
-      throw CreateError.Forbidden("Vui lòng xác minh tài khoản của bạn!");
 
     // generate token and set cookie
     const accessToken = await generateAccessTokenAndSetCookie(
@@ -181,16 +176,16 @@ const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
 
-    if (!email) throw CreateError.BadRequest("Please provide email!");
+    if (!email) throw CreateError.BadRequest("Vui lòng nhập email!");
 
     const foundUser = await getUserByEmail(email);
 
-    if (!foundUser) throw CreateError.NotFound("User does not exist");
+    if (!foundUser || !foundUser.isVerified) throw CreateError.NotFound("Tài khoản không tồn tại");
 
     await sendForgotPasswordEmailtoUser(foundUser);
 
     return res.status(200).json({
-      message: `Recovery password email sent to ${email}`,
+      message: `Đã gửi email khôi phục mật khẩu đến ${email}`,
       success: true,
     });
   } catch (error) {
@@ -198,40 +193,34 @@ const forgotPassword = async (req, res, next) => {
   }
 };
 
-const recoveryPassword = async (req, res, next) => {
+const resetPassword = async (req, res, next) => {
   try {
-    const { email, otpCode, password, confirmPassword } = req.body;
+    const { token, password, confirmPassword } = req.body;
+    if (!token) throw CreateError.BadRequest("Thiếu mã khôi phục mật khẩu");
 
-    // check missing fields
-    if (!email || !password || !confirmPassword) {
-      throw CreateError.BadRequest(
-        "Email, password and confirm password are required"
-      );
+    if (!password) {
+      throw CreateError.BadRequest("Vui lòng nhập mật khẩu mới");
+    }
+    if (!confirmPassword) {
+      throw CreateError.BadRequest("Vui lòng nhập mật khẩu xác nhận");
     }
 
-    if (!otpCode) throw CreateError.BadRequest("OTP code is missing");
-
-    const foundUser = await getUserByEmail(email);
-    if (!foundUser) throw CreateError.NotFound("User does not exist");
-
-    // check otp
-    if (foundUser.forgotPasswordToken !== otpCode) {
-      throw CreateError.BadRequest("OTP is not correct");
-    }
+    const foundUser = await UserModel.findOne({
+      forgotPasswordToken: token,
+    });
+    if (!foundUser) throw CreateError.NotFound("Tài khoản không tồn tại");
 
     // check expire
     if (foundUser.forgotPasswordTokenExpireAt < new Date()) {
       await sendForgotPasswordEmailtoUser(foundUser);
       throw CreateError.BadRequest(
-        "OTP expired! We sent a new recovery password email to you"
+        "Đường dẫn đã hết hạn! Chúng tôi đã gửi đường dẫn mới đến bạn"
       );
     }
 
     // check confirm password
     if (password !== confirmPassword) {
-      throw CreateError.BadRequest(
-        "Password and confirm password do not match"
-      );
+      throw CreateError.BadRequest("Mật khẩu và mật khẩu xác nhận không khớp");
     }
 
     // hash and update new password
@@ -245,7 +234,7 @@ const recoveryPassword = async (req, res, next) => {
     await foundUser.save();
 
     return res.status(200).json({
-      message: "Password reset successfully!",
+      message: "Khôi phục mật khẩu thành công!",
       success: true,
     });
   } catch (error) {
@@ -448,7 +437,7 @@ export {
   googleLogin,
   logout,
   forgotPassword,
-  recoveryPassword,
+  resetPassword,
   changePassword,
   updateUserDetail,
   refreshToken,
