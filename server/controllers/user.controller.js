@@ -19,28 +19,35 @@ import {
 
 const signUp = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { email, fullname } = req.body;
 
-    if (!name || !email || !password)
-      throw CreateError.BadRequest("Please fill in all fields!");
+    if (!email) throw CreateError.BadRequest("Vui lòng nhập email!");
 
     // check user exist
     const isExistingUser = await getUserByEmail(email);
-    if (isExistingUser)
-      throw CreateError.Conflict("Email is already registerd");
+    if (isExistingUser) {
+      if (isExistingUser.isVerified)
+        throw CreateError.Conflict("Email đã được sử dụng!");
+      return res.status(401).json({
+        message:
+          "Email đã được đăng ký nhưng chưa xác minh! Vui lòng kiểm tra email để xác minh tài khoản.",
+        user: filterFieldUser(isExistingUser),
+        success: false,
+      });
+    }
 
-    // hashPassword
-    const hashedPassword = await hashPassword(password);
+    if (!fullname) throw CreateError.BadRequest("Vui lòng nhập họ tên!");
 
     // create new user in db
-    const newUser = await createNewUser(name, email, hashedPassword);
+    const user = await createNewUser(fullname, email, "default");
 
     // send verification email
-    await sendVerificationEmailtoUser(newUser);
+    await sendVerificationEmailtoUser(user);
 
     return res.status(201).json({
-      message: "Sign up sucessfully",
-      newUser: filterFieldUser(newUser),
+      message:
+        "Đăng ký thành công! Vui lòng kiểm tra email để xác minh tài khoản.",
+      user: filterFieldUser(user),
       success: true,
     });
   } catch (error) {
@@ -50,27 +57,37 @@ const signUp = async (req, res, next) => {
 
 const verifyAccount = async (req, res, next) => {
   try {
-    const verificationToken = req.params.token;
+    const { verificationToken, password, confirmPassword } = req.body;
+    if (!verificationToken)
+      throw CreateError.BadRequest("Vui lòng cung cấp mã xác minh");
 
     const foundUser = await getUnverifiedUser(verificationToken);
 
-    if (!foundUser) throw CreateError.NotFound("User does not exist");
+    if (!foundUser) throw CreateError.NotFound("Mã xác minh không hợp lệ");
 
     if (foundUser.verificationTokenExpireAt < new Date()) {
       // resend verification email
       await sendVerificationEmailtoUser(foundUser);
       throw CreateError.BadRequest(
-        "Link expired! We sent new verification email to you"
+        "Mã xác minh đã hết hạn! Chúng tôi đã gửi một email xác minh mới cho bạn."
       );
     }
 
+    if (!password || !confirmPassword)
+      throw CreateError.BadRequest(
+        "Vui lòng nhập mật khẩu và xác nhận mật khẩu"
+      );
+    if (password !== confirmPassword)
+      throw CreateError.BadRequest("Mật khẩu và xác nhận mật khẩu không khớp");
+    const hashedPassword = await hashPassword(password);
+    foundUser.password = hashedPassword;
     foundUser.isVerified = true;
     foundUser.verificationToken = undefined;
     foundUser.verificationTokenExpireAt = undefined;
     await foundUser.save();
 
     return res.status(200).json({
-      message: "Verify account successfully!",
+      message: "Xác thực tài khoản thành công!",
       success: true,
     });
   } catch (error) {
@@ -82,19 +99,30 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password)
-      throw CreateError.BadRequest("Email or password is missing");
+    if (!email )
+      throw CreateError.BadRequest("Vui lòng điền email!");
 
     const foundUser = await getUserByEmail(email);
 
-    if (!foundUser) throw CreateError.NotFound("User does not exist");
+    if (!foundUser) throw CreateError.NotFound("Tài khoản không tồn tại");
+    if (!foundUser.isVerified) {
+      return res.status(401).json({
+        message:
+          "Tài khoản chưa được xác minh! Vui lòng kiểm tra email để xác minh tài khoản.",
+        user: filterFieldUser(foundUser),
+        success: false,
+      });
+    }
+
+    if (!password)
+      throw CreateError.BadRequest("Vui lòng điền mật khẩu!");
 
     const isCorrectPassword = await checkPassword(password, foundUser.password);
     if (!isCorrectPassword)
-      throw CreateError.Unauthorized("Password is not correct");
+      throw CreateError.Unauthorized("Mật khẩu không đúng");
 
     if (!foundUser.isVerified)
-      throw CreateError.Forbidden("Your account is not verified yet");
+      throw CreateError.Forbidden("Vui lòng xác minh tài khoản của bạn!");
 
     // generate token and set cookie
     const accessToken = await generateAccessTokenAndSetCookie(
@@ -114,7 +142,8 @@ const login = async (req, res, next) => {
     await foundUser.save();
 
     return res.status(200).json({
-      message: "Login sucessfully!",
+      message: "Đăng nhập thành công!",
+      accessToken,
       success: true,
       user: filterFieldUser(foundUser),
     });
@@ -298,8 +327,7 @@ const changePassword = async (req, res, next) => {
 const refreshToken = async (req, res, next) => {
   try {
     const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken)
-      throw CreateError.BadRequest("Refresh token is missing");
+    if (!refreshToken) throw CreateError.BadRequest("Refresh token is missing");
 
     // Verify refresh token
     const payload = await verifyRefreshToken(refreshToken);
@@ -312,7 +340,7 @@ const refreshToken = async (req, res, next) => {
       refreshTokenExpireAt: { $gt: new Date() },
     });
 
-    if (!user) 
+    if (!user)
       throw CreateError.Unauthorized("Invalid or expired refresh token");
 
     // generate new token
@@ -339,6 +367,26 @@ const refreshToken = async (req, res, next) => {
   }
 };
 
+const sendVerificationEmail = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email) throw CreateError.BadRequest("Vui lòng cung cấp email!");
+
+    const foundUser = await getUserByEmail(email);
+    if (!foundUser) throw CreateError.NotFound("Tài khoản không tồn tại");
+    if (foundUser.isVerified)
+      throw CreateError.BadRequest("Tài khoản đã được xác minh!");
+    await sendVerificationEmailtoUser(foundUser);
+
+    return res.status(200).json({
+      message: `Email xác nhận đã gửi đến ${email}`,
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   signUp,
   verifyAccount,
@@ -349,4 +397,5 @@ export {
   changePassword,
   updateUserDetail,
   refreshToken,
+  sendVerificationEmail,
 };

@@ -8,14 +8,12 @@ import Cart from "./pages/Cart";
 import CartWithItems from "./components/CartWithItems";
 import MyAccount from "./pages/MyAccount";
 import Home from "./pages/Landing/Home";
-<<<<<<< HEAD
 import Address from "./pages/Addresses";
-
-=======
 import QuickViewDialog from "./components/QuickViewDialog";
 import ProductPage from "./pages/Products/ProductPage";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
+import Verification from "./pages/Auth/Verification";
 function App() {
   const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } = useContext(MyContext);
 
@@ -29,6 +27,7 @@ function App() {
         <Routes>
           <Route path={"/login"} element={<Login />} />
           <Route path={"/sign-up"} element={<Signup />} />
+          <Route path={"/verify-account"} element={<Verification />} />
           <Route path="/" element={<Layouts />}>
             <Route path="cart" element={<Cart />} />
             <Route path="my-account" element={<MyAccount />} />

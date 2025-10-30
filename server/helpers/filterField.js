@@ -6,7 +6,8 @@ const filterFieldUser = (user) => {
         avatar: user.avatar,
         email: user.email,
         purchasePoint: user.purchasePoint,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
+        isVerified: user.isVerified,
     }
 }
 

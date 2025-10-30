@@ -29,6 +29,7 @@ const createNewUser = async (name, email, password) => {
 
 const getUnverifiedUser = async (verificationToken) => {
   return await UserModel.findOne({
+    isVerified: false,
     verificationToken,
   });
 };
@@ -36,8 +37,6 @@ const getUnverifiedUser = async (verificationToken) => {
 const sendVerificationEmailtoUser = async (user) => {
   // send varification email
   const verificationToken = await sendVerificationEmail(user.name, user.email);
-
-  // update verification token in db
   const verificationTokenExpireAt = new Date(Date.now() + 1000 * 60 * 60 * 24);
   user.verificationToken = verificationToken;
   user.verificationTokenExpireAt = verificationTokenExpireAt;

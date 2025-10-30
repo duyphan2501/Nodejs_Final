@@ -17,18 +17,17 @@ const sendEmail = async (email, subject, html) => {
 };
 
 const sendVerificationEmail = async (name, email) => {
-  const token = crypto.randomBytes(32).toString("hex");
-  const verificationLink = `${process.env.BACKEND_URL}/api/v1/user/verify/${token}`;
-  const { subject, html } = verificationEmail(name, verificationLink);
+  const token = crypto.randomBytes(12).toString("hex");
+  const { subject, html } = verificationEmail(name, token);
   await sendEmail(email, subject, html);
   return token;
 };
 
 const sendForgotPasswordEmail = async (name, email) => {
   const otpCode = Math.floor(Math.random() * 900000 + 100000);
-  const {subject, html} = otpForgotPasswordEmail(name, otpCode, 5)
-  await sendEmail(email, subject, html)
-  return otpCode
+  const { subject, html } = otpForgotPasswordEmail(name, otpCode, 5);
+  await sendEmail(email, subject, html);
+  return otpCode;
 };
 
 export { sendEmail, sendVerificationEmail, sendForgotPasswordEmail };

@@ -9,6 +9,8 @@ const ContextProvider = ({ children }) => {
   const [persist, setPersist] = useState(
     JSON.parse(localStorage.getItem("persist")) || false
   );
+  const [verifyUser, setVerifyUser] = useState(null);
+  const [isOpenAddressForm, setIsOpenAddressForm] = useState(false);  
   const values = {
     isOpenAccountMenu,
     setIsOpenAccountMenu,
@@ -18,6 +20,10 @@ const ContextProvider = ({ children }) => {
     setCartItems,
     persist,
     setPersist,
+    isOpenAddressForm,
+    setIsOpenAddressForm,
+    verifyUser,
+    setVerifyUser,
   };
   return <MyContext.Provider value={values}>{children}</MyContext.Provider>;
 };
