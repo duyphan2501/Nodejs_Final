@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import connectToDB from "./database/connectMongoDB.js";
 import cors from "cors";
+import categoryRouter from "./routes/category.route.js";
 dotenv.config({ quiet: true });
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(
 
 //routes
 app.use("/api/user", userRouter);
+app.use("/api/category", categoryRouter);
 
 app.use(errorHandeler);
 

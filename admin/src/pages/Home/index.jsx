@@ -26,6 +26,7 @@ import {
 } from "recharts";
 import AdvanceOverallDashboard from "../../components/AdvanceOverallDashboard";
 import AdvanceProductDashboard from "../../components/AdvanceProductDashboard";
+import useUserStore from "../../../stores/useUserStore";
 
 function Home() {
   return (
@@ -116,6 +117,7 @@ function WelcomeBoard({
   growDifference = "-1%",
   growRise = false,
 }) {
+  const user = useUserStore((s) => s.user);
   return (
     <Card sx={{ width: "100%" }}>
       <Grid padding={2} borderRadius={40} container>
@@ -124,7 +126,7 @@ function WelcomeBoard({
           sx={{ display: "flex", flexDirection: "column" }}
         >
           <Typography variant="h6" fontWeight={500}>
-            Welcome back, Admin
+            Chào mừng, {user.name}
           </Typography>
           <Typography variant="body2">{description}</Typography>
 

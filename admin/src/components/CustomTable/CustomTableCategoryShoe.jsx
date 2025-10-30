@@ -1,10 +1,22 @@
-import { use, useState } from "react";
+import { use, useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import CustomModal from "../CustomModal";
 import { Pagination } from "@mui/material";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import useCategoryStore from "../../../stores/useCategoryStore";
+import { toast } from "react-toastify";
 
-export default function CustomTableCategoryShoe() {
+export default function CustomTableCategoryShoe({
+  selectedItem,
+  setSelectedItem,
+}) {
+  const { searchTerm, shoeCategories } = useCategoryStore();
+
+  const filteredData = shoeCategories.filter((item) => {
+    return item.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   const columns = [
     { id: "checkbox", label: "Chọn", minWidth: 20 },
     { id: "image", label: "Hình Ảnh", minWidth: 80 },
@@ -12,44 +24,6 @@ export default function CustomTableCategoryShoe() {
     { id: "edit", label: "Sửa", minWidth: 20 },
   ];
 
-  const [dataCategory, setDataCategory] = useState([
-    {
-      id: 1,
-      image: "https://m.media-amazon.com/images/I/61BeLM4rxXL._SL1500_.jpg",
-      name: "Nike Air Force 1 Collection",
-    },
-    {
-      id: 2,
-      image:
-        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/0e92f6fd-539b-4d0f-9fda-3e18d305d31b/air-jordan-1-mid-shoes-86f1ZW.png",
-      name: "Air Jordan 1 Series",
-    },
-    {
-      id: 3,
-      image:
-        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/78b74ac1-efb8-48a7-8a55-97acb2a33b6e/air-max-270-shoes-KkLcGR.png",
-      name: "Nike Air Max Collection",
-    },
-    {
-      id: 4,
-      image:
-        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1f96b6bb-b94e-4e1c-a6c5-7b06e707c90f/pegasus-41-road-running-shoes-VN7B8m.png",
-      name: "Nike Pegasus Running Shoes",
-    },
-    {
-      id: 5,
-      image:
-        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1f96b6bb-b94e-4e1c-a6c5-7b06e707c90f/pegasus-41-road-running-shoes-VN7B8m.png",
-      name: "Nike Chunky",
-    },
-    {
-      id: 6,
-      image:
-        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1f96b6bb-b94e-4e1c-a6c5-7b06e707c90f/pegasus-41-road-running-shoes-VN7B8m.png",
-      name: "Nike Yankee",
-    },
-  ]);
-  const [selectedAll, setSelectedAll] = useState([]);
   const [checkboxAll, setCheckboxAll] = useState(false);
   const [editModal, setEditModal] = useState(null);
   const [page, setPage] = useState(1);
@@ -57,7 +31,7 @@ export default function CustomTableCategoryShoe() {
 
   const startIndex = (page - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
-  const currentRow = dataCategory.slice(startIndex, endIndex);
+  const currentRow = filteredData.slice(startIndex, endIndex);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -65,19 +39,24 @@ export default function CustomTableCategoryShoe() {
 
   const handleSelectAll = () => {
     if (checkboxAll) {
-      setSelectedAll([]);
+      setSelectedItem((prev) =>
+        prev.filter((id) => !filteredData.some((el) => el._id === id))
+      );
       setCheckboxAll(false);
     } else {
       setCheckboxAll(true);
-      setSelectedAll(dataCategory.map((category) => category.id));
+      setSelectedItem((prev) => [
+        ...prev,
+        ...filteredData.map((category) => category._id),
+      ]);
     }
   };
 
   const handleChangeSelect = (id) => {
-    if (selectedAll.includes(id)) {
-      setSelectedAll((prev) => prev.filter((c) => c !== id));
+    if (selectedItem.includes(id)) {
+      setSelectedItem((prev) => prev.filter((c) => c !== id));
     } else {
-      setSelectedAll((prev) => [...prev, id]);
+      setSelectedItem((prev) => [...prev, id]);
     }
   };
 
@@ -114,49 +93,57 @@ export default function CustomTableCategoryShoe() {
         </thead>
 
         <tbody>
-          {currentRow.map((row) => (
-            <tr
-              key={row.id}
-              className="border-b border-gray-100 hover:bg-gray-50"
-            >
-              {columns.map((col) => (
-                <td key={col.id} className="p-2 text-sm">
-                  {col.id === "checkbox" ? (
-                    <input
-                      type="checkbox"
-                      checked={selectedAll.includes(row.id)}
-                      onChange={() => handleChangeSelect(row.id)}
-                    />
-                  ) : col.id === "image" ? (
-                    <img
-                      src={row.image}
-                      alt={row.name}
-                      width={60}
-                      className="rounded-md"
-                    />
-                  ) : col.id === "name" ? (
-                    row.name
-                  ) : col.id === "edit" ? (
-                    <Button
-                      sx={{ color: "#FFD6A5" }}
-                      size="small"
-                      onClick={() =>
-                        setEditModal({ name: row.name, id: row.id })
-                      }
-                    >
-                      <EditIcon />
-                    </Button>
-                  ) : null}
-                </td>
-              ))}
+          {currentRow.length > 0 ? (
+            currentRow.map((row) => (
+              <tr
+                key={row._id}
+                className="border-b border-gray-100 hover:bg-gray-50"
+              >
+                {columns.map((col) => (
+                  <td key={col.id} className="p-2 text-sm">
+                    {col.id === "checkbox" ? (
+                      <input
+                        type="checkbox"
+                        checked={selectedItem.includes(row._id)}
+                        onChange={() => handleChangeSelect(row._id)}
+                      />
+                    ) : col.id === "image" ? (
+                      <img
+                        src={row.image}
+                        alt={row.name}
+                        width={60}
+                        className="rounded-md"
+                      />
+                    ) : col.id === "name" ? (
+                      row.name
+                    ) : col.id === "edit" ? (
+                      <Button
+                        sx={{ color: "#FFD6A5" }}
+                        size="small"
+                        onClick={() =>
+                          setEditModal({ name: row.name, id: row._id })
+                        }
+                      >
+                        <EditIcon />
+                      </Button>
+                    ) : null}
+                  </td>
+                ))}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={columns.length} className="text-center p-2">
+                Không có dữ liệu
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
 
       <div className="flex justify-content mt-4 mb-2">
         <Pagination
-          count={Math.ceil(dataCategory.length / rowsPerPage)} // tổng số trang
+          count={Math.ceil(filteredData.length / rowsPerPage)} // tổng số trang
           page={page} // trang hiện tại
           onChange={handleChangePage} // sự kiện đổi trang
           color="primary"
