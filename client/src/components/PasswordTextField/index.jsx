@@ -7,7 +7,7 @@ import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 
-const PasswordTextField = ({size, value, handleChange}) => {
+const PasswordTextField = ({size, value, handleChange, label="Password"}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -22,7 +22,7 @@ const PasswordTextField = ({size, value, handleChange}) => {
 
   return (
     <FormControl  variant="outlined" size={size}>
-      <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+      <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
       <OutlinedInput
         value={value}
         onChange={e => handleChange(e.target.value)}
@@ -43,7 +43,7 @@ const PasswordTextField = ({size, value, handleChange}) => {
             </IconButton>
           </InputAdornment>
         }
-        label="Password"
+        label={label}
       />
     </FormControl>
   );
