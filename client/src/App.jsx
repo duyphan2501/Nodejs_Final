@@ -15,7 +15,8 @@ import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Verification from "./pages/Auth/Verification";
 function App() {
-  const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } = useContext(MyContext);
+  const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } =
+    useContext(MyContext);
 
   const handleAccountMenuClose = () => {
     setIsOpenAccountMenu(false);

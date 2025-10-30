@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import { ToastContainer } from "react-toastify";
 import Products from "./pages/Products";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
@@ -10,6 +11,7 @@ import Category from "./pages/Category";
 import Users from "./pages/Users";
 import Coupons from "./pages/Coupon";
 import Themes from "./pages/Themes";
+import Login from "./pages/Login";
 
 const theme = createTheme({
   palette: {
@@ -39,8 +41,14 @@ function App() {
               <Route path="/admin/users" element={<Users />}></Route>
               <Route path="/admin/coupon" element={<Coupons />}></Route>
               <Route path="/admin/themes" element={<Themes />}></Route>
+              <Route path="/admin/login" element={<Login />}></Route>
             </Routes>
           </Router>
+          <ToastContainer
+            autoClose={3000}
+            pauseOnHover={true}
+            position="top-center"
+          />
         </ThemeProvider>
       </div>
     </>
