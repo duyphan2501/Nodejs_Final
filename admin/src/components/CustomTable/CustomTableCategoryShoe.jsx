@@ -5,7 +5,7 @@ import CustomModal from "../CustomModal";
 import { Pagination } from "@mui/material";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useCategoryStore from "../../../stores/useCategoryStore";
-import { toast } from "react-toastify";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function CustomTableCategoryShoe({
   selectedItem,
@@ -26,6 +26,7 @@ export default function CustomTableCategoryShoe({
 
   const [checkboxAll, setCheckboxAll] = useState(false);
   const [editModal, setEditModal] = useState(null);
+  const [addCategoryModal, setAddCategoryModal] = useState(false);
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;
 
@@ -67,7 +68,20 @@ export default function CustomTableCategoryShoe({
         controlEditModal={{ editModal, setEditModal }}
       />
 
-      <h1 className="text-2xl font-semibold mb-3">Giày</h1>
+      <CustomModal
+        type={"category-add"}
+        controlAddCategoryModal={{ addCategoryModal, setAddCategoryModal }}
+      />
+
+      <div className="w-full flex justify-between items-center mb-3">
+        <h1 className="text-2xl font-semibold ">Giày</h1>
+        <Button
+          onClick={() => setAddCategoryModal(true)}
+          sx={{ borderRadius: 100, background: "#4CAF50" }}
+        >
+          <AddIcon sx={{ color: "#ffff" }} />
+        </Button>
+      </div>
 
       <table className="w-full border-collapse">
         <thead>
@@ -109,7 +123,7 @@ export default function CustomTableCategoryShoe({
                       />
                     ) : col.id === "image" ? (
                       <img
-                        src={row.image}
+                        src={`${import.meta.env.VITE_BACKEND_URL}/${row.image}`}
                         alt={row.name}
                         width={60}
                         className="rounded-md"

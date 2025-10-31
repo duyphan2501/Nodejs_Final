@@ -32,9 +32,9 @@ const Category = () => {
   const fetchCategories = async () => {
     try {
       const [shoeRes, sandalRes, backpackRes] = await Promise.all([
-        axiosPrivate.get("/category/shoe"),
-        axiosPrivate.get("/category/sandal"),
-        axiosPrivate.get("/category/backpack"),
+        axiosPrivate.get("/api/category/shoe"),
+        axiosPrivate.get("/api/category/sandal"),
+        axiosPrivate.get("/api/category/backpack"),
       ]);
 
       setShoeCategories(shoeRes.data.categories);
@@ -58,7 +58,11 @@ const Category = () => {
         data: { listId: selectedItem },
       });
 
-      toast.success(res.data.message);
+      if (res.data.success) {
+        toast.success(res.data.message);
+        setSelectedItem([]);
+      }
+
       await fetchCategories();
     } catch (error) {
       console.log(error);
@@ -67,8 +71,6 @@ const Category = () => {
       setConfirmDelete(false);
     }
   };
-
-  console.log(selectedItem);
 
   return (
     <>

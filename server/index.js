@@ -6,9 +6,13 @@ import userRouter from "./routes/user.route.js";
 import connectToDB from "./database/connectMongoDB.js";
 import cors from "cors";
 import categoryRouter from "./routes/category.route.js";
+import path from "path";
+
 dotenv.config({ quiet: true });
 
 const app = express();
+
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

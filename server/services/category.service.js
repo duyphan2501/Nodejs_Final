@@ -27,4 +27,41 @@ const deleteManyCategoryByID = async (_id) => {
   }
 };
 
-export { getCategorydByName, getChildByObjectID, deleteManyCategoryByID };
+const editNameCategoryByID = async (_id, newName) => {
+  try {
+    const objectIds = new mongoose.Types.ObjectId(_id);
+
+    const result = await CategoryModel.updateOne(
+      { _id: objectIds },
+      { $set: { name: newName } }
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const addOneCategory = async (name, image, parentId) => {
+  try {
+    const parentObjectId = new mongoose.Types.ObjectId(parentId);
+
+    const result = await CategoryModel.create({
+      name,
+      image,
+      parentId: parentObjectId,
+    });
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export {
+  getCategorydByName,
+  getChildByObjectID,
+  deleteManyCategoryByID,
+  editNameCategoryByID,
+  addOneCategory,
+};
