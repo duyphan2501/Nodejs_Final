@@ -4,6 +4,7 @@ import MainFlyout from "./MainFlyout";
 import CollectionsFlyout from "./CollectionsFlyout";
 import CartIcon from "./CartIcon";
 import { MyContext } from "../../../Context/MyContext";
+import useUserStore from "../../../store/useUserStore";
 
 const Navbar = ({
   menuData,
@@ -17,6 +18,7 @@ const Navbar = ({
   const [flyoutPosition, setFlyoutPosition] = useState({ x: 0, y: 0 });
   const { isOpenAccountMenu, setIsOpenAccountMenu } = useContext(MyContext);
   const flyoutTimeoutRef = useRef(null);
+  const user = useUserStore((state) => state.user);
 
   useEffect(() => {
     return () => {
@@ -94,9 +96,11 @@ const Navbar = ({
           {customLogo ? (
             customLogo
           ) : (
-            <h1 className="text-2xl lg:text-3xl font-bold text-black tracking-tight">
-              {logoText}
-            </h1>
+            <a href="/">
+              <h1 className="text-2xl lg:text-3xl font-bold text-black tracking-tight">
+                {logoText}
+              </h1>
+            </a>
           )}
         </div>
 
@@ -123,9 +127,9 @@ const Navbar = ({
         </nav>
 
         {/* Right Icons */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 md:space-x-3 ">
           {/* Search */}
-          <button className="p-2 hover:bg-gray-100 rounded">
+          <button className="p-2 hover:bg-gray-100 rounded cursor-pointer">
             <svg
               className="w-5 h-5"
               fill="none"
@@ -143,46 +147,39 @@ const Navbar = ({
           </button>
 
           {/* Account Menu Button */}
-          <button
-            className={`p-2 hover:bg-gray-100 rounded transition-colors ${
-              isOpenAccountMenu ? "bg-gray-100" : ""
-            }`}
-            onClick={handleAccountMenuToggle}
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          {!user ? (
+            <>
+              <a
+                className="font-semibold cursor-pointer hover:bg-gray-100 p-2 rounded active:bg-gray-200 transition"
+                href="/login"
+              >
+                Đăng nhập
+              </a>
+            </>
+          ) : (
+            <button
+              className={`p-2 hover:bg-gray-100 rounded transition-colors cursor-pointer ${
+                isOpenAccountMenu ? "bg-gray-100" : ""
+              }`}
+              onClick={handleAccountMenuToggle}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-              />
-            </svg>
-          </button>
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+            </button>
+          )}
 
           {/* Shopping Cart */}
-          {/* <button className="p-2 hover:bg-gray-100 rounded relative">
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-              />
-            </svg>
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-              2
-            </span>
-          </button> */}
           <CartIcon />
         </div>
       </div>

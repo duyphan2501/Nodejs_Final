@@ -11,6 +11,7 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isLoading.forgot) return;
     const success = await sendForgotPasswordEmail(email);
     setIsSuccess(success);
   };

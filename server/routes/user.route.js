@@ -25,7 +25,7 @@ userRouter.post("/forgot-password", forgotPassword);
 userRouter.put("/reset-password", resetPassword);
 userRouter.put("/change-password", checkAuth, changePassword);
 userRouter.put("/profile/update", checkAuth, updateUserDetail);
-userRouter.put("/refresh-token", checkAuth, refreshToken);
+userRouter.put("/refresh-token", refreshToken);
 userRouter.put("/resend-verification-email", sendVerificationEmail);
 
 export default userRouter;

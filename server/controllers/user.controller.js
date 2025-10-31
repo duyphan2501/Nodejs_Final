@@ -111,6 +111,7 @@ const login = async (req, res, next) => {
           "Tài khoản chưa được xác minh! Vui lòng kiểm tra email để xác minh tài khoản.",
         user: filterFieldUser(foundUser),
         success: false,
+        notVerified: true,
       });
     }
 
@@ -142,7 +143,7 @@ const login = async (req, res, next) => {
       accessToken,
       success: true,
       user: filterFieldUser(foundUser),
-      accessToken: accessToken,
+      isVerified: true
     });
   } catch (error) {
     next(error);
@@ -152,6 +153,7 @@ const login = async (req, res, next) => {
 const logout = async (req, res) => {
   try {
     const userId = req.user.userId;
+    // clear cookie
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -159,18 +161,22 @@ const logout = async (req, res) => {
     };
     res.clearCookie("accessToken", options);
     res.clearCookie("refreshToken", options);
+
+    // update db
     await UserModel.findByIdAndUpdate(userId, {
       refreshToken: undefined,
       refreshTokenExpireAt: undefined,
     });
+
     return res.status(200).json({
       message: "Đăng xuất thành công",
       success: true,
     });
   } catch (error) {
-    next(error);
+    next(error)
   }
 };
+
 
 const forgotPassword = async (req, res, next) => {
   try {
@@ -429,6 +435,8 @@ const googleLogin = async (req, res, next) => {
     });
   }
 };
+
+
 
 export {
   signUp,

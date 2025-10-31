@@ -21,7 +21,6 @@ const BrandSlider = () => {
 
       <Swiper
         modules={[Autoplay]}
-        loop={true}
         autoplay={{ delay: 2000, disableOnInteraction: false }}
         spaceBetween={20}
         slidesPerView={2}

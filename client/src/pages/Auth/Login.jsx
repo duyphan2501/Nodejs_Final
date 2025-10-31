@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   const { login, isLoading } = useUserStore();
-  const { setVerifyUser } = useContext(MyContext);
+  const { setVerifyUser, setPersist } = useContext(MyContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,6 +37,12 @@ const Login = () => {
         navigate("/verify-account");
       }
     }
+  };
+
+  const onPersistChange = (e) => {
+    const checked = e.target.checked;
+    setPersist(checked);
+    localStorage.setItem("persist", JSON.stringify(checked));
   };
 
   return (
@@ -63,7 +69,7 @@ const Login = () => {
         </div>
         <div className=" flex items-center justify-between mt-3">
           <FormControlLabel
-            control={<Checkbox defaultChecked />}
+            control={<Checkbox defaultChecked onChange={onPersistChange} />}
             label="Ghi nhớ đăng nhập"
             className="remember-me"
           />
