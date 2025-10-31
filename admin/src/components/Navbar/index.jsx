@@ -32,6 +32,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import BiLoader from "../BiLoader";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { useContext } from "react";
+import { MyContext } from "../../context/MyContext";
 
 const Navbar = () => {
   const [anchorNavbar, setAnchorNavbar] = useState(false);
@@ -46,24 +48,26 @@ const Navbar = () => {
 
   const axiosPrivate = useAxiosPrivate();
 
-  useEffect(() => {
-    const init = async () => {
-      setLoading(true);
-      try {
-        const res = await axiosPrivate.put("/user/refresh-token");
-        if (res.data.success) {
-          setUser(res.data.user, res.data.refreshToken);
-        }
-      } catch (error) {
-        toast.error("Hết phiên đăng nhập. Vui lòng đăng nhập lại!");
-        navigate("/admin/login");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { persist } = useContext(MyContext);
 
-    init();
-  }, []);
+  // useEffect(() => {
+  //   const init = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const res = await axiosPrivate.put("/user/refresh-token");
+  //       if (res.data.success) {
+  //         setUser(res.data.user, res.data.accessToken);
+  //       }
+  //     } catch (error) {
+  //       toast.error("Hết phiên đăng nhập. Vui lòng đăng nhập lại!" + error);
+  //       navigate("/admin/login");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   init();
+  // }, []);
 
   const user = useUserStore.getState().user;
 

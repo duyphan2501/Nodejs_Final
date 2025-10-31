@@ -8,10 +8,67 @@ import BackpackIcon from "@mui/icons-material/Backpack";
 import TableControlCategory from "../../components/TableControl/TableControlCategory";
 import CustomTable from "../../components/CustomTable";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import useCategoryStore from "../../../stores/useCategoryStore";
+import { toast } from "react-toastify";
 
 const Category = () => {
   const [confirmDelete, setConfirmDelete] = useState(false);
+
+  //State của các category được chọn để xóa
+  const [selectedItem, setSelectedItem] = useState([]);
+
+  const axiosPrivate = useAxiosPrivate();
+  const {
+    setShoeCategories,
+    setSandalCategories,
+    setBackpackCategories,
+    shoeCategories,
+    sandalCategories,
+    backPackCategories,
+  } = useCategoryStore();
+
+  const fetchCategories = async () => {
+    try {
+      const [shoeRes, sandalRes, backpackRes] = await Promise.all([
+        axiosPrivate.get("/category/shoe"),
+        axiosPrivate.get("/category/sandal"),
+        axiosPrivate.get("/category/backpack"),
+      ]);
+
+      setShoeCategories(shoeRes.data.categories);
+      setSandalCategories(sandalRes.data.categories);
+      setBackpackCategories(backpackRes.data.categories);
+    } catch (error) {
+      console.log(error);
+      toast.error("Tải dữ liệu danh mục thất bại");
+    }
+  };
+
+  // Load tất cả dữ liệu category khi component mount
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  //Sự kiện nếu xác nhận xóa
+  const handleConfirmDelete = async () => {
+    try {
+      const res = await axiosPrivate.delete("/category/delete", {
+        data: { listId: selectedItem },
+      });
+
+      toast.success(res.data.message);
+      await fetchCategories();
+    } catch (error) {
+      console.log(error);
+      toast.error("Xóa không thành công");
+    } finally {
+      setConfirmDelete(false);
+    }
+  };
+
+  console.log(selectedItem);
 
   return (
     <>
@@ -26,8 +83,8 @@ const Category = () => {
         <ConfirmDialog
           open={confirmDelete}
           onClose={() => setConfirmDelete(false)}
-          onConfirm={() => console.log("Xóa đơn hàng")}
-          content={"Bạn có muốn xóa đơn hàng này?"}
+          onConfirm={() => handleConfirmDelete()}
+          content={`Bạn có muốn xóa ${selectedItem.length} đơn hàng này?`}
           action={"Xóa"}
         />
         <div className="mt-3">
@@ -41,32 +98,47 @@ const Category = () => {
 
         <div className="mt-3 grid md:grid-cols-3 gap-3">
           <DashboardCardProduct
-            CardHeader="100"
+            CardHeader={shoeCategories.length}
             CardDesc="Danh Mục Con Giày"
             icon={ShoesIcon}
             BackgroundColor={"#000B58"}
           />
           <DashboardCardProduct
-            CardHeader="200"
+            CardHeader={sandalCategories.length}
             CardDesc="Danh Mục Con Dép"
             icon={SandalsIcon}
             BackgroundColor={"#006A67"}
           />
           <DashboardCardProduct
-            CardHeader="50"
+            CardHeader={backPackCategories.length}
             CardDesc="Danh Mục Con Ba-lô"
             icon={BackpackIcon}
           />
         </div>
 
         <div className="mt-3">
-          <TableControlCategory setConfirmDelete={setConfirmDelete} />
+          <TableControlCategory
+            setConfirmDelete={setConfirmDelete}
+            selectedItem={selectedItem}
+          />
         </div>
 
         <div className="mt-3 grid md:grid-cols-3 gap-3">
-          <CustomTable type={"category-shoe"} />
-          <CustomTable type={"category-sandal"} />
-          <CustomTable type={"category-bag"} />
+          <CustomTable
+            type={"category-shoe"}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+          />
+          <CustomTable
+            type={"category-sandal"}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+          />
+          <CustomTable
+            type={"category-bag"}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+          />
         </div>
       </Container>
     </>
