@@ -30,8 +30,8 @@ const Home = () => {
       </section>
       {categories &&
         categories.map((cate) => (
-          <section className="!mt-10 container">
-            <ProductByCategory category={cate} key={cate._id} />
+          <section className="!mt-10 container" key={cate._id}>
+            <ProductByCategory category={cate} />
           </section>
         ))}
       <section className="!mt-10 container">

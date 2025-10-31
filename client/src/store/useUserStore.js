@@ -7,13 +7,13 @@ const useUserStore = create((set) => {
     set({ isLoading: { login: true } });
     try {
       const res = await API.post(`/api/user/login`, user);
-      set({ user: res.data.user, accessToken: res.data.accessToken });
+      set({ user: res.data.user, accessToken: res.data.accessToken, isVerified: true });
       toast.success(res.data.message);
       return { success: true, loginUser: res.data.user };
     } catch (error) {
       if (error.response) {
         const message = error.response.data?.message || message;
-        if (error.response.status === 401) {
+        if (error.response.status === 401 && error.response.data.notVerified) {
           const user = error.response.data?.user;
           toast.info(message || "Please verify your account");
           return { success: false, loginUser: user };
@@ -37,8 +37,6 @@ const useUserStore = create((set) => {
       });
       return { accessToken: res.data.accessToken };
     } catch (error) {
-      console.log(error);
-      toast.error("Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!");
       throw error;
     }
     finally {
@@ -57,7 +55,7 @@ const useUserStore = create((set) => {
       console.log(error);
       if (error.response) {
         const message = error.response.data?.message || message;
-        if (error.response.status === 401) {
+        if (error.response.status === 401 && !error.response.data.isVerified) {
           const user = error.response.data?.user;
           toast.info(message || "Please verify your account");
           return {verifyUser: user, success: false};
@@ -131,9 +129,23 @@ const useUserStore = create((set) => {
     } 
   };
 
+  const logout = async () => {
+    try {
+      const res = await API.delete(`/api/user/logout`);
+      toast.info(res.data.message);
+      set({user: null, accessToken: null})
+      return true;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Failed to logout");
+      return false;
+    } 
+  };
+
   return {
     user: null,
     accessToken: null,
+    isVerified: false,
     isLoading: {login: false, refresh: false, signUp: false, verify: false, resend: false, forgot: false, reset: false},
     login,
     refreshToken,
@@ -142,6 +154,7 @@ const useUserStore = create((set) => {
     sendVerificationEmail,
     sendForgotPasswordEmail,
     resetPassword,
+    logout,
   };
 });
 

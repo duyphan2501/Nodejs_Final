@@ -40,12 +40,10 @@ function App() {
             />
           </Route>
           <Route path="/" element={<Layouts />}>
+            <Route index element={<Home />} />
             <Route path="cart" element={<Cart />} />
             <Route path="my-account" element={<MyAccount />} />
             <Route path="addresses" element={<Address />} />
-          </Route>
-          <Route path="*" element={<Layouts />}>
-            <Route index element={<Home />} />
             <Route path="cart" element={<Cart />} />
             <Route path="products" element={<ProductPage />} />
           </Route>
