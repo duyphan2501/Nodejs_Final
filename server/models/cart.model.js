@@ -3,9 +3,14 @@ import mongoose from "mongoose";
 const cartSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    products: [
+    items: [
       {
-        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+        _id: String,
+        name: String,
+        size: String,
+        price: Number,
+        color: String,
+        image: String,
         quantity: { type: Number, default: 1 },
       },
     ],
@@ -15,4 +20,4 @@ const cartSchema = new mongoose.Schema(
 
 const CartModel = mongoose.model("Cart", cartSchema);
 
-export default CartModel
+export default CartModel;

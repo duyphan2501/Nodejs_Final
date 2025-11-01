@@ -5,8 +5,17 @@ import "swiper/css/scrollbar";
 
 import { Scrollbar } from "swiper/modules";
 import ProductItem from "../ProductItem.jsx";
+import useUserStore from "../../store/useUserStore.js";
+import useCartStore from "../../store/useCartStore.js";
 
 const ProductSlider = ({ products }) => {
+  const user = useUserStore((state) => state.user);
+  const { addToCart } = useCartStore();
+
+  const handleAddToCart = async (item, quantity) => {
+    await addToCart(item, quantity, user?._id)
+  }
+
   return (
     <Swiper
       slidesPerView={4}
@@ -27,7 +36,7 @@ const ProductSlider = ({ products }) => {
       {products &&
         products.map((product) => (
           <SwiperSlide key={product.name}>
-            <ProductItem product={product} />
+            <ProductItem product={product} addCart={(item, quantity) => handleAddToCart(item, quantity)}/>
           </SwiperSlide>
         ))}
     </Swiper>

@@ -3,35 +3,86 @@ import { getDiscountedPrice } from "../../utils/formatMoney.js";
 import { BiCartAdd } from "react-icons/bi";
 import { Heart, ScanEye } from "lucide-react";
 import MyTooltip from "../MyTooltip/index.jsx";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { MyContext } from "../../Context/MyContext.jsx";
+import VariantImageHover from "../VariantImageHover/index.jsx";
+import AttributeMenu from "../AttributeMenu/index.jsx";
 
-const ProductItem = ({ product }) => {
-  const price = product.variants[0].attribute[0].price;
-  const discount = product.variants[0].attribute[0].discount || 0;
-  const { formatedPrice, formatedDiscountedPrice } = getDiscountedPrice(
-    price,
-    discount
-  );
+const ProductItem = ({ product, addCart }) => {
   const { setSelectedProduct } = useContext(MyContext);
+  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  const [selectedAttr, setSelectedAttr] = useState(
+    selectedVariant.attribute[0]
+  );
+
+  useEffect(() => {
+    if (selectedVariant && selectedVariant.attribute.length > 0) {
+      setSelectedAttr(selectedVariant.attribute[0]);
+    }
+  }, [selectedVariant]);
+
+  const { price, discount } = selectedAttr;
+
+  const calculatedPrices = useMemo(() => {
+    const originalPrice = price;
+    const currentDiscount = discount || 0;
+
+    const { formatedPrice, formatedDiscountedPrice } = getDiscountedPrice(
+      originalPrice,
+      currentDiscount
+    );
+
+    const actualDiscountedPrice = originalPrice * (1 - currentDiscount / 100);
+
+    return {
+      formatedPrice,
+      formatedDiscountedPrice,
+      actualDiscountedPrice: Math.round(actualDiscountedPrice / 1000) * 1000,
+    };
+  }, [price, discount]);
+
+  const { formatedPrice, formatedDiscountedPrice, actualDiscountedPrice } =
+    calculatedPrices;
+
+  const handleAddCart = async () => {
+    const item = {
+      _id: selectedVariant._id,
+      name: product.name,
+      size: selectedAttr.size,
+      price: actualDiscountedPrice,
+      color: selectedAttr.color,
+      image: selectedVariant.images[0],
+    };
+    const quantity = 1;
+    await addCart(item, quantity);
+  };
 
   return (
-    <div className="w-full mx-auto group flex flex-col flex-1 h-full relative">
+    <div className="w-full mx-auto group flex flex-col flex-1 h-full relative ">
       <div className="relative h-[450px] sm:h-[400px] lg:h-[300px] overflow-hidden">
         <img
-          src={product?.variants?.[0]?.images?.[0]}
+          src={selectedVariant.images?.[0]}
           alt={product?.name}
           className="w-full h-full object-cover"
         />
-        {product?.variants?.[0]?.images?.[1] && (
+        {selectedVariant.images?.[1] && (
           <img
-            src={product?.variants?.[0]?.images?.[1]}
+            src={selectedVariant.images?.[1]}
             alt={product?.name}
             className="w-full h-full object-cover absolute opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all z-10 inset-0 duration-200"
           />
         )}
         <div className="bg-primary px-2 absolute top-2 left-2 z-20 title">
           Hàng mới
+        </div>
+      </div>
+      <div className={``}>
+        <div className="">
+          <VariantImageHover
+            variants={product.variants}
+            selected={selectedVariant}
+            setSelected={setSelectedVariant}
+          />
         </div>
       </div>
       <div className="absolute -top-20 right-2 z-10 space-y-2 group-hover:top-2 transition-all duration-200 opacity-0   group-hover:opacity-100">
@@ -54,27 +105,37 @@ const ProductItem = ({ product }) => {
           <p className="line-clamp-1 font-semibold ">{product?.name}</p>
           <p className="text-sm text-gray-600">{product?.category}</p>
           <p className="text-[13px]">{product?.variants.length} Colours</p>
-          <div>
-            {discount === 0 ? (
-              <p className="font-bold money">{formatedDiscountedPrice}</p>
-            ) : (
-              <>
-                <p className="text-secondary font-bold text-lg money">
-                  {formatedDiscountedPrice}
-                </p>
-                <span className="rounded-lg bg-gray-100 text-sm text-black p-1">
-                  -{discount}%
-                </span>
-                <span className="ml-2 text-[13px] line-through align-text-top money">
-                  {formatedPrice}
-                </span>
-              </>
-            )}
+          <div className="flex justify-between items-center">
+            <div>
+              {discount === 0 ? (
+                <p className="font-bold money">{formatedDiscountedPrice}</p>
+              ) : (
+                <>
+                  <p className="text-secondary font-bold text-lg money">
+                    {formatedDiscountedPrice}
+                  </p>
+                  <span className="rounded-lg bg-gray-100 text-sm text-black p-1">
+                    -{discount}%
+                  </span>
+                  <span className="ml-2 text-[13px] line-through align-text-top money">
+                    {formatedPrice}
+                  </span>
+                </>
+              )}
+            </div>
+            <div className="">
+              <AttributeMenu
+                attributes={selectedVariant.attribute}
+                selectedAttr={selectedAttr}
+                setSelectedAttr={setSelectedAttr}
+              />
+            </div>
           </div>
         </div>
         <Button
           startIcon={<BiCartAdd />}
           className="!bg-black !text-white !rounded-lg hover:!text-primary"
+          onClick={handleAddCart}
         >
           thêm vào giỏ hàng
         </Button>

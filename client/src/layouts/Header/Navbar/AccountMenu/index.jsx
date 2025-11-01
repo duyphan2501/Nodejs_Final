@@ -4,11 +4,13 @@ import { FaRegSmileWink } from "react-icons/fa";
 import { Button } from "@mui/material";
 import { IoMdLogOut } from "react-icons/io";
 import MyTooltip from "../../../../components/MyTooltip";
+import useCartStore from "../../../../store/useCartStore";
 
 const AccountMenu = ({ onClose }) => {
   const menuRef = useRef(null);
   const user = useUserStore((state) => state.user);
   const { logout } = useUserStore();
+  const { clearCartItems } = useCartStore();
   // Static data - no API needed
   const userSections = [
     { id: "information", title: "THÔNG TIN CÁ NHÂN", href: "/my-account" },
@@ -18,6 +20,7 @@ const AccountMenu = ({ onClose }) => {
 
   const handleLogout = async () => {
     await logout();
+    clearCartItems();
     onClose();
   };
 
@@ -77,7 +80,10 @@ const AccountMenu = ({ onClose }) => {
           </button>
 
           {/* Close button */}
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded cursor-pointer">
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded cursor-pointer"
+          >
             <svg
               className="w-5 h-5"
               fill="none"

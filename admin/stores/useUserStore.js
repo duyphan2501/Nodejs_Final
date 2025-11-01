@@ -15,7 +15,7 @@ const useUserStore = create(
 
       const login = async (user) => {
         try {
-          const res = await axiosCustom.post(`/user/login`, user);
+          const res = await axiosCustom.post(`/api/user/login`, user);
           toast.success(res.data.message);
           if (res.data.user.isAdmin) {
             set({
@@ -33,7 +33,7 @@ const useUserStore = create(
 
       const refreshToken = async () => {
         try {
-          const res = await axiosCustom.put(`/user/refresh-token`);
+          const res = await axiosCustom.put(`/api/user/refresh-token`);
           set({
             user: res.data.user,
             accessToken: res.data.accessToken,
@@ -54,7 +54,7 @@ const useUserStore = create(
 
       const logout = async () => {
         try {
-          await axiosCustom.delete("/user/logout", {
+          await axiosCustom.delete("/api/user/logout", {
             data: { user: get().user },
           });
         } catch (error) {

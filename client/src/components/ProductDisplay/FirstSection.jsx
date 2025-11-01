@@ -161,9 +161,9 @@ const sampleProducts = [
   },
 ];
 
-
 const FirstSection = () => {
   const [isBtnNewProduct, setIsBtnNewProduct] = useState(true);
+  
 
   return (
     <div className="">

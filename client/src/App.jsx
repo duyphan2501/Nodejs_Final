@@ -1,11 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import AccountMenu from "./layouts/Header/Navbar/AccountMenu";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MyContext } from "./Context/MyContext";
 import Layouts from "./layouts";
 import Cart from "./pages/Cart";
-import CartWithItems from "./components/CartWithItems";
 import MyAccount from "./pages/MyAccount";
 import Home from "./pages/Landing/Home";
 import Address from "./pages/Addresses";
@@ -17,19 +16,27 @@ import Verification from "./pages/Auth/Verification";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import ResetPassword from "./pages/Auth/ResetPassword";
 import AuthLayout from "./layouts/AuthLayout";
+import useUserStore from "./store/useUserStore";
+import useCartStore from "./store/useCartStore";
 function App() {
   const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } =
     useContext(MyContext);
 
+  const user = useUserStore((state) => state.user);
+  const getCart = useCartStore((state) => state.getCart);
+
+  useEffect(() => {
+    getCart(user?._id);
+  }, [user, getCart]); 
+
   const handleAccountMenuClose = () => {
     setIsOpenAccountMenu(false);
   };
-
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AuthLayout/>}>
+          <Route path="/" element={<AuthLayout />}>
             <Route path={"/login"} element={<Login />} />
             <Route path={"/sign-up"} element={<Signup />} />
             <Route path={"/verify-account"} element={<Verification />} />
@@ -53,6 +60,7 @@ function App() {
         autoClose={3000}
         pauseOnHover={true}
         position="top-center"
+        limit={3}
       />
       {selectedProduct && <QuickViewDialog />}
 
