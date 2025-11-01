@@ -3,13 +3,18 @@ import cookieParser from "cookie-parser";
 import errorHandeler from "./middlewares/errorHandler.middleware.js";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
+import adminRoutes from "./routes/admin.route.js";
 import connectToDB from "./database/connectMongoDB.js";
 import cors from "cors";
 import categoryRouter from "./routes/category.route.js";
+import path from "path";
+
 import cartRouter from "./routes/cart.route.js";
 dotenv.config({ quiet: true });
 
 const app = express();
+
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,7 +30,6 @@ app.use(
 //routes
 app.use("/api/user", userRouter);
 app.use("/api/category", categoryRouter);
-app.use("/api/cart", cartRouter);
 
 app.use(errorHandeler);
 

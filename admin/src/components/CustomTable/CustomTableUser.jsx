@@ -71,12 +71,12 @@ const CustomTableUser = () => {
                 {columns.map((col) => (
                   <TableCell key={col.id}>
                     {col.id === "phone" ? (
-                      row[col.id].slice(0, 3) +
-                      "****" +
-                      row[col.id].slice(7, 10)
-                    ) : col.id === "status" ? (
-                      <CustomDropdown type="user" choose={row[col.id]} />
-                    ) : col.id === "checkbox" ? (
+  row[col.id]
+    ? row[col.id].slice(0, 3) + "****" + row[col.id].slice(7, 10)
+    : "Không có số"
+) : col.id === "status" ? (
+  <CustomDropdown type="user" choose={row[col.id]} />
+) : col.id === "checkbox" ? (
                       <input
                         className="w-20"
                         type="checkbox"
