@@ -1,4 +1,10 @@
-export default function InputDate({ id, label, name, value }) {
+export default function InputDate({
+  id,
+  label,
+  name,
+  value,
+  handleChangeInput,
+}) {
   return (
     <div className="mb-2 w-full">
       <label htmlFor={id} className="text-black uppercase font-semibold">
@@ -10,6 +16,9 @@ export default function InputDate({ id, label, name, value }) {
         className="border p-2 rounded-md w-full"
         name={name}
         value={value}
+        onChange={(e) => {
+          handleChangeInput(name, e.target.value);
+        }}
       />
     </div>
   );

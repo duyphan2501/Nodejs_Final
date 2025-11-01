@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { FormControl, Select, MenuItem } from "@mui/material";
 
-export default function CustomDropdownCoupon({ choose }) {
-  const [status, setStatus] = useState(choose);
-
+export default function CustomDropdownCoupon({ choose, handleChangeInput }) {
   const statusColors = {
     active: "#C8E6C9", // Hiệu lực
     inactive: "#FFCDD2", // Không hiệu lực
@@ -20,13 +18,13 @@ export default function CustomDropdownCoupon({ choose }) {
       }}
     >
       <Select
-        value={status}
-        onChange={(e) => setStatus(e.target.value)}
+        value={choose}
+        onChange={(e) => handleChangeInput("status", e.target.value)}
         sx={{
           height: 36,
           borderRadius: "12px",
           fontWeight: 500,
-          backgroundColor: statusColors[status] || "#F3F3F3",
+          backgroundColor: statusColors[choose] || "#F3F3F3",
           "& .MuiOutlinedInput-notchedOutline": {
             border: "none",
           },

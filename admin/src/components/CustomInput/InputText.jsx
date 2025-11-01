@@ -1,4 +1,10 @@
-export default function InputText({ id, label, name, value }) {
+export default function InputText({
+  id,
+  label,
+  name,
+  value,
+  handleChangeInput,
+}) {
   return (
     <div className="mb-2">
       <label htmlFor={id} className="text-black uppercase font-semibold">
@@ -9,6 +15,7 @@ export default function InputText({ id, label, name, value }) {
         id={id}
         name={name}
         value={value}
+        onChange={(e) => handleChangeInput(name, e.target.value)}
         className="w-full mt-2 border border-gray-300 bg-gray-50 p-2 rounded-md text-gray-500"
       />
     </div>
