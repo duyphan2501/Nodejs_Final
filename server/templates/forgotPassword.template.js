@@ -1,20 +1,33 @@
-const otpForgotPasswordEmail = (name, otp, expireMinutes) => {
+const forgotPasswordEmail = (name, resetLink, expireMinutes) => {
   return {
-    subject: "Password Reset OTP",
+    subject: "Reset Your Password",
     html: `
-      <div style="font-family: Arial, sans-serif; line-height: 1.5; padding: 20px; background-color: #f4f4f4;">
-        <div style="max-width: 600px; margin: auto; background: white; border-radius: 8px; overflow: hidden;">
-          <div style="background: #e74c3c; color: white; padding: 15px; text-align: center; font-size: 20px;">
-            Password Reset Request 🔑
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; background-color: #f4f4f4;">
+        <div style="max-width: 600px; margin: auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+          <div style="background: #007bff; color: white; padding: 16px; text-align: center; font-size: 20px;">
+            Password Reset Request 🔐
           </div>
-          <div style="padding: 20px;">
+
+          <div style="padding: 24px;">
             <p>Hi <b>${name}</b>,</p>
-            <p>You requested to reset your password. Please use the OTP below to continue:</p>
-            <h1 style="letter-spacing: 4px; color:#e74c3c; text-align:center;">${otp}</h1>
-            <p>This OTP will expire in <strong>${expireMinutes} minutes</strong>. Do not share it with anyone.</p>
-            <p>If you did not request a password reset, please ignore this email.</p>
+            <p>We received a request to reset your password. You can reset it by clicking the button below:</p>
+
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${resetLink}" 
+                 style="background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+                Reset Password
+              </a>
+            </div>
+
+            <p>If the button doesn’t work, copy and paste this link into your browser:</p>
+            <p style="word-break: break-all; color: #007bff;">${resetLink}</p>
+
+            <p><strong>Note:</strong> This link will expire in <b>${expireMinutes} minutes</b>. Please complete the process before it expires.</p>
+
+            <p>If you didn't request a password reset, you can safely ignore this email.</p>
           </div>
-          <div style="background: #f0f0f0; padding: 10px; text-align: center; font-size: 12px; color: #555;">
+
+          <div style="background: #f8f8f8; padding: 12px; text-align: center; font-size: 12px; color: #777;">
             &copy; ${new Date().getFullYear()} Our App. All rights reserved.
           </div>
         </div>
@@ -23,4 +36,5 @@ const otpForgotPasswordEmail = (name, otp, expireMinutes) => {
   };
 };
 
-export default otpForgotPasswordEmail;
+
+export default forgotPasswordEmail;

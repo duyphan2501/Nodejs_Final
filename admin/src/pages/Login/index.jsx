@@ -3,7 +3,6 @@ import adminBackground from "../../assets/images/admin_bg.jpg";
 import { MyContext } from "../../context/MyContext";
 import useUserStore from "../../../stores/useUserStore";
 import BiLoader from "../../components/BiLoader";
-
 // Import các component của MUI
 import {
   Container,
@@ -21,8 +20,11 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import GoogleIcon from "@mui/icons-material/Google"; // Thêm icon Google
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import GoogleLoginButton from "../../components/GoogleLoginButton";
 
 const Login = () => {
+  const navigator = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { persist, setPersist } = useContext(MyContext);
@@ -37,7 +39,7 @@ const Login = () => {
     setIsLogin(false);
 
     if (isAdminLogin) {
-      window.location.href = "/admin/home";
+      navigator("/admin/home");
     }
   };
 
@@ -133,15 +135,10 @@ const Login = () => {
             </Button>
 
             {/* Nút Đăng nhập bằng Google */}
-            <Button
-              fullWidth
-              variant="outlined"
-              startIcon={<GoogleIcon />}
-              onClick={handleGoogleLogin}
-              sx={{ mb: 2 }}
-            >
-              Đăng nhập bằng Google
-            </Button>
+
+            <div className="w-full flex justify-center">
+              <GoogleLoginButton />
+            </div>
           </Box>
         </Box>
       </Container>

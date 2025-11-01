@@ -16,31 +16,39 @@ import {
   generateRefreshTokenAndSetCookie,
   verifyRefreshToken,
 } from "../helpers/jwt.helper.js";
+import { verifyToken } from "../helpers/googleAuth.helper.js";
 
 const signUp = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { email, fullname } = req.body;
 
-    if (!name || !email || !password)
-      throw CreateError.BadRequest("Please fill in all fields!");
+    if (!email) throw CreateError.BadRequest("Vui lòng nhập email!");
 
     // check user exist
     const isExistingUser = await getUserByEmail(email);
-    if (isExistingUser)
-      throw CreateError.Conflict("Email is already registerd");
+    if (isExistingUser) {
+      if (isExistingUser.isVerified)
+        throw CreateError.Conflict("Email đã được sử dụng!");
+      return res.status(401).json({
+        message:
+          "Email đã được đăng ký nhưng chưa xác minh! Vui lòng kiểm tra email để xác minh tài khoản.",
+        user: filterFieldUser(isExistingUser),
+        success: false,
+      });
+    }
 
-    // hashPassword
-    const hashedPassword = await hashPassword(password);
+    if (!fullname) throw CreateError.BadRequest("Vui lòng nhập họ tên!");
 
     // create new user in db
-    const newUser = await createNewUser(name, email, hashedPassword);
+    const user = await createNewUser(fullname, email, "default");
 
     // send verification email
-    await sendVerificationEmailtoUser(newUser);
+    await sendVerificationEmailtoUser(user);
 
     return res.status(201).json({
-      message: "Sign up sucessfully",
-      newUser: filterFieldUser(newUser),
+      message:
+        "Đăng ký thành công! Vui lòng kiểm tra email để xác minh tài khoản.",
+      user: filterFieldUser(user),
       success: true,
     });
   } catch (error) {
@@ -50,27 +58,37 @@ const signUp = async (req, res, next) => {
 
 const verifyAccount = async (req, res, next) => {
   try {
-    const verificationToken = req.params.token;
+    const { verificationToken, password, confirmPassword } = req.body;
+    if (!verificationToken)
+      throw CreateError.BadRequest("Vui lòng cung cấp mã xác minh");
 
     const foundUser = await getUnverifiedUser(verificationToken);
 
-    if (!foundUser) throw CreateError.NotFound("User does not exist");
+    if (!foundUser) throw CreateError.NotFound("Mã xác minh không hợp lệ");
 
     if (foundUser.verificationTokenExpireAt < new Date()) {
       // resend verification email
       await sendVerificationEmailtoUser(foundUser);
       throw CreateError.BadRequest(
-        "Link expired! We sent new verification email to you"
+        "Mã xác minh đã hết hạn! Chúng tôi đã gửi một email xác minh mới cho bạn."
       );
     }
 
+    if (!password || !confirmPassword)
+      throw CreateError.BadRequest(
+        "Vui lòng nhập mật khẩu và xác nhận mật khẩu"
+      );
+    if (password !== confirmPassword)
+      throw CreateError.BadRequest("Mật khẩu và xác nhận mật khẩu không khớp");
+    const hashedPassword = await hashPassword(password);
+    foundUser.password = hashedPassword;
     foundUser.isVerified = true;
     foundUser.verificationToken = undefined;
     foundUser.verificationTokenExpireAt = undefined;
     await foundUser.save();
 
     return res.status(200).json({
-      message: "Verify account successfully!",
+      message: "Xác thực tài khoản thành công!",
       success: true,
     });
   } catch (error) {
@@ -82,21 +100,26 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const origin = req.origin;
-
-    if (!email || !password)
-      throw CreateError.BadRequest("Email or password is missing");
+    if (!email) throw CreateError.BadRequest("Vui lòng điền email!");
 
     const foundUser = await getUserByEmail(email);
 
-    if (!foundUser) throw CreateError.NotFound("User does not exist");
+    if (!foundUser) throw CreateError.NotFound("Tài khoản không tồn tại");
+    if (!foundUser.isVerified) {
+      return res.status(401).json({
+        message:
+          "Tài khoản chưa được xác minh! Vui lòng kiểm tra email để xác minh tài khoản.",
+        user: filterFieldUser(foundUser),
+        success: false,
+        notVerified: true,
+      });
+    }
+
+    if (!password) throw CreateError.BadRequest("Vui lòng điền mật khẩu!");
 
     const isCorrectPassword = await checkPassword(password, foundUser.password);
     if (!isCorrectPassword)
-      throw CreateError.Unauthorized("Password is not correct");
-
-    if (!foundUser.isVerified)
-      throw CreateError.Forbidden("Your account is not verified yet");
+      throw CreateError.Unauthorized("Mật khẩu không đúng");
 
     // generate token and set cookie
     const accessToken = await generateAccessTokenAndSetCookie(
@@ -116,10 +139,11 @@ const login = async (req, res, next) => {
     await foundUser.save();
 
     return res.status(200).json({
-      message: "Login sucessfully!",
+      message: "Đăng nhập thành công!",
+      accessToken,
       success: true,
       user: filterFieldUser(foundUser),
-      accessToken: accessToken,
+      isVerified: true
     });
   } catch (error) {
     next(error);
@@ -129,6 +153,7 @@ const login = async (req, res, next) => {
 const logout = async (req, res) => {
   try {
     const userId = req.user.userId;
+    // clear cookie
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -136,33 +161,37 @@ const logout = async (req, res) => {
     };
     res.clearCookie("accessToken", options);
     res.clearCookie("refreshToken", options);
+
+    // update db
     await UserModel.findByIdAndUpdate(userId, {
       refreshToken: undefined,
       refreshTokenExpireAt: undefined,
     });
+
     return res.status(200).json({
-      message: "Logout successfully",
+      message: "Đăng xuất thành công",
       success: true,
     });
   } catch (error) {
-    next(error);
+    next(error)
   }
 };
+
 
 const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
 
-    if (!email) throw CreateError.BadRequest("Please provide email!");
+    if (!email) throw CreateError.BadRequest("Vui lòng nhập email!");
 
     const foundUser = await getUserByEmail(email);
 
-    if (!foundUser) throw CreateError.NotFound("User does not exist");
+    if (!foundUser || !foundUser.isVerified) throw CreateError.NotFound("Tài khoản không tồn tại");
 
     await sendForgotPasswordEmailtoUser(foundUser);
 
     return res.status(200).json({
-      message: `Recovery password email sent to ${email}`,
+      message: `Đã gửi email khôi phục mật khẩu đến ${email}`,
       success: true,
     });
   } catch (error) {
@@ -170,40 +199,34 @@ const forgotPassword = async (req, res, next) => {
   }
 };
 
-const recoveryPassword = async (req, res, next) => {
+const resetPassword = async (req, res, next) => {
   try {
-    const { email, otpCode, password, confirmPassword } = req.body;
+    const { token, password, confirmPassword } = req.body;
+    if (!token) throw CreateError.BadRequest("Thiếu mã khôi phục mật khẩu");
 
-    // check missing fields
-    if (!email || !password || !confirmPassword) {
-      throw CreateError.BadRequest(
-        "Email, password and confirm password are required"
-      );
+    if (!password) {
+      throw CreateError.BadRequest("Vui lòng nhập mật khẩu mới");
+    }
+    if (!confirmPassword) {
+      throw CreateError.BadRequest("Vui lòng nhập mật khẩu xác nhận");
     }
 
-    if (!otpCode) throw CreateError.BadRequest("OTP code is missing");
-
-    const foundUser = await getUserByEmail(email);
-    if (!foundUser) throw CreateError.NotFound("User does not exist");
-
-    // check otp
-    if (foundUser.forgotPasswordToken !== otpCode) {
-      throw CreateError.BadRequest("OTP is not correct");
-    }
+    const foundUser = await UserModel.findOne({
+      forgotPasswordToken: token,
+    });
+    if (!foundUser) throw CreateError.NotFound("Tài khoản không tồn tại");
 
     // check expire
     if (foundUser.forgotPasswordTokenExpireAt < new Date()) {
       await sendForgotPasswordEmailtoUser(foundUser);
       throw CreateError.BadRequest(
-        "OTP expired! We sent a new recovery password email to you"
+        "Đường dẫn đã hết hạn! Chúng tôi đã gửi đường dẫn mới đến bạn"
       );
     }
 
     // check confirm password
     if (password !== confirmPassword) {
-      throw CreateError.BadRequest(
-        "Password and confirm password do not match"
-      );
+      throw CreateError.BadRequest("Mật khẩu và mật khẩu xác nhận không khớp");
     }
 
     // hash and update new password
@@ -217,7 +240,7 @@ const recoveryPassword = async (req, res, next) => {
     await foundUser.save();
 
     return res.status(200).json({
-      message: "Password reset successfully!",
+      message: "Khôi phục mật khẩu thành công!",
       success: true,
     });
   } catch (error) {
@@ -333,7 +356,7 @@ const refreshToken = async (req, res, next) => {
     return res.status(200).json({
       accessToken,
       refreshToken: newRefreshToken,
-      user: sanitizeUser(user),
+      user: filterFieldUser(user),
       success: true,
     });
   } catch (error) {
@@ -341,14 +364,90 @@ const refreshToken = async (req, res, next) => {
   }
 };
 
+const sendVerificationEmail = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email) throw CreateError.BadRequest("Vui lòng cung cấp email!");
+
+    const foundUser = await getUserByEmail(email);
+    if (!foundUser) throw CreateError.NotFound("Tài khoản không tồn tại");
+    if (foundUser.isVerified)
+      throw CreateError.BadRequest("Tài khoản đã được xác minh!");
+    await sendVerificationEmailtoUser(foundUser);
+
+    return res.status(200).json({
+      message: `Email xác nhận đã gửi đến ${email}`,
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const googleLogin = async (req, res, next) => {
+  try {
+    const { token } = req.body;
+    const payload = await verifyToken(token);
+
+    const user = {
+      email: payload.email,
+      name: payload.name,
+      password: "default",
+    };
+
+    let foundUser = await getUserByEmail(user.email);
+
+    if (!foundUser) {
+      foundUser = await UserModel.create(user);
+    }
+
+    // generate token and set cookie
+    const accessToken = await generateAccessTokenAndSetCookie(
+      res,
+      foundUser._id
+    );
+    const refreshToken = await generateRefreshTokenAndSetCookie(
+      res,
+      foundUser._id
+    );
+
+    // save token in db
+    foundUser.refreshToken = refreshToken;
+    foundUser.refreshTokenExpireAt = new Date(
+      Date.now() + 7 * 24 * 60 * 60 * 1000
+    );
+    foundUser.lastLogin = Date.now();
+    await foundUser.save();
+
+    return res.status(200).json({
+      message: "Đăng nhập thành công!",
+      success: true,
+      user: filterFieldUser(foundUser),
+      accessToken,
+    });
+  } catch (error) {
+    console.error("Google login error:", error);
+    next(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+
+
 export {
   signUp,
   verifyAccount,
   login,
+  googleLogin,
   logout,
   forgotPassword,
-  recoveryPassword,
+  resetPassword,
   changePassword,
   updateUserDetail,
   refreshToken,
+  sendVerificationEmail,
 };

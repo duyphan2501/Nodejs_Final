@@ -1,9 +1,68 @@
 import { Modal } from "@mui/material";
 import { Button } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { toast } from "react-toastify";
+import useCategoryStore from "../../../stores/useCategoryStore";
 
 const CustomModalCategory = ({ controlEditModal }) => {
+  const axiosPrivate = useAxiosPrivate();
+
+  const {
+    setShoeCategories,
+    setSandalCategories,
+    setBackpackCategories,
+    shoeCategories,
+    sandalCategories,
+    backPackCategories,
+  } = useCategoryStore();
+
+  const fetchCategories = async () => {
+    try {
+      const [shoeRes, sandalRes, backpackRes] = await Promise.all([
+        axiosPrivate.get("/api/category/shoe"),
+        axiosPrivate.get("/api/category/sandal"),
+        axiosPrivate.get("/api/category/backpack"),
+      ]);
+
+      setShoeCategories(shoeRes.data.categories);
+      setSandalCategories(sandalRes.data.categories);
+      setBackpackCategories(backpackRes.data.categories);
+    } catch (error) {
+      console.log(error);
+      toast.error("Tải dữ liệu danh mục thất bại");
+    }
+  };
+
   const { editModal, setEditModal } = controlEditModal;
+
+  const handleChangeInput = (e) => {
+    setEditModal((prev) => ({
+      ...prev,
+      name: e.target.value,
+    }));
+  };
+
+  //Call API để sửa tên danh mục
+  const editCategoryName = async () => {
+    try {
+      const res = await axiosPrivate.put(`/api/category/${editModal.id}`, {
+        newName: editModal.name,
+      });
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        setEditModal(null);
+        await fetchCategories();
+      }
+    } catch (error) {
+      console.log(error);
+      const message =
+        error.response?.data?.message || "Sửa tên danh mục thất bại!";
+      toast.error(message);
+    }
+  };
+
   return (
     <>
       <Modal open={editModal !== null} onClose={() => setEditModal(null)}>
@@ -28,8 +87,17 @@ const CustomModalCategory = ({ controlEditModal }) => {
               type="text"
               className="flex-grow border border-gray-300 rounded-l-md p-3"
               placeholder={editModal?.name || ""}
+              onChange={(e) => handleChangeInput(e)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  editCategoryName();
+                }
+              }}
             />
-            <Button sx={{ color: "green", height: "100%" }}>
+            <Button
+              onClick={editCategoryName}
+              sx={{ color: "green", height: "100%" }}
+            >
               <CheckCircleIcon sx={{ fontSize: "40px" }} />
             </Button>
           </div>

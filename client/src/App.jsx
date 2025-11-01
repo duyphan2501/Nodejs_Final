@@ -13,6 +13,10 @@ import QuickViewDialog from "./components/QuickViewDialog";
 import ProductPage from "./pages/Products/ProductPage";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
+import Verification from "./pages/Auth/Verification";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ResetPassword from "./pages/Auth/ResetPassword";
+import AuthLayout from "./layouts/AuthLayout";
 function App() {
   const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } =
     useContext(MyContext);
@@ -25,15 +29,21 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path={"/login"} element={<Login />} />
-          <Route path={"/sign-up"} element={<Signup />} />
+          <Route path="/" element={<AuthLayout/>}>
+            <Route path={"/login"} element={<Login />} />
+            <Route path={"/sign-up"} element={<Signup />} />
+            <Route path={"/verify-account"} element={<Verification />} />
+            <Route path={"/forgot-password"} element={<ForgotPassword />} />
+            <Route
+              path={"/reset-password/:token"}
+              element={<ResetPassword />}
+            />
+          </Route>
           <Route path="/" element={<Layouts />}>
+            <Route index element={<Home />} />
             <Route path="cart" element={<Cart />} />
             <Route path="my-account" element={<MyAccount />} />
             <Route path="addresses" element={<Address />} />
-          </Route>
-          <Route path="*" element={<Layouts />}>
-            <Route index element={<Home />} />
             <Route path="cart" element={<Cart />} />
             <Route path="products" element={<ProductPage />} />
           </Route>

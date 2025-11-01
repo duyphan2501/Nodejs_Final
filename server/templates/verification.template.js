@@ -1,27 +1,36 @@
-const verificationEmail = (name, verificationLink) => {
+const verificationEmail = (name, otp, hours = 24) => {
   return {
-    subject: "Verify your account",
+    subject: "Verify Your Account - Our App",
     html: `
-      <div style="font-family: Arial, sans-serif; line-height: 1.5; padding: 20px; background-color: #f4f4f4;">
-        <div style="max-width: 600px; margin: auto; background: white; border-radius: 8px; overflow: hidden;">
-          <div style="background: #4CAF50; color: white; padding: 15px; text-align: center; font-size: 20px;">
-            Welcome to Our App 🚀
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f4f4f4; padding: 20px;">
+        <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+
+          <!-- Header -->
+          <div style="background-color: #4CAF50; color: #ffffff; text-align: center; padding: 16px; font-size: 20px; font-weight: bold;">
+            Account Verification 🔒
           </div>
-          <div style="padding: 20px;">
-            <p>Hi <b>${name}</b>,</p>
-            <p>Thank you for signing up. Please confirm your email address by clicking the button below:</p>
-            <p style="text-align: center;">
-              <a href="${verificationLink}" 
-                 style="background: #4CAF50; color: white; padding: 12px 20px; 
-                        text-decoration: none; border-radius: 5px; display: inline-block;">
-                Verify Email
-              </a>
-            </p>
-            <p>If the button above doesn't work, copy and paste this link into your browser:</p>
-            <p><a href="${verificationLink}">${verificationLink}</a></p>
-            <p>If you did not create an account, please ignore this email.</p>
+
+          <!-- Body -->
+          <div style="padding: 25px;">
+            <p>Hi <strong>${name}</strong>,</p>
+
+            <p>Thank you for signing up for <strong>Our App</strong>! Please use the OTP below to verify your account:</p>
+
+            <div style="text-align: center; margin: 30px 0;">
+              <div style="display: inline-block; background: #4CAF50; color: #ffffff; font-size: 28px; font-weight: bold; padding: 15px 35px; border-radius: 8px; letter-spacing: 6px;">
+                ${otp}
+              </div>
+            </div>
+
+            <p>This OTP will expire in <strong>${hours} hours</strong>. Please enter it in the app to complete your verification.</p>
+
+            <p>If you didn't create this account, please ignore this email.</p>
+
+            <p style="margin-top: 25px;">Best regards,<br><strong>The Our App Team</strong></p>
           </div>
-          <div style="background: #f0f0f0; padding: 10px; text-align: center; font-size: 12px; color: #555;">
+
+          <!-- Footer -->
+          <div style="background-color: #f0f0f0; text-align: center; padding: 12px; font-size: 12px; color: #666;">
             &copy; ${new Date().getFullYear()} Our App. All rights reserved.
           </div>
         </div>
@@ -30,4 +39,4 @@ const verificationEmail = (name, verificationLink) => {
   };
 };
 
-export default verificationEmail
+export default verificationEmail;
