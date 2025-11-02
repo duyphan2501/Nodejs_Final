@@ -6,15 +6,17 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import QuantityButton from "../../../../components/QuantityButton.jsx";
 import QuantityMenu from "../../../../components/QuantityMenu/index.jsx";
 import useUserStore from "../../../../store/useUserStore.js";
+import { Button } from "@mui/material";
 
 const CartIcon = () => {
   const [isHovered, setIsHovered] = useState(false);
   const cartItems = useCartStore((state) => state.cartItems);
   const deleteItem = useCartStore((state) => state.deleteItem);
-  const user = useUserStore(state => state.user)
+  const updateCartItem = useCartStore((state) => state.updateCartItem);
+  const user = useUserStore((state) => state.user);
 
-  const handleRemoveItem = async(variantId, size) => {
-    await deleteItem(user?._id, variantId, size)
+  const handleRemoveItem = async (variantId, size) => {
+    await deleteItem(user?._id, variantId, size);
   };
 
   const formatPrice = (price) => {
@@ -23,6 +25,10 @@ const CartIcon = () => {
 
   const calculateTotal = () => {
     return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  };
+
+  const handleQuantityChange = async (variantId, size, quantity) => {
+    await updateCartItem(user?._id, variantId, size, quantity);
   };
 
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -100,16 +106,19 @@ const CartIcon = () => {
                         className="w-20 h-20 object-cover flex-shrink-0"
                       />
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold mb-1 truncate">
-                          {item.name}
+                        <h4 className="text-sm font-semibold mb-1 truncate line-clamp-1" title={`${item.name} - ${item.color}`}>
+                          {item.name} - {item.color}
                         </h4>
+
                         <p className="text-xs text-gray-600 mb-1">
                           Size: {item.size}
                         </p>
                         <div className="text-sm my-1">
                           <QuantityMenu
                             quantity={item.quantity}
-                            handleChange={() => {}}
+                            handleChange={(value) =>
+                              handleQuantityChange(item._id, item.size, value)
+                            }
                           />
                         </div>
                         <p className="text-sm font-semibold money">
@@ -134,6 +143,16 @@ const CartIcon = () => {
                       {formatPrice(total)}
                     </span>
                   </div>
+                </div>
+                {/* summary button */}
+                <div className="flex justify-center">
+                  <Button
+                    component={Link}
+                    to={"/cart"}
+                    className="!w-full !bg-black !text-white !font-semibold"
+                  >
+                    Tóm tắt giỏ hàng
+                  </Button>
                 </div>
               </>
             )}
