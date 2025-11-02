@@ -17,6 +17,9 @@ import Verification from "./pages/Auth/Verification";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import ResetPassword from "./pages/Auth/ResetPassword";
 import AuthLayout from "./layouts/AuthLayout";
+import OrderTracking from "./pages/OrderTracking";
+import OrderHistory from "./pages/OrderHistory";
+import OrderList from "./pages/OrderList";
 function App() {
   const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } =
     useContext(MyContext);
@@ -29,7 +32,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AuthLayout/>}>
+          <Route path="/" element={<AuthLayout />}>
             <Route path={"/login"} element={<Login />} />
             <Route path={"/sign-up"} element={<Signup />} />
             <Route path={"/verify-account"} element={<Verification />} />
@@ -43,6 +46,9 @@ function App() {
             <Route index element={<Home />} />
             <Route path="cart" element={<Cart />} />
             <Route path="my-account" element={<MyAccount />} />
+            <Route path="order-history" element={<OrderHistory />} />
+            <Route path="order/ORD-2024-002" element={<OrderTracking />} />
+            <Route path="order" element={<OrderList />} />
             <Route path="addresses" element={<Address />} />
             <Route path="cart" element={<Cart />} />
             <Route path="products" element={<ProductPage />} />
