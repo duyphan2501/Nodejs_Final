@@ -15,7 +15,7 @@ const useUserStore = create(
 
       const login = async (user) => {
         try {
-          const res = await axiosCustom.post(`/user/login`, user);
+          const res = await axiosCustom.post(`/api/user/login`, user);
           toast.success(res.data.message);
           if (res.data.user.isAdmin) {
             set({

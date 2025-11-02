@@ -7,7 +7,7 @@ const useUserStore = create((set) => {
     set({ isLoading: { login: true } });
     try {
       const res = await API.post(`/api/user/login`, user);
-      set({ user: res.data.user, accessToken: res.data.accessToken, isVerified: true });
+      set({ user: res.data.user, accessToken: res.data.accessToken});
       toast.success(res.data.message);
       return { success: true, loginUser: res.data.user };
     } catch (error) {
@@ -55,7 +55,7 @@ const useUserStore = create((set) => {
       console.log(error);
       if (error.response) {
         const message = error.response.data?.message || message;
-        if (error.response.status === 401 && !error.response.data.isVerified) {
+        if (error.response.status === 401) {
           const user = error.response.data?.user;
           toast.info(message || "Please verify your account");
           return {verifyUser: user, success: false};
@@ -145,7 +145,6 @@ const useUserStore = create((set) => {
   return {
     user: null,
     accessToken: null,
-    isVerified: false,
     isLoading: {login: false, refresh: false, signUp: false, verify: false, resend: false, forgot: false, reset: false},
     login,
     refreshToken,

@@ -1,16 +1,7 @@
 import { Outlet } from "react-router-dom";
 import FloatingShape from "../components/FloatingShape";
-import { useEffect } from "react";
-import useUserStore from "../store/useUserStore";
 
 const AuthLayout = () => {
-  const user = useUserStore((state) => state.user);
-  const isVerified = useUserStore((state) => state.isVerified);
-
-  useEffect(() => {
-    if (user && isVerified) window.location.href = "/";
-  }, []);
-
   return (
     <div className="h-screen bg-linear-to-r from-gray-300 via-gray-500 to-gray-700 flex items-center justify-center relative overflow-hidden z-1">
       <FloatingShape

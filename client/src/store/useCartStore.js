@@ -1,43 +1,51 @@
 import { create } from "zustand";
+import { toast } from "react-toastify";
+import API from "../API/axiosInstance";
 
 const useCartStore = create((set) => {
-  const cartItems = [
-    {
-      id: 1,
-      name: "GIÀY HANDBALL SPEZIAL",
-      description: "OLIVE STRATA / CREAM WHITE / GUM",
-      size: "8.5 UK",
-      price: 2500000,
-      quantity: 1,
-      image:
-        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=300&fit=crop",
-    },
-    {
-      id: 2,
-      name: "GIÀY HANDBALL SPEZIAL",
-      description: "OLIVE STRATA / CREAM WHITE / GUM",
-      size: "8.5 UK",
-      price: 2500000,
-      quantity: 1,
-      image:
-        "https://tse3.mm.bing.net/th/id/OIP.1qIpupZ7DR69J03HLvjfLQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
-    },
-    {
-      id: 3,
-      name: "GIÀY HANDBALL SPEZIAL",
-      description: "OLIVE STRATA / CREAM WHITE / GUM",
-      size: "8.5 UK",
-      price: 2500000,
-      quantity: 1,
-      image:
-        "https://tse3.mm.bing.net/th/id/OIP.1qIpupZ7DR69J03HLvjfLQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
-    },
-  ];
-  const setCartItem = (items) => set({ cartItems: items });
+  const setCartItems = (items) => set({ cartItems: items });
+  const clearCartItems = () => set({ cartItems: [] });
+
+  const addToCart = async (item, quantity, userId) => {
+    try {
+      const res = await API.post("/api/cart/add", { item, quantity, userId });
+      toast.success(res.data.message);
+      setCartItems(res.data.cart.items);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message || "Thêm thất bại");
+    }
+  };
+
+  const getCart = async (userId) => {
+    try {
+      const res = await API.get(`/api/cart/get/${userId || "guest"}`);
+      setCartItems(res.data.cart.items);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteItem = async (userId, variantId, size) => {
+    try {
+      const res = await API.delete(`/api/cart/delete`, {
+        data: { userId, variantId, size },
+      });
+      setCartItems(res.data.cart.items);
+      toast.success(res.data.message);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message || "Xoá thất bại");
+    }
+  };
 
   return {
-    cartItems,
-    setCartItem,
+    cartItems: [],
+    setCartItems,
+    addToCart,
+    clearCartItems,
+    getCart,
+    deleteItem,
   };
 });
 
