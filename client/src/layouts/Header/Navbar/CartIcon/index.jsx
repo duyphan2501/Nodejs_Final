@@ -1,18 +1,20 @@
 import { X, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { startTransition, useState } from "react";
 import { Link } from "react-router-dom";
 import useCartStore from "../../../../store/useCartStore";
 import { FaRegTrashAlt } from "react-icons/fa";
 import QuantityButton from "../../../../components/QuantityButton.jsx";
 import QuantityMenu from "../../../../components/QuantityMenu/index.jsx";
+import useUserStore from "../../../../store/useUserStore.js";
 
 const CartIcon = () => {
   const [isHovered, setIsHovered] = useState(false);
   const cartItems = useCartStore((state) => state.cartItems);
-  const setCartItem = useCartStore((state) => state.setCartItem);
+  const deleteItem = useCartStore((state) => state.deleteItem);
+  const user = useUserStore(state => state.user)
 
-  const handleRemoveItem = (id) => {
-    setCartItem(cartItems.filter((item) => item.id !== id));
+  const handleRemoveItem = async(variantId, size) => {
+    await deleteItem(user?._id, variantId, size)
   };
 
   const formatPrice = (price) => {
@@ -89,7 +91,7 @@ const CartIcon = () => {
                 <div className="max-h-96 overflow-y-auto mb-4 scroll">
                   {cartItems.map((item) => (
                     <div
-                      key={item.id}
+                      key={item._id}
                       className="flex gap-3 p-3 border-b border-gray-200 hover:bg-gray-50 transition-colors"
                     >
                       <img
@@ -116,7 +118,7 @@ const CartIcon = () => {
                       </div>
                       <button
                         className="p-1 hover:bg-gray-200 rounded h-fit cursor-pointer"
-                        onClick={() => handleRemoveItem(item.id)}
+                        onClick={() => handleRemoveItem(item._id, item.size)}
                       >
                         <FaRegTrashAlt size={16} />
                       </button>

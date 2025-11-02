@@ -1,5 +1,5 @@
 import createHttpError from "http-errors";
-import { addCartItem, loadCart } from "../services/cart.service.js";
+import { addCartItem, loadCart, removeCartItem } from "../services/cart.service.js";
 import { v4 as uuidv4 } from "uuid";
 
 const addToCart = async (req, res, next) => {
@@ -64,4 +64,28 @@ const getCart = async (req, res, next) => {
   }
 };
 
-export { addToCart, getCart };
+const removeFromCart = async (req, res, next) => {
+  try {
+    const { userId, variantId, size } = req.body;
+    if (!variantId && !size) {
+      throw createHttpError.BadRequest("Thiếu mã biến thể hoặc size");
+    }
+    const guestCartId = req.cookies.cartId;
+    if (!userId && !guestCartId) {
+      return res.status(400).json({ message: "No cart found", success: false });
+    }
+
+    await removeCartItem(userId, guestCartId, variantId, size);
+    // await cancelStockReservation(userId, cartId, modelId);
+
+    return res.status(200).json({
+      message: "Đã xoá khỏi giỏ hàng",
+      success: true,
+      cart: await loadCart(userId, guestCartId),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { addToCart, getCart, removeFromCart };

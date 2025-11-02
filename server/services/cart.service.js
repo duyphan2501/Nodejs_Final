@@ -10,7 +10,7 @@ const addCartItem = async (userId, guestCartId, item, quantity) => {
 
   const cartKey = userId ? `cart:${userId}` : `cart:${guestCartId}`;
   const cartKeyInfo = `${cartKey}:info`;
-  const cartKetQty = `${cartKey}:qty`;
+  const cartKeyQty = `${cartKey}:qty`;
 
   const TTL = userId ? USER_CART_TTL : GUEST_CART_TTL;
 
@@ -22,10 +22,10 @@ const addCartItem = async (userId, guestCartId, item, quantity) => {
 
   pipeline.hSet(cartKeyInfo, productKey, productData);
 
-  pipeline.hIncrBy(cartKetQty, productKey, quantity);
+  pipeline.hIncrBy(cartKeyQty, productKey, quantity);
 
   pipeline.expire(cartKeyInfo, TTL);
-  pipeline.expire(cartKetQty, TTL);
+  pipeline.expire(cartKeyQty, TTL);
 
   await pipeline.exec();
 };
@@ -138,4 +138,26 @@ const mergeCart = async (userId, guestCartId) => {
   await pipeline.exec();
 };
 
-export { addCartItem, loadCart, mergeCart };
+const removeCartItem = async (userId, guestCartId, variantId, size) => {
+  const cartKey = userId ? `cart:${userId}` : `cart:${guestCartId}`;
+  const cartKeyInfo = `${cartKey}:info`;
+  const cartKeyQty = `${cartKey}:qty`;
+  const productId = `${variantId}:${size}`;
+  const productField = `product:${productId}`;
+
+  const pipeline = redisClient.multi();
+
+  pipeline.hDel(cartKeyInfo, productField);
+  pipeline.hDel(cartKeyQty, productField);
+
+  await pipeline.exec();
+
+  const remainingItems = await redisClient.hLen(cartKeyQty);
+  if (remainingItems === 0) {
+    // Sử dụng UNLINK để xóa không đồng bộ, tránh block Redis server
+    await redisClient.unlink(cartKeyInfo);
+    await redisClient.unlink(cartKeyQty);
+  }
+};
+
+export { addCartItem, loadCart, mergeCart, removeCartItem };
