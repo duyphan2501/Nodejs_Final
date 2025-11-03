@@ -6,12 +6,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import CustomDropdown from "../CustomDropdown";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import useCoupon from "../../../hooks/useCoupon";
+import useCouponStore from "../../../stores/useCouponStore";
 
 const CustomTableCoupon = () => {
-  const { couponData } = useTableControl();
-  const { selectedItem, setSelectedItem } = useTableControl();
-  const { setSelectedDetail } = useTableControl();
+  const {
+    couponData,
+    selectedItem,
+    setSelectedItem,
+    setSelectedDetail,
+    setSelectedCouponId,
+  } = useTableControl();
+  const { updateCoupon, loading } = useCoupon();
+  const { coupons } = useCouponStore();
 
   const columns = [
     { id: "checkbox", label: "Chọn", minWidth: 100 },
@@ -25,14 +34,53 @@ const CustomTableCoupon = () => {
 
   const rows = couponData.map((coupon) =>
     createData(
+      coupon._id,
       coupon.couponCode,
       coupon.discountValue,
+      coupon.discountType,
       coupon.minOrderValue,
       coupon.maxDiscount,
       coupon.endDate,
       coupon.status
     )
   );
+
+  // Hàm xử lý thay đổi trạng thái
+  const handleStatusChange = async (couponId, newStatus) => {
+    try {
+      // Tìm coupon từ store để lấy đầy đủ dữ liệu
+      const originalCoupon = coupons.find((c) => c._id === couponId);
+      if (!originalCoupon) {
+        console.error("Coupon not found");
+        return;
+      }
+
+      // Chuẩn bị dữ liệu update
+      const updateData = {
+        code: originalCoupon.code,
+        status: newStatus,
+        minOrderValue: originalCoupon.minOrderValue,
+        maxDiscountAmount: originalCoupon.maxDiscountAmount,
+        remainingUsage: originalCoupon.remainingUsage,
+        discountType: originalCoupon.discountType,
+      };
+
+      // Thêm discountPercent hoặc discountAmount
+      if (originalCoupon.discountType === "percent") {
+        updateData.discountPercent = originalCoupon.discountPercent;
+        updateData.discountAmount = 0;
+      } else {
+        updateData.discountAmount = originalCoupon.discountAmount;
+        updateData.discountPercent = 0;
+      }
+
+      // Gọi API update
+      await updateCoupon(couponId, updateData);
+      console.log("✅ Cập nhật trạng thái thành công");
+    } catch (error) {
+      console.error("❌ Lỗi khi cập nhật trạng thái:", error);
+    }
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -63,7 +111,11 @@ const CustomTableCoupon = () => {
           >
             {rows.map((row, index) => (
               <TableRow
-                onDoubleClick={() => setSelectedDetail(true)}
+                onDoubleClick={() => {
+                  console.log("🖱️ Clicked coupon ID:", row._id);
+                  setSelectedCouponId(row._id);
+                  setSelectedDetail(true);
+                }}
                 hover
                 key={index}
                 sx={{ cursor: "pointer" }}
@@ -71,13 +123,45 @@ const CustomTableCoupon = () => {
                 {columns.map((col) => (
                   <TableCell key={col.id}>
                     {col.id === "discount" ? (
-                      row[col.id].toLocaleString("vi-VN") + "₫"
+                      row.discountType === "percentage" ? (
+                        row[col.id] + "%"
+                      ) : (
+                        row[col.id].toLocaleString("vi-VN") + "₫"
+                      )
                     ) : col.id === "minOrder" ? (
                       row[col.id].toLocaleString("vi-VN") + "₫"
                     ) : col.id === "maxDiscount" ? (
                       row[col.id].toLocaleString("vi-VN") + "₫"
                     ) : col.id === "status" ? (
-                      <CustomDropdown type="coupon" choose={row[col.id]} />
+                      <Select
+                        value={row.status}
+                        onChange={(e) => {
+                          e.stopPropagation(); // Ngăn trigger double click
+                          handleStatusChange(row._id, e.target.value);
+                        }}
+                        onClick={(e) => e.stopPropagation()} // Ngăn trigger double click
+                        size="small"
+                        disabled={loading}
+                        sx={{
+                          minWidth: 120,
+                          backgroundColor:
+                            row.status === "active" ? "#d4edda" : "#f8d7da",
+                          "& .MuiSelect-select": {
+                            padding: "8px 12px",
+                          },
+                        }}
+                      >
+                        <MenuItem value="active">
+                          <span style={{ color: "#28a745", fontWeight: 500 }}>
+                            Hiệu lực
+                          </span>
+                        </MenuItem>
+                        <MenuItem value="inactive">
+                          <span style={{ color: "#dc3545", fontWeight: 500 }}>
+                            Vô hiệu lực
+                          </span>
+                        </MenuItem>
+                      </Select>
                     ) : col.id === "checkbox" ? (
                       <input
                         className="w-20"
@@ -95,6 +179,7 @@ const CustomTableCoupon = () => {
                             );
                           }
                         }}
+                        onClick={(e) => e.stopPropagation()}
                       />
                     ) : (
                       row[col.id]
@@ -111,14 +196,25 @@ const CustomTableCoupon = () => {
 };
 
 function createData(
+  _id,
   couponCode,
   discount,
+  discountType,
   minOrder,
   maxDiscount,
   expiryDate,
   status
 ) {
-  return { couponCode, discount, minOrder, maxDiscount, expiryDate, status };
+  return {
+    _id,
+    couponCode,
+    discount,
+    discountType,
+    minOrder,
+    maxDiscount,
+    expiryDate,
+    status,
+  };
 }
 
 export default CustomTableCoupon;
