@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
@@ -7,9 +7,18 @@ import TransitionsModal from "../TransitionsModal";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import CustomSnackbar from "../CustomSnackbar";
+import ConfirmDialog from "../ConfirmDialog";
 
-const VariantManager = ({ openSnackbar }) => {
+const VariantManager = ({ openSnackbar, handleChangeInput, reset }) => {
   const [variants, setVariants] = useState([]);
+
+  useEffect(() => {
+    handleChangeInput("variant", variants);
+  }, [variants]);
+
+  useEffect(() => {
+    setVariants([]);
+  }, [reset]);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -27,8 +36,9 @@ const VariantManager = ({ openSnackbar }) => {
       id: Date.now(),
       label: "",
       name: "",
-      sizes: Array(10).fill(""),
+      inStock: Array(10).fill(""),
       images: Array(6).fill(null),
+      save: false,
     };
     setVariants([...variants, newVariant]);
   };
@@ -36,10 +46,11 @@ const VariantManager = ({ openSnackbar }) => {
   const saveVariant = (id, data) => {
     // chỉ lưu state khi bấm Save
     setVariants((prev) =>
-      prev.map((v) => (v.id === id ? { ...v, ...data } : v))
+      prev.map((v) => (v.id === id ? { ...v, ...data, save: true } : v))
     );
-    console.log("Đang lưu...", data);
   };
+
+  // console.log(variants);
 
   const deleteVariant = (id) => {
     setVariants((prev) => prev.filter((v) => v.id !== id));
@@ -68,6 +79,7 @@ const VariantManager = ({ openSnackbar }) => {
           onDelete={deleteVariant}
           onSave={saveVariant}
           openSnackbar={openSnackbar}
+          save={variant.save}
         />
       ))}
 
@@ -119,7 +131,7 @@ const VariantManager = ({ openSnackbar }) => {
   );
 };
 
-const VariantEach = ({ id, onDelete, onSave, openSnackbar }) => {
+const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
   const [label, setLabel] = useState("");
   const [name, setName] = useState("");
   const [sizes, setSizes] = useState(
@@ -140,12 +152,78 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar }) => {
   // State quản lý ảnh
   const [images, setImages] = useState(Array(5).fill(null));
 
+  //State quan ly confirm dialog
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
+  const [warning, setWarning] = useState({
+    img: false,
+    text: false,
+    number: false,
+  });
+
   const handleSave = () => {
-    if (!label || !name) {
-      setModalOpen(true);
+    const newWarning = {};
+
+    // Kiểm tra label và name
+    if (label === "" || name === "") {
+      newWarning.text = true;
+    } else {
+      newWarning.text = false;
+    }
+
+    const allImagesUploaded = images.every((img) => img !== null);
+
+    if (!allImagesUploaded) {
+      newWarning.img = true;
+    } else {
+      newWarning.img = false;
+    }
+
+    // Kiểm tra ít nhất 1 size > 0
+    const hasValidSize = Object.values(sizes).some((qty) => Number(qty) > 0);
+    if (!hasValidSize) {
+      newWarning.size = true;
+    } else {
+      newWarning.size = false;
+    }
+
+    // Kiểm tra discount không vượt quá 100
+    if (discount < 0 || discount > 100) {
+      newWarning.number = true;
+    } else {
+      newWarning.number = false;
+    }
+
+    // Nếu có cảnh báo nào thì set warning và không save
+    if (Object.values(newWarning).some((w) => w === true)) {
+      setWarning(newWarning);
       return;
     }
-    onSave(id, { label, name, sizes, basePrice, discount, sellPrice, images });
+
+    const input = {
+      label,
+      name,
+      inStock: sizes,
+      basePrice,
+      discount,
+      sellPrice,
+      images,
+    };
+
+    setConfirmOpen(true);
+  };
+
+  const handleConfirm = () => {
+    onSave(id, {
+      label,
+      name,
+      inStock: sizes,
+      basePrice,
+      discount,
+      sellPrice,
+      images,
+    });
+    setConfirmOpen(false);
     openSnackbar();
   };
 
@@ -171,6 +249,13 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar }) => {
 
   return (
     <div className="mt-3 w-full flex flex-col gap-4 input-group p-4 rounded-lg shadow bg-[#F9FAFB]">
+      <ConfirmDialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={handleConfirm}
+        content={"Bạn sẽ không thể chỉnh sửa sau khi lưu"}
+        action={"Lưu"}
+      />
       <TransitionsModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
@@ -183,7 +268,11 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar }) => {
         {images.map((img, i) => (
           <div
             key={i}
-            className="w-28 h-28 bg-gray-100 border-2 border-dashed hover:border-blue-500 hover:bg-blue-50 border-gray-400 flex items-center justify-center relative rounded-lg overflow-hidden"
+            className={`w-28 h-28 bg-gray-100 border-2 border-dashed ${
+              save
+                ? "border-gray-300 cursor-not-allowed opacity-70"
+                : "hover:border-blue-500 hover:bg-blue-50"
+            } border-gray-400 flex items-center justify-center relative rounded-lg overflow-hidden`}
           >
             {img ? (
               <>
@@ -192,19 +281,23 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar }) => {
                   alt={`variant-${i}`}
                   className="w-full h-full object-cover"
                 />
-                <button
-                  type="button"
-                  onClick={() => handleRemoveImage(i)}
-                  className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
-                >
-                  ✕
-                </button>
+                {!save && (
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveImage(i)}
+                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
+                  >
+                    ✕
+                  </button>
+                )}
               </>
             ) : (
               <>
                 <label
                   htmlFor={`upload-${id}-${i}`}
-                  className="cursor-pointer text-gray-500 text-2xl"
+                  className={`cursor-pointer text-gray-500 text-2xl ${
+                    save ? "pointer-events-none opacity-50" : ""
+                  }`}
                 >
                   +
                 </label>
@@ -213,13 +306,21 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar }) => {
                   type="file"
                   accept="image/*"
                   className="hidden"
-                  onChange={(e) => handleImageChange(e, i)}
+                  onChange={!save ? (e) => handleImageChange(e, i) : undefined}
+                  disabled={save}
                 />
               </>
             )}
           </div>
         ))}
       </div>
+      {warning.img ? (
+        <div id="warning-img" className="text-red-500 bg-red-100 text-left p-2">
+          Phải chèn đủ 6 ảnh mỗi biến thể
+        </div>
+      ) : (
+        ""
+      )}
 
       {/* Form nhập tên/nhãn */}
       <div className="form-input grid grid-cols-2 gap-4">
@@ -229,6 +330,7 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar }) => {
           onChange={(e) => setLabel(e.target.value)}
           className="w-full bg-gray-100 shadow rounded h-12 p-3 capitalize focus:ring-0 focus:outline-none"
           placeholder="Nhãn Biến thể"
+          disabled={save}
         />
         <input
           type="text"
@@ -236,8 +338,19 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar }) => {
           onChange={(e) => setName(e.target.value)}
           className="w-full bg-gray-100 shadow rounded h-12 p-3 capitalize focus:ring-0 focus:outline-none"
           placeholder="Tên biến thể"
+          disabled={save}
         />
       </div>
+      {warning.text ? (
+        <div
+          id="warning-text"
+          className="text-red-500 bg-red-100 text-left p-2"
+        >
+          Không để trống trường này
+        </div>
+      ) : (
+        ""
+      )}
 
       {/* Giá gốc / Discount / Giá bán */}
       <div className="form-input grid grid-cols-3 gap-4">
@@ -247,62 +360,110 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar }) => {
           onChange={(e) => setBasePrice(Number(e.target.value))}
           className="w-full bg-gray-100 shadow rounded h-12 p-3 capitalize focus:ring-0 focus:outline-none"
           placeholder="Giá Bán Gốc"
+          title="Giá Bán Gốc"
+          disabled={save}
         />
         <input
           type="number"
           value={discount}
           onChange={(e) => setDiscount(Number(e.target.value))}
           className="w-full bg-gray-100 shadow rounded h-12 p-3 capitalize focus:ring-0 focus:outline-none"
-          placeholder="Discount (%)"
+          title="Discount (%)"
+          disabled={save}
         />
         <input
           type="text"
           value={sellPrice}
           className="w-full bg-gray-300 shadow rounded h-12 p-3 capitalize focus:ring-0 focus:outline-none"
-          placeholder="Giá Bán Chính thức"
+          title="Giá Bán Chính thức"
           disabled
         />
       </div>
+      {warning.number ? (
+        <div
+          id="warning-number"
+          className="text-red-500 bg-red-100 text-left p-2"
+        >
+          Discount không quá 100%
+        </div>
+      ) : (
+        ""
+      )}
 
       {/* Size */}
       <div className="form-input-size flex flex-wrap gap-4 justify-between">
-        {Object.keys(sizes).map((size) => (
-          <input
-            key={size}
-            type="text"
-            value={sizes[size]}
-            onChange={(e) =>
-              setSizes({
-                ...sizes,
-                [size]: e.target.value,
-              })
-            }
-            className="w-15 h-15 p-4 focus:ring-0 focus:outline-none 
+        {save
+          ? Object.keys(sizes).map((size) => (
+              <input
+                key={size}
+                type="text"
+                value={sizes[size]}
+                onChange={(e) =>
+                  setSizes({
+                    ...sizes,
+                    [size]: e.target.value,
+                  })
+                }
+                className="w-15 h-15 p-4 focus:ring-0 focus:outline-none 
                bg-gray-100 shadow capitalize 
                placeholder:italic placeholder:text-center 
                placeholder:text-sm text-center"
-            placeholder={size}
-            title={`Size ${size}`}
-          />
-        ))}
+                placeholder={size}
+                title={`Size ${size}`}
+                disabled
+              />
+            ))
+          : Object.keys(sizes).map((size) => (
+              <input
+                key={size}
+                type="text"
+                value={sizes[size]}
+                onChange={(e) =>
+                  setSizes({
+                    ...sizes,
+                    [size]: e.target.value,
+                  })
+                }
+                className="w-15 h-15 p-4 focus:ring-0 focus:outline-none 
+               bg-gray-100 shadow capitalize 
+               placeholder:italic placeholder:text-center 
+               placeholder:text-sm text-center"
+                placeholder={size}
+                title={`Size ${size}`}
+              />
+            ))}
       </div>
+      {warning.size ? (
+        <div
+          id="warning-size"
+          className="text-red-500 bg-red-100 text-left p-2"
+        >
+          Phải có ít nhất một size có số lượng khác 0
+        </div>
+      ) : (
+        ""
+      )}
 
       {/* Nút Save / Delete */}
       <div className="button-group w-full flex justify-end gap-2">
-        <Button
-          sx={{
-            background: "#008000",
-            color: "white",
-            borderRadius: "10px",
-            textTransform: "capitalize",
-            minWidth: "unset",
-            width: "40px",
-            height: "40px",
-          }}
-          onClick={handleSave}
-        >
-          <SaveAltIcon sx={{ fontSize: "24px" }} />
-        </Button>
+        {save ? (
+          ""
+        ) : (
+          <Button
+            sx={{
+              background: "#008000",
+              color: "white",
+              borderRadius: "10px",
+              textTransform: "capitalize",
+              minWidth: "unset",
+              width: "40px",
+              height: "40px",
+            }}
+            onClick={handleSave}
+          >
+            <SaveAltIcon sx={{ fontSize: "24px" }} />
+          </Button>
+        )}
 
         <Button
           sx={{

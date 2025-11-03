@@ -3,8 +3,9 @@ import { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { toast } from "react-toastify";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import useCategoryStore from "../../../stores/useCategoryStore";
 
-const CustomModalAddCategory = ({ controlAddCategoryModal, type = "shoe" }) => {
+const CustomModalAddCategory = ({ controlAddCategoryModal, typeCategory }) => {
   const axiosPrivate = useAxiosPrivate();
   const { addCategoryModal, setAddCategoryModal } = controlAddCategoryModal;
 
@@ -13,6 +14,32 @@ const CustomModalAddCategory = ({ controlAddCategoryModal, type = "shoe" }) => {
   const [imageFile, setImageFile] = useState(null);
   const [zoom, setZoom] = useState(100);
   const [loading, setLoading] = useState(false);
+
+  const {
+    setShoeCategories,
+    setSandalCategories,
+    setBackpackCategories,
+    shoeCategories,
+    sandalCategories,
+    backPackCategories,
+  } = useCategoryStore();
+
+  const fetchCategories = async () => {
+    try {
+      const [shoeRes, sandalRes, backpackRes] = await Promise.all([
+        axiosPrivate.get("/api/category/shoe"),
+        axiosPrivate.get("/api/category/sandal"),
+        axiosPrivate.get("/api/category/backpack"),
+      ]);
+
+      setShoeCategories(shoeRes.data.categories);
+      setSandalCategories(sandalRes.data.categories);
+      setBackpackCategories(backpackRes.data.categories);
+    } catch (error) {
+      console.log(error);
+      toast.error("Tải dữ liệu danh mục thất bại");
+    }
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -32,7 +59,7 @@ const CustomModalAddCategory = ({ controlAddCategoryModal, type = "shoe" }) => {
       setLoading(true);
       const formData = new FormData();
       formData.append("name", name);
-      formData.append("type", type);
+      formData.append("type", typeCategory);
       if (imageFile) formData.append("image", imageFile);
 
       const res = await axiosPrivate.post("/api/category", formData, {
@@ -45,12 +72,13 @@ const CustomModalAddCategory = ({ controlAddCategoryModal, type = "shoe" }) => {
         setImagePreview(null);
         setImageFile(null);
         setAddCategoryModal(false);
+        await fetchCategories();
       } else {
         toast.error(res.data.message || "Thêm danh mục thất bại");
       }
     } catch (error) {
       console.error(error);
-      const message = error.response?.message || "Lỗi khi thêm danh mục";
+      const message = error.response?.data.message || "Lỗi khi thêm danh mục";
       toast.error(message);
     } finally {
       setLoading(false);
@@ -76,10 +104,10 @@ const CustomModalAddCategory = ({ controlAddCategoryModal, type = "shoe" }) => {
         }}
       >
         <h1 className="capitalize text-lg font-bold mb-4">
-          Thêm danh mục vào {type}
+          Thêm danh mục vào {typeCategory}
         </h1>
 
-        <div className="flex flex-1 gap-6">
+        <div className="flex items-center flex-1 gap-6">
           {/* BÊN TRÁI - UPLOAD ẢNH */}
           <div className="flex flex-col items-center justify-center w-1/2 border rounded-lg p-4">
             <div
@@ -152,13 +180,16 @@ const CustomModalAddCategory = ({ controlAddCategoryModal, type = "shoe" }) => {
                 />
               </div>
             </div>
-
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="mt-3 text-sm"
-            />
+            <label className=" mt-3 cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition-all text-sm text-center">
+              Chọn hình ảnh
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="mt-3 text-sm text-center w-full border"
+                hidden
+              />
+            </label>
 
             {imagePreview && (
               <div className="w-full mt-2">

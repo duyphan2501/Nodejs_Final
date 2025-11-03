@@ -54,7 +54,7 @@ const Category = () => {
   //Sự kiện nếu xác nhận xóa
   const handleConfirmDelete = async () => {
     try {
-      const res = await axiosPrivate.delete("/category/delete", {
+      const res = await axiosPrivate.delete("/api/category/delete", {
         data: { listId: selectedItem },
       });
 

@@ -25,6 +25,12 @@ import CustomSnackbar from "../../components/CustomSnackbar";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import TransitionsModal from "../../components/TransitionsModal";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import TiptapEditor from "../../components/TiptapEditor";
+import useCategoryStore from "../../../stores/useCategoryStore";
+import useFetchCategory from "../../../hooks/useFetchCategory";
+import BiLoader from "../../components/BiLoader";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { toast } from "react-toastify";
 
 export default function Products() {
   const [viewMode, setViewMode] = useState("list");
@@ -259,37 +265,132 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
 }
 
 function AddProductView({ setViewMode, openSnackbar }) {
+  //Khai báo store
+  const shoeCategories = useCategoryStore((s) => s.shoeCategories);
+  const sandalCategories = useCategoryStore((s) => s.sandalCategories);
+  const backPackCategories = useCategoryStore((s) => s.backPackCategories);
+
+  const [input, setInput] = useState({});
+
+  const [reset, setReset] = useState(0);
+
+  const axiosPrivate = useAxiosPrivate();
+
+  //Fetch du lieu category tu hook
+  const { loadingCategory } = useFetchCategory();
+
   const dataCategory = [
     {
-      id: 1,
-      name: "giay",
+      _id: 1,
+      name: "Giày",
       label: "Giày",
-      children: [
-        { id: 11, name: "sport", label: "Sport" },
-        { id: 12, name: "nam", label: "Nam" },
-        { id: 13, name: "nu", label: "Nữ" },
-      ],
+      children: shoeCategories,
     },
     {
-      id: 2,
-      name: "balo",
+      _id: 2,
+      name: "Ba lô",
       label: "Ba lô",
-      children: [
-        { id: 21, name: "nam", label: "Nam" },
-        { id: 22, name: "nu", label: "Nữ" },
-      ],
+      children: backPackCategories,
     },
     {
-      id: 3,
-      name: "phukien",
+      _id: 3,
+      name: "Phụ Kiện",
       label: "Phụ kiện",
-      children: [
-        { id: 31, name: "nam", label: "Nam" },
-        { id: 32, name: "nu", label: "Nữ" },
-        { id: 33, name: "non", label: "Nón" },
-      ],
+      children: sandalCategories,
     },
   ];
+
+  //Hàm handle Input Form
+  const handleChangeInput = (key, value) => {
+    setInput((prev) => {
+      return {
+        ...prev,
+        [key]: value,
+      };
+    });
+  };
+
+  //Ham input cho TipTap
+  const handleChangeValueDesc = (htmlContext) => {
+    handleChangeInput("description", htmlContext);
+  };
+
+  //Ham reset input
+  const handleReset = () => {
+    setReset((prev) => prev + 1);
+  };
+
+  //Ham submit de add
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+
+      // Gửi các field cơ bản
+      if (input.name) formData.append("name", input.name);
+      if (input.inputPrice) formData.append("inputPrice", input.inputPrice);
+      if (input.description) formData.append("description", input.description);
+
+      // Gửi category (nhiều cái)
+      if (input.category) {
+        Object.keys(input.category).forEach((key) => {
+          if (input.category[key]) {
+            formData.append("categories[]", key);
+          }
+        });
+      }
+
+      //Chuyen cac size ve so
+      input.variant = input.variant.map((v) => ({
+        ...v,
+        inStock: Object.fromEntries(
+          Object.entries(v.inStock).map(([size, quantity]) => [
+            size,
+            quantity === "" ? 0 : Number(quantity),
+          ])
+        ),
+      }));
+
+      // Gửi variant (mỗi variant có thể có nhiều ảnh)
+      if (input.variant && input.variant.length > 0) {
+        const savedVariant = input.variant.filter((v) => v.save === true);
+        formData.append("variants", JSON.stringify(savedVariant));
+
+        input.variant.forEach((variant, i) => {
+          if (variant.images && variant.images.length > 0) {
+            variant.images.forEach((img, j) => {
+              if (img && img.file) {
+                formData.append(`variant_images_${i}_${j}`, img.file);
+              }
+            });
+          }
+        });
+      }
+
+      // for (let [key, value] of formData.entries()) {
+      //   console.log(key, value);
+      // }
+
+      // Gọi API
+      const res = await axiosPrivate.post("/api/product/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      toast.success("Thêm sản phẩm thành công!!");
+      setInput({});
+      handleReset();
+      setViewMode("list");
+      setOpenConfirmAdd(false);
+      setSuccessModal(true);
+    } catch (error) {
+      console.error("❌ Lỗi khi thêm sản phẩm:", error.response?.data.details);
+      const messageErr =
+        error.response?.data.message || "Thêm sản phẩm thất bại";
+      toast.error(messageErr);
+      setOpenConfirmAdd(false);
+    }
+  };
+
+  console.log(input);
 
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openConfirmAdd, setOpenConfirmAdd] = useState(false);
@@ -316,7 +417,9 @@ function AddProductView({ setViewMode, openSnackbar }) {
           content={"Bạn có muốn hủy bỏ thêm sản phẩm?"}
           action={"Đồng ý"}
           onClose={() => setOpenConfirm(false)}
-          onConfirm={() => {
+          onConfirm={async () => {
+            setInput({});
+            handleReset();
             setViewMode("list");
             setOpenConfirm(false);
           }}
@@ -327,11 +430,7 @@ function AddProductView({ setViewMode, openSnackbar }) {
           content={"Bạn có muốn thêm sản phẩm?"}
           action={"Đồng ý"}
           onClose={() => setOpenConfirmAdd(false)}
-          onConfirm={() => {
-            setViewMode("list");
-            setOpenConfirmAdd(false);
-            setSuccessModal(true);
-          }}
+          onConfirm={handleSubmit}
           open={openConfirmAdd}
         />
 
@@ -411,34 +510,52 @@ function AddProductView({ setViewMode, openSnackbar }) {
                 <input
                   type="text"
                   className="p-2 w-full bg-[#F5F5F5] shadow border-none focus:outline-none hover:border-none"
+                  onChange={(e) => handleChangeInput("name", e.target.value)}
+                  value={input.name || ""}
                 />
               </div>
               <div id="product-price" className="mt-2">
                 <p className="text-[#646464]">Giá Nhập Sản Phẩm</p>
                 <input
-                  type="text"
+                  type="number"
                   className="p-2 w-full bg-[#F5F5F5] shadow border-none focus:outline-none hover:border-none"
+                  onChange={(e) =>
+                    handleChangeInput("inputPrice", e.target.value)
+                  }
+                  value={input.inputPrice || ""}
                 />
               </div>
             </div>
 
             <div id="product-desc" className="mt-2 h-full">
-              <p className="text-[#646464]">Mô Tả</p>
-              <textarea
-                type="text"
-                className="p-2 h-full w-full bg-[#F5F5F5] shadow border-none focus:outline-none hover:border-none "
+              <TiptapEditor
+                handleChangeValue={handleChangeValueDesc}
+                content={input.description || ""}
               />
             </div>
           </div>
           <div className="h-100  p-4 rounded-lg shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.2),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_1px_3px_0px_rgba(0,0,0,0.12)] overflow-y-scroll">
             <h2 className="text-lg font-semibold">Danh Mục</h2>
-            <CategoryPicker dataCategory={dataCategory} />
+
+            {loadingCategory ? (
+              <BiLoader size={20} />
+            ) : (
+              <CategoryPicker
+                dataCategory={dataCategory}
+                handleChangeInput={handleChangeInput}
+                reset={reset}
+              />
+            )}
           </div>
         </div>
 
         <div className="shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.2),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_1px_3px_0px_rgba(0,0,0,0.12)] mt-10 p-4">
           <h2 className="text-lg font-semibold capitalize">Biến thể</h2>
-          <VariantManager openSnackbar={openSnackbar} />
+          <VariantManager
+            openSnackbar={openSnackbar}
+            handleChangeInput={handleChangeInput}
+            reset={reset}
+          />
         </div>
       </Container>
     </div>
@@ -481,6 +598,16 @@ function EditProductView({ setViewMode, openSnackbar, info }) {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openConfirmAdd, setOpenConfirmAdd] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
+  const [input, setInput] = useState({});
+
+  const handleChangeInput = (key, value) => {
+    setInput((prev) => {
+      return {
+        ...prev,
+        [key]: value,
+      };
+    });
+  };
 
   return (
     <div className="" style={{ background: "#F9FAFB" }}>
@@ -622,13 +749,19 @@ function EditProductView({ setViewMode, openSnackbar, info }) {
           </div>
           <div className="h-100  p-4 rounded-lg shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.2),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_1px_3px_0px_rgba(0,0,0,0.12)] overflow-y-scroll">
             <h2 className="text-lg font-semibold">Danh Mục</h2>
-            <CategoryPicker dataCategory={dataCategory} />
+            <CategoryPicker
+              dataCategory={dataCategory}
+              handleChangeInput={handleChangeInput}
+            />
           </div>
         </div>
 
         <div className="shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.2),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_1px_3px_0px_rgba(0,0,0,0.12)] mt-10 p-4">
           <h2 className="text-lg font-semibold capitalize">Biến thể</h2>
-          <VariantManager openSnackbar={openSnackbar} />
+          <VariantManager
+            openSnackbar={openSnackbar}
+            handleChangeInput={handleChangeInput}
+          />
         </div>
       </Container>
     </div>

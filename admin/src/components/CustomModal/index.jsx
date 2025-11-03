@@ -10,6 +10,7 @@ export default function CustomModal({
   controlEditModal,
   controlAddCoupon,
   controlAddCategoryModal,
+  typeCategory,
 }) {
   return (
     <>
@@ -20,6 +21,7 @@ export default function CustomModal({
       {type === "category-add" && (
         <CustomModalAddCategory
           controlAddCategoryModal={controlAddCategoryModal}
+          typeCategory={typeCategory}
         />
       )}
       {type === "users" && <CustomModalUser />}
