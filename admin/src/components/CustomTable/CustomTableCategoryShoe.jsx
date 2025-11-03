@@ -71,6 +71,7 @@ export default function CustomTableCategoryShoe({
       <CustomModal
         type={"category-add"}
         controlAddCategoryModal={{ addCategoryModal, setAddCategoryModal }}
+        typeCategory={"shoe"}
       />
 
       <div className="w-full flex justify-between items-center mb-3">

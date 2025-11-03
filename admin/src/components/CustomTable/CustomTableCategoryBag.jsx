@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Pagination } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import CustomModal from "../CustomModal";
+import AddIcon from "@mui/icons-material/Add";
 import useCategoryStore from "../../../stores/useCategoryStore";
 
 export default function CustomTableCategoryBag({
@@ -9,6 +10,8 @@ export default function CustomTableCategoryBag({
   setSelectedItem,
 }) {
   const { backPackCategories, searchTerm } = useCategoryStore();
+
+  const [addCategoryModal, setAddCategoryModal] = useState(false);
 
   // Lọc dữ liệu theo searchTerm
   const filteredData = backPackCategories.filter((item) =>
@@ -63,7 +66,21 @@ export default function CustomTableCategoryBag({
         controlEditModal={{ editModal, setEditModal }}
       />
 
-      <h1 className="text-2xl font-semibold mb-3">Ba lô</h1>
+      <CustomModal
+        type={"category-add"}
+        controlAddCategoryModal={{ addCategoryModal, setAddCategoryModal }}
+        typeCategory={"backpack"}
+      />
+
+      <div className="w-full flex justify-between items-center mb-3">
+        <h1 className="text-2xl font-semibold ">Balo</h1>
+        <Button
+          onClick={() => setAddCategoryModal(true)}
+          sx={{ borderRadius: 100, background: "#4CAF50" }}
+        >
+          <AddIcon sx={{ color: "#ffff" }} />
+        </Button>
+      </div>
 
       <table className="w-full border-collapse">
         <thead>
@@ -105,7 +122,7 @@ export default function CustomTableCategoryBag({
                       />
                     ) : col.id === "image" ? (
                       <img
-                        src={row.image}
+                        src={`${import.meta.env.VITE_BACKEND_URL}/${row.image}`}
                         alt={row.name}
                         width={60}
                         className="rounded-md"
