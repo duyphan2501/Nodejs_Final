@@ -22,7 +22,7 @@ const PromoCode = () => {
 
   return (
     <div>
-      <label className="flex items-center gap-2 mb-4 text-sm cursor-pointer">
+      <label className="flex items-center gap-2 mb-4 text-sm cursor-pointer w-fit">
         <input
           type="checkbox"
           checked={usePromoCode}

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    email: { type: String, required: true },
     orderCode: { type: Number, required: true, unique: true },
     orderId: { type: String, required: true, unique: true },
     shippingInfo: {
@@ -12,18 +12,31 @@ const orderSchema = new mongoose.Schema(
       phone: String,
       receiver: String,
     },
-    products: [
+    items: [
       {
-        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+        variantId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Variant",
+          required: true,
+        },
+        name: String,
+        size: String,
+        price: Number,
+        discount: Number,
+        color: String,
+        image: String,
         quantity: Number,
       },
     ],
+    subTotal: {type: Number, required: true},
+    itemsDiscounted: {type: Number, required: true},
     payment: {
       provider: String,
       status: String,
     },
     status: { type: String, default: "pending" },
-    couponCode: { type: String },
+    couponCode: { code: String, amountReduced: Number },
+    usedPoint: { point: Number, amountReduced: Number },
   },
   { timestamps: true, collection: "orders" }
 );

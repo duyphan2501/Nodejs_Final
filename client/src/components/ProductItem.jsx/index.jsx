@@ -46,15 +46,16 @@ const ProductItem = ({ product, addCart }) => {
 
   const handleAddCart = async () => {
     const item = {
-      _id: selectedVariant._id,
+      variantId: selectedVariant._id,
       name: product.name,
       size: selectedAttr.size,
-      price: actualDiscountedPrice,
+      price,
+      discount,
       color: selectedVariant.color,
       image: selectedVariant.images[0],
+      inStock: selectedVariant.inStock,
     };
     const quantity = 1;
-    console.log(item)
     await addCart(item, quantity);
   };
 

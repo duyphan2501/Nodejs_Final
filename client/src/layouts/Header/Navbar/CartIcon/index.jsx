@@ -1,4 +1,4 @@
-import { X, ArrowRight } from "lucide-react";
+import { X, ArrowRight, CarIcon } from "lucide-react";
 import { startTransition, useState } from "react";
 import { Link } from "react-router-dom";
 import useCartStore from "../../../../store/useCartStore";
@@ -15,16 +15,16 @@ const CartIcon = () => {
   const updateCartItem = useCartStore((state) => state.updateCartItem);
   const user = useUserStore((state) => state.user);
 
-  const handleRemoveItem = async (variantId, size) => {
-    await deleteItem(user?._id, variantId, size);
-  };
-
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN").format(price) + "₫";
   };
 
   const calculateTotal = () => {
     return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  };
+
+  const handleRemoveItem = async (variantId, size) => {
+    await deleteItem(user?._id, variantId, size);
   };
 
   const handleQuantityChange = async (variantId, size, quantity) => {
@@ -97,7 +97,7 @@ const CartIcon = () => {
                 <div className="max-h-96 overflow-y-auto mb-4 scroll">
                   {cartItems.map((item) => (
                     <div
-                      key={item._id}
+                      key={item.variantId}
                       className="flex gap-3 p-3 border-b border-gray-200 hover:bg-gray-50 transition-colors"
                     >
                       <img
@@ -117,7 +117,7 @@ const CartIcon = () => {
                           <QuantityMenu
                             quantity={item.quantity}
                             handleChange={(value) =>
-                              handleQuantityChange(item._id, item.size, value)
+                              handleQuantityChange(item.variantId, item.size, value)
                             }
                           />
                         </div>
@@ -127,7 +127,7 @@ const CartIcon = () => {
                       </div>
                       <button
                         className="p-1 hover:bg-gray-200 rounded h-fit cursor-pointer"
-                        onClick={() => handleRemoveItem(item._id, item.size)}
+                        onClick={() => handleRemoveItem(item.variantId, item.size)}
                       >
                         <FaRegTrashAlt size={16} />
                       </button>

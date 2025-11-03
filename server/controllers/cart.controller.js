@@ -97,7 +97,7 @@ const updateCart = async (req, res, next) => {
         "Thiếu mã biến thể hoặc size hoặc số lượng"
       );
     }
-    const newQuantity = parseInt(quantity, 10)
+    const newQuantity = parseInt(quantity, 10);
     const guestCartId = req.cookies.cartId;
     if (!userId && !guestCartId)
       throw createHttpError.BadRequest("Không tìm thấy giỏ hàng");
