@@ -17,6 +17,7 @@ import {
   verifyRefreshToken,
 } from "../helpers/jwt.helper.js";
 import { verifyToken } from "../helpers/googleAuth.helper.js";
+import { mergeCart } from "../services/cart.service.js";
 
 const signUp = async (req, res, next) => {
   try {
@@ -137,7 +138,8 @@ const login = async (req, res, next) => {
     foundUser.refreshTokenExpireAt = expireDate;
     foundUser.lastLogin = Date.now();
     await foundUser.save();
-
+    const guestCartId = req.cookies.cartId
+    await mergeCart(foundUser._id, guestCartId)
     return res.status(200).json({
       message: "Đăng nhập thành công!",
       accessToken,

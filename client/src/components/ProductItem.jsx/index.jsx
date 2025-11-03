@@ -50,10 +50,11 @@ const ProductItem = ({ product, addCart }) => {
       name: product.name,
       size: selectedAttr.size,
       price: actualDiscountedPrice,
-      color: selectedAttr.color,
+      color: selectedVariant.color,
       image: selectedVariant.images[0],
     };
     const quantity = 1;
+    console.log(item)
     await addCart(item, quantity);
   };
 

@@ -8,8 +8,9 @@ import connectToDB from "./database/connectMongoDB.js";
 import cors from "cors";
 import categoryRouter from "./routes/category.route.js";
 import path from "path";
-
 import cartRouter from "./routes/cart.route.js";
+import couponRouter from "./routes/coupon.route.js";
+
 import productRouter from "./routes/product.route.js";
 dotenv.config({ quiet: true });
 
@@ -31,7 +32,6 @@ app.use(
 //routes
 app.use("/api/user", userRouter);
 app.use("/api/category", categoryRouter);
-app.use("/api/product", productRouter);
 
 app.use(errorHandeler);
 

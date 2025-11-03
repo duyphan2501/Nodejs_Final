@@ -12,10 +12,13 @@ const TableControlProvider = ({
   filter,
   setFilter,
   controlSelectDetail,
+  selectedCouponId,
+  setSelectedCouponId,
 }) => {
   const { confirmDelete, setConfirmDelete } = controlConfirmDelete;
   const { selectedItem, setSelectedItem } = controlSelectAll;
   const { selectedDetail, setSelectedDetail } = controlSelectDetail;
+
   return (
     <TableControlContext.Provider
       value={{
@@ -30,6 +33,8 @@ const TableControlProvider = ({
         setSelectedDetail,
         userData,
         couponData,
+        selectedCouponId,
+        setSelectedCouponId,
       }}
     >
       {children}

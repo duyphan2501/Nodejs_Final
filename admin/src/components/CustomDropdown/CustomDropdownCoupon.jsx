@@ -30,8 +30,8 @@ export default function CustomDropdownCoupon({ choose, handleChangeInput }) {
           },
         }}
       >
-        <MenuItem value="active">Hiệu lực</MenuItem>
-        <MenuItem value="inactive">Không hiệu lực</MenuItem>
+        <MenuItem value="active">Hiệu lực </MenuItem>
+        <MenuItem value="inactive">Không hiệu lực </MenuItem>
       </Select>
     </FormControl>
   );

@@ -9,6 +9,9 @@ const addCartItem = async (userId, guestCartId, item, quantity) => {
   if (quantity === 0) return;
 
   const cartKey = userId ? `cart:${userId}` : `cart:${guestCartId}`;
+  const cartKeyInfo = `${cartKey}:info`;
+  const cartKeyQty = `${cartKey}:qty`;
+
   const TTL = userId ? USER_CART_TTL : GUEST_CART_TTL;
 
   const productKey = `product:${item._id}:${item.size}`;
@@ -17,21 +20,18 @@ const addCartItem = async (userId, guestCartId, item, quantity) => {
 
   const pipeline = redisClient.multi();
 
-  pipeline.hSet(`${cartKey}:info`, productKey, productData);
+  pipeline.hSet(cartKeyInfo, productKey, productData);
 
-  pipeline.hIncrBy(`${cartKey}:qty`, productKey, quantity);
+  pipeline.hIncrBy(cartKeyQty, productKey, quantity);
 
-  pipeline.expire(cartKey, TTL);
+  pipeline.expire(cartKeyInfo, TTL);
+  pipeline.expire(cartKeyQty, TTL);
 
   await pipeline.exec();
 };
 
-
-// Đảm bảo các constants như USER_CART_TTL, GUEST_CART_TTL đã được định nghĩa
-// redisClient và CartModel đã được import
-
 const loadCart = async (userId, guestCartId) => {
-  const isUser = userId ? true: false;
+  const isUser = userId ? true : false;
   // Key chính (parent key)
   const cartKey = isUser ? `cart:${userId}` : `cart:${guestCartId}`;
   const qtyKey = `${cartKey}:qty`;
@@ -52,7 +52,7 @@ const loadCart = async (userId, guestCartId) => {
       const productInfo = infos[productKey]
         ? JSON.parse(infos[productKey])
         : {};
-      
+
       return {
         ...productInfo,
         quantity: parseInt(qty, 10),
@@ -64,19 +64,19 @@ const loadCart = async (userId, guestCartId) => {
     pipeline.expire(qtyKey, TTL);
     pipeline.expire(infoKey, TTL);
     await pipeline.exec();
-  } 
-  
+  }
+
   // --- LOGIC 2: Dữ liệu không có trong Redis, là User, cần load từ MongoDB (Cache Miss) ---
   else if (isUser) {
-    console.log(isUser)
+    console.log(isUser);
     const mongoCart = await CartModel.findOne({ userId }).lean();
 
     if (mongoCart) {
-      cartItems = mongoCart.items.map(item => item)
+      cartItems = mongoCart.items.map((item) => item);
       // đồng bộ lại redis
       const pipeline = redisClient.multi();
       for (const item of mongoCart.items) {
-        const productKey = `product:${item.modelId}:${item.size}`; 
+        const productKey = `product:${item.modelId}:${item.size}`;
         pipeline.hSet(qtyKey, productKey, item.quantity);
         pipeline.hSet(infoKey, productKey, JSON.stringify(item));
       }
@@ -87,11 +87,85 @@ const loadCart = async (userId, guestCartId) => {
     }
   }
 
-  return { 
-      items: cartItems,
-      userId: isUser ? userId : undefined,
-      guestCartId: !isUser ? guestCartId : undefined
+  return {
+    items: cartItems,
+    userId: isUser ? userId : undefined,
+    guestCartId: !isUser ? guestCartId : undefined,
   };
 };
 
-export { addCartItem, loadCart };
+const mergeCart = async (userId, guestCartId) => {
+  if (!userId || !guestCartId) {
+    return;
+  }
+
+  const userCartKey = `cart:${userId}`;
+  const guestCartKey = `cart:${guestCartId}`;
+
+  const userCartInfoKey = `${userCartKey}:info`;
+  const userCartQtyKey = `${userCartKey}:qty`;
+  const guestCartInfoKey = `${guestCartKey}:info`;
+  const guestCartQtyKey = `${guestCartKey}:qty`;
+
+  const guestCartExists = await redisClient.exists(guestCartInfoKey);
+  if (!guestCartExists) {
+    await redisClient.del(guestCartKey, guestCartInfoKey, guestCartQtyKey);
+    return;
+  }
+
+  const guestCartItems = await redisClient.hGetAll(guestCartInfoKey);
+  const guestCartQuantities = await redisClient.hGetAll(guestCartQtyKey);
+
+  if (Object.keys(guestCartItems).length === 0) {
+    await redisClient.del(guestCartKey, guestCartInfoKey, guestCartQtyKey);
+    return;
+  }
+
+  const pipeline = redisClient.multi();
+  for (const productKey in guestCartItems) {
+    const itemData = guestCartItems[productKey];
+    const quantity = parseInt(guestCartQuantities[productKey], 10);
+
+    pipeline.hSet(userCartInfoKey, productKey, itemData);
+    pipeline.hIncrBy(userCartQtyKey, productKey, quantity);
+  }
+
+  pipeline.expire(userCartInfoKey, USER_CART_TTL);
+  pipeline.expire(userCartQtyKey, USER_CART_TTL);
+  await redisClient.del(guestCartInfoKey);
+  await redisClient.del(guestCartQtyKey);
+
+  await pipeline.exec();
+};
+
+const removeCartItem = async (userId, guestCartId, variantId, size) => {
+  const cartKey = userId ? `cart:${userId}` : `cart:${guestCartId}`;
+  const cartKeyInfo = `${cartKey}:info`;
+  const cartKeyQty = `${cartKey}:qty`;
+  const productId = `${variantId}:${size}`;
+  const productField = `product:${productId}`;
+
+  const pipeline = redisClient.multi();
+
+  pipeline.hDel(cartKeyInfo, productField);
+  pipeline.hDel(cartKeyQty, productField);
+
+  await pipeline.exec();
+
+  const remainingItems = await redisClient.hLen(cartKeyQty);
+  if (remainingItems === 0) {
+    // Sử dụng UNLINK để xóa không đồng bộ, tránh block Redis server
+    await redisClient.unlink(cartKeyInfo);
+    await redisClient.unlink(cartKeyQty);
+  }
+};
+
+const updateCartItem = async(userId, guestCartId, variantId, size, quantity) => {
+  const cartKey = userId ? `cart:${userId}` : `cart:${guestCartId}`;
+  const cartKeyQty = `${cartKey}:qty`;
+  const productId = `${variantId}:${size}`;
+  const productField = `product:${productId}`;
+  await redisClient.hSet(cartKeyQty, productField, quantity);
+}
+
+export { addCartItem, loadCart, mergeCart, removeCartItem, updateCartItem };

@@ -26,12 +26,42 @@ const useCartStore = create((set) => {
     }
   };
 
+  const deleteItem = async (userId, variantId, size) => {
+    try {
+      const res = await API.delete(`/api/cart/delete`, {
+        data: { userId, variantId, size },
+      });
+      setCartItems(res.data.cart.items);
+      toast.success(res.data.message);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message || "Xoá thất bại");
+    }
+  };
+  const updateCartItem = async (userId, variantId, size, quantity) => {
+    try {
+      const res = await API.put(`/api/cart/update`, {
+        userId,
+        variantId,
+        size,
+        quantity
+      });
+      setCartItems(res.data.cart.items);
+      toast.success(res.data.message);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message || "Cập nhật thất bại");
+    }
+  };
+
   return {
     cartItems: [],
     setCartItems,
     addToCart,
     clearCartItems,
     getCart,
+    deleteItem,
+    updateCartItem,
   };
 });
 

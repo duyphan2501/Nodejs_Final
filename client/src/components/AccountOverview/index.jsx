@@ -4,7 +4,8 @@ export default function AccountOverview() {
   const menuItems = [
     { label: "Thông Tin Cá Nhân", hasArrow: true, link: "/my-account" },
     { label: "Sổ Địa Chỉ", hasArrow: true, link: "/addresses" },
-    { label: "Đơn hàng", hasArrow: false, link: "/adiclub" },
+    { label: "Đơn hàng", hasArrow: false, link: "/order" },
+    { label: "Lịch sử đặt hàng", hasArrow: false, link: "/order-history" },
     { label: "Đăng xuất", hasArrow: false, link: "/logout" },
   ];
 
