@@ -160,4 +160,12 @@ const removeCartItem = async (userId, guestCartId, variantId, size) => {
   }
 };
 
-export { addCartItem, loadCart, mergeCart, removeCartItem };
+const updateCartItem = async(userId, guestCartId, variantId, size, quantity) => {
+  const cartKey = userId ? `cart:${userId}` : `cart:${guestCartId}`;
+  const cartKeyQty = `${cartKey}:qty`;
+  const productId = `${variantId}:${size}`;
+  const productField = `product:${productId}`;
+  await redisClient.hSet(cartKeyQty, productField, quantity);
+}
+
+export { addCartItem, loadCart, mergeCart, removeCartItem, updateCartItem };
