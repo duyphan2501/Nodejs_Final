@@ -6,6 +6,7 @@ import QuantityButton from "../QuantityButton.jsx";
 import useUserStore from "../../store/useUserStore.js";
 import { useState } from "react";
 import { getDiscountedPrice } from "../../utils/formatMoney.js";
+import { calculateTotal } from "../../utils/calculatePrice.js";
 
 const CartWithItems = ({}) => {
   const cartItems = useCartStore((state) => state.cartItems);
@@ -25,16 +26,12 @@ const CartWithItems = ({}) => {
     return new Intl.NumberFormat("vi-VN").format(price) + "₫";
   };
 
-  const calculateTotal = () => {
-    return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  };
 
   if (cartItems.length === 0) {
     return <EmptyCart />;
   }
 
-  const total = calculateTotal();
-  const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const total = calculateTotal(cartItems);
 
   return (
     <div className="min-h-screen bg-white-100 py-8 px-4">
@@ -50,7 +47,7 @@ const CartWithItems = ({}) => {
             <div className="bg-white md:p-6 mb-6">
               <h2 className="text-4xl font-bold mb-2">GIỎ HÀNG CỦA BẠN</h2>
               <p className="text-xl mb-4">
-                TỔNG CỘNG ({itemCount} sản phẩm){" "}
+                TỔNG CỘNG ({cartItems.length} sản phẩm){" "}
                 <strong className="money">{formatPrice(total)}</strong>
               </p>
 
@@ -145,7 +142,7 @@ const CartWithItems = ({}) => {
               <h3 className="text-2xl font-bold mb-4">TÓM TẮT ĐƠN HÀNG</h3>
 
               <div className="flex justify-between mb-2">
-                <span>{itemCount} sản phẩm</span>
+                <span>{cartItems.length} sản phẩm</span>
                 <span className="money">{formatPrice(total)}</span>
               </div>
               <div className="flex justify-between mb-2">

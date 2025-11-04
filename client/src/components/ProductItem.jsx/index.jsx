@@ -12,16 +12,16 @@ const ProductItem = ({ product, addCart }) => {
   const { setSelectedProduct } = useContext(MyContext);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [selectedAttr, setSelectedAttr] = useState(
-    selectedVariant.attribute[0]
+    selectedVariant.attributes[0]
   );
 
   useEffect(() => {
-    if (selectedVariant && selectedVariant.attribute.length > 0) {
-      setSelectedAttr(selectedVariant.attribute[0]);
+    if (selectedVariant && selectedVariant.attributes.length > 0) {
+      setSelectedAttr(selectedVariant.attributes[0]);
     }
   }, [selectedVariant]);
 
-  const { price, discount } = selectedAttr;
+  const { price, discount } = selectedVariant;
 
   const calculatedPrices = useMemo(() => {
     const originalPrice = price;
@@ -32,17 +32,13 @@ const ProductItem = ({ product, addCart }) => {
       currentDiscount
     );
 
-    const actualDiscountedPrice = originalPrice * (1 - currentDiscount / 100);
-
     return {
       formatedPrice,
       formatedDiscountedPrice,
-      actualDiscountedPrice: Math.round(actualDiscountedPrice / 1000) * 1000,
     };
   }, [price, discount]);
 
-  const { formatedPrice, formatedDiscountedPrice, actualDiscountedPrice } =
-    calculatedPrices;
+  const { formatedPrice, formatedDiscountedPrice } = calculatedPrices;
 
   const handleAddCart = async () => {
     const item = {
@@ -53,7 +49,7 @@ const ProductItem = ({ product, addCart }) => {
       discount,
       color: selectedVariant.color,
       image: selectedVariant.images[0],
-      inStock: selectedVariant.inStock,
+      inStock: selectedAttr.inStock,
     };
     const quantity = 1;
     await addCart(item, quantity);
@@ -127,7 +123,7 @@ const ProductItem = ({ product, addCart }) => {
             </div>
             <div className="">
               <AttributeMenu
-                attributes={selectedVariant.attribute}
+                attributes={selectedVariant.attributes}
                 selectedAttr={selectedAttr}
                 setSelectedAttr={setSelectedAttr}
               />

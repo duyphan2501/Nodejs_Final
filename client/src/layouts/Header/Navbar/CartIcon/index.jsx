@@ -7,6 +7,7 @@ import QuantityButton from "../../../../components/QuantityButton.jsx";
 import QuantityMenu from "../../../../components/QuantityMenu/index.jsx";
 import useUserStore from "../../../../store/useUserStore.js";
 import { Button } from "@mui/material";
+import { calculateDiscountedPrice, calculateTotal } from "../../../../utils/calculatePrice.js";
 
 const CartIcon = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -19,10 +20,6 @@ const CartIcon = () => {
     return new Intl.NumberFormat("vi-VN").format(price) + "₫";
   };
 
-  const calculateTotal = () => {
-    return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  };
-
   const handleRemoveItem = async (variantId, size) => {
     await deleteItem(user?._id, variantId, size);
   };
@@ -31,9 +28,7 @@ const CartIcon = () => {
     await updateCartItem(user?._id, variantId, size, quantity);
   };
 
-  const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const total = calculateTotal();
-
+  const total = calculateTotal(cartItems);
   return (
     <div className="relative">
       {/* Cart Icon */}
@@ -65,7 +60,7 @@ const CartIcon = () => {
         <div className="absolute right-0 top-full w-96 bg-white shadow-2xl border border-gray-200 z-50 rounded-lg">
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold">GIỎ HÀNG ({itemCount})</h3>
+              <h3 className="text-lg font-bold">GIỎ HÀNG ({cartItems.length})</h3>
               <div
                 className="p-1 hover:bg-gray-100 rounded cursor-pointer"
                 onClick={() => setIsHovered(false)}
@@ -122,7 +117,7 @@ const CartIcon = () => {
                           />
                         </div>
                         <p className="text-sm font-semibold money">
-                          {formatPrice(item.price * item.quantity)}
+                          {formatPrice(calculateDiscountedPrice(item.price, item.discount))}
                         </p>
                       </div>
                       <button

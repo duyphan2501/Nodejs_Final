@@ -35,7 +35,7 @@ const orderSchema = new mongoose.Schema(
       status: String,
     },
     status: { type: String, default: "pending" },
-    couponCode: { code: String, amountReduced: Number },
+    coupon: { code: String, amountReduced: Number },
     usedPoint: { point: Number, amountReduced: Number },
   },
   { timestamps: true, collection: "orders" }

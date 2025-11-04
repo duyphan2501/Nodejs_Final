@@ -2,31 +2,23 @@ import mongoose from "mongoose";
 
 const variantSchema = new mongoose.Schema(
   {
-    productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-    name: String,
-    label: String,
-    images: [String],
-    attribute: [
-      {
-        basePrice: Number,
-        discount: Number,
-        sellPrice: Number,
-        inStock: [
-          {
-            size35: Number,
-            size36: Number,
-            size37: Number,
-            size38: Number,
-            size39: Number,
-            size40: Number,
-            size41: Number,
-            size42: Number,
-            size43: Number,
-            size44: Number,
-          },
-        ],
-      },
-    ],
+    color: { type: String, required: true, trim: true },
+    images: {
+      type: [String],
+      required: true,
+      validate: [v => v.length > 0, 'A variant must have at least one image.']
+    },
+    price: { type: Number, required: true, min: 0 },
+    discount: { type: Number, default: 0, min: 0, max: 100 },
+    attributes: { 
+      type: [{
+        inStock: { type: Number, required: true, min: 0 },
+        size: { type: String, required: true, trim: true },
+      }],
+      required: true,
+      validate: [v => v.length > 0, 'A variant must have at least one attribute.'],
+      _id: false,
+    },
   },
   { timestamps: true, collection: "variants" }
 );
