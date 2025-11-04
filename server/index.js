@@ -11,6 +11,9 @@ import path from "path";
 import cartRouter from "./routes/cart.route.js";
 import couponRouter from "./routes/coupon.route.js";
 
+import productRouter from "./routes/product.route.js";
+import orderRouter from "./routes/order.route.js";
+import { startNgrokAndConfirmWebhook } from "./config/payos.init.js";
 dotenv.config({ quiet: true });
 
 const app = express();
@@ -32,7 +35,8 @@ app.use(
 app.use("/api/user", userRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/cart", cartRouter);
-app.use("/api/coupon", couponRouter);
+app.use("/api/order", orderRouter);
+app.use("/api/product", productRouter);
 
 app.use(errorHandeler);
 
@@ -40,4 +44,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server is running at PORT :::", PORT);
   connectToDB();
+  startNgrokAndConfirmWebhook();
 });

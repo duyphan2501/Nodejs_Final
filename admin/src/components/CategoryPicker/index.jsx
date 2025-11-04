@@ -3,20 +3,33 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-export default function CategoryPicker({ dataCategory }) {
+export default function CategoryPicker({
+  dataCategory,
+  handleChangeInput,
+  reset,
+}) {
   // Khởi tạo state: { [id]: boolean }
   const [checked, setChecked] = React.useState({});
 
+  React.useEffect(() => {
+    handleChangeInput("categoryId", checked);
+  }, [checked]);
+
+  React.useEffect(() => {
+    setChecked({});
+    console.log(checked);
+  }, [reset]);
+
   // Toggle 1 node
   const handleToggle =
-    (id, children = []) =>
+    (_id, children = []) =>
     (event) => {
       const isChecked = event.target.checked;
       setChecked((prev) => {
-        const newChecked = { ...prev, [id]: isChecked };
+        const newChecked = { ...prev, [_id]: isChecked };
         // Nếu là cha → update tất cả con
         children.forEach((child) => {
-          newChecked[child.id] = isChecked;
+          newChecked[child._id] = isChecked;
         });
         return newChecked;
       });
@@ -24,7 +37,7 @@ export default function CategoryPicker({ dataCategory }) {
 
   // Kiểm tra trạng thái cha (all / none / some)
   const getParentState = (children) => {
-    const values = children.map((c) => checked[c.id]);
+    const values = children.map((c) => checked[c._id]);
     const allChecked = values.every(Boolean);
     const noneChecked = values.every((v) => !v);
     return {
@@ -40,15 +53,15 @@ export default function CategoryPicker({ dataCategory }) {
           parent.children
         );
         return (
-          <Box key={parent.id}>
+          <Box key={parent._id}>
             {/* Checkbox cha */}
             <FormControlLabel
-              label={parent.label}
+              label={parent.name}
               control={
                 <Checkbox
                   checked={isChecked}
                   indeterminate={indeterminate}
-                  onChange={handleToggle(parent.id, parent.children)}
+                  onChange={handleToggle(parent._id, parent.children)}
                 />
               }
             />
@@ -57,12 +70,12 @@ export default function CategoryPicker({ dataCategory }) {
             <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
               {parent.children.map((child) => (
                 <FormControlLabel
-                  key={child.id}
-                  label={child.label}
+                  key={child._id}
+                  label={child.name}
                   control={
                     <Checkbox
-                      checked={!!checked[child.id]}
-                      onChange={handleToggle(child.id)}
+                      checked={!!checked[child._id]}
+                      onChange={handleToggle(child._id)}
                     />
                   }
                 />

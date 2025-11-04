@@ -2,9 +2,6 @@ import AddressCard from "./AddressCard";
 import { Button } from "@mui/material";
 import { FaPlus } from "react-icons/fa";
 import { useContext, useState } from "react";
-import MyContext from "../Context/MyContext";
-import useAddressStore from "../store/addressStore";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const AddressList = ({
   title,
@@ -15,10 +12,8 @@ const AddressList = ({
   if (!address) return;
   const defaultAddress = address.find((addr) => addr.isDefault === true);
   if (defaultAddress && setSelectedAddress) setSelectedAddress(defaultAddress);
-  const { setUpdateAddr, openAddrFrm } = useContext(MyContext);
+  // const { setUpdateAddr, openAddrFrm } = useContext(MyContext);
   const [selectedId, setSelectedId] = useState(defaultAddress?._id || null);
-  const { deleteAddress } = useAddressStore.getState();
-  const axiosPrivate = useAxiosPrivate();
 
   const handleSelect = (id) => {
     setSelectedId(id);
@@ -29,20 +24,20 @@ const AddressList = ({
   };
 
   const handleCreate = () => {
-    setUpdateAddr(null);
-    openAddrFrm();
+    // setUpdateAddr(null);
+    // openAddrFrm();
   };
 
   const handleDelete = (addressId) => {
-    deleteAddress(addressId, axiosPrivate);
-    if (selectedId === addressId) {
-      setSelectedId(null);
-    }
+    // deleteAddress(addressId, axiosPrivate);
+    // if (selectedId === addressId) {
+    //   setSelectedId(null);
+    // }
   };
 
   const handleUpdate = (address) => {
-    setUpdateAddr(address);
-    openAddrFrm();
+    // setUpdateAddr(address);
+    // openAddrFrm();
   };
 
   return (

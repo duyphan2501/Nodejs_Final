@@ -23,6 +23,7 @@ import OrderList from "./pages/OrderList";
 
 import useUserStore from "./store/useUserStore";
 import useCartStore from "./store/useCartStore";
+import Checkout from "./pages/Checkout";
 
 function App() {
   const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } =
@@ -62,6 +63,7 @@ function App() {
             <Route path="addresses" element={<Address />} />
             <Route path="cart" element={<Cart />} />
             <Route path="products" element={<ProductPage />} />
+            <Route path="checkout" element={<Checkout />} />
           </Route>
         </Routes>
       </BrowserRouter>

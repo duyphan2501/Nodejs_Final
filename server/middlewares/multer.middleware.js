@@ -7,14 +7,12 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// const storage = multer.diskStorage({
-//   destination: "uploads/images/",
-//   filename: (req, file, cb) => {
-//     const ext = path.extname(file.originalname);
-//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//     cb(null, file.fieldname + "-" + uniqueSuffix + ext);
-//   },
-// });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/images/"),
+  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
+});
 
-const upload = multer({ dest: "uploads/images/" });
+const upload = multer({ storage });
+
 export const uploadSingleImage = upload.single("image");
+export const uploadAnyFiles = upload.any();

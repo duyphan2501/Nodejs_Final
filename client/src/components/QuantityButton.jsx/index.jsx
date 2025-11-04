@@ -11,11 +11,11 @@ const QuantityButton = ({ value = 1, onChange }) => {
   };
 
   return (
-    <div className="flex items-center justify-between h-10 rounded-full border border-gray-300 bg-white overflow-hidden shadow-sm">
+    <div className="flex items-center justify-between h-10  w-20">
       <IconButton
         size="small"
         onClick={handleDecrease}
-        className="!rounded-none hover:!bg-gray-100 transition-colors"
+        className=" !border-2 hover:!bg-gray-100 !p-2 transition-colors"
       >
         <Minus className="w-4 h-4 text-gray-700" />
       </IconButton>
@@ -30,7 +30,7 @@ const QuantityButton = ({ value = 1, onChange }) => {
       <IconButton
         size="small"
         onClick={handleIncrease}
-        className="!rounded-none hover:!bg-gray-100 transition-colors"
+        className="!border-2 hover:!bg-gray-100 !p-2 transition-colors"
       >
         <Plus className="w-4 h-4 text-gray-700" />
       </IconButton>

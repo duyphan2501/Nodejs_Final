@@ -14,7 +14,7 @@ import {
 import { MyContext } from "../../Context/MyContext";
 import { toast } from "react-toastify";
 
-const AddressForm = ({ address, setAddress }) => {
+const AddressForm = ({ address=null, setAddress }) => {
   const [provinces, setProvinces] = useState([]);
   const [wards, setWards] = useState([]);
   const [wardsList, setWardsList] = useState([]);

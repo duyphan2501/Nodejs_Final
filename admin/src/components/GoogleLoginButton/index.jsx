@@ -17,7 +17,7 @@ const GoogleLoginButton = ({ isLogin }) => {
     const token = credentialResponse.credential;
 
     try {
-      const res = await axiosCustom.post("/user/login/google", {
+      const res = await axiosCustom.post("/api/user/login/google", {
         token,
       });
 
