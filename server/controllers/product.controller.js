@@ -4,20 +4,8 @@ import { addManyVariant } from "../services/variant.service.js";
 
 const addProduct = async (req, res, next) => {
   try {
-    let { name, categories, inputPrice, description, variants } =
+    let { name, categoryId, brand, inputPrice, description, variants } =
       req.validatedBody;
-
-    if (!name || !categories || !inputPrice || !description || !variants) {
-      throw createHttpError.BadRequest("Vui lòng nhập đầy đủ thông tin");
-    }
-
-    if (categories === "string") {
-      categories = JSON.parse(categories);
-    }
-
-    if (typeof variants === "string") {
-      variants = JSON.parse(variants);
-    }
 
     //Gắn file path hình vào từng variant
     variants = variants.map((variant, i) => {
@@ -27,20 +15,22 @@ const addProduct = async (req, res, next) => {
       return { ...variant, images };
     });
 
-    //Thêm sản phẩm vào trước
+    //Thêm variant vào db
+    const resultVariant = await addManyVariant(variants);
+
+    //Tách mảng ObjectId của variant đã add
+    const variantsObjId = resultVariant.map((v) => v._id);
+
+    //Thêm sản phẩm vao db
     const formatProduct = {
       name,
-      categoryId: categories,
+      categoryId,
+      brand,
       inputPrice,
       description,
+      variants: variantsObjId,
     };
     const resultProduct = await addOneProduct(formatProduct);
-
-    //Thêm variant vào db
-    const resultVariant = await addManyVariant(
-      variants,
-      resultProduct.insertedId
-    );
 
     res.status(200).json({
       success: true,

@@ -12,7 +12,7 @@ export default function CategoryPicker({
   const [checked, setChecked] = React.useState({});
 
   React.useEffect(() => {
-    handleChangeInput("category", checked);
+    handleChangeInput("categoryId", checked);
   }, [checked]);
 
   React.useEffect(() => {

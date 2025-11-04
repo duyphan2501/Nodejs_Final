@@ -1,12 +1,8 @@
 import VariantModel from "../models/variant.model.js";
 
-const addManyVariant = async (variants, productId) => {
-  const variantWithID = variants.map((variant) => {
-    return { ...variant, productId };
-  });
-
+const addManyVariant = async (variants) => {
   try {
-    const result = await VariantModel.insertMany(variantWithID, {
+    const result = await VariantModel.insertMany(variants, {
       ordered: true,
     });
 

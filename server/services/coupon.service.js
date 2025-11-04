@@ -131,6 +131,29 @@ export const updateCoupon = async (couponId, updateData) => {
   }
 };
 
+// Xóa coupon
+export const deleteCoupon = async (couponId) => {
+  try {
+    const deletedCoupon = await CouponModel.findByIdAndDelete(couponId);
+    if (!deletedCoupon) {
+      throw new Error("Coupon not found");
+    }
+    return deletedCoupon;
+  } catch (error) {
+    throw new Error(`Error deleting coupon: ${error.message}`);
+  }
+};
+
+// Xóa nhiều coupons
+export const deleteManyCoupons = async (couponIds) => {
+  try {
+    const result = await CouponModel.deleteMany({ _id: { $in: couponIds } });
+    return result;
+  } catch (error) {
+    throw new Error(`Error deleting coupons: ${error.message}`);
+  }
+};
+
 // Lấy coupons với filter và pagination
 export const getCouponsWithFilter = async (
   filters = {},
@@ -138,12 +161,19 @@ export const getCouponsWithFilter = async (
   limit = 20
 ) => {
   try {
-    const { status, discountType, minOrderValue } = filters;
+    const { status, discountType, minOrderValue, search } = filters;
 
     const query = {};
-    if (status) query.status = status;
-    if (discountType) query.discountType = discountType;
+    if (status && status !== "all") query.status = status;
+    if (discountType && discountType !== "all") {
+      query.discountType = discountType === "percentage" ? "percent" : "fixed";
+    }
     if (minOrderValue) query.minOrderValue = { $gte: minOrderValue };
+
+    // Thêm search query
+    if (search) {
+      query.code = { $regex: search, $options: "i" }; // Case-insensitive search
+    }
 
     const skip = (page - 1) * limit;
 

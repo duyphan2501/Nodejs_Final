@@ -329,33 +329,23 @@ function AddProductView({ setViewMode, openSnackbar }) {
       if (input.name) formData.append("name", input.name);
       if (input.inputPrice) formData.append("inputPrice", input.inputPrice);
       if (input.description) formData.append("description", input.description);
+      if (input.brand) formData.append("brand", input.brand);
 
       // Gửi category (nhiều cái)
-      if (input.category) {
-        Object.keys(input.category).forEach((key) => {
-          if (input.category[key]) {
-            formData.append("categories[]", key);
+      if (input.categoryId) {
+        Object.keys(input.categoryId).forEach((key) => {
+          if (input.categoryId[key]) {
+            formData.append("categoryId[]", key);
           }
         });
       }
 
-      //Chuyen cac size ve so
-      input.variant = input.variant.map((v) => ({
-        ...v,
-        inStock: Object.fromEntries(
-          Object.entries(v.inStock).map(([size, quantity]) => [
-            size,
-            quantity === "" ? 0 : Number(quantity),
-          ])
-        ),
-      }));
-
       // Gửi variant (mỗi variant có thể có nhiều ảnh)
-      if (input.variant && input.variant.length > 0) {
-        const savedVariant = input.variant.filter((v) => v.save === true);
+      if (input.variants && input.variants.length > 0) {
+        const savedVariant = input.variants.filter((v) => v.save === true);
         formData.append("variants", JSON.stringify(savedVariant));
 
-        input.variant.forEach((variant, i) => {
+        input.variants.forEach((variant, i) => {
           if (variant.images && variant.images.length > 0) {
             variant.images.forEach((img, j) => {
               if (img && img.file) {
@@ -366,16 +356,11 @@ function AddProductView({ setViewMode, openSnackbar }) {
         });
       }
 
-      // for (let [key, value] of formData.entries()) {
-      //   console.log(key, value);
-      // }
-
       // Gọi API
       const res = await axiosPrivate.post("/api/product/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      toast.success("Thêm sản phẩm thành công!!");
       setInput({});
       handleReset();
       setViewMode("list");
@@ -387,10 +372,9 @@ function AddProductView({ setViewMode, openSnackbar }) {
         error.response?.data.message || "Thêm sản phẩm thất bại";
       toast.error(messageErr);
       setOpenConfirmAdd(false);
+      console.log(input);
     }
   };
-
-  console.log(input);
 
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openConfirmAdd, setOpenConfirmAdd] = useState(false);
@@ -525,6 +509,16 @@ function AddProductView({ setViewMode, openSnackbar }) {
                   value={input.inputPrice || ""}
                 />
               </div>
+            </div>
+
+            <div id="brand" className="mt-2">
+              <p className="text-[#646464]">Thương Hiệu</p>
+              <input
+                type="text"
+                className="p-2 w-full bg-[#F5F5F5] shadow border-none focus:outline-none hover:border-none"
+                onChange={(e) => handleChangeInput("brand", e.target.value)}
+                value={input.brand || ""}
+              />
             </div>
 
             <div id="product-desc" className="mt-2 h-full">

@@ -15,4 +15,10 @@ router.put("/:id", couponController.updateCoupon);
 
 router.post("/", couponController.createCoupon);
 
+// Route xóa coupon theo ID
+router.delete("/:id", couponController.deleteCoupon);
+
+// Route xóa nhiều coupons
+router.post("/delete-many", couponController.deleteManyCoupons);
+
 export default router;
