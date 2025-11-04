@@ -13,7 +13,7 @@ const VariantManager = ({ openSnackbar, handleChangeInput, reset }) => {
   const [variants, setVariants] = useState([]);
 
   useEffect(() => {
-    handleChangeInput("variant", variants);
+    handleChangeInput("variants", variants);
   }, [variants]);
 
   useEffect(() => {
@@ -34,9 +34,10 @@ const VariantManager = ({ openSnackbar, handleChangeInput, reset }) => {
   const addVariant = () => {
     const newVariant = {
       id: Date.now(),
-      label: "",
-      name: "",
-      inStock: Array(10).fill(""),
+      color: "",
+      attributes: {
+        types: [],
+      },
       images: Array(6).fill(null),
       save: false,
     };
@@ -49,8 +50,6 @@ const VariantManager = ({ openSnackbar, handleChangeInput, reset }) => {
       prev.map((v) => (v.id === id ? { ...v, ...data, save: true } : v))
     );
   };
-
-  // console.log(variants);
 
   const deleteVariant = (id) => {
     setVariants((prev) => prev.filter((v) => v.id !== id));
@@ -132,8 +131,7 @@ const VariantManager = ({ openSnackbar, handleChangeInput, reset }) => {
 };
 
 const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
-  const [label, setLabel] = useState("");
-  const [name, setName] = useState("");
+  const [color, setColor] = useState("");
   const [sizes, setSizes] = useState(
     Array.from({ length: 10 }, (_, i) => i + 35).reduce((acc, size) => {
       acc[size] = "";
@@ -143,7 +141,11 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
   const [basePrice, setBasePrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const sellPrice = useMemo(() => {
-    return Math.round(basePrice * ((100 - discount) / 100));
+    const result = Math.round(basePrice * ((100 - discount) / 100));
+    return result.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
   }, [basePrice, discount]);
 
   // Modal khi lỗi
@@ -165,7 +167,7 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
     const newWarning = {};
 
     // Kiểm tra label và name
-    if (label === "" || name === "") {
+    if (color === "") {
       newWarning.text = true;
     } else {
       newWarning.text = false;
@@ -179,9 +181,12 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
       newWarning.img = false;
     }
 
-    // Kiểm tra ít nhất 1 size > 0
-    const hasValidSize = Object.values(sizes).some((qty) => Number(qty) > 0);
-    if (!hasValidSize) {
+    const values = Object.values(sizes);
+
+    // Ít nhất một giá trị lớn hơn 0
+    const hasPositive = values.some((qty) => Number(qty) > 0);
+
+    if (!hasPositive) {
       newWarning.size = true;
     } else {
       newWarning.size = false;
@@ -200,27 +205,15 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
       return;
     }
 
-    const input = {
-      label,
-      name,
-      inStock: sizes,
-      basePrice,
-      discount,
-      sellPrice,
-      images,
-    };
-
     setConfirmOpen(true);
   };
 
   const handleConfirm = () => {
     onSave(id, {
-      label,
-      name,
-      inStock: sizes,
-      basePrice,
+      color,
+      attributes: translateIntoObject(sizes),
+      price: basePrice,
       discount,
-      sellPrice,
       images,
     });
     setConfirmOpen(false);
@@ -245,6 +238,18 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
     const newImages = [...images];
     newImages[index] = null;
     setImages(newImages);
+  };
+
+  //Hàm chuyển key - value "Size : Stock" thành {Stock: x, Size: x}
+  const translateIntoObject = (inputSizeObj) => {
+    const type = Object.entries(inputSizeObj)
+      .filter(([_, value]) => value !== "")
+      .map(([key, value]) => ({
+        size: key,
+        inStock: Number.parseFloat(value),
+      }));
+
+    return type;
   };
 
   return (
@@ -316,26 +321,18 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
       </div>
       {warning.img ? (
         <div id="warning-img" className="text-red-500 bg-red-100 text-left p-2">
-          Phải chèn đủ 6 ảnh mỗi biến thể
+          Phải chèn đủ 5 ảnh mỗi biến thể
         </div>
       ) : (
         ""
       )}
 
       {/* Form nhập tên/nhãn */}
-      <div className="form-input grid grid-cols-2 gap-4">
+      <div className="form-input gap-4">
         <input
           type="text"
-          value={label}
-          onChange={(e) => setLabel(e.target.value)}
-          className="w-full bg-gray-100 shadow rounded h-12 p-3 capitalize focus:ring-0 focus:outline-none"
-          placeholder="Nhãn Biến thể"
-          disabled={save}
-        />
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={color}
+          onChange={(e) => setColor(e.target.value)}
           className="w-full bg-gray-100 shadow rounded h-12 p-3 capitalize focus:ring-0 focus:outline-none"
           placeholder="Tên biến thể"
           disabled={save}
@@ -398,12 +395,15 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
                 key={size}
                 type="text"
                 value={sizes[size]}
-                onChange={(e) =>
-                  setSizes({
-                    ...sizes,
-                    [size]: e.target.value,
-                  })
-                }
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {
+                    setSizes({
+                      ...sizes,
+                      [size]: value,
+                    });
+                  }
+                }}
                 className="w-15 h-15 p-4 focus:ring-0 focus:outline-none 
                bg-gray-100 shadow capitalize 
                placeholder:italic placeholder:text-center 
@@ -418,12 +418,15 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
                 key={size}
                 type="text"
                 value={sizes[size]}
-                onChange={(e) =>
-                  setSizes({
-                    ...sizes,
-                    [size]: e.target.value,
-                  })
-                }
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {
+                    setSizes({
+                      ...sizes,
+                      [size]: value,
+                    });
+                  }
+                }}
                 className="w-15 h-15 p-4 focus:ring-0 focus:outline-none 
                bg-gray-100 shadow capitalize 
                placeholder:italic placeholder:text-center 
