@@ -29,10 +29,17 @@ const Coupons = () => {
   const [selectedDetail, setSelectedDetail] = useState(false);
   const [selectedCouponId, setSelectedCouponId] = useState(null);
 
-  // Fetch coupons khi component mount
+  // Fetch coupons khi component mount hoặc filter thay đổi
   useEffect(() => {
-    fetchCoupons();
-  }, []);
+    const params = {};
+    if (filter.search) params.search = filter.search;
+    if (filter.status && filter.status !== "all") params.status = filter.status;
+    if (filter.discountType && filter.discountType !== "all") {
+      params.discountType = filter.discountType;
+    }
+
+    fetchCoupons(params);
+  }, [filter]);
 
   const handleChangePage = (_, newPage) => setPage(newPage);
 
@@ -99,14 +106,6 @@ const Coupons = () => {
 
   return (
     <>
-      <ConfirmDialog
-        open={confirmDelete}
-        onClose={() => setConfirmDelete(false)}
-        onConfirm={() => console.log("Xóa coupon")}
-        content={"Bạn có muốn xóa mã giảm giá này?"}
-        action={"Xóa"}
-      />
-
       <Navbar active="coupons" />
 
       <Container
@@ -161,7 +160,7 @@ const Coupons = () => {
         <TableControlProvider
           controlConfirmDelete={{ confirmDelete, setConfirmDelete }}
           controlSelectAll={{ selectedItem, setSelectedItem }}
-          couponData={pageData}
+          couponData={transformedCoupons}
           filter={filter}
           setFilter={setFilter}
           controlSelectDetail={{ selectedDetail, setSelectedDetail }}
@@ -175,17 +174,6 @@ const Coupons = () => {
           <div className="mt-3">
             <CustomTable type={"coupon"} />
           </div>
-
-          <TablePagination
-            component="div"
-            count={transformedCoupons.length}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            rowsPerPageOptions={[20, 30]}
-            labelRowsPerPage="Số dòng mỗi trang"
-          />
 
           <CustomModal type={"coupon-edit"} />
         </TableControlProvider>
