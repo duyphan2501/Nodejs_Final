@@ -9,27 +9,31 @@ const sampleProducts = [
     description: "Mẫu giày huyền thoại của Nike, phù hợp đi học, đi chơi.",
     variants: [
       {
-        _id: "v1",
+        _id: "690314c9589cfa71ac2fbf51",
         color: "Trắng",
         images: [
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/478caedf11a74195924dddcf5cd3f57f_9366/Giay_Samba_OG_trang_JS3830_01_00_standard.jpg",
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/e150dbf5955949458c5ab0acdb265b0a_9366/Giay_Samba_OG_trang_JS3830_02_standard_hover.jpg",
         ],
-        attribute: [
-          { size: "41", price: 2200000, inStock: 10, discount: 15 },
-          { size: "42", price: 2200000, inStock: 8 },
+        price: 2200000,
+        discount: 15,
+        attributes: [
+          { size: "41", inStock: 10 },
+          { size: "42", inStock: 8 },
         ],
       },
       {
-        _id: "v2",
+        _id: "690314c9589cfa71ac2fbf52",
         color: "Đen",
         images: [
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/de1630d7be5241a1acd4f8ef197dde90_9366/Giay_Samba_OG_trang_JR8842_01_00_standard.jpg",
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/584f3152fed246dbbf58641316fd0361_9366/Giay_Samba_OG_trang_JR8842_02_standard_hover.jpg",
         ],
-        attribute: [
-          { size: "41", price: 2200000, inStock: 8 },
-          { size: "42", price: 2200000, inStock: 5 },
+        price: 2200000,
+        discount: 0,
+        attributes: [
+          { size: "41", inStock: 8 },
+          { size: "42", inStock: 5 },
         ],
       },
     ],
@@ -41,27 +45,31 @@ const sampleProducts = [
     description: "Giày chạy bộ cao cấp với đệm Boost êm ái.",
     variants: [
       {
-        _id: "v3",
+        _id: "690314c9589cfa71ac2fbf53",
         color: "Xám",
         images: [
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/9223244731c64db4b066463220823278_9366/Giay_Handball_Spezial_mau_xanh_la_JR2121_01_00_standard.jpg",
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/458c9048cff44303b52543dc06f0d7f9_9366/Giay_Handball_Spezial_mau_xanh_la_JR2121_02_standard.jpg",
         ],
-        attribute: [
-          { size: "40", price: 3500000, inStock: 5 },
-          { size: "41", price: 3500000, inStock: 3 },
+        price: 3500000,
+        discount: 0,
+        attributes: [
+          { size: "40", inStock: 5 },
+          { size: "41", inStock: 3 },
         ],
       },
       {
-        _id: "v4",
+        _id: "690314c9589cfa71ac2fbf54",
         color: "Trắng",
         images: [
           "https://example.com/adidas-ub-white-front.jpg",
           "https://example.com/adidas-ub-white-side.jpg",
         ],
-        attribute: [
-          { size: "41", price: 3500000, inStock: 12 },
-          { size: "42", price: 3500000, inStock: 6 },
+        price: 3500000,
+        discount: 0,
+        attributes: [
+          { size: "41", inStock: 12 },
+          { size: "42", inStock: 6 },
         ],
       },
     ],
@@ -73,27 +81,31 @@ const sampleProducts = [
     description: "Giày vải cổ điển, phong cách streetwear.",
     variants: [
       {
-        _id: "v5",
+        _id: "690314c9589cfa71ac2fbf55",
         color: "Trắng",
         images: [
           "https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/d2752ce688794cd5b1644593c41527fc_9366/giay-samba-jane.jpg",
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/0e7e9378a98c4cefa30db333e405ade8_9366/Giay_Samba_Jane_trang_JR7339_02_standard_hover.jpg",
         ],
-        attribute: [
-          { size: "39", price: 1500000, inStock: 20 },
-          { size: "40", price: 1500000, inStock: 10 },
+        price: 1500000,
+        discount: 0,
+        attributes: [
+          { size: "39", inStock: 20 },
+          { size: "40", inStock: 10 },
         ],
       },
       {
-        _id: "v6",
+        _id: "690314c9589cfa71ac2fbf56",
         color: "Đen",
         images: [
           "https://example.com/converse-ct-black-front.jpg",
           "https://example.com/converse-ct-black-side.jpg",
         ],
-        attribute: [
-          { size: "39", price: 1500000, inStock: 15 },
-          { size: "40", price: 1500000, inStock: 8 },
+        price: 1500000,
+        discount: 0,
+        attributes: [
+          { size: "39", inStock: 15 },
+          { size: "40", inStock: 8 },
         ],
       },
     ],
@@ -105,15 +117,17 @@ const sampleProducts = [
     description: "Mẫu Jordan 1 cổ cao dành cho sneakerhead.",
     variants: [
       {
-        _id: "v7",
+        _id: "690314c9589cfa71ac2fbf57",
         color: "Đỏ/Đen",
         images: [
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/4a43ec2a7e174d9ba0fab6e5f3a96269_9366/Giay_Samba_OG_trang_JR8843_01_00_standard.jpg",
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/57725f72fba142d0a0354151b66b016f_9366/Giay_Samba_OG_trang_JR8843_02_standard_hover.jpg",
         ],
-        attribute: [
-          { size: "41", price: 4500000, inStock: 7 },
-          { size: "42", price: 4500000, inStock: 4 },
+        price: 4500000,
+        discount: 0,
+        attributes: [
+          { size: "41", inStock: 7 },
+          { size: "42", inStock: 4 },
         ],
       },
     ],
@@ -125,15 +139,17 @@ const sampleProducts = [
     description: "Mẫu giày tennis tối giản, dễ phối đồ.",
     variants: [
       {
-        _id: "v8",
+        _id: "690314c9589cfa71ac2fbf58",
         color: "Trắng/Xanh lá",
         images: [
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/3c60335d7c7c4807be39718386a44569_9366/GIAY_SUPERSTAR_II_Be_JQ3216_01_00_standard.jpg",
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/4348854d12194203a5bac7d3de6dea43_9366/GIAY_SUPERSTAR_II_Be_JQ3216_02_standard_hover.jpg",
         ],
-        attribute: [
-          { size: "40", price: 2000000, inStock: 20 },
-          { size: "41", price: 2000000, inStock: 25 },
+        price: 2000000,
+        discount: 0,
+        attributes: [
+          { size: "40", inStock: 20 },
+          { size: "41", inStock: 25 },
         ],
       },
     ],
@@ -145,15 +161,17 @@ const sampleProducts = [
     description: "Giày Vans classic phong cách skate.",
     variants: [
       {
-        _id: "v9",
+        _id: "690314c9589cfa71ac2fbf59",
         color: "Đen",
         images: [
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/66f2b3dd5c9349598606b0f40b69efbe_9366/Giay_Mule_Adifom_IIInfinity_mau_xanh_la_JR9381_01_00_standard.jpg",
           "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/34a838590e254d17b85c4052b825a8ad_9366/Giay_Mule_Adifom_IIInfinity_mau_xanh_la_JR9381_02_standard_hover.jpg",
         ],
-        attribute: [
-          { size: "S", price: 1600000, inStock: 18, discount: 10 },
-          { size: "M", price: 2000000, inStock: 1, discount: 15 },
+        price: 2000000,
+        discount: 15,
+        attributes: [
+          { size: "S", inStock: 18 },
+          { size: "M", inStock: 1 },
         ],
       },
     ],

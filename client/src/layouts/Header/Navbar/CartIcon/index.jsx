@@ -1,4 +1,4 @@
-import { X, ArrowRight } from "lucide-react";
+import { X, ArrowRight, CarIcon } from "lucide-react";
 import { startTransition, useState } from "react";
 import { Link } from "react-router-dom";
 import useCartStore from "../../../../store/useCartStore";
@@ -7,6 +7,7 @@ import QuantityButton from "../../../../components/QuantityButton.jsx";
 import QuantityMenu from "../../../../components/QuantityMenu/index.jsx";
 import useUserStore from "../../../../store/useUserStore.js";
 import { Button } from "@mui/material";
+import { calculateDiscountedPrice, calculateTotal } from "../../../../utils/calculatePrice.js";
 
 const CartIcon = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -15,25 +16,19 @@ const CartIcon = () => {
   const updateCartItem = useCartStore((state) => state.updateCartItem);
   const user = useUserStore((state) => state.user);
 
-  const handleRemoveItem = async (variantId, size) => {
-    await deleteItem(user?._id, variantId, size);
-  };
-
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN").format(price) + "₫";
   };
 
-  const calculateTotal = () => {
-    return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const handleRemoveItem = async (variantId, size) => {
+    await deleteItem(user?._id, variantId, size);
   };
 
   const handleQuantityChange = async (variantId, size, quantity) => {
     await updateCartItem(user?._id, variantId, size, quantity);
   };
 
-  const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const total = calculateTotal();
-
+  const total = calculateTotal(cartItems);
   return (
     <div className="relative">
       {/* Cart Icon */}
@@ -65,7 +60,7 @@ const CartIcon = () => {
         <div className="absolute right-0 top-full w-96 bg-white shadow-2xl border border-gray-200 z-50 rounded-lg">
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold">GIỎ HÀNG ({itemCount})</h3>
+              <h3 className="text-lg font-bold">GIỎ HÀNG ({cartItems.length})</h3>
               <div
                 className="p-1 hover:bg-gray-100 rounded cursor-pointer"
                 onClick={() => setIsHovered(false)}
@@ -97,7 +92,7 @@ const CartIcon = () => {
                 <div className="max-h-96 overflow-y-auto mb-4 scroll">
                   {cartItems.map((item) => (
                     <div
-                      key={item._id}
+                      key={item.variantId}
                       className="flex gap-3 p-3 border-b border-gray-200 hover:bg-gray-50 transition-colors"
                     >
                       <img
@@ -117,17 +112,17 @@ const CartIcon = () => {
                           <QuantityMenu
                             quantity={item.quantity}
                             handleChange={(value) =>
-                              handleQuantityChange(item._id, item.size, value)
+                              handleQuantityChange(item.variantId, item.size, value)
                             }
                           />
                         </div>
                         <p className="text-sm font-semibold money">
-                          {formatPrice(item.price * item.quantity)}
+                          {formatPrice(calculateDiscountedPrice(item.price, item.discount))}
                         </p>
                       </div>
                       <button
                         className="p-1 hover:bg-gray-200 rounded h-fit cursor-pointer"
-                        onClick={() => handleRemoveItem(item._id, item.size)}
+                        onClick={() => handleRemoveItem(item.variantId, item.size)}
                       >
                         <FaRegTrashAlt size={16} />
                       </button>
