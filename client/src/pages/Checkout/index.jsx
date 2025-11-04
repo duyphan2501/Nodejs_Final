@@ -12,6 +12,8 @@ import {
   calculateItemsDiscounted,
   calculateTotal,
 } from "../../utils/calculatePrice";
+import AddressList from "../../components/Address/AddressList";
+import useAddressStore from "../../store/useAddressStore";
 
 const Checkout = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -25,14 +27,18 @@ const Checkout = () => {
 
   const user = useUserStore((state) => state.user);
   const cartItems = useCartStore((state) => state.cartItems);
+
+  if (cartItems.length === 0) {window.location.href = "/"; return}
+
   const { createOrder, isLoading } = useOrderStore();
+  const addresses = useAddressStore((state) => state.addresses);
 
   const total = calculateTotal(cartItems);
   const itemsDiscounted = calculateItemsDiscounted(cartItems);
 
   const [formData, setFormData] = useState({
     email: user?.email || "",
-    address: {
+    address: addresses.find((addr) => addr.isDefault === true) || {
       receiver: "",
       phone: "",
       province: "",
@@ -43,6 +49,9 @@ const Checkout = () => {
     },
     provider: "cod",
   });
+
+  console.log(formData.address)
+
 
   const [coupon, setCoupon] = useState({ couponCode: null, amountReduced: 0 });
   const [usedPoint, setUsedPoint] = useState({ point: 0, amountReduced: 0 });
@@ -74,11 +83,15 @@ const Checkout = () => {
         toast.error("Email không hợp lệ");
         return;
       }
-    if (currentStep === 2)
+    if (currentStep === 2) {
       if (!checkValidAddress(formData.address)) {
         setCompletedStep(1);
-        if (step !== 1) return;
+        if (step === 3) {
+          toast.error("Vui lòng cung cấp địa chỉ giao hàng")
+          return
+        } ;
       }
+    }
     setCurrentStep(step);
     setCompletedStep((prev) => Math.max(prev, step));
   };
@@ -140,6 +153,7 @@ const Checkout = () => {
                   <input
                     type="email"
                     value={formData.email}
+                    disabled={user?.email}
                     placeholder="Email address"
                     onChange={(e) => handleChange("email", e.target.value)}
                     className="border w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:[#002B5B] transition"
@@ -156,10 +170,30 @@ const Checkout = () => {
 
               {step.id === 2 && currentStep === 2 && (
                 <div className="mt-6 lg:ml-9">
-                  <GuestAddress
-                    address={formData.address}
-                    setAddress={handleSetAddress}
-                  />
+                  {user ? (
+                    <>
+                      <AddressList
+                        title={"Địa chỉ giao hàng"}
+                        address={addresses}
+                        isCheckout={true}
+                        selectedAddress={formData.address}
+                        setSelectedAddress={(addr) =>
+                          handleChange("address", addr)
+                        }
+                      />
+                      <button
+                        onClick={() => handleSetStep(3)}
+                        className="w-full bg-[#002B5B] text-white py-3 rounded-lg font-medium cursor-pointer hover:bg-[#003d7a] transition duration-200 mt-6"
+                      >
+                        Tiếp tục đến bước thanh toán
+                      </button>
+                    </>
+                  ) : (
+                    <GuestAddress
+                      address={formData.address}
+                      setAddress={handleSetAddress}
+                    />
+                  )}
                 </div>
               )}
 
@@ -259,7 +293,7 @@ const Checkout = () => {
                     <button
                       onClick={handleCompleteOrder}
                       className="bg-green-600 text-white px-6 py-3 rounded-md w-full font-medium hover:bg-green-700 transition-colors cursor-pointer"
-                    > 
+                    >
                       {isLoading
                         ? "Đang xử lí..."
                         : formData.provider === "payos"

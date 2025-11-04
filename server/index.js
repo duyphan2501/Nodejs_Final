@@ -3,17 +3,18 @@ import cookieParser from "cookie-parser";
 import errorHandeler from "./middlewares/errorHandler.middleware.js";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
-import adminRoutes from "./routes/admin.route.js";
 import connectToDB from "./database/connectMongoDB.js";
 import cors from "cors";
 import categoryRouter from "./routes/category.route.js";
 import path from "path";
 import cartRouter from "./routes/cart.route.js";
+import adminRoutes from "./routes/admin.route.js";
 import couponRouter from "./routes/coupon.route.js";
-
 import productRouter from "./routes/product.route.js";
+
 import orderRouter from "./routes/order.route.js";
 import { startNgrokAndConfirmWebhook } from "./config/payos.init.js";
+import addressRouter from "./routes/address.route.js";
 dotenv.config({ quiet: true });
 
 const app = express();
@@ -36,6 +37,7 @@ app.use("/api/user", userRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter)
+app.use("/api/address", addressRouter)
 
 app.use(errorHandeler);
 

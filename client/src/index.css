@@ -7,6 +7,7 @@
   --color-dark: #0b0b0b;
   --color-background: #ebeff2;
   --color-highlight: #db4c2e;
+  --color-darkblue: #002B5B;
 }
 
 .remember-me .MuiFormControlLabel-label {
@@ -85,4 +86,12 @@
 
 .scroll-x::-webkit-scrollbar-thumb {
   background-color: var(--primary-color); /* màu của thanh kéo */
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: black !important;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: black !important;
 }

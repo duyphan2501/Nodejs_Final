@@ -69,7 +69,21 @@ const Login = () => {
         </div>
         <div className=" flex items-center justify-between mt-3">
           <FormControlLabel
-            control={<Checkbox defaultChecked onChange={onPersistChange} />}
+            control={
+              <Checkbox
+                defaultChecked
+                onChange={onPersistChange}
+                sx={{
+                  color: "black", // màu viền khi chưa chọn
+                  "&.Mui-checked": {
+                    color: "black", // màu tick khi được chọn
+                  },
+                  "&:hover": {
+                    backgroundColor: "rgba(0, 43, 91, 0.08)", // hiệu ứng hover nhẹ
+                  },
+                }}
+              />
+            }
             label="Ghi nhớ đăng nhập"
             className="remember-me"
           />
