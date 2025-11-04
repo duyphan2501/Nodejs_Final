@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useUserStore from "../../store/useUserStore";
 import useCartStore from "../../store/useCartStore";
 import CheckoutItem from "../../components/CheckoutItem";
@@ -18,27 +18,27 @@ import useAddressStore from "../../store/useAddressStore";
 const Checkout = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedStep, setCompletedStep] = useState(0);
-
   const steps = [
     { id: 1, title: "Thông tin liên hệ" },
     { id: 2, title: "Thông tin giao hàng" },
     { id: 3, title: "Xác nhận và thanh toán" },
   ];
 
+  const [coupon, setCoupon] = useState({ couponCode: null, amountReduced: 0 });
+  const [usedPoint, setUsedPoint] = useState({ point: 0, amountReduced: 0 });
   const user = useUserStore((state) => state.user);
   const cartItems = useCartStore((state) => state.cartItems);
-
-  if (cartItems.length === 0) {window.location.href = "/"; return}
 
   const { createOrder, isLoading } = useOrderStore();
   const addresses = useAddressStore((state) => state.addresses);
 
   const total = calculateTotal(cartItems);
   const itemsDiscounted = calculateItemsDiscounted(cartItems);
+  const orderAmount = total - coupon.amountReduced - usedPoint.amountReduced;
 
   const [formData, setFormData] = useState({
     email: user?.email || "",
-    address: addresses.find((addr) => addr.isDefault === true) || {
+    address: {
       receiver: "",
       phone: "",
       province: "",
@@ -49,12 +49,6 @@ const Checkout = () => {
     },
     provider: "cod",
   });
-
-  console.log(formData.address)
-
-
-  const [coupon, setCoupon] = useState({ couponCode: null, amountReduced: 0 });
-  const [usedPoint, setUsedPoint] = useState({ point: 0, amountReduced: 0 });
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -87,9 +81,9 @@ const Checkout = () => {
       if (!checkValidAddress(formData.address)) {
         setCompletedStep(1);
         if (step === 3) {
-          toast.error("Vui lòng cung cấp địa chỉ giao hàng")
-          return
-        } ;
+          toast.error("Vui lòng cung cấp địa chỉ giao hàng");
+          return;
+        }
       }
     }
     setCurrentStep(step);
@@ -105,10 +99,18 @@ const Checkout = () => {
       formData.provider,
       coupon,
       usedPoint,
-      total,
+      orderAmount,
       itemsDiscounted
     );
   };
+
+  useEffect(() => {
+    if (!checkValidAddress(formData.address) && cartItems.length > 0) {
+      const selected =
+        addresses.find((addr) => addr.isDefault === true) || cartItems[0];
+      handleChange("address", selected);
+    }
+  }, [addresses]);
 
   return (
     <div className="min-h-screen bg-white flex flex-col lg:flex-row container">
@@ -321,14 +323,29 @@ const Checkout = () => {
         </div>
 
         <div className="mt-6 border-t pt-4">
-          <PurchasePointForm user={user} />
-          <PromoCode />
+          <PurchasePointForm
+            user={user}
+            usedPoint={usedPoint}
+            setUsedPoint={setUsedPoint}
+            maxPoint={Math.floor(orderAmount / 1000)}
+          />
+          <PromoCode
+            couponForOrder={coupon}
+            setCouponForOrder={setCoupon}
+            orderAmount={orderAmount}
+          />
         </div>
 
         <div className="mt-6 border-t pt-4 text-sm space-y-1">
           <div className="flex justify-between">
             <span>Tổng cộng</span>
             <span className="money">{formatMoney(total)}</span>
+          </div>
+          <div className="flex justify-between text-green-700">
+            <span>Giảm giá</span>
+            <span className="money">
+              -{formatMoney(coupon.amountReduced + usedPoint.amountReduced)}
+            </span>
           </div>
           <div className="flex justify-between">
             <span>Vận chuyển</span>
@@ -340,11 +357,7 @@ const Checkout = () => {
           </div>
           <div className="flex justify-between text-lg font-semibold mt-2">
             <span>Cần thanh toán</span>
-            <span className="money">
-              {formatMoney(
-                total - coupon.amountReduced - usedPoint.amountReduced
-              )}
-            </span>
+            <span className="money">{formatMoney(orderAmount)}</span>
           </div>
           <p className="text-green-700 text-sm text-right font-medium money">
             {" "}

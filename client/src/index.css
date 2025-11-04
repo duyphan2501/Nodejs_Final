@@ -95,3 +95,10 @@
 .MuiInputLabel-root.Mui-focused {
   color: black !important;
 }
+
+input[type="checkbox"] {
+  accent-color: var(--color-darkblue); 
+  cursor: pointer;
+}
+
+

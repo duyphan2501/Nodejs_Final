@@ -192,3 +192,26 @@ export const getCouponsWithFilter = async (
     throw new Error(`Error fetching coupons with filter: ${error.message}`);
   }
 };
+
+export const useCouponAtomic = async (code, orderId) => {
+  const updatedCoupon = await CouponModel.findOneAndUpdate(
+    {
+      code: code,
+      remainingUsage: { $gte: 1 },
+      status: "active",
+    },
+    {
+      $inc: { remainingUsage: -1 },
+      $push: { order: orderId },
+    },
+    {
+      new: true,
+    }
+  );
+
+  if (!updatedCoupon) {
+    return null;
+  }
+
+  return updatedCoupon;
+};

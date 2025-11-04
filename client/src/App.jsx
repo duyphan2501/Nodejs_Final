@@ -90,7 +90,6 @@ function App() {
         autoClose={3000}
         pauseOnHover={true}
         position="top-center"
-        limit={3}
       />
       {selectedProduct && <QuickViewDialog />}
       {isOpenAddressForm && <AddressForm />}

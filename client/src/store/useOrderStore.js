@@ -10,7 +10,7 @@ const useOrderStore = create((set) => {
     provider,
     coupon,
     usedPoint,
-    subTotal,
+    orderAmount,
     itemsDiscounted
   ) => {
     set({ isLoading: true });
@@ -22,7 +22,7 @@ const useOrderStore = create((set) => {
         provider,
         coupon,
         usedPoint,
-        subTotal,
+        orderAmount,
         itemsDiscounted,
       });
       toast.success(res.data.message);

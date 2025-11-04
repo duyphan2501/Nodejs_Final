@@ -32,7 +32,7 @@ const createNewOrder = async (
   provider,
   coupon,
   usedPoint,
-  subTotal,
+  orderAmount,
   itemsDiscounted,
   orderStatus = "pending"
 ) => {
@@ -62,7 +62,7 @@ const createNewOrder = async (
     orderId,
     email,
     items,
-    subTotal,
+    orderAmount,
     itemsDiscounted,
     shippingInfo: {
       receiver: address.receiver,

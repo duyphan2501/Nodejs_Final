@@ -21,4 +21,6 @@ router.delete("/:id", couponController.deleteCoupon);
 // Route xóa nhiều coupons
 router.post("/delete-many", couponController.deleteManyCoupons);
 
+router.post("/apply", couponController.applyCoupon);
+
 export default router;
