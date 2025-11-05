@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const TableControlContext = createContext();
 
@@ -19,6 +19,8 @@ const TableControlProvider = ({
   const { selectedItem, setSelectedItem } = controlSelectAll;
   const { selectedDetail, setSelectedDetail } = controlSelectDetail;
 
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
   return (
     <TableControlContext.Provider
       value={{
@@ -35,6 +37,8 @@ const TableControlProvider = ({
         couponData,
         selectedCouponId,
         setSelectedCouponId,
+        selectedUserId,
+        setSelectedUserId,
       }}
     >
       {children}
@@ -42,8 +46,6 @@ const TableControlProvider = ({
   );
 };
 
-const useTableControl = () => {
-  return useContext(TableControlContext);
-};
+const useTableControl = () => useContext(TableControlContext);
 
 export { TableControlProvider, useTableControl };

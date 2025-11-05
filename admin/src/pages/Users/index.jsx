@@ -4,63 +4,84 @@ import Navbar from "../../components/Navbar";
 import { Typography, CircularProgress } from "@mui/material";
 import TableControl from "../../components/TableControl";
 import { TableControlProvider } from "../../components/TableControl/TableControllerContext";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import CustomTable from "../../components/CustomTable";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { TablePagination } from "@mui/material";
 import CustomModal from "../../components/CustomModal";
-import { getUsers, bulkUpdateStatus } from "../../../API/userAPI.js";
 import { toast } from "react-toastify";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 const Users = () => {
+  const axiosPrivate = useAxiosPrivate();
+
   const [userData, setUserData] = useState([]);
-  const [filter, setFilter] = useState({});
+  const [filter, setFilter] = useState({
+    search: "",
+    status: "",
+    isAdmin: "",
+    sortBy: "createdAt",
+    sortOrder: "desc",
+  });
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(20);
   const [selectedItem, setSelectedItem] = useState([]);
   const [selectedDetail, setSelectedDetail] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [totalUsers, setTotalUsers] = useState(0);
 
-  // Fetch users từ API
-  const fetchUsers = async () => {
+  // useCallback để tránh recreate function mỗi lần render
+  const fetchUsers = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await getUsers({
-        page: page + 1, // Backend dùng page bắt đầu từ 1
-        limit: rowsPerPage,
-        search: filter.search || '',
-        status: filter.status || '',
-        isAdmin: filter.isAdmin || '',
-        sortBy: filter.sortBy || 'createdAt',
-        sortOrder: filter.sortOrder || 'desc'
+      const response = await axiosPrivate.get("api/user", {
+        params: {
+          page: page + 1,
+          limit: rowsPerPage,
+          search: filter.search || "",
+          status: filter.status || "",
+          isAdmin: filter.isAdmin || "",
+          sortBy: filter.sortBy || "createdAt",
+          sortOrder: filter.sortOrder || "desc",
+        },
       });
 
-      console.log('API Response:', response); // Debug
+      console.log("API Response:", response.data);
 
-      // Kiểm tra cấu trúc response
-      if (response && response.success) {
-        setUserData(response.data || []);
-        setTotalUsers(response.pagination?.total || 0);
+      if (response.data && response.data.success) {
+        setUserData(response.data.data || []);
+        setTotalUsers(response.data.pagination?.total || 0);
       } else {
         setUserData([]);
         setTotalUsers(0);
       }
     } catch (error) {
-      toast.error(error.message);
-      console.error('Error fetching users:', error);
+      const errorMessage =
+        error.response?.data?.message || error.message || "Lỗi khi tải dữ liệu";
+      toast.error(errorMessage);
+      console.error("Error fetching users:", error);
       setUserData([]);
       setTotalUsers(0);
     } finally {
       setLoading(false);
     }
-  };
+  }, [
+    axiosPrivate,
+    page,
+    rowsPerPage,
+    filter.search,
+    filter.status,
+    filter.isAdmin,
+    filter.sortBy,
+    filter.sortOrder,
+  ]);
 
-  // Gọi API khi component mount hoặc khi filter/page thay đổi
+  // Effect để gọi API khi dependencies thay đổi
   useEffect(() => {
     fetchUsers();
-  }, [page, rowsPerPage, filter]);
+  }, [fetchUsers]);
 
   const handleChangePage = (_, newPage) => setPage(newPage);
 
@@ -69,22 +90,33 @@ const Users = () => {
     setPage(0);
   };
 
-  // Xử lý bulk update status
   const handleBulkUpdateStatus = async (newStatus) => {
     try {
-      const userIds = selectedItem; // selectedItem chứa array các email/id
-      await bulkUpdateStatus(userIds, newStatus);
-      
-      toast.success(`Đã cập nhật ${userIds.length} người dùng`);
-      setSelectedItem([]);
-      setConfirmDelete(false);
-      
-      // Refresh danh sách
-      fetchUsers();
+      const response = await axiosPrivate.patch("api/user/bulk-update-status", {
+        userIds: selectedItem,
+        status: newStatus,
+      });
+
+      if (response.data.success) {
+        toast.success(
+          response.data.message ||
+            `Đã cập nhật ${selectedItem.length} người dùng`
+        );
+        setSelectedItem([]);
+        setConfirmDelete(false);
+        fetchUsers();
+      }
     } catch (error) {
-      toast.error(error.message);
-      console.error('Error bulk updating status:', error);
+      const errorMessage =
+        error.response?.data?.message || error.message || "Lỗi khi cập nhật";
+      toast.error(errorMessage);
+      console.error("Error bulk updating status:", error);
     }
+  };
+
+  const handleRowDoubleClick = (user) => {
+    setSelectedUserId(user._id);
+    setSelectedDetail(true);
   };
 
   return (
@@ -92,13 +124,13 @@ const Users = () => {
       <ConfirmDialog
         open={confirmDelete}
         onClose={() => setConfirmDelete(false)}
-        onConfirm={() => handleBulkUpdateStatus('inactive')}
+        onConfirm={() => handleBulkUpdateStatus("inactive")}
         content={"Bạn có muốn đổi trạng thái người dùng này?"}
         action={"Đổi"}
       />
-      
+
       <Navbar active="users" />
-      
+
       <Container
         disableGutters
         sx={{
@@ -126,8 +158,14 @@ const Users = () => {
             userData={userData}
             filter={filter}
             setFilter={setFilter}
-            controlSelectDetail={{ selectedDetail, setSelectedDetail }}
+            controlSelectDetail={{
+              selectedDetail,
+              setSelectedDetail,
+              selectedUserId,
+              setSelectedUserId,
+            }}
             refreshData={fetchUsers}
+            onRowDoubleClick={handleRowDoubleClick}
           >
             <div className="mt-3 bg-white shadow">
               <TableControl type={"user"} />

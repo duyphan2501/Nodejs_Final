@@ -1,12 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormControl, Select, MenuItem } from "@mui/material";
 
-export default function CustomDropdownUser({ choose }) {
+export default function CustomDropdownUser({
+  choose,
+  userId,
+  onStatusChange,
+  type,
+}) {
   const [status, setStatus] = useState(choose);
+
+  // Đồng bộ state khi prop thay đổi
+  useEffect(() => {
+    setStatus(choose);
+  }, [choose]);
 
   const statusColors = {
     active: "#C8E6C9",
     inactive: "#FFCDD2",
+  };
+
+  const handleChange = (e) => {
+    e.stopPropagation(); // Ngăn event bubbling lên row
+    const newStatus = e.target.value;
+    setStatus(newStatus);
+
+    // Gọi callback để gọi API (được truyền từ CustomTableUser)
+    if (onStatusChange) {
+      onStatusChange(newStatus);
+    }
   };
 
   return (
@@ -21,7 +42,8 @@ export default function CustomDropdownUser({ choose }) {
     >
       <Select
         value={status}
-        onChange={(e) => setStatus(e.target.value)}
+        onChange={handleChange}
+        onClick={(e) => e.stopPropagation()} // Ngăn double click row
         sx={{
           height: 36,
           borderRadius: "12px",

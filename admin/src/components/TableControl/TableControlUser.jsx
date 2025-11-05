@@ -3,7 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Menu, MenuItem } from "@mui/material";
 import { Button, Popover } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTableControl } from "./TableControllerContext";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -16,9 +16,44 @@ import FormLabel from "@mui/material/FormLabel";
 const TableControlUser = () => {
   const [anchorAll, setAnchorAll] = useState(null);
   const [anchorFilter, setAnchorFilter] = useState(null);
-  const { confirmDelete, setConfirmDelete } = useTableControl();
   const { filter, setFilter } = useTableControl();
-  const { setSelectedItem, orderData } = useTableControl();
+
+  // Local state cho search input - đồng bộ với filter.search
+  const [searchInput, setSearchInput] = useState(filter.search || "");
+  const searchTimeoutRef = useRef(null);
+
+  // Đồng bộ searchInput với filter.search khi filter thay đổi từ bên ngoài
+  useEffect(() => {
+    setSearchInput(filter.search || "");
+  }, [filter.search]);
+
+  // Debounce search với 500ms
+  useEffect(() => {
+    // Bỏ qua nếu searchInput === filter.search (đã đồng bộ)
+    if (searchInput === filter.search) {
+      return;
+    }
+
+    // Clear timeout cũ
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    // Set timeout mới
+    searchTimeoutRef.current = setTimeout(() => {
+      setFilter((prev) => ({
+        ...prev,
+        search: searchInput,
+      }));
+    }, 500);
+
+    // Cleanup
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [searchInput]); // Chỉ phụ thuộc vào searchInput
 
   const handleChange = (key, value) => {
     setFilter((prev) => ({
@@ -34,24 +69,14 @@ const TableControlUser = () => {
           <input
             type="text"
             className="rounded-full p-2 pl-10 w-full h-full shadow"
-            placeholder="Searching"
-            onChange={(e) => handleChange("search", e.target.value)}
+            placeholder="Tìm kiếm theo tên, email, số điện thoại..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
           <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
         </div>
 
         <div className="flex gap-4 flex-wrap md:flex-nowrap">
-          <Button
-            color="black"
-            sx={{
-              background: "#F3F3F3",
-              borderRadius: "100px",
-            }}
-            padding="20"
-            onClick={(event) => setAnchorAll(event.currentTarget)}
-          >
-            <MoreHorizIcon />
-          </Button>
           <Menu
             id="all-button"
             aria-labelledby="all-button"
@@ -66,16 +91,7 @@ const TableControlUser = () => {
               vertical: "top",
               horizontal: "center",
             }}
-          >
-            <MenuItem
-              onClick={() =>
-                setSelectedItem(() => orderData.map((o) => o.orderCode))
-              }
-            >
-              Chọn tất cả
-            </MenuItem>
-            <MenuItem onClick={() => setSelectedItem([])}>Xóa tất cả</MenuItem>
-          </Menu>
+          ></Menu>
         </div>
 
         <div className="flex gap-4 flex-wrap md:flex-nowrap">
@@ -107,21 +123,26 @@ const TableControlUser = () => {
                 </FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="female"
+                  value={filter.status}
                   name="radio-buttons-group"
                   onChange={(e) => {
                     handleChange("status", e.target.value);
                   }}
                 >
                   <FormControlLabel
+                    value=""
+                    control={<Radio />}
+                    label="Tất cả"
+                  />
+                  <FormControlLabel
                     value="active"
                     control={<Radio />}
                     label="Active"
                   />
                   <FormControlLabel
-                    value="banned"
+                    value="inactive"
                     control={<Radio />}
-                    label="Banned"
+                    label="Inactive"
                   />
                 </RadioGroup>
               </FormControl>
