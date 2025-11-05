@@ -1,4 +1,5 @@
 // services/couponService.js
+import createHttpError from "http-errors";
 import CouponModel from "../models/coupon.model.js";
 
 // Tạo coupon mới
@@ -191,4 +192,47 @@ export const getCouponsWithFilter = async (
   } catch (error) {
     throw new Error(`Error fetching coupons with filter: ${error.message}`);
   }
+};
+
+export const useCouponAtomic = async (code, orderId, orderAmount, session = null) => {
+  const updatedCoupon = await CouponModel.findOneAndUpdate(
+    {
+      code: code,
+      remainingUsage: { $gte: 1 },
+      status: "active",
+    },
+    {
+      $inc: { remainingUsage: -1 },
+      $push: { order: orderId },
+    },
+    {
+      new: true,
+      session: session,
+    }
+  );
+
+  if (!updatedCoupon) {
+    const existingCoupon = await CouponModel.findOne({ code: code }).lean();
+
+    if (!existingCoupon) {
+      throw createHttpError(404, "Mã khuyến mãi không tồn tại.");
+    }
+
+    if (existingCoupon.status !== "active") {
+      throw createHttpError(400, "Mã khuyến mãi hiện không hoạt động.");
+    }
+
+    if (existingCoupon.remainingUsage < 1) {
+      throw createHttpError(400, "Mã khuyến mãi đã hết lượt sử dụng.");
+    }
+
+    if (orderAmount < coupon.minOrderValue)
+      throw createHttpError.BadRequest(
+        `Đơn hàng tối thiểu để áp dụng mã này là ${coupon.minOrderValue} VNĐ.`
+      );
+
+    throw createHttpError(400, "Không thể áp dụng mã khuyến mãi này.");
+  }
+
+  return updatedCoupon;
 };

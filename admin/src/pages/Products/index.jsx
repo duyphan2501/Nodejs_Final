@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar";
 import { Container } from "@mui/system";
-import { Button } from "@mui/material";
+import { Button, Popover } from "@mui/material";
 import { DashboardCardProduct } from "../../components/DashboardCard";
 import Typography from "@mui/material/Typography";
 import ShoesIcon from "../../assets/svg/shoes-7-svgrepo-com.svg?react";
@@ -31,30 +31,40 @@ import useFetchCategory from "../../../hooks/useFetchCategory";
 import BiLoader from "../../components/BiLoader";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { toast } from "react-toastify";
+import useProductStore from "../../../stores/useProductStore";
+import useFetchProduct from "../../../hooks/useFetchProduct";
+import { useEffect } from "react";
+import FilterCategory from "../../components/FilterCategory";
+import DeleteIcon from "@mui/icons-material/Delete";
+import axiosPrivate from "../../../API/axiosPrivate";
 
 export default function Products() {
   const [viewMode, setViewMode] = useState("list");
-
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-
   const [chooseID, setChooseID] = useState(1);
 
-  const products = useMemo(() => {
-    return [...Array(50)].map((_, i) => ({
-      id: i,
-      name: `Nike Shoe ${i + 1}`,
-      brand: "Nike",
-      price: 2000000 + i * 10000,
-      stock: Math.floor(Math.random() * 50),
-      totalStock: 100,
-      sold: Math.floor(Math.random() * 100),
-      image:
-        "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png",
-    }));
-  }, []); // dependency [] => chỉ chạy 1 lần
+  const getProducts = useProductStore((state) => state.getProducts);
+  const products = useProductStore((state) => state.products);
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  if (products.length === 0) {
+    return (
+      <div style={{ background: "#F9FAFB" }}>
+        <Navbar active="products" />
+        <div className="flex justify-center items-center w-full h-full">
+          <BiLoader size={100} />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ background: "#F9FAFB" }}>
       <Navbar active="products" />
+
       <CustomSnackbar
         variant={"filled"}
         severity={"success"}
@@ -65,10 +75,10 @@ export default function Products() {
           setSnackbarOpen(false);
         }}
       />
-      ;
+
       <div className="relative w-full h-450 overflow-hidden">
         <div
-          className={`absolute top-0 left-0 w-full h-full overflow-auto scroll-hidden  transition-transform duration-300 ${
+          className={`absolute top-0 left-0 w-full h-full overflow-auto scroll-hidden transition-transform duration-300 ${
             viewMode === "list" ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -95,11 +105,11 @@ export default function Products() {
             viewMode === "edit" ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <EditProductView
-            setViewMode={setViewMode}
-            openSnackbar={() => setSnackbarOpen(true)}
-            info={products.find((p) => p.id == chooseID)}
-          />
+          {/* <EditProductView
+        setViewMode={setViewMode}
+        openSnackbar={() => setSnackbarOpen(true)}
+        info={products.find((p) => p._id == chooseID)}
+      /> */}
         </div>
       </div>
     </div>
@@ -107,19 +117,112 @@ export default function Products() {
 }
 
 function OverviewProduct({ setViewMode, products, onChooseID }) {
+  const getProducts = useProductStore((s) => s.getProducts);
+
   const [anchorAll, setAnchorAll] = useState(null);
 
   // State for selected product
   const [selectedProducts, setSelectedProducts] = useState([]);
 
+  //State cho control
+  const [control, setControl] = useState({});
+
+  //State cho popoverfilter
+  const [anchorFilter, setAnchorFilter] = useState(null);
+
+  //State cho confirmdialog xoa
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const handleChangeInput = (key, value) => {
+    setControl((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const formatProduct = useMemo(() => {
+    let filteredPro = products;
+    if (control?.search) {
+      const keyword = control.search.toLowerCase();
+      filteredPro = filteredPro.filter((item) =>
+        item.name.toLowerCase().includes(keyword)
+      );
+    }
+
+    if (control?.sort) {
+      switch (control.sort) {
+        case "priceAsc":
+          // Giá tăng dần (thấp → cao)
+          filteredPro.sort((a, b) => a.inputPrice - b.inputPrice);
+          break;
+
+        case "priceDesc":
+          // Giá giảm dần (cao → thấp)
+          filteredPro.sort((a, b) => b.inputPrice - a.inputPrice);
+          break;
+
+        case "alphaDesc":
+          filteredPro.sort((a, b) =>
+            a.name.localeCompare(b.name, "vi", { sensitivity: "base" })
+          );
+          break;
+
+        case "alphaAsc":
+          // Tên Z → A
+          filteredPro.sort((a, b) =>
+            b.name.localeCompare(a.name, "vi", { sensitivity: "base" })
+          );
+          break;
+        case "stockAsc":
+          // Giá tăng dần (thấp → cao)
+          filteredPro.sort((a, b) => b.totalStock - a.totalStock);
+          break;
+
+        case "stockDesc":
+          // Giá giảm dần (cao → thấp)
+          filteredPro.sort((a, b) => a.totalStock - b.totalStock);
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    if (control?.filters) {
+      filteredPro = filteredPro.filter((item) => {
+        const { shoes, sandals, backpacks, others } = control.filters;
+        const allSelected = [...shoes, ...sandals, ...backpacks];
+
+        // ép về mảng ID (dạng string)
+        const categoryIds = Array.isArray(item.categoryId)
+          ? item.categoryId.map((id) => id?.toString?.() ?? id)
+          : [item.categoryId?.toString?.() ?? item.categoryId];
+
+        const matchCategory = categoryIds.some((id) =>
+          allSelected.includes(id)
+        );
+
+        const matchStock =
+          (others.includes("Còn hàng") && item.totalStock > 0) ||
+          (others.includes("Hết hàng") && item.totalStock === 0);
+
+        return matchCategory || matchStock;
+      });
+    }
+
+    return filteredPro;
+  }, [control, products]);
+
+  //Data products de loc/tim/sap xep
+
   const handleSelectAll = () => {
-    setSelectedProducts(products.map((p) => p.id));
+    setSelectedProducts(formatProduct.map((p) => p._id));
     handleCloseAll();
   };
 
   const handleClearAll = () => {
     setSelectedProducts([]);
-    handleCloseAll;
+    handleCloseAll();
   };
 
   //Du lieu data mẫu
@@ -131,6 +234,21 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
     setAnchorAll(null);
   };
 
+  const handleConfirmDelete = async () => {
+    try {
+      const res = await axiosPrivate.delete("/api/product/delete", {
+        data: { _ids: selectedProducts },
+      });
+
+      await getProducts();
+      toast.success(res.data.message);
+      setConfirmDelete(false);
+    } catch (error) {
+      console.error(error);
+      toast.error("Xóa sản phẩm thất bại");
+    }
+  };
+
   return (
     <div style={{ background: "#F9FAFB" }}>
       <Container
@@ -140,6 +258,13 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
           paddingRight: "64px",
         }}
       >
+        <ConfirmDialog
+          open={confirmDelete}
+          onClose={() => setConfirmDelete(false)}
+          content={`Bạn có muốn xóa ${selectedProducts.length} sản phẩm?`}
+          action={"Xóa"}
+          onConfirm={handleConfirmDelete}
+        />
         <div className="mt-3">
           <Typography variant="body1" color="text.primary">
             OVERVIEW
@@ -176,12 +301,13 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
                 type="text"
                 className="rounded-full p-2 pl-10 w-full h-full shadow"
                 placeholder="Searching"
+                onChange={(e) => handleChangeInput("search", e.target.value)}
               />
               <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             </div>
 
             <div className="flex gap-4 flex-wrap md:flex-nowrap">
-              <SortDropdown />
+              <SortDropdown handleChangeInput={handleChangeInput} />
 
               <Button
                 color="black"
@@ -239,17 +365,61 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
           <div className="h-px bg-gray-300 w-full mt-5"></div>
 
           {/* Selection Group  */}
-          <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <CategoryDropdown />
+          <div className="mt-5 w-full text-end">
+            {/* <CategoryDropdown />
             <StatusDropdown />
-            <StockDropdown />
+            <StockDropdown /> */}
+
+            <Button
+              color="black"
+              sx={{
+                background: "#F3F3F3",
+                borderRadius: "100px",
+              }}
+              padding="20"
+              onClick={(event) => setAnchorFilter(event.currentTarget)}
+            >
+              <FilterListIcon />
+            </Button>
+            <Popover
+              id={"filter-popover"}
+              open={Boolean(anchorFilter)}
+              anchorEl={anchorFilter}
+              onClose={() => setAnchorFilter(null)}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              <div className="p-4 w-250">
+                <FilterCategory handleChangeInput={handleChangeInput} />
+              </div>
+            </Popover>
           </div>
         </div>
 
         {/* Product List  */}
-        <div className="mt-6 mb-12">
+        <div className="mt-20 mb-12">
+          {/* Nút xóa sản phẩm */}
+          <div className="flex justify-end mb-4">
+            <Button
+              variant="contained"
+              color="error"
+              startIcon={<DeleteIcon />}
+              disabled={selectedProducts.length === 0}
+              onClick={() => {
+                setConfirmDelete(true);
+              }}
+            >
+              Xóa sản phẩm
+            </Button>
+          </div>
           <ProductList
-            products={products}
+            products={formatProduct}
             selectedProducts={selectedProducts}
             setSelectedProducts={setSelectedProducts}
             chooseToEdit={(id) => {
@@ -279,6 +449,20 @@ function AddProductView({ setViewMode, openSnackbar }) {
   //Fetch du lieu category tu hook
   const { loadingCategory } = useFetchCategory();
 
+  const { setProducts } = useProductStore();
+
+  const getProducts = useProductStore((state) => state.getProducts);
+
+  const fetchProducts = async () => {
+    try {
+      const res = await axiosPrivate.get("/api/product");
+      setProducts(res.data.products);
+    } catch (error) {
+      console.log(error);
+      toast.error("Tải dữ liệu danh mục thất bại");
+    }
+  };
+
   const dataCategory = [
     {
       _id: 1,
@@ -294,8 +478,8 @@ function AddProductView({ setViewMode, openSnackbar }) {
     },
     {
       _id: 3,
-      name: "Phụ Kiện",
-      label: "Phụ kiện",
+      name: "Dép",
+      label: "Dép",
       children: sandalCategories,
     },
   ];
@@ -361,6 +545,8 @@ function AddProductView({ setViewMode, openSnackbar }) {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
+      await getProducts();
+
       setInput({});
       handleReset();
       setViewMode("list");
@@ -368,6 +554,7 @@ function AddProductView({ setViewMode, openSnackbar }) {
       setSuccessModal(true);
     } catch (error) {
       console.error("❌ Lỗi khi thêm sản phẩm:", error.response?.data.details);
+      console.log(error);
       const messageErr =
         error.response?.data.message || "Thêm sản phẩm thất bại";
       toast.error(messageErr);
@@ -719,7 +906,7 @@ function EditProductView({ setViewMode, openSnackbar, info }) {
                 <input
                   type="text"
                   className="p-2 w-full bg-[#F5F5F5] shadow border-none focus:outline-none hover:border-none"
-                  value={info.name}
+                  value={info.name || ""}
                 />
               </div>
               <div id="product-price" className="mt-2">
@@ -727,7 +914,7 @@ function EditProductView({ setViewMode, openSnackbar, info }) {
                 <input
                   type="text"
                   className="p-2 w-full bg-[#F5F5F5] shadow border-none focus:outline-none hover:border-none"
-                  value={info.inPrice}
+                  value={info.inPrice || ""}
                 />
               </div>
             </div>
@@ -901,11 +1088,12 @@ function StockDropdown({ className }) {
   );
 }
 
-function SortDropdown({ className }) {
+function SortDropdown({ className, handleChangeInput }) {
   const [sort, setSort] = useState("priceAsc");
 
   const handleChange = (event) => {
     setSort(event.target.value);
+    handleChangeInput("sort", sort);
   };
 
   return (

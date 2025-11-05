@@ -1,3 +1,4 @@
+import createHttpError from "http-errors";
 import {
   sendForgotPasswordEmail,
   sendVerificationEmail,
@@ -81,6 +82,28 @@ const getForgotPasswordUser = async (email, forgotPasswordToken) => {
   });
 };
 
+const usePurchasePoint = async (userId, point, session = null) => {
+  if (point <= 0) {
+    return;
+  }
+
+  const user = await UserModel.findById(userId).session(session);
+
+  if (!user) {
+    throw createHttpError(404, "Người dùng không tồn tại.");
+  }
+
+  if (user.purchasePoint < point) {
+    throw createHttpError(400, `Điểm thưởng của bạn không đủ.`);
+  }
+
+  user.purchasePoint -= point;
+
+  await user.save({ session });
+
+  return user;
+};
+
 export {
   getUserByEmail,
   hashPassword,
@@ -90,6 +113,7 @@ export {
   sendForgotPasswordEmailtoUser,
   getForgotPasswordUser,
   checkPassword,
+  usePurchasePoint,
 };
 
 class UserService {

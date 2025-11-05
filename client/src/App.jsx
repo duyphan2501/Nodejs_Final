@@ -24,13 +24,19 @@ import OrderList from "./pages/OrderList";
 import useUserStore from "./store/useUserStore";
 import useCartStore from "./store/useCartStore";
 import Checkout from "./pages/Checkout";
+import useAxiosPrivate from "./hooks/useAxiosPrivate";
+import useAddressStore from "./store/useAddressStore";
+import AddressForm from "./components/Address/AddressForm";
 
 function App() {
-  const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct } =
+  const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct, isOpenAddressForm } =
     useContext(MyContext);
+
+  const axiosPrivate = useAxiosPrivate();
 
   const user = useUserStore((state) => state.user);
   const getCart = useCartStore((state) => state.getCart);
+  const getAllAddresses = useAddressStore(state => state.getAllAddresses)
 
   useEffect(() => {
     getCart(user?._id);
@@ -39,6 +45,19 @@ function App() {
   const handleAccountMenuClose = () => {
     setIsOpenAccountMenu(false);
   };
+
+  useEffect(() => {
+    if (!user) return;
+    const fetchAddresses = async () => {
+      try {
+        await getAllAddresses(axiosPrivate);
+      } catch (error) {
+        console.error("Error fetching addresses:", error);
+      }
+    };
+    fetchAddresses();
+  }, [user]);
+
   return (
     <>
       <BrowserRouter>
@@ -71,10 +90,9 @@ function App() {
         autoClose={3000}
         pauseOnHover={true}
         position="top-center"
-        limit={3}
       />
       {selectedProduct && <QuickViewDialog />}
-
+      {isOpenAddressForm && <AddressForm />}
       {/* Account Menu - Controlled by Context */}
       {isOpenAccountMenu && <AccountMenu onClose={handleAccountMenuClose} />}
     </>

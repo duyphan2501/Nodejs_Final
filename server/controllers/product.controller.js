@@ -1,5 +1,9 @@
 import createHttpError from "http-errors";
-import { addOneProduct } from "../services/product.service.js";
+import {
+  addOneProduct,
+  deleteManyProduct,
+  getAllProductWithVariantStock,
+} from "../services/product.service.js";
 import { addManyVariant } from "../services/variant.service.js";
 
 const addProduct = async (req, res, next) => {
@@ -41,4 +45,36 @@ const addProduct = async (req, res, next) => {
   }
 };
 
-export { addProduct };
+const getProduct = async (req, res, next) => {
+  try {
+    const result = await getAllProductWithVariantStock();
+    return res.status(200).json({
+      success: true,
+      message: "Lấy dữ liệu thành công",
+      products: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteProduct = async (req, res, next) => {
+  try {
+    const listId = req.body._ids;
+
+    if (!listId) {
+      return createHttpError.BadRequest("_Id không tồn tại");
+    }
+
+    const result = await deleteManyProduct(listId);
+
+    return res.status(200).json({
+      success: true,
+      message: `Đã xóa thành công ${result.deletedCount} sản phẩm!`,
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export { addProduct, getProduct, deleteProduct };

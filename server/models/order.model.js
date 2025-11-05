@@ -28,7 +28,7 @@ const orderSchema = new mongoose.Schema(
         quantity: Number,
       },
     ],
-    subTotal: {type: Number, required: true},
+    orderAmount: {type: Number, required: true},
     itemsDiscounted: {type: Number, required: true},
     payment: {
       provider: String,

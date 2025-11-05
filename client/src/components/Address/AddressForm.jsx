@@ -12,14 +12,18 @@ import {
   TextField,
 } from "@mui/material";
 import { MyContext } from "../../Context/MyContext";
-import { toast } from "react-toastify";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAddressStore from "../../store/useAddressStore";
+import BiLoader from "../BiLoader";
 
-const AddressForm = ({ address=null, setAddress }) => {
+const AddressForm = () => {
   const [provinces, setProvinces] = useState([]);
   const [wards, setWards] = useState([]);
   const [wardsList, setWardsList] = useState([]);
-  const { setIsOpenAddressForm } = useContext(MyContext);
-  const [formData, setFormData] = useState( address || {
+
+  const { createAddress, updateAddress, isLoadingAddress } = useAddressStore();
+
+  const [formData, setFormData] = useState({
     receiver: "",
     phone: "",
     province: "",
@@ -28,6 +32,9 @@ const AddressForm = ({ address=null, setAddress }) => {
     addressDetail: "",
     isDefault: false,
   });
+
+  const { isOpenAddressFrm, closeAddrFrm, updateAddr } = useContext(MyContext);
+  const axiosPrivate = useAxiosPrivate();
 
   const loadWards = (provinceName, allProvinces, allWards) => {
     const selectedProvince = allProvinces.find(
@@ -40,31 +47,6 @@ const AddressForm = ({ address=null, setAddress }) => {
     );
     setWards(perspectiveWards);
   };
-
-  const handleSaveAddress = () => {
-    if (!formData.receiver) {
-      toast.error("Tên người nhận không được để trống");
-      return;
-    }
-    if (!formData.phone) {
-      toast.error("Số điện thoại không được để trống");
-      return;
-    }
-    if (!formData.province) {
-      toast.error("Vui lòng chọn tỉnh/thành phố");
-      return;
-    }
-    if (!formData.ward) {
-      toast.error("Vui lòng chọn xã/phường");
-      return;
-    }
-    if (!formData.addressDetail) {
-      toast.error("Địa chỉ cụ thể không được để trống");
-      return;
-    } 
-    setAddress(formData);
-    setIsOpenAddressForm(false);
-  }
 
   useEffect(() => {
     const loadData = async () => {
@@ -79,8 +61,17 @@ const AddressForm = ({ address=null, setAddress }) => {
         setProvinces(provincesData);
         setWardsList(wardsData);
 
-        if (address.province) {
-          loadWards(formData.province, provincesData, wardsData);
+        if (updateAddr) {
+          loadWards(updateAddr.province, provincesData, wardsData);
+          setFormData({
+            receiver: updateAddr.receiver || "",
+            phone: updateAddr.phone || "",
+            province: updateAddr.province || "",
+            ward: updateAddr.ward || "",
+            addressType: updateAddr.addressType || "home",
+            addressDetail: updateAddr.addressDetail || "",
+            isDefault: updateAddr.isDefault || false,
+          });
         }
       } catch (err) {
         console.error("Lỗi khi load dữ liệu:", err);
@@ -109,160 +100,189 @@ const AddressForm = ({ address=null, setAddress }) => {
     }));
   };
 
-  const clearFormData = () => {
-    setFormData({
-      receiver: "",
-      phone: "",
-      province: "",
-      ward: "",
-      addressType: "home",
-      addressDetail: "",
-      isDefault: false,
-    });
-  };
+  useEffect(() => {
+    document.body.style.overflow = isOpenAddressFrm ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpenAddressFrm]);
 
-  const closeAddrFrm = () => {
-    setIsOpenAddressForm(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isLoadingAddress) return;
+    let success = false;
+    if (updateAddr) {
+      success = await updateAddress(
+        {
+          ...formData,
+          id: updateAddr._id,
+        },
+        axiosPrivate
+      );
+    } else {
+      success = await createAddress(formData, axiosPrivate);
+    }
+    if (success) closeAddrFrm();
   };
 
   return (
-    <>
-      <div className="fixed inset-0 bg-black/40 z-100"></div>
-      <div className="fixed inset-0 justify-center items-center flex z-200 ">
-        <div className="bg-white p-5 z-50 border-b w-[500px] rounded-md shadow-lg">
-          <div className="flex justify-between items-center border-b-2 pb-2 border-gray-300">
-            <h4 className="font-semibold text-lg">
-              {/* {updateAddr
-            ? "Chỉnh Sửa Địa Chỉ Giao Hàng"
-            : "Thêm Địa Chỉ Giao Hàng"} */}
-              Thêm Địa Chỉ Giao Hàng
-            </h4>
-            <div
-              className="size-8 rounded-full p-1 cursor-pointer hover:bg-gray-200 flex justify-center items-center"
-              onClick={closeAddrFrm}
-            >
-              <IoClose size={25} />
-            </div>
+    <div className={`fixed inset-0 flex justify-center items-center z-50`}>
+      <div className="absolute inset-0 bg-gray-700 opacity-30"></div>
+      <div className="bg-white rounded-md p-5 z-50 border-b shadow-md w-[500px]">
+        <div className="flex justify-between items-center border-b-2 pb-2 border-gray-300">
+          <h4 className="font-semibold text-lg">
+            {updateAddr
+              ? "Chỉnh Sửa Địa Chỉ Giao Hàng"
+              : "Thêm Địa Chỉ Giao Hàng"}
+          </h4>
+          <div
+            className="size-8 rounded-full p-1 cursor-pointer hover:bg-gray-200 flex justify-center items-center"
+            onClick={closeAddrFrm}
+          >
+            <IoClose size={25} />
           </div>
-          <div className="space-y-3 w-full mt-4">
-            {/* Người nhận */}
-            <div className="grid grid-cols-3 gap-2">
-              <p>Tên người nhận:</p>
-              <TextField
-                variant="outlined"
-                className="col-span-2"
-                size="small"
-                value={formData.receiver}
-                onChange={handleChange("receiver")}
-              />
-            </div>
+        </div>
+        <div className="space-y-3 w-full mt-4">
+          {/* Người nhận */}
+          <div className="grid grid-cols-3 gap-2">
+            <p>Tên người nhận:</p>
+            <TextField
+              variant="outlined"
+              className="col-span-2"
+              size="small"
+              value={formData.receiver}
+              onChange={handleChange("receiver")}
+            />
+          </div>
 
-            {/* SĐT */}
-            <div className="grid grid-cols-3 gap-2">
-              <p>Số điện thoại:</p>
-              <TextField
-                variant="outlined"
-                className="col-span-2"
-                size="small"
-                value={formData.phone}
-                onChange={handleChange("phone")}
-              />
-            </div>
+          {/* SĐT */}
+          <div className="grid grid-cols-3 gap-2">
+            <p>Số điện thoại:</p>
+            <TextField
+              variant="outlined"
+              className="col-span-2"
+              size="small"
+              value={formData.phone}
+              onChange={handleChange("phone")}
+            />
+          </div>
 
-            {/* Tỉnh */}
-            <div className="grid grid-cols-3 gap-2">
-              <p>Tỉnh/Thành Phố:</p>
-              <FormControl size="small" fullWidth className="col-span-2">
-                <Select
-                  value={formData.province}
-                  onChange={handleProvinceChange}
-                >
-                  {provinces.map((item) => (
-                    <MenuItem key={item.code} value={item.name}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
+          {/* Tỉnh */}
+          <div className="grid grid-cols-3 gap-2">
+            <p>Tỉnh/Thành Phố:</p>
+            <FormControl size="small" fullWidth className="col-span-2">
+              <Select value={formData.province} onChange={handleProvinceChange}>
+                {provinces.map((item) => (
+                  <MenuItem key={item.code} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
 
-            {/* Xã */}
-            <div className="grid grid-cols-3 gap-2">
-              <p>Xã/Phường:</p>
-              <FormControl
-                size="small"
-                fullWidth
-                className="col-span-2"
+          {/* Xã */}
+          <div className="grid grid-cols-3 gap-2">
+            <p>Xã/Phường:</p>
+            <FormControl size="small" fullWidth className="col-span-2">
+              <Select
+                value={formData.ward}
+                onChange={handleChange("ward")}
                 disabled={!formData.province}
               >
-                <Select value={formData.ward} onChange={handleChange("ward")}>
-                  {wards.map((item) => (
-                    <MenuItem key={item.code} value={item.name}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
+                {wards.map((item) => (
+                  <MenuItem key={item.code} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
 
-            {/* Địa chỉ cụ thể */}
-            <div className="grid grid-cols-3 gap-2">
-              <p>Địa chỉ cụ thể:</p>
-              <TextField
-                variant="outlined"
-                className="col-span-2"
-                size="small"
-                multiline
-                value={formData.addressDetail}
-                onChange={handleChange("addressDetail")}
-              />
-            </div>
+          {/* Địa chỉ cụ thể */}
+          <div className="grid grid-cols-3 gap-2">
+            <p>Địa chỉ cụ thể:</p>
+            <TextField
+              variant="outlined"
+              className="col-span-2"
+              size="small"
+              multiline
+              value={formData.addressDetail}
+              onChange={handleChange("addressDetail")}
+            />
+          </div>
 
-            {/* Loại địa chỉ */}
-            <div className="grid grid-cols-3 gap-2 items-center">
-              <p>Loại địa chỉ:</p>
-              <RadioGroup
-                row
-                value={formData.addressType}
-                onChange={handleChange("addressType")}
-                className="col-span-2"
-              >
-                <FormControlLabel
-                  value="home"
-                  control={<Radio />}
-                  label="Nhà riêng"
-                />
-                <FormControlLabel
-                  value="office"
-                  control={<Radio />}
-                  label="Nơi làm việc"
-                />
-              </RadioGroup>
-            </div>
-
-            {/* Mặc định & Submit */}
-            <div className="flex justify-between items-center mt-2">
+          {/* Loại địa chỉ */}
+          <div className="grid grid-cols-3 gap-2 items-center">
+            <p>Loại địa chỉ:</p>
+            <RadioGroup
+              row
+              value={formData.addressType}
+              onChange={handleChange("addressType")}
+              className="col-span-2"
+            >
               <FormControlLabel
+                value="home"
                 control={
-                  <Checkbox
-                    checked={formData.isDefault}
-                    onChange={handleChange("isDefault")}
+                  <Radio
+                    sx={{
+                      color: "black", // màu viền khi chưa chọn
+                      "&.Mui-checked": {
+                        color: "black", // màu khi được chọn
+                      },
+                    }}  
                   />
                 }
-                label="Đặt làm mặc định"
+                label="Nhà riêng"
               />
-              <Button
-                type="button"
-                className="!bg-gray-600 !text-white !font-semibold hover:!bg-gray-700"
-                onClick={handleSaveAddress}
-              >
-                Lưu
-              </Button>
-            </div>
+              <FormControlLabel
+                value="office"
+                control={
+                  <Radio
+                    sx={{
+                      color: "black", // màu viền khi chưa chọn
+                      "&.Mui-checked": {
+                        color: "black", // màu khi được chọn
+                      },
+                    }}
+                  />
+                }
+                label="Nơi làm việc"
+              />
+            </RadioGroup>
+          </div>
+
+          {/* Mặc định & Submit */}
+          <div className="flex justify-between items-center mt-2">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.isDefault}
+                  onChange={handleChange("isDefault")}
+                  sx={{
+                    color: "black", // màu viền khi chưa chọn
+                    "&.Mui-checked": {
+                      color: "black", // màu tick khi được chọn
+                    },
+                    "&:hover": {
+                      backgroundColor: "rgba(0, 43, 91, 0.08)", // hiệu ứng hover nhẹ
+                    },
+                  }}
+                />
+              }
+              label="Đặt làm mặc định"
+            />
+            <Button
+              type="button"
+              onClick={handleSubmit}
+              className="!bg-black !text-white !w-24 !min-h-9  !font-semibold hover:!bg-gray-800"
+            >
+              {isLoadingAddress ? <BiLoader /> : "Lưu"}
+            </Button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

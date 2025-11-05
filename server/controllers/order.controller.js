@@ -17,8 +17,9 @@ const createOrder = async (req, res, next) => {
       provider,
       coupon,
       usedPoint,
-      subTotal,
+      orderAmount,
       itemsDiscounted,
+      userId
     } = req.body;
 
     // 1. Xác thực dữ liệu đầu vào chi tiết hơn
@@ -34,7 +35,7 @@ const createOrder = async (req, res, next) => {
     if (!provider) {
       throw createHttpError.BadRequest("Thiếu phương thức thanh toán.");
     }
-    if (subTotal === undefined || itemsDiscounted === undefined) {
+    if (orderAmount === undefined || itemsDiscounted === undefined) {
       throw createHttpError.BadRequest("Thiếu thông tin tổng tiền.");
     }
 
@@ -46,15 +47,16 @@ const createOrder = async (req, res, next) => {
       provider,
       coupon,
       usedPoint,
-      subTotal,
+      orderAmount,
       itemsDiscounted,
+      userId,
       "pending"
     );
     let paymentLinkRes;
     if (provider === "payos") {
       const payload = {
         orderCode: newOrder.orderCode,
-        amount: newOrder.subTotal,
+        amount: newOrder.orderAmount,
         description: newOrder.orderId,
         items: itemsPayos,
         cancelUrl: `${BACKEND_URL}/api/order/cancel-payment`,
