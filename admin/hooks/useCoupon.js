@@ -87,11 +87,57 @@ const useCoupon = () => {
     }
   };
 
+  // Xóa coupon
+  const deleteCoupon = async (couponId) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axiosPrivate.delete(`api/coupon/${couponId}`);
+
+      if (response.data.success) {
+        // Remove from store
+        useCouponStore.getState().removeCoupon(couponId);
+        return response.data;
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Lỗi khi xóa coupon");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Xóa nhiều coupons
+  const deleteManyCoupons = async (couponIds) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axiosPrivate.post("api/coupon/delete-many", {
+        ids: couponIds,
+      });
+
+      if (response.data.success) {
+        // Remove from store
+        couponIds.forEach((id) => {
+          useCouponStore.getState().removeCoupon(id);
+        });
+        return response.data;
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Lỗi khi xóa coupons");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     createCoupon,
     fetchCoupons,
     fetchCouponById,
     updateCoupon,
+    deleteCoupon,
+    deleteManyCoupons,
     loading,
     error,
   };

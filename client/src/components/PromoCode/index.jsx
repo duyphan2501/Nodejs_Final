@@ -1,36 +1,53 @@
 import React, { useState } from "react";
+import useCouponStore from "../../store/useCouponStore";
+import BiLoader from "../BiLoader";
+import { calculateDiscountedPrice } from "../../utils/calculatePrice";
+import { ChevronDown } from "lucide-react";
+import { formatMoney } from "../../utils/formatMoney";
 
-const PromoCode = () => {
+const PromoCode = ({ couponForOrder, setCouponForOrder, orderAmount }) => {
   const [usePromoCode, setUsePromoCode] = useState(false);
   const [code, setCode] = useState("");
-  const [status, setStatus] = useState(null);
+  const { isCouponLoading, applyCoupon } = useCouponStore();
 
   const handleApply = async () => {
-    try {
-      const res = await fetch("https://dummyjson.com/carts/1");
-      const data = await res.json();
+    if (isCouponLoading) return;
+    const coupon = await applyCoupon(code, orderAmount);
+    if (coupon) {
+      const amountReduced =
+        coupon.discountType === "fixed"
+          ? coupon.discountAmount
+          : orderAmount - calculateDiscountedPrice(orderAmount, coupon.discountPercent);
 
-      if (code === "SALE50") {
-        setStatus({ success: true, message: "Mã hợp lệ, giảm 50%!" });
-      } else {
-        setStatus({ success: false, message: "Mã không hợp lệ!" });
-      }
-    } catch (error) {
-      setStatus({ success: false, message: "Có lỗi xảy ra khi gọi API" });
+      setCouponForOrder({
+        code: coupon.code,
+        amountReduced,
+      });
     }
+  };
+
+  const handleCancel = () => {
+    setCode("");
+    setCouponForOrder({
+      code: null,
+      amountReduced: 0,
+    });
   };
 
   return (
     <div>
-      <label className="flex items-center gap-2 mb-4 text-sm cursor-pointer w-fit">
-        <input
-          type="checkbox"
-          checked={usePromoCode}
-          onChange={(e) => setUsePromoCode(e.target.checked)}
-          className="w-4 h-4"
-        />
+      <div
+        className="flex items-center gap-2 mb-4 text-sm cursor-pointer w-fit"
+        onClick={() => setUsePromoCode((prev) => !prev)}
+      >
+        <span className={`${usePromoCode ? "rotate-180" : "rotate-0"}`}>
+          <ChevronDown />
+        </span>
         <span>SỬ DỤNG MÃ KHUYẾN MÃI</span>
-      </label>
+         {couponForOrder.amountReduced > 0 && (
+          <span className="money">(Giảm được {formatMoney(couponForOrder.amountReduced)})</span>
+        )}
+      </div>
 
       {usePromoCode && (
         <div className="space-y-2 mb-2">
@@ -41,22 +58,20 @@ const PromoCode = () => {
             placeholder="Nhập mã khuyến mãi"
             className="border px-3 py-2 w-full rounded"
           />
-          <button
-            onClick={handleApply}
-            className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 " 
-          >
-            Áp dụng
-          </button>
-
-          {status && (
-            <p
-              className={`text-sm ${
-                status.success ? "text-green-600" : "text-red-600"
-              }`}
+          <div className="flex gap-3">
+            <button
+              onClick={handleApply}
+              className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 w-1/2 cursor-pointer"
             >
-              {status.message}
-            </p>
-          )}
+              {isCouponLoading ? <BiLoader size={15} /> : "Áp dụng"}
+            </button>
+            <button
+              onClick={handleCancel}
+              className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 w-1/2 cursor-pointer"
+            >
+              Huỷ
+            </button>
+          </div>
         </div>
       )}
     </div>

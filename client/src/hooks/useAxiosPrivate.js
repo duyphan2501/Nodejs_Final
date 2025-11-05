@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import useAuthStore from "../store/authStore";
 import axiosPrivate from "../API/axiosInstance.js";
 import { MyContext } from "../Context/MyContext.jsx";
 import useUserStore from "../store/useUserStore.js";
@@ -11,7 +10,7 @@ const useAxiosPrivate = () => {
   useEffect(() => {
     const requestInterceptor = axiosPrivate.interceptors.request.use(
       (config) => {
-        const token = useAuthStore.getState().accessToken;
+        const token = useUserStore.getState().accessToken;
         if (token) {
           config.headers = {
             ...config.headers,
@@ -41,7 +40,7 @@ const useAxiosPrivate = () => {
             };
             return axiosPrivate(prevRequest);
           } catch (err) {
-            useAuthStore.getState().logout();
+            useUserStore.getState().logout();
             return Promise.reject(err);
           }
         }

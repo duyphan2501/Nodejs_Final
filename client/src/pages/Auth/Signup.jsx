@@ -1,15 +1,9 @@
 import { useContext, useState } from "react";
-import FloatingShape from "../../components/FloatingShape";
 import TextField from "@mui/material/TextField";
-import PasswordTextField from "../../components/PasswordTextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-import { FaFacebookF } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa6";
 import BiLoader from "../../components/BiLoader";
-import { MapPinHouse, Trash, X } from "lucide-react";
-import AddressForm from "../../components/Address/AddressForm";
+import { MapPinHouse, X } from "lucide-react";
+import AddressSignUpForm from "../../components/Address/AddressSignUpForm";
 import { MyContext } from "../../Context/MyContext";
 import useUserStore from "../../store/useUserStore";
 import { useNavigate } from "react-router-dom";
@@ -154,7 +148,7 @@ const Signup = () => {
         </a>
       </div>
       {isOpenAddressForm && (
-        <AddressForm address={address} setAddress={setAddress} />
+        <AddressSignUpForm address={address} setAddress={setAddress} />
       )}
     </div>
   );

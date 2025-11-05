@@ -10,18 +10,26 @@ const AddressCard = ({
   isCheckout = false,
 }) => {
   return (
-    <div className="border border-gray-200 rounded-md p-5 flex bg-sky-50">
-      {isCheckout && <FormControlLabel
-        control={
-          <Radio
-            checked={selected}
-            onChange={onSelect}
-            value={address._id}
-            name="address"
-          />
-        }
-        className="self-start"
-      />}
+    <div className="border border-gray-200 rounded-md p-5 flex bg-gray-50">
+      {isCheckout && (
+        <FormControlLabel
+          control={
+            <Radio
+              checked={selected}
+              onChange={onSelect}
+              value={address._id}
+              name="address"
+              sx={{
+                color: "#002B5B", // màu viền khi chưa chọn
+                "&.Mui-checked": {
+                  color: "#002B5B", // màu khi được chọn
+                },
+              }}
+            />
+          }
+          className="self-start"
+        />
+      )}
 
       <div className="flex flex-col flex-1">
         <div className="flex gap-2">
@@ -30,9 +38,9 @@ const AddressCard = ({
               Mặc định
             </span>
           )}
-        <span className="bg-gray-100 text-sm p-1 rounded-md w-fit">
-          {address.addressType === "home" ? "Nhà riêng" : "Công ty"}
-        </span>
+          <span className="bg-gray-100 text-sm p-1 rounded-md w-fit">
+            {address.addressType === "home" ? "Nhà riêng" : "Công ty"}
+          </span>
         </div>
         <p className=" font-bold text-lg">{address.receiver}</p>
         <div className="italic mb-3">
@@ -41,10 +49,10 @@ const AddressCard = ({
         <div className="">SĐT: {address.phone}</div>
       </div>
       <div className="flex flex-col justify-between">
-        <Button className="" onClick={onUpdate}>
+        <Button className="!text-black" onClick={onUpdate}>
           <FaPen />
         </Button>
-        <Button className="hover:!text-red-500" onClick={onDelete}> 
+        <Button className="!text-black hover:!text-red-500" onClick={onDelete}>
           <FaTrash />
         </Button>
       </div>

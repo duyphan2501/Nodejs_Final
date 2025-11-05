@@ -11,7 +11,7 @@ const CheckoutItem = ({ item }) => {
           <p className="font-medium flex-1 line-clamp-1 text-gray-800">
             {item.name} - {item.color}
           </p>
-          <p>x {item.quantity}</p>
+          <p className="mr-1">x {item.quantity}</p>
         </div>
         <p className="text-sm text-gray-500">Kích cỡ: {item.size}</p>
         <div className="flex items-center gap-2 text-sm">

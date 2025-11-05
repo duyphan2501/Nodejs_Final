@@ -145,6 +145,7 @@ const CartIcon = () => {
                     component={Link}
                     to={"/cart"}
                     className="!w-full !bg-black !text-white !font-semibold"
+                    onClick={() => setIsHovered(!isHovered)}
                   >
                     Tóm tắt giỏ hàng
                   </Button>

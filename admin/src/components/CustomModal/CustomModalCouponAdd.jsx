@@ -2,6 +2,7 @@ import { Modal, Button, CircularProgress } from "@mui/material";
 import CustomInput from "../CustomInput";
 import { useState } from "react";
 import { useTableControl } from "../TableControl/TableControllerContext";
+import CustomDropdownCouponType from "../CustomDropdown/CustomDropdownCouponType";
 import CustomDropdown from "../CustomDropdown";
 import useCoupon from "../../../hooks/useCoupon";
 
@@ -168,8 +169,7 @@ export default function CustomModalCouponAdd({ control }) {
               <label className="text-black uppercase font-semibold">
                 Loại giảm giá
               </label>
-              <CustomDropdown
-                type="coupon-edit"
+              <CustomDropdownCouponType
                 choose={input.discountType}
                 handleChangeInput={handleChangeInput}
               />

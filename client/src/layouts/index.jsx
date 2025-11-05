@@ -59,7 +59,7 @@ const Layouts = () => {
     return () => {
       isMounted = false;
     };
-  }, [location.pathname]);
+  }, []);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useUserStore from "../../store/useUserStore";
 import useCartStore from "../../store/useCartStore";
 import CheckoutItem from "../../components/CheckoutItem";
@@ -12,23 +12,29 @@ import {
   calculateItemsDiscounted,
   calculateTotal,
 } from "../../utils/calculatePrice";
+import AddressList from "../../components/Address/AddressList";
+import useAddressStore from "../../store/useAddressStore";
 
 const Checkout = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedStep, setCompletedStep] = useState(0);
-
   const steps = [
     { id: 1, title: "Thông tin liên hệ" },
     { id: 2, title: "Thông tin giao hàng" },
     { id: 3, title: "Xác nhận và thanh toán" },
   ];
 
+  const [coupon, setCoupon] = useState({ couponCode: null, amountReduced: 0 });
+  const [usedPoint, setUsedPoint] = useState({ point: 0, amountReduced: 0 });
   const user = useUserStore((state) => state.user);
   const cartItems = useCartStore((state) => state.cartItems);
+
   const { createOrder, isLoading } = useOrderStore();
+  const addresses = useAddressStore((state) => state.addresses);
 
   const total = calculateTotal(cartItems);
   const itemsDiscounted = calculateItemsDiscounted(cartItems);
+  const orderAmount = total - coupon.amountReduced - usedPoint.amountReduced;
 
   const [formData, setFormData] = useState({
     email: user?.email || "",
@@ -43,9 +49,6 @@ const Checkout = () => {
     },
     provider: "cod",
   });
-
-  const [coupon, setCoupon] = useState({ couponCode: null, amountReduced: 0 });
-  const [usedPoint, setUsedPoint] = useState({ point: 0, amountReduced: 0 });
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -74,11 +77,15 @@ const Checkout = () => {
         toast.error("Email không hợp lệ");
         return;
       }
-    if (currentStep === 2)
+    if (currentStep === 2) {
       if (!checkValidAddress(formData.address)) {
         setCompletedStep(1);
-        if (step !== 1) return;
+        if (step === 3) {
+          toast.error("Vui lòng cung cấp địa chỉ giao hàng");
+          return;
+        }
       }
+    }
     setCurrentStep(step);
     setCompletedStep((prev) => Math.max(prev, step));
   };
@@ -92,10 +99,19 @@ const Checkout = () => {
       formData.provider,
       coupon,
       usedPoint,
-      total,
-      itemsDiscounted
+      orderAmount,
+      itemsDiscounted,
+      user?._id,
     );
   };
+
+  useEffect(() => {
+    if (!checkValidAddress(formData.address) && cartItems.length > 0) {
+      const selected =
+        addresses.find((addr) => addr.isDefault === true) || cartItems[0];
+      handleChange("address", selected);
+    }
+  }, [addresses]);
 
   return (
     <div className="min-h-screen bg-white flex flex-col lg:flex-row container">
@@ -140,6 +156,7 @@ const Checkout = () => {
                   <input
                     type="email"
                     value={formData.email}
+                    disabled={user?.email}
                     placeholder="Email address"
                     onChange={(e) => handleChange("email", e.target.value)}
                     className="border w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:[#002B5B] transition"
@@ -156,10 +173,30 @@ const Checkout = () => {
 
               {step.id === 2 && currentStep === 2 && (
                 <div className="mt-6 lg:ml-9">
-                  <GuestAddress
-                    address={formData.address}
-                    setAddress={handleSetAddress}
-                  />
+                  {user ? (
+                    <>
+                      <AddressList
+                        title={"Địa chỉ giao hàng"}
+                        address={addresses}
+                        isCheckout={true}
+                        selectedAddress={formData.address}
+                        setSelectedAddress={(addr) =>
+                          handleChange("address", addr)
+                        }
+                      />
+                      <button
+                        onClick={() => handleSetStep(3)}
+                        className="w-full bg-[#002B5B] text-white py-3 rounded-lg font-medium cursor-pointer hover:bg-[#003d7a] transition duration-200 mt-6"
+                      >
+                        Tiếp tục đến bước thanh toán
+                      </button>
+                    </>
+                  ) : (
+                    <GuestAddress
+                      address={formData.address}
+                      setAddress={handleSetAddress}
+                    />
+                  )}
                 </div>
               )}
 
@@ -259,7 +296,7 @@ const Checkout = () => {
                     <button
                       onClick={handleCompleteOrder}
                       className="bg-green-600 text-white px-6 py-3 rounded-md w-full font-medium hover:bg-green-700 transition-colors cursor-pointer"
-                    > 
+                    >
                       {isLoading
                         ? "Đang xử lí..."
                         : formData.provider === "payos"
@@ -287,14 +324,29 @@ const Checkout = () => {
         </div>
 
         <div className="mt-6 border-t pt-4">
-          <PurchasePointForm user={user} />
-          <PromoCode />
+          <PurchasePointForm
+            user={user}
+            usedPoint={usedPoint}
+            setUsedPoint={setUsedPoint}
+            maxPoint={Math.floor(orderAmount / 1000)}
+          />
+          <PromoCode
+            couponForOrder={coupon}
+            setCouponForOrder={setCoupon}
+            orderAmount={orderAmount}
+          />
         </div>
 
         <div className="mt-6 border-t pt-4 text-sm space-y-1">
           <div className="flex justify-between">
             <span>Tổng cộng</span>
             <span className="money">{formatMoney(total)}</span>
+          </div>
+          <div className="flex justify-between text-green-700">
+            <span>Giảm giá</span>
+            <span className="money">
+              -{formatMoney(coupon.amountReduced + usedPoint.amountReduced)}
+            </span>
           </div>
           <div className="flex justify-between">
             <span>Vận chuyển</span>
@@ -306,11 +358,7 @@ const Checkout = () => {
           </div>
           <div className="flex justify-between text-lg font-semibold mt-2">
             <span>Cần thanh toán</span>
-            <span className="money">
-              {formatMoney(
-                total - coupon.amountReduced - usedPoint.amountReduced
-              )}
-            </span>
+            <span className="money">{formatMoney(orderAmount)}</span>
           </div>
           <p className="text-green-700 text-sm text-right font-medium money">
             {" "}

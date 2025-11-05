@@ -1,4 +1,5 @@
 // services/couponService.js
+import createHttpError from "http-errors";
 import CouponModel from "../models/coupon.model.js";
 
 // Tạo coupon mới
@@ -131,6 +132,29 @@ export const updateCoupon = async (couponId, updateData) => {
   }
 };
 
+// Xóa coupon
+export const deleteCoupon = async (couponId) => {
+  try {
+    const deletedCoupon = await CouponModel.findByIdAndDelete(couponId);
+    if (!deletedCoupon) {
+      throw new Error("Coupon not found");
+    }
+    return deletedCoupon;
+  } catch (error) {
+    throw new Error(`Error deleting coupon: ${error.message}`);
+  }
+};
+
+// Xóa nhiều coupons
+export const deleteManyCoupons = async (couponIds) => {
+  try {
+    const result = await CouponModel.deleteMany({ _id: { $in: couponIds } });
+    return result;
+  } catch (error) {
+    throw new Error(`Error deleting coupons: ${error.message}`);
+  }
+};
+
 // Lấy coupons với filter và pagination
 export const getCouponsWithFilter = async (
   filters = {},
@@ -138,12 +162,19 @@ export const getCouponsWithFilter = async (
   limit = 20
 ) => {
   try {
-    const { status, discountType, minOrderValue } = filters;
+    const { status, discountType, minOrderValue, search } = filters;
 
     const query = {};
-    if (status) query.status = status;
-    if (discountType) query.discountType = discountType;
+    if (status && status !== "all") query.status = status;
+    if (discountType && discountType !== "all") {
+      query.discountType = discountType === "percentage" ? "percent" : "fixed";
+    }
     if (minOrderValue) query.minOrderValue = { $gte: minOrderValue };
+
+    // Thêm search query
+    if (search) {
+      query.code = { $regex: search, $options: "i" }; // Case-insensitive search
+    }
 
     const skip = (page - 1) * limit;
 
@@ -161,4 +192,47 @@ export const getCouponsWithFilter = async (
   } catch (error) {
     throw new Error(`Error fetching coupons with filter: ${error.message}`);
   }
+};
+
+export const useCouponAtomic = async (code, orderId, orderAmount, session = null) => {
+  const updatedCoupon = await CouponModel.findOneAndUpdate(
+    {
+      code: code,
+      remainingUsage: { $gte: 1 },
+      status: "active",
+    },
+    {
+      $inc: { remainingUsage: -1 },
+      $push: { order: orderId },
+    },
+    {
+      new: true,
+      session: session,
+    }
+  );
+
+  if (!updatedCoupon) {
+    const existingCoupon = await CouponModel.findOne({ code: code }).lean();
+
+    if (!existingCoupon) {
+      throw createHttpError(404, "Mã khuyến mãi không tồn tại.");
+    }
+
+    if (existingCoupon.status !== "active") {
+      throw createHttpError(400, "Mã khuyến mãi hiện không hoạt động.");
+    }
+
+    if (existingCoupon.remainingUsage < 1) {
+      throw createHttpError(400, "Mã khuyến mãi đã hết lượt sử dụng.");
+    }
+
+    if (orderAmount < coupon.minOrderValue)
+      throw createHttpError.BadRequest(
+        `Đơn hàng tối thiểu để áp dụng mã này là ${coupon.minOrderValue} VNĐ.`
+      );
+
+    throw createHttpError(400, "Không thể áp dụng mã khuyến mãi này.");
+  }
+
+  return updatedCoupon;
 };

@@ -10,7 +10,12 @@ const ContextProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("persist")) || false
   );
   const [verifyUser, setVerifyUser] = useState(null);
+  
   const [isOpenAddressForm, setIsOpenAddressForm] = useState(false);  
+  const openAddrFrm = () => setIsOpenAddressForm(true);
+  const closeAddrFrm = () => setIsOpenAddressForm(false);
+  const [updateAddr, setUpdateAddr] = useState(null)
+
   const values = {
     isOpenAccountMenu,
     setIsOpenAccountMenu,
@@ -24,6 +29,10 @@ const ContextProvider = ({ children }) => {
     setIsOpenAddressForm,
     verifyUser,
     setVerifyUser,
+    openAddrFrm,
+    closeAddrFrm,
+    updateAddr,
+    setUpdateAddr
   };
   return <MyContext.Provider value={values}>{children}</MyContext.Provider>;
 };
