@@ -11,7 +11,8 @@ const useOrderStore = create((set) => {
     coupon,
     usedPoint,
     orderAmount,
-    itemsDiscounted
+    itemsDiscounted,
+    userId
   ) => {
     set({ isLoading: true });
     try {
@@ -24,6 +25,7 @@ const useOrderStore = create((set) => {
         usedPoint,
         orderAmount,
         itemsDiscounted,
+        userId
       });
       toast.success(res.data.message);
       set({ order: res.data.order });

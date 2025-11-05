@@ -100,7 +100,8 @@ const Checkout = () => {
       coupon,
       usedPoint,
       orderAmount,
-      itemsDiscounted
+      itemsDiscounted,
+      user?._id,
     );
   };
 

@@ -19,6 +19,7 @@ const createOrder = async (req, res, next) => {
       usedPoint,
       orderAmount,
       itemsDiscounted,
+      userId
     } = req.body;
 
     // 1. Xác thực dữ liệu đầu vào chi tiết hơn
@@ -48,6 +49,7 @@ const createOrder = async (req, res, next) => {
       usedPoint,
       orderAmount,
       itemsDiscounted,
+      userId,
       "pending"
     );
     let paymentLinkRes;

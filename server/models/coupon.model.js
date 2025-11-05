@@ -21,7 +21,7 @@ const couponSchema = new mongoose.Schema(
       required: true,
     },
 
-    order: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
+    order: [{type: String}],
 
     minOrderValue: { type: Number, default: 0 },
   },
