@@ -26,7 +26,6 @@ const CartWithItems = ({}) => {
     return new Intl.NumberFormat("vi-VN").format(price) + "₫";
   };
 
-
   if (cartItems.length === 0) {
     return <EmptyCart />;
   }
@@ -41,7 +40,9 @@ const CartWithItems = ({}) => {
 
           <div className="lg:col-span-2">
             <div className="bg-gray-200 p-4 mb-6">
-              <p className="text-2xl font-semibold">XIN CHÀO{user && ", "+user?.name}!</p>
+              <p className="text-2xl font-semibold">
+                XIN CHÀO{user && ", " + user?.name}!
+              </p>
             </div>
 
             <div className="bg-white md:p-6 mb-6">
@@ -65,13 +66,18 @@ const CartWithItems = ({}) => {
                 return (
                   <div
                     key={item.variantId}
-                    className="flex gap-4 p-4 border border-gray-300 mb-4 bg-white"
+                    className="flex gap-4 p-4 border border-gray-300 mb-4 bg-white "
                   >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-[150px] h-[150px] object-cover flex-shrink-0"
-                    />
+                    <div className="w-[150px] h-[150px] relative">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="size-full object-cover flex-shrink-0"
+                      />
+                      {item.inStock === 0 && <div className="size-full bg-black/30 flex items-center inset-0 absolute justify-center">
+                        <p className="p-1 rounded-md bg-white text-red-500 title uppercase font-semibold">Hết hàng</p>
+                      </div>}
+                    </div>
                     <div className="flex flex-col justify-between flex-1">
                       <h3 className=" font-semibold mb-1 md:text-xl line-clamp-2">
                         {item.name} - {item.color}
@@ -125,7 +131,9 @@ const CartWithItems = ({}) => {
                     <div className="flex flex-col items-end">
                       <button
                         className="p-2 hover:bg-gray-100 rounded transition-colors cursor-pointer"
-                        onClick={() => handleRemoveItem(item.variantId, item.size)}
+                        onClick={() =>
+                          handleRemoveItem(item.variantId, item.size)
+                        }
                       >
                         <X size={20} />
                       </button>
@@ -157,12 +165,13 @@ const CartWithItems = ({}) => {
                 <span className="money">{formatPrice(total)}</span>
               </div>
 
-              <p className="text-xs text-gray-600 mb-4">
-                (Đã bao gồm thuế)
-              </p>
+              <p className="text-xs text-gray-600 mb-4">(Đã bao gồm thuế)</p>
 
-              <a className="w-full bg-black text-white py-3 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors" href="/checkout">
-               TIẾN HÀNH THANH TOÁN <ArrowRight size={16} />
+              <a
+                className="w-full bg-black text-white py-3 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors"
+                href="/checkout"
+              >
+                TIẾN HÀNH THANH TOÁN <ArrowRight size={16} />
               </a>
             </div>
           </div>

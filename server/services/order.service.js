@@ -68,7 +68,7 @@ const createNewOrder = async (
     }
 
     if (usedPoint.point > 0 && userId) {
-      await usePurchasePoint(userId, usedPoint, session);
+      await usePurchasePoint(userId, usedPoint.point, session);
     }
 
     // --- 4. Tạo đơn hàng trong DB ---

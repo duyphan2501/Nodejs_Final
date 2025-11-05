@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 import Rating from "@mui/material/Rating";
 import { getDiscountedPrice } from "../../utils/formatMoney";
 import StackButton from "../StackButton";
-import QuantityButton from "../QuantityButton.jsx";
+import QuantityDetailBtn from "../QuantityDetailBtn/index.jsx";
 
 const QuickViewDialog = () => {
   const { selectedProduct, setSelectedProduct } = useContext(MyContext);
@@ -15,14 +15,14 @@ const QuickViewDialog = () => {
   const [selectedVariant, setselectedVariant] = useState(
     selectedProduct.variants[0]
   );
-  const [selectedSize, setSelectedSize] = useState(
-    selectedVariant.attribute[0].size
+  const [selectedAttr, setSelectedAttr] = useState(
+    selectedVariant.attributes[0]
   );
 
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(1);
 
-  const price = selectedVariant.attribute[0].price;
-  const discount = selectedVariant.attribute[0].discount || 0;
+  const price = selectedVariant.price;
+  const discount = selectedVariant.discount || 0;
   const { formatedPrice, formatedDiscountedPrice } = getDiscountedPrice(
     price,
     discount
@@ -124,15 +124,15 @@ const QuickViewDialog = () => {
             </div>
             {/*  */}
             <div className="">
-              <p className="font-semibold mb-2">Kích cỡ: {selectedSize}</p>
+              <p className="font-semibold mb-2">Kích cỡ: {selectedAttr.size}</p>
               <div className="flex items-center gap-2 flex-nowrap">
                 {selectedVariant &&
-                  selectedVariant.attribute?.map((attr) => (
+                  selectedVariant.attributes?.map((attr) => (
                     <div
                       className={`px-3 py-1 rounded-md cursor-pointer hover:bg-black hover:text-white font-bold border-2 flex items-center justify-center ${
-                        selectedSize === attr.size && "bg-black text-white"
+                        selectedAttr.size === attr.size && "bg-black text-white"
                       }`}
-                      onClick={() => setSelectedSize(attr.size)}
+                      onClick={() => setSelectedAttr(attr)}
                       key={attr.size}
                     >
                       {attr.size}
@@ -142,7 +142,10 @@ const QuickViewDialog = () => {
             </div>
             {/*  */}
             <div className="flex items-center gap-4">
-              <QuantityButton value={quantity} onChange={(val) => setQuantity(val)}/>
+              <QuantityDetailBtn
+                quantity={quantity}
+                setQuantity={(val) => setQuantity(val)}
+              />
               <StackButton
                 label={"Thêm vào giỏ hàng"}
                 theme="dark"
