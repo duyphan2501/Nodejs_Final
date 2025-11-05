@@ -13,7 +13,7 @@ import couponRouter from "./routes/coupon.route.js";
 
 import productRouter from "./routes/product.route.js";
 import orderRouter from "./routes/order.route.js";
-import { startNgrokAndConfirmWebhook } from "./config/payos.init.js";
+// import { startNgrokAndConfirmWebhook } from "./config/payos.init.js";
 dotenv.config({ quiet: true });
 
 const app = express();
@@ -44,5 +44,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server is running at PORT :::", PORT);
   connectToDB();
-  startNgrokAndConfirmWebhook();
+  // startNgrokAndConfirmWebhook();
 });

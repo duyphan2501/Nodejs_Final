@@ -221,14 +221,21 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
   };
 
   // Upload ảnh
-  const handleImageChange = (e, index) => {
-    const file = e.target.files[0];
-    if (file) {
+  const handleImageChange = (e, startIndex) => {
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
       const newImages = [...images];
-      newImages[index] = {
-        file,
-        preview: URL.createObjectURL(file),
-      };
+
+      files.forEach((file, idx) => {
+        const targetIndex = startIndex + idx;
+        if (targetIndex < newImages.length) {
+          newImages[targetIndex] = {
+            file,
+            preview: URL.createObjectURL(file),
+          };
+        }
+      });
+
       setImages(newImages);
     }
   };
@@ -310,6 +317,7 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
                   id={`upload-${id}-${i}`}
                   type="file"
                   accept="image/*"
+                  multiple // <--- thêm multiple
                   className="hidden"
                   onChange={!save ? (e) => handleImageChange(e, i) : undefined}
                   disabled={save}
