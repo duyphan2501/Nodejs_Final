@@ -12,12 +12,20 @@ export default function CategoryPicker({
   const [checked, setChecked] = React.useState({});
 
   React.useEffect(() => {
-    handleChangeInput("categoryId", checked);
+    const keysToDelete = ["1", "2", "3"];
+
+    const newObj = Object.entries(checked)
+      .filter(([key]) => !keysToDelete.includes(key))
+      .reduce((acc, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      }, {});
+
+    handleChangeInput("categoryId", newObj);
   }, [checked]);
 
   React.useEffect(() => {
     setChecked({});
-    console.log(checked);
   }, [reset]);
 
   // Toggle 1 node

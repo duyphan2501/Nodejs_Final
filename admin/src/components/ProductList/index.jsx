@@ -2,26 +2,25 @@ import { useState } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import StarRate from "../StarRate";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Button } from "@mui/material";
 
 const ProductCard = ({
   id,
   name,
   brand,
-  price,
-  stock,
+  inputPrice,
   totalStock,
-  sold,
   image,
-  active = true,
+  stars,
+  totalRating,
   checked,
   toggleSelect,
   chooseToEdit,
 }) => {
-  const [isActive, setIsActive] = useState(active);
-
   return (
     <div
-      onClick={() => chooseToEdit(id)}
+      onDoubleClick={() => chooseToEdit(id)}
       className="w-full max-w-xs rounded-2xl shadow-lg overflow-hidden hover:border relative p-4 cursor-pointer transform transition-transform duration-200 hover:scale-105 hover:shadow-xl"
     >
       {/* Checkbox chọn sản phẩm */}
@@ -32,21 +31,12 @@ const ProductCard = ({
         onChange={toggleSelect}
       />
 
-      {/* Nút Active / Inactive */}
-      <div className="absolute top-3 right-3">
-        <label className="relative inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            checked={isActive}
-            onChange={() => setIsActive(!isActive)}
-            className="sr-only peer"
-          />
-          <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-green-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
-        </label>
-      </div>
-
       {/* Ảnh sản phẩm */}
-      <img src={image} alt={name} className="w-full h-48 object-cover" />
+      <img
+        src={`${import.meta.env.VITE_BACKEND_URL}/${image}`}
+        alt={name}
+        className="w-full h-48 object-cover"
+      />
 
       {/* Nội dung */}
       <div className="mt-3 space-y-2">
@@ -55,37 +45,19 @@ const ProductCard = ({
           Brand: <span className="font-medium">{brand}</span>
         </p>
         <p className="text-red-600 font-bold text-base">
-          {price.toLocaleString("vi-VN")}₫
+          {inputPrice.toLocaleString("vi-VN")}₫
         </p>
 
         {/* Thanh tồn kho */}
         <div className="mt-2">
           <div className="flex justify-between text-xs text-gray-500 mb-1">
-            <span>
-              Tồn kho: {stock}/{totalStock}
-            </span>
-          </div>
-          <div className="w-full h-2 rounded bg-gray-200 overflow-hidden">
-            <div
-              className={`h-2 rounded ${
-                stock / totalStock < 0.3
-                  ? "bg-red-500"
-                  : stock / totalStock < 0.7
-                  ? "bg-yellow-500"
-                  : "bg-green-500"
-              }`}
-              style={{ width: `${(stock / totalStock) * 100}%` }}
-            ></div>
+            <span>Tồn kho: {totalStock}</span>
           </div>
         </div>
 
         <div className="mt-2">
-          <StarRate star={4.5} quantity={1000} />
+          <StarRate star={stars} quantity={totalRating} />
         </div>
-
-        <p className="text-sm text-gray-500">
-          <span className="font-medium text-gray-700">Đã bán:</span> {sold} đôi
-        </p>
       </div>
     </div>
   );
@@ -123,8 +95,8 @@ const ProductList = ({
           <ProductCard
             key={i}
             {...p}
-            checked={selectedProducts.includes(p.id)}
-            toggleSelect={() => toggleSelect(p.id)}
+            checked={selectedProducts.includes(p._id)}
+            toggleSelect={() => toggleSelect(p._id)}
             chooseToEdit={chooseToEdit}
           />
         ))}
