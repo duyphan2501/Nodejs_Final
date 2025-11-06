@@ -1,3 +1,4 @@
+import createHttpError from "http-errors";
 import ProductModel from "../models/product.model.js";
 import mongoose from "mongoose";
 
@@ -109,9 +110,17 @@ const deleteManyProduct = async (_ids) => {
   }
 };
 
+const getProductBySlug = async (slug) => {
+  if (!slug) throw createHttpError.BadRequest("Thiếu slug");
+  const product = await ProductModel.findOne({ slug }).populate("variants");
+  if (!product) throw createHttpError.NotFound("Sản phẩm không tồn tại");
+  return product;
+};
+
 export {
   addOneProduct,
   deleteOneProduct,
   getAllProductWithVariantStock,
   deleteManyProduct,
+  getProductBySlug,
 };

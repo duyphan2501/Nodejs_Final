@@ -3,6 +3,7 @@ import {
   addProduct,
   deleteProduct,
   getProduct,
+  getProductBySlugController,
 } from "../controllers/product.controller.js";
 import { productSchema } from "../helpers/productValidate.helper.js";
 import validate from "../middlewares/joiValidate.middleware.js";
@@ -20,5 +21,6 @@ productRouter.post(
 );
 productRouter.get("/", getProduct);
 productRouter.delete("/delete", deleteProduct);
+productRouter.get("/:slug", getProductBySlugController);
 
 export default productRouter;
