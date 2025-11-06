@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     forgotPasswordToken: String,
     forgotPasswordTokenExpireAt: Date,
-    phone: String,
     verificationToken: String,
     verificationTokenExpireAt: Date,
     refreshToken: String,
@@ -17,6 +16,7 @@ const userSchema = new mongoose.Schema(
     isVerified: { type: Boolean, default: false },
     status: { type: String, enum: ["active", "inactive"], default: "active" },
     isAdmin: { type: Boolean, default: false },
+    phone: String,
   },
   { timestamps: true, collection: "users" }
 );

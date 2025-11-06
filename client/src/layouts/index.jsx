@@ -1,12 +1,11 @@
 import UspHeader from "./USPHeader";
 import Header from "./Header";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Footer from "../components/Footer";
 import useUserStore from "../store/useUserStore";
-import { MyContext } from "../Context/MyContext";
 import { toast } from "react-toastify";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { MyContext } from "../Context/MyContext";
 
 const Layouts = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -16,7 +15,7 @@ const Layouts = () => {
   const navigator = useNavigate();
   const location = useLocation();
   const user = useUserStore((state) => state.user);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,28 +33,26 @@ const Layouts = () => {
 
   useEffect(() => {
     let isMounted = true;
-
     const refresh = async () => {
-      setIsLoading(true);
+      if (user || !persist) {
+        setIsLoading(false);
+        return;
+      }
       try {
-        if (user || !persist) return;
         await refreshToken();
       } catch (error) {
-        if (isMounted) {
-          if (
-            location.pathname === "/addresses" ||
-            location.pathname === "/my-account"
-          ) {
-            toast.info("Bạn cần phải đăng nhập trước!");
-            navigator("/login");
-          }
+        if (
+          isMounted &&
+          ["/addresses", "/my-account"].includes(location.pathname)
+        ) {
+          toast.info("Bạn cần phải đăng nhập trước!");
+          navigator("/login", { replace: true });
         }
       } finally {
-        isMounted && setIsLoading(false);
+        if (isMounted) setIsLoading(false);
       }
     };
     refresh();
-
     return () => {
       isMounted = false;
     };
@@ -66,11 +63,13 @@ const Layouts = () => {
       {isLoading ? (
         <>
           <div className="fixed inset-0 z-50  opacity-30"></div>
-          <div className="fixed inset-0 z-60 bg-black/50 flex items-center justify-center">
-            <AiOutlineLoading3Quarters
-              className="animate-spin text-white"
-              size={100}
-            />
+          <div className="fixed inset-0 z-60 bg-white flex items-center justify-center">
+            <div className="flex items-center justify-center h-64">
+              <div className="text-center">
+                <div className="size-20 border-6 border-gray-300 border-t-black rounded-full animate-spin mx-auto mb-4"></div>
+                <p className="text-gray-700">Đang tải thông tin...</p>
+              </div>
+            </div>
           </div>
         </>
       ) : (

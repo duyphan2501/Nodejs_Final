@@ -14,7 +14,27 @@ const addManyVariant = async (variants) => {
   }
 };
 
-// Import VariantModel, createHttpError
+const getAvailableStockDB = async (variantId, size) => {
+  const variant = await VariantModel.findOne({
+    _id: variantId,
+  }).lean();
+
+  if (!variant) {
+    throw createHttpError.NotFound(
+      `Sản phẩm variantId ${variantId} không tìm thấy.`
+    );
+  }
+
+  const attribute = variant.attributes.find((attr) => attr.size === size);
+
+  if (!attribute) {
+    throw createHttpError.NotFound(
+      `Kích thước ${size} không tồn tại cho variantId ${variantId}.`
+    );
+  }
+
+  return attribute.inStock;
+};
 
 const deductStockAtomic = async (item, session) => {
   let { variantId, size, quantity, name } = item;
@@ -75,4 +95,4 @@ const deductStockAtomic = async (item, session) => {
   };
 };
 
-export { addManyVariant, deductStockAtomic };
+export { addManyVariant, deductStockAtomic, getAvailableStockDB };

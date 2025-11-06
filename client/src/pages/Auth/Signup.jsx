@@ -59,6 +59,9 @@ const Signup = () => {
     e.preventDefault();
     if (isLoading.signUp) return;
     const { success, verifyUser } = await signUp(user);
+    if (checkValidAddress(address)) {
+
+    }
     if (success) navigate("/verify-account");
     else {
       if (verifyUser && !verifyUser?.isVerified) {

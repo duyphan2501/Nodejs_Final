@@ -76,7 +76,7 @@ const getForgotPasswordUser = async (email, forgotPasswordToken) => {
 const usePurchasePoint = async (userId, point, session = null) => {
   if (point <= 0) {
     return; 
-  }
+  }   
 
   const user = await UserModel.findById(userId).session(session);
 

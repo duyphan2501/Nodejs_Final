@@ -195,6 +195,7 @@ export const getCouponsWithFilter = async (
 };
 
 export const useCouponAtomic = async (code, orderId, orderAmount, session = null) => {
+  if (!code) return;
   const updatedCoupon = await CouponModel.findOneAndUpdate(
     {
       code: code,

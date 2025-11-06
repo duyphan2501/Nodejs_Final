@@ -83,7 +83,7 @@ const ProductItem = ({ product, addCart }) => {
           />
         </div>
       </div>
-      <div className="absolute -top-20 right-2 z-10 space-y-2 group-hover:top-2 transition-all duration-200 opacity-0   group-hover:opacity-100">
+      <div className="absolute -top-20 right-2 z-10 space-y-2 group-hover:top-2 transition-all duration-200 opacity-0   group-hover:opacity-100 hidden md:block">
         <div className="p-1 rounded-full hover:text-primary cursor-pointer transition bg-white active:bg-gray-200">
           <MyTooltip label={"Yêu thích"} position="bottom">
             <Heart />

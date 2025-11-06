@@ -3,6 +3,7 @@ import {
   addOneProduct,
   deleteManyProduct,
   getAllProductWithVariantStock,
+  getProductBySlug,
 } from "../services/product.service.js";
 import { addManyVariant } from "../services/variant.service.js";
 import ProductModel from "../models/product.model.js";
@@ -54,6 +55,22 @@ const getProduct = async (req, res, next) => {
       success: true,
       message: "Lấy dữ liệu thành công",
       products: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getProductBySlugController = async (req, res, next) => {
+  try {
+    const { slug } = req.params;
+
+    const product = await getProductBySlug(slug);
+
+    return res.status(200).json({
+      success: true,
+      message: "Lấy dữ liệu thành công",
+      product,
     });
   } catch (error) {
     next(error);
@@ -162,4 +179,10 @@ const updateProduct = async (req, res, next) => {
   }
 };
 
-export { addProduct, getProduct, deleteProduct, updateProduct };
+export {
+  addProduct,
+  getProduct,
+  deleteProduct,
+  updateProduct,
+  getProductBySlugController,
+};

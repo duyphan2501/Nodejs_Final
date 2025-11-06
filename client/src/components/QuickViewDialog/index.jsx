@@ -1,12 +1,8 @@
 import { useContext, useState } from "react";
 import { MyContext } from "../../Context/MyContext";
-import { ShoppingCart, X } from "lucide-react";
+import {  X } from "lucide-react";
 import ImageSlider from "../ImageSlider";
-import Stack from "@mui/material/Stack";
-import Rating from "@mui/material/Rating";
-import { getDiscountedPrice } from "../../utils/formatMoney";
-import StackButton from "../StackButton";
-import QuantityButton from "../QuantityButton.jsx";
+import ProductDetailContent from "../ProductDetailContent/index.jsx";
 
 const QuickViewDialog = () => {
   const { selectedProduct, setSelectedProduct } = useContext(MyContext);
@@ -15,18 +11,10 @@ const QuickViewDialog = () => {
   const [selectedVariant, setselectedVariant] = useState(
     selectedProduct.variants[0]
   );
-  const [selectedSize, setSelectedSize] = useState(
-    selectedVariant.attribute[0].size
+  const [selectedAttr, setSelectedAttr] = useState(
+    selectedVariant.attributes[0]
   );
 
-  const [quantity, setQuantity] = useState(1)
-
-  const price = selectedVariant.attribute[0].price;
-  const discount = selectedVariant.attribute[0].discount || 0;
-  const { formatedPrice, formatedDiscountedPrice } = getDiscountedPrice(
-    price,
-    discount
-  );
   const handelCloseQuickView = () => {
     setSelectedProduct(null);
   };
@@ -48,107 +36,18 @@ const QuickViewDialog = () => {
             <X />
           </button>
         </div>
-        <div className="flex gap-10">
+        <div className="flex md:flex-row flex-col gap-10">
           <div className="">
             <ImageSlider images={selectedVariant.images} />
           </div>
-          <div className="min-w-120 flex flex-col gap-3">
-            <div className="">
-              <h6 className="subtitle text-gray-600 text-sm">
-                {selectedProduct.category}
-              </h6>
-              <h5 className="title font-semibold text-2xl">
-                {selectedProduct.name}
-              </h5>
-            </div>
-            <div className="flex gap-1 items-center">
-              <Stack spacing={1}>
-                <Rating
-                  name="half-rating"
-                  defaultValue={2.5}
-                  precision={0.5}
-                  readOnly
-                />
-              </Stack>
-              <div className="text-gray-700">({1} Đánh giá)</div>
-            </div>
-            <p className="max-w-120">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum
-              saepe, labore eligendi eius voluptas, beatae minus cum modi error
-              quam, expedita eos itaque laudantium!
-            </p>
-            {/*  */}
-            <div className="flex items-center gap-3 font-bold text-lg">
-              <p>Giá: </p>{" "}
-              <p
-                className={`money ${
-                  discount !== 0 && "line-through text-sm text-gray-500"
-                }`}
-              >
-                {formatedPrice}
-              </p>
-              {discount !== 0 && (
-                <p className="money text-highlight">
-                  {formatedDiscountedPrice}
-                </p>
-              )}
-            </div>
-            {/*  */}
-            <div className="">
-              <p className="font-semibold mb-2">
-                Màu sắc: {selectedVariant.color}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {selectedProduct.variants &&
-                  selectedProduct.variants.map((variant) => (
-                    <div
-                      className={`size-15 relative cursor-pointer group`}
-                      key={variant._id}
-                      onClick={() => setselectedVariant(variant)}
-                    >
-                      <img
-                        src={variant.images[0]}
-                        alt=""
-                        className="size-full object-cover"
-                      />
-                      <div
-                        className={`h-[3px] absolute z-10 bottom-0 bg-black w-full group-hover:visible ${
-                          selectedVariant._id === variant._id
-                            ? "visible"
-                            : "invisible"
-                        }`}
-                      ></div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            {/*  */}
-            <div className="">
-              <p className="font-semibold mb-2">Kích cỡ: {selectedSize}</p>
-              <div className="flex items-center gap-2 flex-nowrap">
-                {selectedVariant &&
-                  selectedVariant.attribute?.map((attr) => (
-                    <div
-                      className={`px-3 py-1 rounded-md cursor-pointer hover:bg-black hover:text-white font-bold border-2 flex items-center justify-center ${
-                        selectedSize === attr.size && "bg-black text-white"
-                      }`}
-                      onClick={() => setSelectedSize(attr.size)}
-                      key={attr.size}
-                    >
-                      {attr.size}
-                    </div>
-                  ))}
-              </div>
-            </div>
-            {/*  */}
-            <div className="flex items-center gap-4">
-              <QuantityButton value={quantity} onChange={(val) => setQuantity(val)}/>
-              <StackButton
-                label={"Thêm vào giỏ hàng"}
-                theme="dark"
-                icon={<ShoppingCart size={18} />}
-              />
-            </div>
+          <div className="min-w-120">
+            <ProductDetailContent
+              selectedProduct={selectedProduct}
+              selectedAttr={selectedAttr}
+              selectedVariant={selectedVariant}
+              setselectedVariant={setselectedVariant}
+              setSelectedAttr={setSelectedAttr}
+            />
           </div>
         </div>
       </div>

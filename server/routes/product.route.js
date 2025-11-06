@@ -3,6 +3,7 @@ import {
   addProduct,
   deleteProduct,
   getProduct,
+  getProductBySlugController,
   updateProduct,
 } from "../controllers/product.controller.js";
 import {
@@ -30,5 +31,6 @@ productRouter.put(
 );
 productRouter.get("/", getProduct);
 productRouter.delete("/delete", deleteProduct);
+productRouter.get("/:slug", getProductBySlugController);
 
 export default productRouter;
