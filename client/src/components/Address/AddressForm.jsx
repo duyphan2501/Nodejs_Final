@@ -91,21 +91,18 @@ const AddressForm = () => {
   };
 
   const handleChange = (field) => (e) => {
-    const value =
+    let value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
+
+    if (field === "phone") {
+      value = value.replace(/\D/g, "");
+    }
 
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
-
-  useEffect(() => {
-    document.body.style.overflow = isOpenAddressFrm ? "hidden" : "auto";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpenAddressFrm]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -230,7 +227,7 @@ const AddressForm = () => {
                       "&.Mui-checked": {
                         color: "black", // màu khi được chọn
                       },
-                    }}  
+                    }}
                   />
                 }
                 label="Nhà riêng"

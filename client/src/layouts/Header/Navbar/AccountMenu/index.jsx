@@ -5,18 +5,13 @@ import { Button } from "@mui/material";
 import { IoMdLogOut } from "react-icons/io";
 import MyTooltip from "../../../../components/MyTooltip";
 import useCartStore from "../../../../store/useCartStore";
+import AccountOverview from "../../../../components/AccountOverview";
 
 const AccountMenu = ({ onClose }) => {
   const menuRef = useRef(null);
   const user = useUserStore((state) => state.user);
   const { logout } = useUserStore();
   const { clearCartItems } = useCartStore();
-  // Static data - no API needed
-  const userSections = [
-    { id: "information", title: "THÔNG TIN CÁ NHÂN", href: "/my-account" },
-    { id: "orders", title: "ĐƠN HÀNG CỦA TÔI", href: "/my-orders" },
-    { id: "rewards", title: "SỔ ĐỊA CHỈ", href: "/addresses" },
-  ];
 
   const handleLogout = async () => {
     await logout();
@@ -140,30 +135,7 @@ const AccountMenu = ({ onClose }) => {
               </MyTooltip>
             </div>
           </div>
-          {userSections.map((section) => (
-            <a
-              key={section.id}
-              href={section.href}
-              className="w-full flex items-center justify-between px-4 py-4 hover:bg-gray-100 transition-colors border-b border-gray-200 last:border-b-0"
-            >
-              <span className="font-medium text-sm tracking-wide uppercase text-left">
-                {section.title}
-              </span>
-              <svg
-                className="w-5 h-5 text-gray-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
-          ))}
+          <AccountOverview />
         </div>
       </div>
     </div>

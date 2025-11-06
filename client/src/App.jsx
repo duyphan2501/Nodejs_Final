@@ -58,6 +58,13 @@ function App() {
     fetchAddresses();
   }, [user]);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpenAddressForm ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpenAddressForm]);
+
   return (
     <>
       <BrowserRouter>
@@ -83,6 +90,7 @@ function App() {
             <Route path="cart" element={<Cart />} />
             <Route path="products" element={<ProductPage />} />
             <Route path="checkout" element={<Checkout />} />
+            <Route path="/product/:slug" element={<Checkout />} />
           </Route>
         </Routes>
       </BrowserRouter>
