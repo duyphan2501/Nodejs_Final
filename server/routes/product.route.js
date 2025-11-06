@@ -3,8 +3,12 @@ import {
   addProduct,
   deleteProduct,
   getProduct,
+  updateProduct,
 } from "../controllers/product.controller.js";
-import { productSchema } from "../helpers/productValidate.helper.js";
+import {
+  productSchema,
+  updateProductSchema,
+} from "../helpers/productValidate.helper.js";
 import validate from "../middlewares/joiValidate.middleware.js";
 import { uploadAnyFiles } from "../middlewares/multer.middleware.js";
 import checkAuth from "../middlewares/auth.middleware.js";
@@ -17,6 +21,12 @@ productRouter.post(
   uploadAnyFiles,
   validate(productSchema),
   addProduct
+);
+productRouter.put(
+  "/:_id",
+  uploadAnyFiles,
+  validate(updateProductSchema),
+  updateProduct
 );
 productRouter.get("/", getProduct);
 productRouter.delete("/delete", deleteProduct);

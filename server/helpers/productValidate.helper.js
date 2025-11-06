@@ -122,3 +122,98 @@ export const productSchema = Joi.object({
       "any.required": "Thiếu thông tin biến thể sản phẩm.",
     }),
 });
+
+export const updateProductSchema = Joi.object({
+  _id: Joi.string().required().messages({
+    "any.required": "Thiếu mã sản phẩm (_id).",
+    "string.empty": "Mã sản phẩm không được để trống.",
+  }),
+
+  name: Joi.string().required().messages({
+    "any.required": "Tên sản phẩm là bắt buộc.",
+    "string.empty": "Tên sản phẩm không được để trống.",
+    "string.base": "Tên sản phẩm phải là chuỗi ký tự.",
+  }),
+
+  brand: Joi.string().required().messages({
+    "any.required": "Thương hiệu là bắt buộc.",
+    "string.empty": "Thương hiệu không được để trống.",
+    "string.base": "Thương hiệu phải là chuỗi ký tự.",
+  }),
+
+  inputPrice: Joi.number().min(0).required().messages({
+    "any.required": "Giá nhập là bắt buộc.",
+    "number.base": "Giá nhập phải là số hợp lệ.",
+    "number.min": "Giá nhập không được nhỏ hơn 0.",
+  }),
+
+  description: Joi.string().required().messages({
+    "any.required": "Mô tả sản phẩm là bắt buộc.",
+    "string.empty": "Mô tả không được để trống.",
+    "string.base": "Mô tả phải là chuỗi ký tự.",
+  }),
+
+  categoryId: Joi.array().items(Joi.string()).min(1).required().messages({
+    "any.required": "Danh mục là bắt buộc.",
+    "array.base": "Danh mục phải là một mảng hợp lệ.",
+    "array.min": "Phải chọn ít nhất một danh mục.",
+    "string.base": "Mỗi danh mục phải là chuỗi ký tự.",
+  }),
+
+  variants: Joi.array()
+    .items(
+      Joi.object({
+        _id: Joi.string().optional(),
+
+        color: Joi.string().required().messages({
+          "any.required": "Màu sắc là bắt buộc.",
+          "string.empty": "Màu sắc không được để trống.",
+          "string.base": "Màu sắc phải là chuỗi ký tự.",
+        }),
+
+        price: Joi.number().min(0).required().messages({
+          "any.required": "Giá bán là bắt buộc.",
+          "number.base": "Giá bán phải là số hợp lệ.",
+          "number.min": "Giá bán không được nhỏ hơn 0.",
+        }),
+
+        sizes: Joi.array()
+          .items(
+            Joi.object({
+              size: Joi.string().required().messages({
+                "any.required": "Thiếu kích thước trong biến thể.",
+                "string.empty": "Kích thước không được để trống.",
+              }),
+              inStock: Joi.number().min(0).required().messages({
+                "any.required": "Thiếu số lượng trong kích thước.",
+                "number.base": "Số lượng phải là số hợp lệ.",
+                "number.min": "Số lượng không được nhỏ hơn 0.",
+              }),
+            })
+          )
+          .min(1)
+          .required()
+          .messages({
+            "array.base": "Danh sách kích thước phải là một mảng.",
+            "array.min": "Phải có ít nhất một kích thước.",
+            "any.required": "Thiếu thông tin kích thước.",
+          }),
+
+        images: Joi.array(),
+
+        discount: Joi.number().min(0).max(100).required().messages({
+          "number.base": "Giảm giá phải là số.",
+          "number.min": "Giảm giá không được nhỏ hơn 0%.",
+          "number.max": "Giảm giá không được lớn hơn 100%.",
+          "any.required": "Vui lòng nhập mức giảm giá.",
+        }),
+      })
+    )
+    .min(1)
+    .required()
+    .messages({
+      "array.base": "Danh sách biến thể phải là một mảng.",
+      "array.min": "Sản phẩm phải có ít nhất một biến thể.",
+      "any.required": "Thiếu danh sách biến thể sản phẩm.",
+    }),
+}).unknown(true);

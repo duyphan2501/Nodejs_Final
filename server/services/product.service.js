@@ -47,6 +47,11 @@ const getAllProductWithVariantStock = async () => {
           inputPrice: 1,
           description: 1,
           categoryId: 1,
+          variants: 1,
+
+          // ✅ GIỮ LẠI TOÀN BỘ DỮ LIỆU BIẾN THỂ
+          variantData: 1,
+
           totalStock: {
             $reduce: {
               input: "$variantData",
@@ -87,6 +92,7 @@ const getAllProductWithVariantStock = async () => {
         },
       },
     ]);
+
     return result;
   } catch (error) {
     throw error;

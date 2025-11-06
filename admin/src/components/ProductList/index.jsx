@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
 
 const ProductCard = ({
-  id,
+  _id,
   name,
   brand,
   inputPrice,
@@ -20,7 +20,7 @@ const ProductCard = ({
 }) => {
   return (
     <div
-      onDoubleClick={() => chooseToEdit(id)}
+      onDoubleClick={() => chooseToEdit(_id)}
       className="w-full max-w-xs rounded-2xl shadow-lg overflow-hidden hover:border relative p-4 cursor-pointer transform transition-transform duration-200 hover:scale-105 hover:shadow-xl"
     >
       {/* Checkbox chọn sản phẩm */}
@@ -93,7 +93,7 @@ const ProductList = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {currentData.map((p, i) => (
           <ProductCard
-            key={i}
+            key={p._id}
             {...p}
             checked={selectedProducts.includes(p._id)}
             toggleSelect={() => toggleSelect(p._id)}

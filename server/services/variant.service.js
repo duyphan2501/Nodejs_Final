@@ -14,7 +14,6 @@ const addManyVariant = async (variants) => {
   }
 };
 
-
 // Import VariantModel, createHttpError
 
 const deductStockAtomic = async (item, session) => {
@@ -22,44 +21,58 @@ const deductStockAtomic = async (item, session) => {
   variantId = new mongoose.Types.ObjectId(`${variantId}`);
 
   const updateResult = await VariantModel.findOneAndUpdate(
-    { 
-      _id: variantId, 
-      'attributes.size': size,
-      'attributes.inStock': { $gte: quantity } // Đảm bảo đủ hàng trước khi trừ
+    {
+      _id: variantId,
+      "attributes.size": size,
+      "attributes.inStock": { $gte: quantity }, // Đảm bảo đủ hàng trước khi trừ
     },
-    { 
-      $inc: { 'attributes.$.inStock': -quantity } // Giảm số lượng
+    {
+      $inc: { "attributes.$.inStock": -quantity }, // Giảm số lượng
     },
-    { 
-      new: true, 
-      session: session 
+    {
+      new: true,
+      session: session,
     }
   );
 
   if (!updateResult) {
-    const actualVariant = await VariantModel.findOne({ _id: variantId, 'attributes.size': size }).lean();
-    
+    const actualVariant = await VariantModel.findOne({
+      _id: variantId,
+      "attributes.size": size,
+    }).lean();
+
     if (!actualVariant) {
-        throw createHttpError(404, `Sản phẩm ${name}-${size} không tồn tại.`);
+      throw createHttpError(404, `Sản phẩm ${name}-${size} không tồn tại.`);
     }
 
-    const attribute = actualVariant.attributes.find(attr => attr.size === size);
+    const attribute = actualVariant.attributes.find(
+      (attr) => attr.size === size
+    );
 
     if (attribute && attribute.inStock < quantity) {
-        throw createHttpError(400, `Không đủ hàng cho ${name}, size ${size}. Chỉ còn: ${attribute.inStock}`);
+      throw createHttpError(
+        400,
+        `Không đủ hàng cho ${name}, size ${size}. Chỉ còn: ${attribute.inStock}`
+      );
     }
-    
-    throw createHttpError(400, `Failed to update stock for item ${name} due to an unknown error.`);
+
+    throw createHttpError(
+      400,
+      `Failed to update stock for item ${name} due to an unknown error.`
+    );
   }
-  
+
   const discountPrice =
     Math.round((item.price * (1 - item.discount / 100)) / 1000) * 1000;
-    
-  return { 
-      orderItem: { ...item, inStock: undefined }, 
-      payosItem: { name: `${name}-${item.color}`, quantity: quantity, price: discountPrice } 
+
+  return {
+    orderItem: { ...item, inStock: undefined },
+    payosItem: {
+      name: `${name}-${item.color}`,
+      quantity: quantity,
+      price: discountPrice,
+    },
   };
 };
-
 
 export { addManyVariant, deductStockAtomic };
