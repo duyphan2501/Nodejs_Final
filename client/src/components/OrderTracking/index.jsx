@@ -1,56 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Package,
   Truck,
   CheckCircle,
   Clock,
-  CheckCircle2,
   MapPin,
   CreditCard,
+  Loader2,
 } from "lucide-react";
+import { useParams } from "react-router-dom";
+import useOrderAPI, { useAutoUpdateOrder } from "../../hooks/useOrder";
 
 const OrderTracking = () => {
-  const currentOrder = {
-    id: "ORD-2024-003",
-    date: "2024-11-02",
-    time: "15:30",
-    total: 4200000,
-    status: "pending",
-    currentStatus: "Đang chờ xử lý",
-    estimatedDelivery: "05-06/11/2024",
-    products: [
-      {
-        name: "Adidas NMD_R1",
-        quantity: 1,
-        price: 2800000,
-        size: "42",
-        color: "Đen",
-      },
-      {
-        name: "Adidas Backpack",
-        quantity: 1,
-        price: 1400000,
-        color: "Xám",
-      },
-    ],
-    statusHistory: [
-      {
-        status: "Đang chờ xử lý",
-        timestamp: "2024-11-02 15:30",
-        description: "Đơn hàng đã được đặt thành công và đang chờ xác nhận",
-        icon: "pending",
-      },
-    ],
-    shippingAddress: {
-      name: "Nguyễn Văn A",
-      phone: "0123456789",
-      address: "123 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM",
-    },
-    paymentMethod: "Thanh toán khi nhận hàng (COD)",
+  const { orderId } = useParams();
+  const [currentOrder, setCurrentOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const { getOrderById } = useOrderAPI();
+
+  // Auto-update order status mỗi 1 phút
+  const { isRunning } = useAutoUpdateOrder(orderId, (updatedOrder) => {
+    setCurrentOrder(updatedOrder);
+  });
+
+  useEffect(() => {
+    fetchOrder();
+  }, [orderId]);
+
+  const fetchOrder = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const result = await getOrderById(orderId);
+      setCurrentOrder(result.data);
+    } catch (err) {
+      setError(err.message || "Không thể tải thông tin đơn hàng");
+      console.error("Error fetching order:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const getStatusIcon = (iconType) => {
-    switch (iconType) {
+  const getStatusIcon = (status) => {
+    switch (status) {
       case "delivered":
         return <CheckCircle className="w-6 h-6 text-green-600" />;
       case "shipping":
@@ -62,6 +55,19 @@ const OrderTracking = () => {
     }
   };
 
+  const getStatusColorClass = (status) => {
+    switch (status) {
+      case "delivered":
+        return "bg-green-50 border-green-500";
+      case "shipping":
+        return "bg-blue-50 border-blue-500";
+      case "confirmed":
+        return "bg-purple-50 border-purple-500";
+      default:
+        return "bg-orange-50 border-orange-500";
+    }
+  };
+
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",
@@ -69,9 +75,38 @@ const OrderTracking = () => {
     }).format(amount);
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-gray-600" />
+      </div>
+    );
+  }
+
+  if (error || !currentOrder) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Package className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+          <p className="text-xl font-semibold text-gray-600">
+            {error || "Không tìm thấy đơn hàng"}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 md:px-8 py-8">
+        {/* Auto-update indicator */}
+        {isRunning && currentOrder.status !== "delivered" && (
+          <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded mb-4 text-sm flex items-center gap-2">
+            <Loader2 className="w-4 h-4 animate-spin" />
+            Trạng thái đơn hàng sẽ tự động cập nhật mỗi 1 phút
+          </div>
+        )}
+
         {/* Thông tin đơn hàng */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="bg-white p-6 rounded-lg shadow-sm">
@@ -86,10 +121,14 @@ const OrderTracking = () => {
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <div className="flex items-center gap-3 mb-3">
               <Truck className="w-5 h-5 text-gray-600" />
-              <h3 className="font-bold text-sm uppercase">Dự kiến giao hàng</h3>
+              <h3 className="font-bold text-sm uppercase">
+                {currentOrder.deliveryDate ? "Đã giao" : "Dự kiến giao hàng"}
+              </h3>
             </div>
             <p className="text-lg font-semibold">
-              {currentOrder.estimatedDelivery}
+              {currentOrder.deliveryDate ||
+                currentOrder.estimatedDelivery ||
+                "Đang cập nhật"}
             </p>
             <p className="text-sm text-gray-600">Giao hàng tiêu chuẩn</p>
           </div>
@@ -114,62 +153,25 @@ const OrderTracking = () => {
             Trạng thái đơn hàng
           </h3>
 
-          <div className="flex items-center gap-4 p-5 bg-orange-50 rounded-lg border-l-4 border-orange-500">
-            {getStatusIcon("pending")}
+          <div
+            className={`flex items-center gap-4 p-5 rounded-lg border-l-4 ${getStatusColorClass(
+              currentOrder.status
+            )}`}
+          >
+            {getStatusIcon(currentOrder.status)}
             <div className="flex-1">
               <p className="font-bold text-lg">{currentOrder.currentStatus}</p>
               <p className="text-sm text-gray-600 mt-1">
-                {currentOrder.statusHistory[0].description}
-              </p>
-              <p className="text-xs text-gray-500 mt-2">
-                Cập nhật lúc: {currentOrder.statusHistory[0].timestamp}
+                {currentOrder.status === "pending" &&
+                  "Đơn hàng đã được đặt thành công và đang chờ xác nhận"}
+                {currentOrder.status === "confirmed" &&
+                  "Đơn hàng đã được xác nhận và đang chuẩn bị"}
+                {currentOrder.status === "shipping" &&
+                  "Đơn hàng đang trên đường giao đến bạn"}
+                {currentOrder.status === "delivered" &&
+                  "Đơn hàng đã được giao thành công"}
               </p>
             </div>
-          </div>
-        </div>
-
-        {/* Lịch sử trạng thái */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h3 className="font-bold text-xl mb-4 uppercase">
-            Lịch sử trạng thái
-          </h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b-2 border-gray-200">
-                  <th className="text-left py-3 px-4 font-bold text-sm">
-                    TRẠNG THÁI
-                  </th>
-                  <th className="text-left py-3 px-4 font-bold text-sm">
-                    THỜI GIAN
-                  </th>
-                  <th className="text-left py-3 px-4 font-bold text-sm hidden md:table-cell">
-                    MÔ TẢ
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentOrder.statusHistory.map((history, idx) => (
-                  <tr
-                    key={idx}
-                    className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
-                  >
-                    <td className="py-4 px-4">
-                      <div className="flex items-center gap-3">
-                        {getStatusIcon(history.icon)}
-                        <span className="font-semibold">{history.status}</span>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 text-gray-600">
-                      {history.timestamp}
-                    </td>
-                    <td className="py-4 px-4 text-gray-600 hidden md:table-cell">
-                      {history.description}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </div>
         </div>
 
@@ -182,8 +184,16 @@ const OrderTracking = () => {
                 key={idx}
                 className="flex gap-4 pb-4 border-b last:border-b-0"
               >
-                <div className="w-20 h-20 bg-gray-100 rounded flex items-center justify-center text-3xl flex-shrink-0">
-                  👟
+                <div className="w-20 h-20 bg-gray-100 rounded flex items-center justify-center flex-shrink-0">
+                  {product.image ? (
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover rounded"
+                    />
+                  ) : (
+                    <span className="text-3xl">👟</span>
+                  )}
                 </div>
                 <div className="flex-1">
                   <p className="font-bold text-lg mb-1">{product.name}</p>

@@ -17,6 +17,8 @@ import orderRouter from "./routes/order.route.js";
 import { startNgrokAndConfirmWebhook } from "./config/payos.init.js";
 import addressRouter from "./routes/address.route.js";
 
+import fakeDeliveryCron from "./fakeDelivery.cron.js";
+
 dotenv.config({ quiet: true });
 
 const app = express();
@@ -53,4 +55,5 @@ app.listen(PORT, () => {
   connectToDB();
 
   //startNgrokAndConfirmWebhook();
+  fakeDeliveryCron.start();
 });

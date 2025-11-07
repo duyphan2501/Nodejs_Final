@@ -1,141 +1,45 @@
-import React, { useState } from "react";
-import { Package, Truck, Clock } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Package, Truck, Clock, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import useOrderAPI from "../../hooks/useOrder";
 
-// Component 1: OrderList - Danh sách đơn hàng đang xử lý
-const OrderList = ({ onSelectOrder, onNavigateToHistory }) => {
-  const orders = [
-    {
-      id: "ORD-2024-002",
-      link: "order/ORD-2024-002",
-      date: "2024-10-30",
-      time: "14:20",
-      total: 1950000,
-      status: "shipping",
-      currentStatus: "Đang vận chuyển",
-      deliveryDate: null,
-      estimatedDelivery: "2024-11-03",
-      products: [
-        {
-          name: "Adidas Stan Smith",
-          quantity: 1,
-          price: 1950000,
-          color: "Xanh lá",
-          size: "41",
-        },
-      ],
-      statusHistory: [
-        {
-          status: "Đang vận chuyển",
-          timestamp: "2024-11-01 09:00",
-          description: "Đơn hàng đang trên đường giao đến bạn",
-          icon: "shipping",
-        },
-        {
-          status: "Đã xác nhận",
-          timestamp: "2024-10-31 11:30",
-          description: "Đơn hàng đã được xác nhận và đang chuẩn bị",
-          icon: "confirmed",
-        },
-        {
-          status: "Đang chờ xử lý",
-          timestamp: "2024-10-30 14:20",
-          description: "Đơn hàng đã được đặt thành công",
-          icon: "pending",
-        },
-      ],
-      shippingAddress: {
-        name: "Nguyễn Văn A",
-        phone: "0123456789",
-        address: "123 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM",
-      },
-      paymentMethod: "Thanh toán khi nhận hàng (COD)",
-    },
-    {
-      id: "ORD-2024-003",
-      link: "order/ORD-2024-002",
-      date: "2024-11-02",
-      time: "15:30",
-      total: 4200000,
-      status: "pending",
-      currentStatus: "Đang chờ xử lý",
-      deliveryDate: null,
-      estimatedDelivery: "05-06/11/2024",
-      products: [
-        {
-          name: "Adidas NMD_R1",
-          quantity: 1,
-          price: 2800000,
-          color: "Đen",
-          size: "42",
-        },
-        { name: "Adidas Backpack", quantity: 1, price: 1400000, color: "Xám" },
-      ],
-      statusHistory: [
-        {
-          status: "Đang chờ xử lý",
-          timestamp: "2024-11-02 15:30",
-          description: "Đơn hàng đã được đặt thành công và đang chờ xác nhận",
-          icon: "pending",
-        },
-      ],
-      shippingAddress: {
-        name: "Nguyễn Văn A",
-        phone: "0123456789",
-        address: "123 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM",
-      },
-      paymentMethod: "Thanh toán khi nhận hàng (COD)",
-    },
-    {
-      id: "ORD-2024-004",
-      link: "order/ORD-2024-002",
-      date: "2024-11-01",
-      time: "17:30",
-      total: 5100000,
-      status: "confirmed",
-      currentStatus: "Đã xác nhận",
-      deliveryDate: null,
-      estimatedDelivery: "2024-11-05",
-      products: [
-        {
-          name: "Adidas Yeezy Boost 350",
-          quantity: 1,
-          price: 4500000,
-          color: "Be",
-          size: "43",
-        },
-        {
-          name: "Adidas Socks (3 đôi)",
-          quantity: 1,
-          price: 600000,
-          color: "Trắng",
-        },
-      ],
-      statusHistory: [
-        {
-          status: "Đã xác nhận",
-          timestamp: "2024-11-02 08:45",
-          description: "Đơn hàng đã được xác nhận và đang chuẩn bị",
-          icon: "confirmed",
-        },
-        {
-          status: "Đang chờ xử lý",
-          timestamp: "2024-11-01 17:30",
-          description: "Đơn hàng đã được đặt thành công",
-          icon: "pending",
-        },
-      ],
-      shippingAddress: {
-        name: "Nguyễn Văn A",
-        phone: "0123456789",
-        address: "123 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP.HCM",
-      },
-      paymentMethod: "Chuyển khoản ngân hàng",
-    },
-  ];
-
+const OrderList = () => {
+  const [orders, setOrders] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState("all");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const { getActiveOrders, getOrdersByStatus } = useOrderAPI();
+
+  useEffect(() => {
+    fetchOrders();
+  }, [selectedStatus]);
+
+  const fetchOrders = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      let result;
+
+      if (selectedStatus === "all") {
+        result = await getActiveOrders();
+      } else {
+        result = await getOrdersByStatus(selectedStatus);
+      }
+
+      // Lọc chỉ lấy đơn hàng đang xử lý (không bao gồm delivered)
+      const activeOrders = result.data.filter(
+        (order) => order.status !== "delivered"
+      );
+      setOrders(activeOrders);
+    } catch (err) {
+      setError(err.message || "Không thể tải đơn hàng");
+      console.error("Error fetching orders:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -166,10 +70,17 @@ const OrderList = ({ onSelectOrder, onNavigateToHistory }) => {
     }).format(amount);
   };
 
-  const filteredOrders =
-    selectedStatus === "all"
-      ? orders
-      : orders.filter((order) => order.status === selectedStatus);
+  const getStatusCount = (status) => {
+    return orders.filter((o) => o.status === status).length;
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-gray-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -193,29 +104,38 @@ const OrderList = ({ onSelectOrder, onNavigateToHistory }) => {
           </div>
         </div>
 
+        {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="bg-white p-4 rounded-lg shadow-sm text-center">
             <p className="text-2xl font-bold text-orange-600">
-              {orders.filter((o) => o.status === "pending").length}
+              {getStatusCount("pending")}
             </p>
             <p className="text-sm text-gray-600">Chờ xử lý</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow-sm text-center">
             <p className="text-2xl font-bold text-purple-600">
-              {orders.filter((o) => o.status === "confirmed").length}
+              {getStatusCount("confirmed")}
             </p>
             <p className="text-sm text-gray-600">Đã xác nhận</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow-sm text-center">
             <p className="text-2xl font-bold text-blue-600">
-              {orders.filter((o) => o.status === "shipping").length}
+              {getStatusCount("shipping")}
             </p>
             <p className="text-sm text-gray-600">Đang vận chuyển</p>
           </div>
         </div>
 
+        {/* Error Message */}
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {error}
+          </div>
+        )}
+
+        {/* Orders List */}
         <div className="space-y-4">
-          {filteredOrders.length === 0 ? (
+          {orders.length === 0 ? (
             <div className="bg-white rounded-lg shadow-sm p-12 text-center">
               <Package className="w-16 h-16 mx-auto mb-4 text-gray-400" />
               <p className="text-xl font-semibold text-gray-600">
@@ -223,11 +143,11 @@ const OrderList = ({ onSelectOrder, onNavigateToHistory }) => {
               </p>
             </div>
           ) : (
-            filteredOrders.map((order) => (
+            orders.map((order) => (
               <div
                 key={order.id}
                 className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-all cursor-pointer border-2 border-transparent hover:border-black"
-                onClick={() => onSelectOrder(order)}
+                onClick={() => navigate(`api/order/${order.id}`)}
               >
                 <div className="p-4 md:p-6">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -252,12 +172,14 @@ const OrderList = ({ onSelectOrder, onNavigateToHistory }) => {
                             {order.date} {order.time}
                           </span>
                         </p>
-                        <p>
-                          Dự kiến giao:{" "}
-                          <span className="font-semibold">
-                            {order.estimatedDelivery}
-                          </span>
-                        </p>
+                        {order.estimatedDelivery && (
+                          <p>
+                            Dự kiến giao:{" "}
+                            <span className="font-semibold">
+                              {order.estimatedDelivery}
+                            </span>
+                          </p>
+                        )}
                       </div>
                       <div className="space-y-1">
                         {order.products.map((product, idx) => (
@@ -285,7 +207,7 @@ const OrderList = ({ onSelectOrder, onNavigateToHistory }) => {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          navigate(`/${order.link}`);
+                          navigate(`api/order/${order.id}`);
                         }}
                         className="bg-black text-white px-4 py-2 rounded font-bold hover:bg-gray-800 transition-colors text-sm whitespace-nowrap"
                       >

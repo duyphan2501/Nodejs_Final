@@ -7,7 +7,10 @@ import QuantityButton from "../../../../components/QuantityButton.jsx";
 import QuantityMenu from "../../../../components/QuantityMenu/index.jsx";
 import useUserStore from "../../../../store/useUserStore.js";
 import { Button } from "@mui/material";
-import { calculateDiscountedPrice, calculateTotal } from "../../../../utils/calculatePrice.js";
+import {
+  calculateDiscountedPrice,
+  calculateTotal,
+} from "../../../../utils/calculatePrice.js";
 
 const CartIcon = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -51,7 +54,7 @@ const CartIcon = () => {
         </svg>
 
         <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-          {cartItems.length}
+          {cartItems?.length}
         </span>
       </button>
 
@@ -60,7 +63,9 @@ const CartIcon = () => {
         <div className="absolute right-0 top-full w-96 bg-white shadow-2xl border border-gray-200 z-50 rounded-lg">
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold">GIỎ HÀNG ({cartItems.length})</h3>
+              <h3 className="text-lg font-bold">
+                GIỎ HÀNG ({cartItems.length})
+              </h3>
               <div
                 className="p-1 hover:bg-gray-100 rounded cursor-pointer"
                 onClick={() => setIsHovered(false)}
@@ -101,7 +106,10 @@ const CartIcon = () => {
                         className="w-20 h-20 object-cover flex-shrink-0"
                       />
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold mb-1 truncate line-clamp-1" title={`${item.name} - ${item.color}`}>
+                        <h4
+                          className="text-sm font-semibold mb-1 truncate line-clamp-1"
+                          title={`${item.name} - ${item.color}`}
+                        >
                           {item.name} - {item.color}
                         </h4>
 
@@ -112,17 +120,25 @@ const CartIcon = () => {
                           <QuantityMenu
                             quantity={item.quantity}
                             handleChange={(value) =>
-                              handleQuantityChange(item.variantId, item.size, value)
+                              handleQuantityChange(
+                                item.variantId,
+                                item.size,
+                                value
+                              )
                             }
                           />
                         </div>
                         <p className="text-sm font-semibold money">
-                          {formatPrice(calculateDiscountedPrice(item.price, item.discount))}
+                          {formatPrice(
+                            calculateDiscountedPrice(item.price, item.discount)
+                          )}
                         </p>
                       </div>
                       <button
                         className="p-1 hover:bg-gray-200 rounded h-fit cursor-pointer"
-                        onClick={() => handleRemoveItem(item.variantId, item.size)}
+                        onClick={() =>
+                          handleRemoveItem(item.variantId, item.size)
+                        }
                       >
                         <FaRegTrashAlt size={16} />
                       </button>

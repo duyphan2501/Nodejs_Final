@@ -101,7 +101,7 @@ const Checkout = () => {
       usedPoint,
       orderAmount,
       itemsDiscounted,
-      user?._id,
+      user?._id
     );
   };
 
@@ -314,11 +314,11 @@ const Checkout = () => {
       {/* Right Section - Order Summary */}
       <div className="w-full lg:w-1/3 bg-gray-50 p-8 lg:border-l">
         <h2 className="text-lg font-semibold mb-4">
-          Tóm tắt đơn hàng ({cartItems.length})
+          Tóm tắt đơn hàng ({cartItems?.length})
         </h2>
 
         <div className="space-y-4 max-h-50 overflow-y-auto scroll">
-          {cartItems.map((item) => (
+          {cartItems?.map((item) => (
             <CheckoutItem item={item} key={item.variantId + item.size} />
           ))}
         </div>

@@ -34,11 +34,11 @@ const createNewOrder = async (
   email,
   address,
   provider,
-  coupon, 
+  coupon,
   usedPoint,
   orderAmount,
   itemsDiscounted,
-  userId, 
+  userId,
   orderStatus = "pending"
 ) => {
   const session = await mongoose.startSession();
@@ -125,3 +125,166 @@ const createNewOrder = async (
 };
 
 export { generateOrderId, createNewOrder };
+
+class OrderService {
+  // Lấy tất cả đơn hàng của user
+  async getUserOrders(email) {
+    try {
+      const orders = await OrderModel.find({ email })
+        .populate("items.variantId")
+        .sort({ createdAt: -1 });
+      return orders;
+    } catch (error) {
+      throw new Error(`Error fetching orders: ${error.message}`);
+    }
+  }
+
+  // Lấy đơn hàng theo ID
+  async getOrderById(orderId, email) {
+    try {
+      const order = await OrderModel.findOne({ orderId, email }).populate(
+        "items.variantId"
+      );
+      if (!order) {
+        throw new Error("Order not found");
+      }
+      return order;
+    } catch (error) {
+      throw new Error(`Error fetching order: ${error.message}`);
+    }
+  }
+
+  // Lấy đơn hàng theo trạng thái
+  async getOrdersByStatus(email, status) {
+    try {
+      const orders = await OrderModel.find({ email, status })
+        .populate("items.variantId")
+        .sort({ createdAt: -1 });
+      return orders;
+    } catch (error) {
+      throw new Error(`Error fetching orders by status: ${error.message}`);
+    }
+  }
+
+  // Lấy các đơn hàng đang xử lý (pending, confirmed, shipping)
+  async getActiveOrders(email) {
+    try {
+      const orders = await OrderModel.find({
+        email,
+        status: { $in: ["pending", "confirmed", "shipping"] },
+      })
+        .populate("items.variantId")
+        .sort({ createdAt: -1 });
+      return orders;
+    } catch (error) {
+      throw new Error(`Error fetching active orders: ${error.message}`);
+    }
+  }
+
+  // Cập nhật trạng thái đơn hàng (FAKE API - để test)
+  async updateOrderStatus(orderId) {
+    try {
+      const order = await OrderModel.findOne({ orderId });
+      if (!order) {
+        throw new Error("Order not found");
+      }
+
+      // Logic chuyển trạng thái tự động
+      let newStatus = order.status;
+      switch (order.status) {
+        case "pending":
+          newStatus = "confirmed";
+          break;
+        case "confirmed":
+          newStatus = "shipping";
+          break;
+        case "shipping":
+          newStatus = "delivered";
+          break;
+        default:
+          newStatus = order.status;
+      }
+
+      order.status = newStatus;
+      await order.save();
+      return order;
+    } catch (error) {
+      throw new Error(`Error updating order status: ${error.message}`);
+    }
+  }
+
+  // Tính toán thời gian giao hàng dự kiến
+  calculateEstimatedDelivery(createdAt) {
+    const deliveryDate = new Date(createdAt);
+    deliveryDate.setMinutes(deliveryDate.getMinutes() + 5); // 5 phút sau khi tạo
+    return deliveryDate;
+  }
+
+  // Format đơn hàng cho frontend
+  formatOrderForFrontend(order) {
+    const statusMap = {
+      pending: "Đang chờ xử lý",
+      confirmed: "Đã xác nhận",
+      shipping: "Đang vận chuyển",
+      delivered: "Đã giao",
+    };
+
+    const estimatedDelivery = this.calculateEstimatedDelivery(order.createdAt);
+    const isDelivered = order.status === "delivered";
+
+    return {
+      id: order.orderId,
+      orderCode: order.orderCode,
+      date: order.createdAt.toISOString().split("T")[0],
+      time: order.createdAt.toTimeString().split(" ")[0].substring(0, 5),
+      total: order.orderAmount,
+      status: order.status,
+      currentStatus: statusMap[order.status],
+      deliveryDate: isDelivered
+        ? order.updatedAt.toISOString().split("T")[0]
+        : null,
+      estimatedDelivery: !isDelivered
+        ? estimatedDelivery.toISOString().split("T")[0]
+        : null,
+      products: order.items.map((item) => ({
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        color: item.color,
+        size: item.size,
+        image: item.image,
+      })),
+      shippingAddress: {
+        name: order.shippingInfo.receiver,
+        phone: order.shippingInfo.phone,
+        address: `${order.shippingInfo.addressDetail}, ${order.shippingInfo.ward}, ${order.shippingInfo.province}`,
+      },
+      paymentMethod:
+        order.payment.provider === "COD"
+          ? "Thanh toán khi nhận hàng (COD)"
+          : "Chuyển khoản ngân hàng",
+      coupon: order.coupon,
+      usedPoint: order.usedPoint,
+      itemsDiscounted: order.itemsDiscounted,
+    };
+  }
+
+  // Thống kê đơn hàng
+  async getOrderStats(email) {
+    try {
+      const orders = await OrderModel.find({ email });
+      const stats = {
+        total: orders.length,
+        pending: orders.filter((o) => o.status === "pending").length,
+        confirmed: orders.filter((o) => o.status === "confirmed").length,
+        shipping: orders.filter((o) => o.status === "shipping").length,
+        delivered: orders.filter((o) => o.status === "delivered").length,
+      };
+      return stats;
+    } catch (error) {
+      throw new Error(`Error fetching order stats: ${error.message}`);
+    }
+  }
+}
+
+export default new OrderService();
