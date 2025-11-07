@@ -7,15 +7,29 @@ export default function CategoryPicker({
   dataCategory,
   handleChangeInput,
   reset,
+  initialData,
 }) {
   // Khởi tạo state: { [id]: boolean }
+  // React.useEffect((isEdit) => {
+  //   if(isEdit)
+  // })
+
   const [checked, setChecked] = React.useState({});
+
+  React.useEffect(() => {
+    if (
+      initialData &&
+      JSON.stringify(initialData) !== JSON.stringify(checked)
+    ) {
+      setChecked(initialData);
+    }
+  }, [initialData]);
 
   React.useEffect(() => {
     const keysToDelete = ["1", "2", "3"];
 
     const newObj = Object.entries(checked)
-      .filter(([key]) => !keysToDelete.includes(key))
+      .filter(([key, value]) => !keysToDelete.includes(key) && value === true)
       .reduce((acc, [key, value]) => {
         acc[key] = value;
         return acc;

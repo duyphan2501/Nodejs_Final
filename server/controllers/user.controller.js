@@ -284,31 +284,32 @@ const updateUserDetail = async (req, res, next) => {
 
 const changePassword = async (req, res, next) => {
   try {
-    const userId = req.session.userId;
+    const userId = req.user.userId;
 
-    if (!userId) throw CreateError.Unauthorized("You have to login first");
+    if (!userId) throw CreateError.Unauthorized("Bạn chưa đăng nhập");
 
     const { currentPassword, newPassword, confirmPassword } = req.body;
 
     if (!currentPassword || !newPassword || !confirmPassword)
-      throw CreateError.BadRequest("Please fill in all password!");
+      throw CreateError.BadRequest("Vui lòng điền đủ các mật khẩu!");
 
     if (newPassword !== confirmPassword)
       throw CreateError.BadRequest(
-        "New password and confirm password do not match!"
+        "Mật khẩu mới và mật khẩu xác nhận không khớp!"
       );
+    if (newPassword === currentPassword)
+      throw CreateError.BadRequest("Mật khẩu mới phải khác mật khẩu cũ!");
 
     const user = await UserModel.findById(userId);
 
-    if (!user) throw CreateError.NotFound("User does not exist");
+    if (!user) throw CreateError.NotFound("Tài khoản không tồn tại");
 
     const isCorrectPassword = await checkPassword(
       currentPassword,
       user.password
     );
 
-    if (!isCorrectPassword)
-      throw CreateError.Forbidden("Password is not correct");
+    if (!isCorrectPassword) throw CreateError.Forbidden("Mật khẩu không đúng");
 
     const hashedNewPassword = await hashPassword(newPassword);
 
@@ -316,7 +317,7 @@ const changePassword = async (req, res, next) => {
     await user.save();
 
     return res.status(200).json({
-      message: "Changed password successfully",
+      message: "Đổi mật khẩu thành công",
       success: false,
     });
   } catch (error) {
@@ -439,6 +440,33 @@ const googleLogin = async (req, res, next) => {
   }
 };
 
+const updatePersonalInfo = async (req, res, next) => {
+  try {
+    const { name, phone } = req.body;
+    const userId = req.user.userId;
+
+    if (!name) throw CreateError.BadRequest("Vui lòng nhập họ tên");
+
+    if (!userId) throw CreateError.Unauthorized("Bạn chưa đăng nhập");
+
+    const foundUser = await UserModel.findById(userId);
+    if (!foundUser) throw CreateError.NotFound("Tài khoản không tồn tại");
+
+    foundUser.name = name;
+    foundUser.phone = phone;
+
+    await foundUser.save();
+
+    return res.status(200).json({
+      message: `Cập nhật thông tin thành công`,
+      user: foundUser,
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   signUp,
   verifyAccount,
@@ -451,6 +479,7 @@ export {
   updateUserDetail,
   refreshToken,
   sendVerificationEmail,
+  updatePersonalInfo,
 };
 
 class UserController {

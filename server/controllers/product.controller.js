@@ -3,8 +3,12 @@ import {
   addOneProduct,
   deleteManyProduct,
   getAllProductWithVariantStock,
+  getProductBySlug,
+  getProductQuantity,
 } from "../services/product.service.js";
 import { addManyVariant } from "../services/variant.service.js";
+import ProductModel from "../models/product.model.js";
+import VariantModel from "../models/variant.model.js";
 
 const addProduct = async (req, res, next) => {
   try {
@@ -58,6 +62,22 @@ const getProduct = async (req, res, next) => {
   }
 };
 
+const getProductBySlugController = async (req, res, next) => {
+  try {
+    const { slug } = req.params;
+
+    const product = await getProductBySlug(slug);
+
+    return res.status(200).json({
+      success: true,
+      message: "Lấy dữ liệu thành công",
+      product,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deleteProduct = async (req, res, next) => {
   try {
     const listId = req.body._ids;
@@ -77,4 +97,111 @@ const deleteProduct = async (req, res, next) => {
   }
 };
 
-export { addProduct, getProduct, deleteProduct };
+const updateProduct = async (req, res, next) => {
+  try {
+    const productId = req.params._id;
+
+    const { _id, name, brand, inputPrice, description, categoryId, variants } =
+      req.validatedBody;
+
+    const product = await ProductModel.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Không tìm thấy sản phẩm.",
+      });
+    }
+
+    product.name = name;
+    product.brand = brand;
+    product.inputPrice = inputPrice;
+    product.description = description;
+    product.categoryId = categoryId;
+
+    let variantIds = [];
+
+    for (const [index, variant] of variants.entries()) {
+      let variantDoc;
+
+      if (variant?._id) {
+        //Variant cũ sửa lại
+        variantDoc = await VariantModel.findById(variant._id);
+
+        variantDoc.color = variant.color;
+        variantDoc.price = variant.price;
+        variantDoc.discount = variant.discount;
+
+        variantDoc.attributes = variant.sizes;
+
+        const files = req.files
+          .filter((f) => f.fieldname.startsWith(`variant_image_${index}_`))
+          .map((f) => f.path);
+
+        const oldUrls = req.validatedBody[`variant_oldUrls_${index}`] || [];
+
+        const newImages = [...files, ...oldUrls];
+
+        variantDoc.images = newImages;
+
+        await variantDoc.save();
+      } else {
+        //  Thêm variant mới
+        const newImages = req.files
+          .filter((f) => f.fieldname.startsWith(`variant_image_${index}_`))
+          .map((f) => f.path);
+
+        variantDoc = new VariantModel({
+          color: variant.color,
+          price: variant.price,
+          discount: variant.discount || 0,
+          attributes: variant.sizes.map((s) => ({
+            size: s.size,
+            inStock: s.inStock,
+          })),
+          images: newImages,
+        });
+
+        await variantDoc.save();
+      }
+
+      variantIds.push(variantDoc._id);
+    }
+
+    product.variants = variantIds;
+    await product.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Cập nhật sản phẩm thành công!",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getProductStats = async (req, res, next) => {
+  try {
+    const result = await getProductQuantity();
+
+    if (!result) {
+      return createHttpError.NotFound("Không tìm thấy thông tin sản phẩm");
+    }
+
+    return res.status(200).json({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export {
+  addProduct,
+  getProduct,
+  deleteProduct,
+  updateProduct,
+  getProductBySlugController,
+  getProductStats,
+};

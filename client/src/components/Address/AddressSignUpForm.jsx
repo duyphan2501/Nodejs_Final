@@ -102,9 +102,11 @@ const AddressForm = ({ address = null, setAddress }) => {
   };
 
   const handleChange = (field) => (e) => {
-    const value =
+    let value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
-
+    if (field === "phone") {
+      value = value.replace(/\D/g, "");
+    }
     setFormData((prev) => ({
       ...prev,
       [field]: value,

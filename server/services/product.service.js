@@ -1,3 +1,4 @@
+import createHttpError from "http-errors";
 import ProductModel from "../models/product.model.js";
 import mongoose from "mongoose";
 
@@ -47,6 +48,11 @@ const getAllProductWithVariantStock = async () => {
           inputPrice: 1,
           description: 1,
           categoryId: 1,
+          variants: 1,
+
+          // ✅ GIỮ LẠI TOÀN BỘ DỮ LIỆU BIẾN THỂ
+          variantData: 1,
+
           totalStock: {
             $reduce: {
               input: "$variantData",
@@ -87,6 +93,7 @@ const getAllProductWithVariantStock = async () => {
         },
       },
     ]);
+
     return result;
   } catch (error) {
     throw error;
@@ -109,9 +116,101 @@ const deleteManyProduct = async (_ids) => {
   }
 };
 
+const getProductBySlug = async (slug) => {
+  if (!slug) throw createHttpError.BadRequest("Thiếu slug");
+  const product = await ProductModel.findOne({ slug }).populate("variants");
+  if (!product) throw createHttpError.NotFound("Sản phẩm không tồn tại");
+  return product;
+};
+
+const getProductQuantity = async () => {
+  try {
+    const result = ProductModel.aggregate([
+      // 1️⃣ Join categories để lấy parentId
+      {
+        $lookup: {
+          from: "categories",
+          localField: "categoryId",
+          foreignField: "_id",
+          as: "categoryData",
+        },
+      },
+      { $unwind: "$categoryData" },
+
+      // 2️⃣ Group theo parentId của category
+      {
+        $group: {
+          _id: "$categoryData.parentId",
+          total: { $sum: 1 },
+        },
+      },
+
+      // 3️⃣ Union với tất cả parent categories (total = 0)
+      {
+        $unionWith: {
+          coll: "categories",
+          pipeline: [
+            { $match: { parentId: null } },
+            {
+              $project: {
+                _id: "$_id",
+                total: { $literal: 0 },
+              },
+            },
+          ],
+        },
+      },
+
+      // 4️⃣ Gộp lại (nếu có trùng _id thì lấy total lớn nhất)
+      {
+        $group: {
+          _id: "$_id",
+          total: { $max: "$total" },
+        },
+      },
+
+      // 5️⃣ Join sang categories để lấy tên parent
+      {
+        $lookup: {
+          from: "categories",
+          localField: "_id",
+          foreignField: "_id",
+          as: "parentCategory",
+        },
+      },
+      {
+        $unwind: {
+          path: "$parentCategory",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+
+      // 6️⃣ Hiển thị kết quả cuối cùng
+      {
+        $project: {
+          _id: 1,
+          parentName: "$parentCategory.name",
+          total: 1,
+        },
+      },
+
+      // 7️⃣ Sắp xếp cho đẹp (tuỳ chọn)
+      {
+        $sort: { parentName: 1 },
+      },
+    ]);
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   addOneProduct,
   deleteOneProduct,
   getAllProductWithVariantStock,
   deleteManyProduct,
+  getProductBySlug,
+  getProductQuantity,
 };

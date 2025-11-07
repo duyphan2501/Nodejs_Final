@@ -1,9 +1,8 @@
-import { X, ArrowRight, CarIcon } from "lucide-react";
-import { startTransition, useState } from "react";
+import { X } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useCartStore from "../../../../store/useCartStore";
 import { FaRegTrashAlt } from "react-icons/fa";
-import QuantityButton from "../../../../components/QuantityButton.jsx";
 import QuantityMenu from "../../../../components/QuantityMenu/index.jsx";
 import useUserStore from "../../../../store/useUserStore.js";
 import { Button } from "@mui/material";
@@ -54,7 +53,7 @@ const CartIcon = () => {
         </svg>
 
         <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-          {cartItems?.length}
+          {cartItems?.length || 0}
         </span>
       </button>
 
@@ -64,7 +63,7 @@ const CartIcon = () => {
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-bold">
-                GIỎ HÀNG ({cartItems.length})
+                GIỎ HÀNG ({cartItems?.length || 0})
               </h3>
               <div
                 className="p-1 hover:bg-gray-100 rounded cursor-pointer"
@@ -74,7 +73,7 @@ const CartIcon = () => {
               </div>
             </div>
 
-            {cartItems.length === 0 ? (
+            {cartItems?.length === 0 ? (
               <div className="py-8 text-center text-gray-500">
                 <svg
                   className="w-12 h-12 mx-auto mb-2 text-gray-300"
@@ -95,16 +94,25 @@ const CartIcon = () => {
               <>
                 {/* Cart Items */}
                 <div className="max-h-96 overflow-y-auto mb-4 scroll">
-                  {cartItems.map((item) => (
+                  {cartItems?.map((item) => (
                     <div
                       key={item.variantId}
                       className="flex gap-3 p-3 border-b border-gray-200 hover:bg-gray-50 transition-colors"
                     >
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-20 h-20 object-cover flex-shrink-0"
-                      />
+                      <div className="w-20 h-20 relative">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="size-full object-cover flex-shrink-0"
+                        />
+                        {item.inStock === 0 && (
+                          <div className="size-full bg-black/30 flex items-center inset-0 absolute justify-center">
+                            <p className="p-1 rounded-md bg-white text-red-500 title uppercase font-semibold">
+                              Hết hàng
+                            </p>
+                          </div>
+                        )}
+                      </div>
                       <div className="flex-1 min-w-0">
                         <h4
                           className="text-sm font-semibold mb-1 truncate line-clamp-1"

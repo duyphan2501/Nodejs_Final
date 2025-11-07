@@ -3,6 +3,8 @@ import redisClient from "../config/init.redis.js";
 // import { formatCartItemInfo } from "../helpers/cart.helper.js";
 import CartModel from "../models/cart.model.js";
 import VariantModel from "../models/variant.model.js";
+import { getAvailableStockDB } from "./variant.service.js";
+import createHttpError from "http-errors";
 
 const USER_CART_TTL = 60 * 60 * 24 * 7; // 7 ngày
 const GUEST_CART_TTL = 60 * 60 * 24 * 4; // 4 ngày
@@ -10,13 +12,32 @@ const GUEST_CART_TTL = 60 * 60 * 24 * 4; // 4 ngày
 const addCartItem = async (userId, guestCartId, item, quantity) => {
   if (quantity === 0) return;
 
+  const availableStockDB = await getAvailableStockDB(item.variantId, item.size);
+
+  if (availableStockDB === 0)
+    throw createHttpError.BadRequest("Sản phẩm đã hết hàng");
+
+  const productKey = `product:${item.variantId}:${item.size}`;
   const cartKey = userId ? `cart:${userId}` : `cart:${guestCartId}`;
   const cartKeyInfo = `${cartKey}:info`;
   const cartKeyQty = `${cartKey}:qty`;
 
-  const TTL = userId ? USER_CART_TTL : GUEST_CART_TTL;
+  const currentQtyStr = await redisClient.hGet(`${cartKey}:qty`, productKey);
+  const currentQtyInCart = parseInt(currentQtyStr || "0", 10);
 
-  const productKey = `product:${item.variantId}:${item.size}`;
+  const newTotalQuantity = currentQtyInCart + quantity;
+
+  if (newTotalQuantity > availableStockDB) {
+    const remainingToAdd = availableStockDB - currentQtyInCart;
+    if (remainingToAdd === 0) {
+      throw createHttpError.BadRequest("Sản phẩm đã hết hàng");
+    }
+    throw createHttpError.BadRequest(
+      `Bạn chỉ có thể thêm tối đa ${remainingToAdd} sản phẩm nữa.`
+    );
+  }
+
+  const TTL = userId ? USER_CART_TTL : GUEST_CART_TTL;
 
   const productData = JSON.stringify(item);
 
@@ -33,7 +54,9 @@ const addCartItem = async (userId, guestCartId, item, quantity) => {
 };
 
 const validateCartItemsWithDB = async (items) => {
-  const variantIds = items.map((item) => new mongoose.Types.ObjectId(`${item.variantId}`));
+  const variantIds = items.map(
+    (item) => new mongoose.Types.ObjectId(`${item.variantId}`)
+  );
   const dbVariants = await VariantModel.find({
     _id: { $in: variantIds },
   }).lean();
@@ -233,13 +256,24 @@ const updateCartItem = async (
   guestCartId,
   variantId,
   size,
-  quantity
+  newQuantity
 ) => {
+  const availableStockDB = await getAvailableStockDB(variantId, size);
+
+  if (availableStockDB === 0)
+    throw createHttpError.BadRequest("Sản phẩm đã hết hàng");
+
   const cartKey = userId ? `cart:${userId}` : `cart:${guestCartId}`;
   const cartKeyQty = `${cartKey}:qty`;
-  const productId = `${variantId}:${size}`;
-  const productField = `product:${productId}`;
-  await redisClient.hSet(cartKeyQty, productField, quantity);
+  const productKey = `product:${variantId}:${size}`;
+
+  if (newQuantity > availableStockDB) {
+    throw createHttpError.BadRequest(
+      "Không đủ số lượng để thêm vào giỏ hàng"
+    );
+  }
+
+  await redisClient.hSet(cartKeyQty, productKey, newQuantity);
 };
 
 export { addCartItem, loadCart, mergeCart, removeCartItem, updateCartItem };

@@ -151,6 +151,36 @@ const useUserStore = create((set) => {
     }
   };
 
+  const updatePersonalInfo = async (name, phone, axiosPrivate) => {
+    try {
+      const res = await axiosPrivate.put(`/api/user/personal-info/update`, {
+        name,
+        phone,
+      });
+      toast.success(res.data.message);
+      set({ user: res.data.user });
+      return true;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Failed to update");
+      return false;
+    }
+  };
+
+  const changePassword = async (formData, axiosPrivate) => {
+    set({ isLoading: { change: true } });
+    try {
+      const res = await axiosPrivate.put(`/api/user/change-password`, formData);
+      toast.success(res.data.message);
+      return true;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Failed to change password");
+      return false;
+    } finally {
+      set({ isLoading: { change: false } });
+    }
+  };
 
   return {
     user: null,
@@ -163,6 +193,7 @@ const useUserStore = create((set) => {
       resend: false,
       forgot: false,
       reset: false,
+      change: false,
     },
     login,
     refreshToken,
@@ -172,6 +203,8 @@ const useUserStore = create((set) => {
     sendForgotPasswordEmail,
     resetPassword,
     logout,
+    updatePersonalInfo,
+    changePassword,
   };
 });
 

@@ -106,9 +106,9 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    if (!checkValidAddress(formData.address) && cartItems.length > 0) {
+    if (!checkValidAddress(formData.address) && addresses.length > 0) {
       const selected =
-        addresses.find((addr) => addr.isDefault === true) || cartItems[0];
+        addresses.find((addr) => addr.isDefault === true) || addresses[0];
       handleChange("address", selected);
     }
   }, [addresses]);

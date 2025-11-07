@@ -24,6 +24,13 @@ const createAddress = async (req, res, next) => {
         "Vui lòng điền đầy đủ thông tin địa chỉ."
       );
 
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) {
+      throw createHttpError.BadRequest(
+        "Số điện thoại phải đủ 10 số."
+      );
+    }
+
     if (!["home", "office"].includes(addressType))
       throw createHttpError.BadRequest("Loại địa chỉ không hợp lệ.");
 
