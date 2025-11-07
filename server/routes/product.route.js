@@ -4,6 +4,7 @@ import {
   deleteProduct,
   getProduct,
   getProductBySlugController,
+  getProductStats,
   updateProduct,
 } from "../controllers/product.controller.js";
 import {
@@ -32,5 +33,10 @@ productRouter.put(
 productRouter.get("/", getProduct);
 productRouter.delete("/delete", deleteProduct);
 productRouter.get("/:slug", getProductBySlugController);
+
+//Route thống kê
+
+//Lấy số lượng sản phẩm trong từng danh mục route
+productRouter.get("/statistic/parent-category", checkAuth, getProductStats);
 
 export default productRouter;

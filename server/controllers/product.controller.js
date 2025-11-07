@@ -4,6 +4,7 @@ import {
   deleteManyProduct,
   getAllProductWithVariantStock,
   getProductBySlug,
+  getProductQuantity,
 } from "../services/product.service.js";
 import { addManyVariant } from "../services/variant.service.js";
 import ProductModel from "../models/product.model.js";
@@ -179,10 +180,28 @@ const updateProduct = async (req, res, next) => {
   }
 };
 
+const getProductStats = async (req, res, next) => {
+  try {
+    const result = await getProductQuantity();
+
+    if (!result) {
+      return createHttpError.NotFound("Không tìm thấy thông tin sản phẩm");
+    }
+
+    return res.status(200).json({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   addProduct,
   getProduct,
   deleteProduct,
   updateProduct,
   getProductBySlugController,
+  getProductStats,
 };

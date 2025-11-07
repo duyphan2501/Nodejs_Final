@@ -8,7 +8,7 @@ import SandalsIcon from "../../assets/svg/pair-of-flip-flop-svgrepo-com.svg?reac
 import BackpackIcon from "@mui/icons-material/Backpack";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SortIcon from "@mui/icons-material/Sort";
-import { useState, useMemo, use } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
@@ -32,8 +32,6 @@ import BiLoader from "../../components/BiLoader";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { toast } from "react-toastify";
 import useProductStore from "../../../stores/useProductStore";
-import useFetchProduct from "../../../hooks/useFetchProduct";
-import { useEffect } from "react";
 import FilterCategory from "../../components/FilterCategory";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axiosPrivate from "../../../API/axiosPrivate";
@@ -44,8 +42,8 @@ export default function Products() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [chooseID, setChooseID] = useState(1);
 
-  const getProducts = useProductStore((state) => state.getProducts);
   const products = useProductStore((state) => state.products);
+  const getProducts = useProductStore((state) => state.getProducts);
 
   useEffect(() => {
     getProducts();
@@ -123,6 +121,12 @@ export default function Products() {
 
 function OverviewProduct({ setViewMode, products, onChooseID }) {
   const getProducts = useProductStore((s) => s.getProducts);
+  const getProductStatisticQuantity = useProductStore(
+    (s) => s.getProductStatisticQuantity
+  );
+  const shoeQuantity = useProductStore((s) => s.shoeQuantity);
+  const sandalQuantity = useProductStore((s) => s.sandalQuantity);
+  const backpackQuantity = useProductStore((s) => s.backpackQuantity);
 
   const [anchorAll, setAnchorAll] = useState(null);
 
@@ -137,6 +141,11 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
 
   //State cho confirmdialog xoa
   const [confirmDelete, setConfirmDelete] = useState(false);
+
+  //Load dữ liệu cho dashboard
+  useEffect(() => {
+    getProductStatisticQuantity();
+  }, [getProductStatisticQuantity]);
 
   const handleChangeInput = (key, value) => {
     setControl((prev) => ({
@@ -282,19 +291,19 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
 
         <div className=" mt-7 grid grid-cols-1  md:grid-cols-3 bg-white gap-4">
           <DashboardCardProduct
-            CardHeader="100"
+            CardHeader={shoeQuantity}
             CardDesc="Giày"
             icon={ShoesIcon}
             BackgroundColor={"#000B58"}
           />
           <DashboardCardProduct
-            CardHeader="200"
+            CardHeader={sandalQuantity}
             CardDesc="Dép"
             icon={SandalsIcon}
             BackgroundColor={"#006A67"}
           />
           <DashboardCardProduct
-            CardHeader="50"
+            CardHeader={backpackQuantity}
             CardDesc="Ba-lô"
             icon={BackpackIcon}
           />
@@ -450,7 +459,9 @@ function AddProductView({ setViewMode, openSnackbar }) {
   const shoeCategories = useCategoryStore((s) => s.shoeCategories);
   const sandalCategories = useCategoryStore((s) => s.sandalCategories);
   const backPackCategories = useCategoryStore((s) => s.backPackCategories);
-
+  const getProductStatisticQuantity = useProductStore(
+    (s) => s.getProductStatisticQuantity
+  );
   const [input, setInput] = useState({});
 
   const [reset, setReset] = useState(0);
@@ -558,6 +569,7 @@ function AddProductView({ setViewMode, openSnackbar }) {
       });
 
       await getProducts();
+      await getProductStatisticQuantity();
 
       setInput({});
       handleReset();
@@ -759,7 +771,9 @@ function EditProductView({ setViewMode, openSnackbar, info }) {
   const shoeCategories = useCategoryStore((s) => s.shoeCategories);
   const sandalCategories = useCategoryStore((s) => s.sandalCategories);
   const backPackCategories = useCategoryStore((s) => s.backPackCategories);
-
+  const getProductStatisticQuantity = useProductStore(
+    (S) => S.getProductStatisticQuantity
+  );
   const getProducts = useProductStore((s) => s.getProducts);
 
   const [input, setInput] = useState({});
@@ -900,7 +914,7 @@ function EditProductView({ setViewMode, openSnackbar, info }) {
       );
 
       await getProducts();
-
+      await getProductStatisticQuantity();
       // setViewMode("list");
       setOpenConfirmAdd(false);
       setSuccessModal(true);
