@@ -16,6 +16,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const getProduct = async () => {
       let fetchProduct = await getProductBySlug(slug);
+      if (!fetchProduct) return;
       const variant = fetchProduct.variants[0]
       const attribute = variant.attributes[0]
       setProduct(fetchProduct);

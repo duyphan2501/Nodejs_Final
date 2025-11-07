@@ -205,7 +205,7 @@ const FirstSection = () => {
             </button>
           </div>
           <div className="text-right mt-4 sm:mt-0">
-            <ViewMoreBtn href={""}>Xem thêm</ViewMoreBtn>
+            <ViewMoreBtn />
           </div>
         </div>
       </section>

@@ -187,7 +187,7 @@ const ProductByCategory = ({ category }) => {
             {category.name}
           </h4>
           <div className="  ">
-            <ViewMoreBtn href={""}>Xem thêm</ViewMoreBtn>
+            <ViewMoreBtn />
           </div>
         </div>
       </section>

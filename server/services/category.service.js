@@ -58,10 +58,27 @@ const addOneCategory = async (name, image, parentId) => {
   }
 };
 
+const getListOfCategories = async () => {
+  const categories = await CategoryModel.find();
+  const categoryMap = {};
+  categories.forEach((cate) => {
+    categoryMap[cate._id] = { ...cate._doc, children: [] };
+  });
+  const rootCategories = [];
+  categories.forEach((cate) => {
+    if (cate.parentId)
+      categoryMap[cate.parentId].children.push(categoryMap[cate._id]);
+    else rootCategories.push(categoryMap[cate._id]);
+  });
+  return rootCategories;
+};
+
+
 export {
   getCategorydByName,
   getChildByObjectID,
   deleteManyCategoryByID,
   editNameCategoryByID,
   addOneCategory,
+  getListOfCategories
 };

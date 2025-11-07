@@ -2,6 +2,8 @@ import express from "express";
 import {
   addProduct,
   deleteProduct,
+  fetchProductsController,
+  getAllBrands,
   getProduct,
   getProductBySlugController,
 } from "../controllers/product.controller.js";
@@ -21,6 +23,8 @@ productRouter.post(
 );
 productRouter.get("/", getProduct);
 productRouter.delete("/delete", deleteProduct);
-productRouter.get("/:slug", getProductBySlugController);
+productRouter.get("/fetch", fetchProductsController);
+productRouter.get("/brands", getAllBrands); 
+productRouter.get("/:slug", getProductBySlugController); 
 
 export default productRouter;

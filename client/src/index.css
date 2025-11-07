@@ -97,8 +97,13 @@
 }
 
 input[type="checkbox"] {
-  accent-color: var(--color-darkblue); 
+  accent-color: var(--color-darkblue) !important; 
   cursor: pointer;
 }
+
+.MuiPaginationItem-root.Mui-selected {
+  background-color: #000 !important;
+}
+
 
 
