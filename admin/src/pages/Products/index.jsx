@@ -49,7 +49,6 @@ export default function Products() {
     getProducts();
   }, []);
 
-
   if (products.length === 0) {
     return (
       <div style={{ background: "#F9FAFB" }}>
@@ -75,7 +74,6 @@ export default function Products() {
       </div>
     );
   }
->>>>>>> 6de7b6ed8529937b7229f8046416f68191ab3e84
 
   return (
     <div style={{ background: "#F9FAFB" }}>

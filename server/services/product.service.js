@@ -131,9 +131,13 @@ const fetchProducts = async (page, limit, sortOption, filterParams) => {
   let matchCriteria = {};
 
   if (filterParams.categoryId && filterParams.categoryId.length > 0) {
-    matchCriteria.categoryId = { $in: filterParams.categoryId.map(id => new mongoose.Types.ObjectId(`${id}`)) }; 
+    matchCriteria.categoryId = {
+      $in: filterParams.categoryId.map(
+        (id) => new mongoose.Types.ObjectId(`${id}`)
+      ),
+    };
   }
-  
+
   if (filterParams.brand && filterParams.brand.length > 0) {
     matchCriteria.brand = { $in: filterParams.brand };
   }
@@ -257,7 +261,6 @@ const getAllBrandNames = async () => {
 
   return formattedBrands;
 };
-
 
 const getProductQuantity = async () => {
   try {

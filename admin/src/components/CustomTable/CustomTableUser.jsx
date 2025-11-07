@@ -34,7 +34,7 @@ const CustomTableUser = () => {
     { id: "name", label: "Họ Tên", minWidth: 100 },
     { id: "email", label: "Email", minWidth: 100 },
     { id: "phone", label: "Số Điện Thoại", minWidth: 100 },
-    { id: "isAdmin", label: "Admin", minWidth: 100 },
+
     { id: "status", label: "Trạng Thái", minWidth: 100 },
   ];
 

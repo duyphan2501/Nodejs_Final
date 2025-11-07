@@ -57,7 +57,7 @@ const CustomTableCoupon = () => {
     { id: "discount", label: "Giá Trị Giảm", minWidth: 100 },
     { id: "minOrder", label: "Đơn Tối Thiểu", minWidth: 100 },
     { id: "maxDiscount", label: "Giảm Tối Đa", minWidth: 100 },
-    { id: "expiryDate", label: "Ngày Hết Hạn", minWidth: 100 },
+
     { id: "status", label: "Trạng Thái", minWidth: 100 },
   ];
 

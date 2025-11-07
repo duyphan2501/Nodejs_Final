@@ -223,7 +223,7 @@ const fetchProductsController = async (req, res, next) => {
       minPrice: req.query.minPrice,
       maxPrice: req.query.maxPrice,
     };
-   
+
     const { totalPages, products } = await fetchProducts(
       page,
       limit,
@@ -253,4 +253,13 @@ const getAllBrands = async (req, res, next) => {
   }
 };
 
-export { addProduct, getProduct, deleteProduct, getProductBySlugController, updateProduct, fetchProductsController, getAllBrands };
+export {
+  addProduct,
+  getProduct,
+  deleteProduct,
+  getProductBySlugController,
+  updateProduct,
+  fetchProductsController,
+  getAllBrands,
+  getProductStats,
+};
