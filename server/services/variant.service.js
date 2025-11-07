@@ -15,21 +15,25 @@ const addManyVariant = async (variants) => {
 };
 
 const getAvailableStockDB = async (variantId, size) => {
-  const variant = await VariantModel.findOne({ 
-      _id: variantId,
-    }).lean();
+  const variant = await VariantModel.findOne({
+    _id: variantId,
+  }).lean();
 
-    if (!variant) {
-      throw createHttpError.NotFound(`Sản phẩm variantId ${variantId} không tìm thấy.`);
-    }
+  if (!variant) {
+    throw createHttpError.NotFound(
+      `Sản phẩm variantId ${variantId} không tìm thấy.`
+    );
+  }
 
-    const attribute = variant.attributes.find(attr => attr.size === size);
+  const attribute = variant.attributes.find((attr) => attr.size === size);
 
-    if (!attribute) {
-      throw createHttpError.NotFound(`Kích thước ${size} không tồn tại cho variantId ${variantId}.`);
-    }
+  if (!attribute) {
+    throw createHttpError.NotFound(
+      `Kích thước ${size} không tồn tại cho variantId ${variantId}.`
+    );
+  }
 
-    return attribute.inStock;
+  return attribute.inStock;
 };
 
 const deductStockAtomic = async (item, session) => {

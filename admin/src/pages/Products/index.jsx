@@ -8,7 +8,7 @@ import SandalsIcon from "../../assets/svg/pair-of-flip-flop-svgrepo-com.svg?reac
 import BackpackIcon from "@mui/icons-material/Backpack";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SortIcon from "@mui/icons-material/Sort";
-import { useState, useMemo, use } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
@@ -32,25 +32,28 @@ import BiLoader from "../../components/BiLoader";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { toast } from "react-toastify";
 import useProductStore from "../../../stores/useProductStore";
-import useFetchProduct from "../../../hooks/useFetchProduct";
-import { useEffect } from "react";
 import FilterCategory from "../../components/FilterCategory";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axiosPrivate from "../../../API/axiosPrivate";
+import VariantManagerEdit from "../../components/VariantManagerEdit";
 
 export default function Products() {
   const [viewMode, setViewMode] = useState("list");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [chooseID, setChooseID] = useState(1);
 
-  const getProducts = useProductStore((state) => state.getProducts);
   const products = useProductStore((state) => state.products);
+  const getProducts = useProductStore((state) => state.getProducts);
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  if (products.length === 0) {
+  const memoizedInfo = useMemo(() => {
+    return products.find((p) => p._id == chooseID);
+  }, [products, chooseID]);
+
+  if (!products) {
     return (
       <div style={{ background: "#F9FAFB" }}>
         <Navbar active="products" />
@@ -105,11 +108,11 @@ export default function Products() {
             viewMode === "edit" ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          {/* <EditProductView
-        setViewMode={setViewMode}
-        openSnackbar={() => setSnackbarOpen(true)}
-        info={products.find((p) => p._id == chooseID)}
-      /> */}
+          <EditProductView
+            setViewMode={setViewMode}
+            openSnackbar={() => setSnackbarOpen(true)}
+            info={memoizedInfo}
+          />
         </div>
       </div>
     </div>
@@ -118,6 +121,12 @@ export default function Products() {
 
 function OverviewProduct({ setViewMode, products, onChooseID }) {
   const getProducts = useProductStore((s) => s.getProducts);
+  const getProductStatisticQuantity = useProductStore(
+    (s) => s.getProductStatisticQuantity
+  );
+  const shoeQuantity = useProductStore((s) => s.shoeQuantity);
+  const sandalQuantity = useProductStore((s) => s.sandalQuantity);
+  const backpackQuantity = useProductStore((s) => s.backpackQuantity);
 
   const [anchorAll, setAnchorAll] = useState(null);
 
@@ -132,6 +141,11 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
 
   //State cho confirmdialog xoa
   const [confirmDelete, setConfirmDelete] = useState(false);
+
+  //Load dữ liệu cho dashboard
+  useEffect(() => {
+    getProductStatisticQuantity();
+  }, [getProductStatisticQuantity]);
 
   const handleChangeInput = (key, value) => {
     setControl((prev) => ({
@@ -242,6 +256,7 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
 
       await getProducts();
       toast.success(res.data.message);
+      setSelectedProducts([]);
       setConfirmDelete(false);
     } catch (error) {
       console.error(error);
@@ -276,19 +291,19 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
 
         <div className=" mt-7 grid grid-cols-1  md:grid-cols-3 bg-white gap-4">
           <DashboardCardProduct
-            CardHeader="100"
+            CardHeader={shoeQuantity}
             CardDesc="Giày"
             icon={ShoesIcon}
             BackgroundColor={"#000B58"}
           />
           <DashboardCardProduct
-            CardHeader="200"
+            CardHeader={sandalQuantity}
             CardDesc="Dép"
             icon={SandalsIcon}
             BackgroundColor={"#006A67"}
           />
           <DashboardCardProduct
-            CardHeader="50"
+            CardHeader={backpackQuantity}
             CardDesc="Ba-lô"
             icon={BackpackIcon}
           />
@@ -418,16 +433,21 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
               Xóa sản phẩm
             </Button>
           </div>
-          <ProductList
-            products={formatProduct}
-            selectedProducts={selectedProducts}
-            setSelectedProducts={setSelectedProducts}
-            chooseToEdit={(id) => {
-              setViewMode("edit");
-              onChooseID(id);
-              console.log(id);
-            }}
-          />
+          {formatProduct.length === 0 ? (
+            <h1 className="text-2xl font-semibold w-full text-center">
+              Không có sản phẩm nào
+            </h1>
+          ) : (
+            <ProductList
+              products={formatProduct}
+              selectedProducts={selectedProducts}
+              setSelectedProducts={setSelectedProducts}
+              chooseToEdit={(id) => {
+                setViewMode("edit");
+                onChooseID(id);
+              }}
+            />
+          )}
         </div>
       </Container>
     </div>
@@ -439,7 +459,9 @@ function AddProductView({ setViewMode, openSnackbar }) {
   const shoeCategories = useCategoryStore((s) => s.shoeCategories);
   const sandalCategories = useCategoryStore((s) => s.sandalCategories);
   const backPackCategories = useCategoryStore((s) => s.backPackCategories);
-
+  const getProductStatisticQuantity = useProductStore(
+    (s) => s.getProductStatisticQuantity
+  );
   const [input, setInput] = useState({});
 
   const [reset, setReset] = useState(0);
@@ -510,6 +532,7 @@ function AddProductView({ setViewMode, openSnackbar }) {
       const formData = new FormData();
 
       // Gửi các field cơ bản
+      if (input._id) formData.append("_id", input._id);
       if (input.name) formData.append("name", input.name);
       if (input.inputPrice) formData.append("inputPrice", input.inputPrice);
       if (input.description) formData.append("description", input.description);
@@ -546,6 +569,7 @@ function AddProductView({ setViewMode, openSnackbar }) {
       });
 
       await getProducts();
+      await getProductStatisticQuantity();
 
       setInput({});
       handleReset();
@@ -559,7 +583,6 @@ function AddProductView({ setViewMode, openSnackbar }) {
         error.response?.data.message || "Thêm sản phẩm thất bại";
       toast.error(messageErr);
       setOpenConfirmAdd(false);
-      console.log(input);
     }
   };
 
@@ -744,42 +767,166 @@ function AddProductView({ setViewMode, openSnackbar }) {
 }
 
 function EditProductView({ setViewMode, openSnackbar, info }) {
-  const dataCategory = [
-    {
-      id: 1,
-      name: "giay",
-      label: "Giày",
-      children: [
-        { id: 11, name: "sport", label: "Sport" },
-        { id: 12, name: "nam", label: "Nam" },
-        { id: 13, name: "nu", label: "Nữ" },
-      ],
-    },
-    {
-      id: 2,
-      name: "balo",
-      label: "Ba lô",
-      children: [
-        { id: 21, name: "nam", label: "Nam" },
-        { id: 22, name: "nu", label: "Nữ" },
-      ],
-    },
-    {
-      id: 3,
-      name: "phukien",
-      label: "Phụ kiện",
-      children: [
-        { id: 31, name: "nam", label: "Nam" },
-        { id: 32, name: "nu", label: "Nữ" },
-        { id: 33, name: "non", label: "Nón" },
-      ],
-    },
-  ];
+  //Khai báo store
+  const shoeCategories = useCategoryStore((s) => s.shoeCategories);
+  const sandalCategories = useCategoryStore((s) => s.sandalCategories);
+  const backPackCategories = useCategoryStore((s) => s.backPackCategories);
+  const getProductStatisticQuantity = useProductStore(
+    (S) => S.getProductStatisticQuantity
+  );
+  const getProducts = useProductStore((s) => s.getProducts);
 
+  const [input, setInput] = useState({});
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openConfirmAdd, setOpenConfirmAdd] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
-  const [input, setInput] = useState({});
+
+  //Ham input cho TipTap
+  const handleChangeValueDesc = (htmlContext) => {
+    handleChangeInput("description", htmlContext);
+  };
+
+  //Chuẩn hóa lại data theo mẫu
+  useEffect(() => {
+    if (info) {
+      setInput({
+        ...info,
+
+        categoryId: info.categoryId?.reduce((acc, c) => {
+          acc[c] = true;
+          return acc;
+        }, {}),
+
+        variants: info.variantData?.map((v) => ({
+          ...v,
+          id: v._id,
+          images: v.images.map((img) => ({
+            file: null,
+            preview: `${import.meta.env.VITE_BACKEND_URL}/${img}`,
+            oldUrl: img,
+          })),
+
+          sizes: (() => {
+            const sizes = v.attributes.reduce((acc, s) => {
+              acc[s.size] = String(s.inStock ?? "");
+              return acc;
+            }, {});
+            return sizes;
+          })(),
+
+          save: true,
+        })),
+      });
+    }
+  }, [info, openConfirm]);
+
+  // useEffect(() => {
+  //   console.log(input);
+  // }, [input]);
+
+  //Fetch du lieu category tu hook
+  const { loadingCategory } = useFetchCategory();
+  const dataCategory = [
+    {
+      _id: 1,
+      name: "Giày",
+      label: "Giày",
+      children: shoeCategories,
+    },
+    {
+      _id: 2,
+      name: "Ba lô",
+      label: "Ba lô",
+      children: backPackCategories,
+    },
+    {
+      _id: 3,
+      name: "Dép",
+      label: "Dép",
+      children: sandalCategories,
+    },
+  ];
+
+  //Ham submit de cap nhat
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+
+      const isNotSavedAll = input.variants.filter((v) => v.save === false);
+      if (isNotSavedAll.length !== 0) {
+        toast.error("Phải lưu tất cả các variant trước khi cập nhật");
+        setOpenConfirmAdd(false);
+        return;
+      }
+
+      // Gửi các field cơ bản
+      if (input._id) formData.append("_id", input._id);
+      if (input.name) formData.append("name", input.name);
+      if (input.inputPrice) formData.append("inputPrice", input.inputPrice);
+      if (input.description) formData.append("description", input.description);
+      if (input.brand) formData.append("brand", input.brand);
+
+      // Gửi category (nhiều cái)
+      if (input.categoryId) {
+        Object.keys(input.categoryId).forEach((key) => {
+          if (input.categoryId[key]) {
+            formData.append("categoryId[]", key);
+          }
+        });
+      }
+
+      // Gửi variant (mỗi variant có thể có nhiều ảnh)
+      if (input.variants && input.variants.length > 0) {
+        const savedVariant = input.variants.map((variant, i) => {
+          const oldUrls = [];
+
+          //Xu ly danh sach anh
+          variant.images.forEach((img, j) => {
+            if (img?.file) {
+              //ảnh mới
+              formData.append(`variant_image_${i}_${j}`, img.file);
+            } else if (img?.oldUrl) {
+              //Ảnh có giữ nguyên
+              oldUrls.push(img.oldUrl);
+            }
+          });
+          formData.append(`variant_oldUrls_${i}`, JSON.stringify(oldUrls));
+
+          return {
+            _id: variant?._id,
+            color: variant.color,
+            price: variant.price,
+            discount: variant.discount,
+            sizes: variant.attributes,
+          };
+        });
+
+        formData.append("variants", JSON.stringify(savedVariant));
+      }
+
+      // Gọi API
+      const res = await axiosPrivate.put(
+        `/api/product/${input._id}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      await getProducts();
+      await getProductStatisticQuantity();
+      // setViewMode("list");
+      setOpenConfirmAdd(false);
+      setSuccessModal(true);
+    } catch (error) {
+      console.error("❌ Lỗi khi sửa sản phẩm:", error.response?.data.details);
+      console.log(error);
+      const messageErr =
+        error.response?.data.message || "Thêm sản phẩm thất bại";
+      toast.error(messageErr);
+      setOpenConfirmAdd(false);
+    }
+  };
 
   const handleChangeInput = (key, value) => {
     setInput((prev) => {
@@ -822,11 +969,7 @@ function EditProductView({ setViewMode, openSnackbar, info }) {
           content={"Bạn có muốn cập nhật sản phẩm?"}
           action={"Đồng ý"}
           onClose={() => setOpenConfirmAdd(false)}
-          onConfirm={() => {
-            setViewMode("list");
-            setOpenConfirmAdd(false);
-            setSuccessModal(true);
-          }}
+          onConfirm={handleSubmit}
           open={openConfirmAdd}
         />
 
@@ -906,25 +1049,37 @@ function EditProductView({ setViewMode, openSnackbar, info }) {
                 <input
                   type="text"
                   className="p-2 w-full bg-[#F5F5F5] shadow border-none focus:outline-none hover:border-none"
-                  value={info.name || ""}
+                  value={input?.name || ""}
+                  onChange={(e) => handleChangeInput("name", e.target.value)}
                 />
               </div>
               <div id="product-price" className="mt-2">
                 <p className="text-[#646464]">Giá Nhập Sản Phẩm</p>
                 <input
-                  type="text"
+                  type="number"
                   className="p-2 w-full bg-[#F5F5F5] shadow border-none focus:outline-none hover:border-none"
-                  value={info.inPrice || ""}
+                  value={input?.inputPrice || 0}
+                  onChange={(e) =>
+                    handleChangeInput("inputPrice", e.target.value)
+                  }
                 />
               </div>
             </div>
 
-            <div id="product-desc" className="mt-2 h-full">
-              <p className="text-[#646464]">Mô Tả</p>
-              <textarea
+            <div id="brand" className="mt-2">
+              <p className="text-[#646464]">Thương Hiệu</p>
+              <input
                 type="text"
-                className="p-2 h-full w-full bg-[#F5F5F5] shadow border-none focus:outline-none hover:border-none "
-                value={info.description}
+                className="p-2 w-full bg-[#F5F5F5] shadow border-none focus:outline-none hover:border-none"
+                onChange={(e) => handleChangeInput("brand", e.target.value)}
+                value={input?.brand || ""}
+              />
+            </div>
+
+            <div id="product-desc" className="mt-2 h-full">
+              <TiptapEditor
+                handleChangeValue={handleChangeValueDesc}
+                content={input.description || ""}
               />
             </div>
           </div>
@@ -933,15 +1088,17 @@ function EditProductView({ setViewMode, openSnackbar, info }) {
             <CategoryPicker
               dataCategory={dataCategory}
               handleChangeInput={handleChangeInput}
+              initialData={input?.categoryId}
             />
           </div>
         </div>
 
         <div className="shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.2),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_1px_3px_0px_rgba(0,0,0,0.12)] mt-10 p-4">
           <h2 className="text-lg font-semibold capitalize">Biến thể</h2>
-          <VariantManager
+          <VariantManagerEdit
             openSnackbar={openSnackbar}
             handleChangeInput={handleChangeInput}
+            variantEdit={input?.variants}
           />
         </div>
       </Container>
