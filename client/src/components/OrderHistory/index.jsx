@@ -7,6 +7,7 @@ import {
   ChevronDown,
   ChevronUp,
   Loader2,
+  XCircle,
 } from "lucide-react";
 import useOrderAPI from "../../hooks/useOrder";
 
@@ -17,16 +18,16 @@ const OrderHistory = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [cancellingOrder, setCancellingOrder] = useState(null);
 
-  const { getAllOrders, getOrdersByStatus, getOrderStats } = useOrderAPI();
+  const { getAllOrders, getOrdersByStatus, getOrderStats, cancelOrder } =
+    useOrderAPI();
 
-  // Load dữ liệu khi component mount
   useEffect(() => {
     fetchOrders();
     fetchStats();
   }, []);
 
-  // Fetch orders khi thay đổi filter
   useEffect(() => {
     fetchOrders();
   }, [selectedStatus]);
@@ -59,6 +60,24 @@ const OrderHistory = () => {
     }
   };
 
+  const handleCancelOrder = async (orderId) => {
+    if (!window.confirm("Bạn có chắc chắn muốn hủy đơn hàng này?")) {
+      return;
+    }
+
+    try {
+      setCancellingOrder(orderId);
+      await cancelOrder(orderId);
+      await fetchOrders();
+      await fetchStats();
+      alert("Đơn hàng đã được hủy thành công");
+    } catch (err) {
+      alert(err.message || "Không thể hủy đơn hàng");
+    } finally {
+      setCancellingOrder(null);
+    }
+  };
+
   const getStatusIcon = (status) => {
     switch (status) {
       case "delivered":
@@ -67,6 +86,8 @@ const OrderHistory = () => {
         return <Truck className="w-5 h-5 text-blue-600" />;
       case "confirmed":
         return <Package className="w-5 h-5 text-purple-600" />;
+      case "cancelled":
+        return <XCircle className="w-5 h-5 text-red-600" />;
       default:
         return <Clock className="w-5 h-5 text-orange-600" />;
     }
@@ -80,6 +101,8 @@ const OrderHistory = () => {
         return "bg-blue-100 text-blue-800";
       case "confirmed":
         return "bg-purple-100 text-purple-800";
+      case "cancelled":
+        return "bg-red-100 text-red-800";
       default:
         return "bg-orange-100 text-orange-800";
     }
@@ -99,6 +122,10 @@ const OrderHistory = () => {
     }));
   };
 
+  const canCancelOrder = (status) => {
+    return ["pending", "confirmed"].includes(status);
+  };
+
   if (loading && !orders.length) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -112,7 +139,7 @@ const OrderHistory = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
         {/* Title & Filter */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold">LỊCH SỬ ĐỚN HÀNG</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">LỊCH SỬ ĐơN HÀNG</h2>
 
           <div className="flex items-center gap-2">
             <select
@@ -125,13 +152,14 @@ const OrderHistory = () => {
               <option value="confirmed">Đã xác nhận</option>
               <option value="shipping">Đang vận chuyển</option>
               <option value="delivered">Đã giao</option>
+              <option value="cancelled">Đã hủy</option>
             </select>
           </div>
         </div>
 
         {/* Stats */}
         {stats && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
             <div className="bg-white p-4 rounded-lg shadow-sm text-center">
               <p className="text-2xl font-bold">{stats.total}</p>
               <p className="text-sm text-gray-600">Tổng đơn hàng</p>
@@ -153,6 +181,12 @@ const OrderHistory = () => {
                 {stats.delivered}
               </p>
               <p className="text-sm text-gray-600">Đã giao</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm text-center">
+              <p className="text-2xl font-bold text-red-600">
+                {stats.cancelled}
+              </p>
+              <p className="text-sm text-gray-600">Đã hủy</p>
             </div>
           </div>
         )}
@@ -206,14 +240,24 @@ const OrderHistory = () => {
                             </span>
                           </p>
                         )}
-                        {order.estimatedDelivery && !order.deliveryDate && (
+                        {order.cancelledDate && (
                           <p>
-                            Dự kiến giao:{" "}
+                            Đã hủy:{" "}
                             <span className="font-semibold">
-                              {order.estimatedDelivery}
+                              {order.cancelledDate}
                             </span>
                           </p>
                         )}
+                        {order.estimatedDelivery &&
+                          !order.deliveryDate &&
+                          !order.cancelledDate && (
+                            <p>
+                              Dự kiến giao:{" "}
+                              <span className="font-semibold">
+                                {order.estimatedDelivery}
+                              </span>
+                            </p>
+                          )}
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -291,6 +335,22 @@ const OrderHistory = () => {
 
                       {/* Actions */}
                       <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                        {canCancelOrder(order.status) && (
+                          <button
+                            onClick={() => handleCancelOrder(order.id)}
+                            disabled={cancellingOrder === order.id}
+                            className="flex-1 bg-red-600 text-white px-6 py-3 rounded font-bold hover:bg-red-700 transition-colors uppercase text-sm disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                          >
+                            {cancellingOrder === order.id ? (
+                              <>
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                                Đang hủy...
+                              </>
+                            ) : (
+                              "Hủy đơn hàng"
+                            )}
+                          </button>
+                        )}
                         <button className="flex-1 bg-black text-white px-6 py-3 rounded font-bold hover:bg-gray-800 transition-colors uppercase text-sm">
                           Mua lại
                         </button>

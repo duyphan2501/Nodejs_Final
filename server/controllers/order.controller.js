@@ -137,8 +137,8 @@ class OrderController {
   // GET /api/orders - Lấy tất cả đơn hàng của user
   async getAllOrders(req, res) {
     try {
-      const email = req.user.email; // Lấy từ JWT token
-      const orders = await OrderService.getUserOrders(email);
+      const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
+      const orders = await OrderService.getUserOrders(userId);
       const formattedOrders = orders.map((order) =>
         OrderService.formatOrderForFrontend(order)
       );
@@ -157,8 +157,8 @@ class OrderController {
   // GET /api/orders/active - Lấy đơn hàng đang xử lý
   async getActiveOrders(req, res) {
     try {
-      const email = req.user.email;
-      const orders = await OrderService.getActiveOrders(email);
+      const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
+      const orders = await OrderService.getActiveOrders(userId);
       const formattedOrders = orders.map((order) =>
         OrderService.formatOrderForFrontend(order)
       );
@@ -177,9 +177,9 @@ class OrderController {
   // GET /api/orders/:orderId - Lấy chi tiết đơn hàng
   async getOrderById(req, res) {
     try {
-      const email = req.user.email;
+      const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
       const { orderId } = req.params;
-      const order = await OrderService.getOrderById(orderId, email);
+      const order = await OrderService.getOrderById(orderId, userId);
       const formattedOrder = OrderService.formatOrderForFrontend(order);
       res.status(200).json({
         success: true,
@@ -192,11 +192,31 @@ class OrderController {
       });
     }
   }
+  async cancelOrder(req, res) {
+    try {
+      const userId = req.user.userId; // Lấy userId từ JWT
+      const { orderId } = req.params;
 
+      const cancelledOrder = await OrderService.cancelOrder(orderId, userId);
+      const formattedOrder =
+        OrderService.formatOrderForFrontend(cancelledOrder);
+
+      res.status(200).json({
+        success: true,
+        message: "Đơn hàng đã được hủy thành công",
+        data: formattedOrder,
+      });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
   // GET /api/orders/status/:status - Lọc đơn hàng theo trạng thái
   async getOrdersByStatus(req, res) {
     try {
-      const email = req.user.email;
+      const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
       const { status } = req.params;
 
       const validStatuses = ["pending", "confirmed", "shipping", "delivered"];
@@ -207,7 +227,7 @@ class OrderController {
         });
       }
 
-      const orders = await OrderService.getOrdersByStatus(email, status);
+      const orders = await OrderService.getOrdersByStatus(userId, status);
       const formattedOrders = orders.map((order) =>
         OrderService.formatOrderForFrontend(order)
       );
@@ -226,8 +246,8 @@ class OrderController {
   // GET /api/orders/stats - Lấy thống kê đơn hàng
   async getOrderStats(req, res) {
     try {
-      const email = req.user.email;
-      const stats = await OrderService.getOrderStats(email);
+      const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
+      const stats = await OrderService.getOrderStats(userId);
       res.status(200).json({
         success: true,
         data: stats,

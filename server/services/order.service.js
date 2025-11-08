@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import OrderModel from "../models/order.model.js";
+import UserModel from "../models/user.model.js";
 import { useCouponAtomic } from "./coupon.service.js";
 import { usePurchasePoint } from "./user.service.js";
 import { deductStockAtomic } from "./variant.service.js";
@@ -42,7 +43,7 @@ const createNewOrder = async (
   orderStatus = "pending"
 ) => {
   const session = await mongoose.startSession();
-  let newOrderResult; // Biến để lưu trữ kết quả đơn hàng sau khi tạo
+  let newOrderResult;
 
   try {
     session.startTransaction();
@@ -72,7 +73,6 @@ const createNewOrder = async (
     }
 
     // --- 4. Tạo đơn hàng trong DB ---
-    // Mongoose Model.create([docs], { session }) cần nhận mảng khi dùng với transaction
     const newOrders = await OrderModel.create(
       [
         {
@@ -127,9 +127,23 @@ const createNewOrder = async (
 export { generateOrderId, createNewOrder };
 
 class OrderService {
-  // Lấy tất cả đơn hàng của user
-  async getUserOrders(email) {
+  // Lấy email từ userId
+  async getUserEmail(userId) {
     try {
+      const user = await UserModel.findById(userId).select("email");
+      if (!user) {
+        throw new Error("User not found");
+      }
+      return user.email;
+    } catch (error) {
+      throw new Error(`Error fetching user email: ${error.message}`);
+    }
+  }
+
+  // Lấy tất cả đơn hàng của user
+  async getUserOrders(userId) {
+    try {
+      const email = await this.getUserEmail(userId);
       const orders = await OrderModel.find({ email })
         .populate("items.variantId")
         .sort({ createdAt: -1 });
@@ -140,8 +154,9 @@ class OrderService {
   }
 
   // Lấy đơn hàng theo ID
-  async getOrderById(orderId, email) {
+  async getOrderById(orderId, userId) {
     try {
+      const email = await this.getUserEmail(userId);
       const order = await OrderModel.findOne({ orderId, email }).populate(
         "items.variantId"
       );
@@ -153,10 +168,32 @@ class OrderService {
       throw new Error(`Error fetching order: ${error.message}`);
     }
   }
-
-  // Lấy đơn hàng theo trạng thái
-  async getOrdersByStatus(email, status) {
+  async cancelOrder(orderId, userId) {
     try {
+      const email = await this.getUserEmail(userId);
+      const order = await OrderModel.findOne({ orderId, email });
+
+      if (!order) {
+        throw new Error("Không tìm thấy đơn hàng");
+      }
+
+      // Chỉ cho phép hủy đơn hàng ở trạng thái pending
+      if (order.status !== "pending") {
+        throw new Error("Chỉ có thể hủy đơn hàng đang chờ xử lý");
+      }
+
+      order.status = "cancelled";
+      await order.save();
+
+      return order;
+    } catch (error) {
+      throw new Error(`Error cancelling order: ${error.message}`);
+    }
+  }
+  // Lấy đơn hàng theo trạng thái
+  async getOrdersByStatus(userId, status) {
+    try {
+      const email = await this.getUserEmail(userId);
       const orders = await OrderModel.find({ email, status })
         .populate("items.variantId")
         .sort({ createdAt: -1 });
@@ -167,8 +204,9 @@ class OrderService {
   }
 
   // Lấy các đơn hàng đang xử lý (pending, confirmed, shipping)
-  async getActiveOrders(email) {
+  async getActiveOrders(userId) {
     try {
+      const email = await this.getUserEmail(userId);
       const orders = await OrderModel.find({
         email,
         status: { $in: ["pending", "confirmed", "shipping"] },
@@ -178,6 +216,30 @@ class OrderService {
       return orders;
     } catch (error) {
       throw new Error(`Error fetching active orders: ${error.message}`);
+    }
+  }
+
+  // Hủy đơn hàng
+  async cancelOrder(orderId, userId) {
+    try {
+      const email = await this.getUserEmail(userId);
+      const order = await OrderModel.findOne({ orderId, email });
+
+      if (!order) {
+        throw new Error("Order not found");
+      }
+
+      // Chỉ cho phép hủy đơn hàng ở trạng thái pending hoặc confirmed
+      if (!["pending", "confirmed"].includes(order.status)) {
+        throw new Error("Không thể hủy đơn hàng ở trạng thái này");
+      }
+
+      order.status = "cancelled";
+      await order.save();
+
+      return order;
+    } catch (error) {
+      throw new Error(`Error cancelling order: ${error.message}`);
     }
   }
 
@@ -227,10 +289,12 @@ class OrderService {
       confirmed: "Đã xác nhận",
       shipping: "Đang vận chuyển",
       delivered: "Đã giao",
+      cancelled: "Đã hủy",
     };
 
     const estimatedDelivery = this.calculateEstimatedDelivery(order.createdAt);
     const isDelivered = order.status === "delivered";
+    const isCancelled = order.status === "cancelled";
 
     return {
       id: order.orderId,
@@ -243,9 +307,13 @@ class OrderService {
       deliveryDate: isDelivered
         ? order.updatedAt.toISOString().split("T")[0]
         : null,
-      estimatedDelivery: !isDelivered
-        ? estimatedDelivery.toISOString().split("T")[0]
+      cancelledDate: isCancelled
+        ? order.updatedAt.toISOString().split("T")[0]
         : null,
+      estimatedDelivery:
+        !isDelivered && !isCancelled
+          ? estimatedDelivery.toISOString().split("T")[0]
+          : null,
       products: order.items.map((item) => ({
         name: item.name,
         quantity: item.quantity,
@@ -270,8 +338,9 @@ class OrderService {
   }
 
   // Thống kê đơn hàng
-  async getOrderStats(email) {
+  async getOrderStats(userId) {
     try {
+      const email = await this.getUserEmail(userId);
       const orders = await OrderModel.find({ email });
       const stats = {
         total: orders.length,
@@ -279,6 +348,7 @@ class OrderService {
         confirmed: orders.filter((o) => o.status === "confirmed").length,
         shipping: orders.filter((o) => o.status === "shipping").length,
         delivered: orders.filter((o) => o.status === "delivered").length,
+        cancelled: orders.filter((o) => o.status === "cancelled").length,
       };
       return stats;
     } catch (error) {

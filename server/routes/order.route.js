@@ -30,5 +30,9 @@ orderRouter.get("/:orderId", OrderController.getOrderById);
 
 // POST /api/orders/fake-delivery/:orderId - FAKE API test chuyển trạng thái
 orderRouter.post("/fake-delivery/:orderId", OrderController.fakeDeliveryUpdate);
+orderRouter.post(
+  "/:orderId/cancel",
+  OrderController.cancelOrder.bind(OrderController)
+);
 
 export default orderRouter;

@@ -55,5 +55,5 @@ app.listen(PORT, () => {
   connectToDB();
 
   //startNgrokAndConfirmWebhook();
-  fakeDeliveryCron.start();
+  //fakeDeliveryCron.start();
 });
