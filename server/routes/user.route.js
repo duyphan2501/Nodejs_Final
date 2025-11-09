@@ -14,6 +14,7 @@ import {
   updatePersonalInfo,
 } from "../controllers/user.controller.js";
 import checkAuth from "../middlewares/auth.middleware.js";
+import UserController from "../controllers/user.controller.js";
 
 const userRouter = express.Router();
 
@@ -29,5 +30,15 @@ userRouter.put("/profile/update", checkAuth, updateUserDetail);
 userRouter.put("/refresh-token", refreshToken);
 userRouter.put("/resend-verification-email", sendVerificationEmail);
 userRouter.put("/personal-info/update", checkAuth, updatePersonalInfo);
+
+userRouter.get("/", UserController.getUsers);
+userRouter.get("/:id", UserController.getUserById);
+userRouter.post("/", UserController.createUser);
+userRouter.put("/:id", UserController.updateUser);
+userRouter.patch("/bulk-update-status", UserController.bulkUpdateStatus);
+userRouter.get("/:id/addresses", UserController.getUserAddresses);
+userRouter.post("/:id/addresses", UserController.addAddress);
+userRouter.put("/:id/addresses/:addressId", UserController.updateAddress);
+userRouter.delete("/:id/addresses/:addressId", UserController.deleteAddress);
 
 export default userRouter;

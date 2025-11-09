@@ -49,6 +49,17 @@ export default function Products() {
     getProducts();
   }, []);
 
+  if (products.length === 0) {
+    return (
+      <div style={{ background: "#F9FAFB" }}>
+        <Navbar active="products" />
+        <div className="flex justify-center items-center w-full h-full">
+          <BiLoader size={100} />
+        </div>
+      </div>
+    );
+  }
+
   const memoizedInfo = useMemo(() => {
     return products.find((p) => p._id == chooseID);
   }, [products, chooseID]);

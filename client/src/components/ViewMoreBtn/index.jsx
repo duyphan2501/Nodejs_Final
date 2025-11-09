@@ -1,10 +1,10 @@
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-const ViewMoreBtn = ({children, href}) => {
+const ViewMoreBtn = () => {
   return (
-    <Button components={Link} to={href} className="!normal-case !border-b-2 !rounded-none !text-[16px] !p-0 !text-black">
-      {children}
+    <Button component={Link} to={"/products"} className="!normal-case !border-b-2 !rounded-none !text-[16px] !p-0 !text-black">
+      Xem Thêm
     </Button>
   );
 };

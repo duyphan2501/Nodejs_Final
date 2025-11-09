@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Package,
   Truck,
@@ -6,167 +6,88 @@ import {
   Clock,
   ChevronDown,
   ChevronUp,
+  Loader2,
+  XCircle,
 } from "lucide-react";
+import useOrderAPI from "../../hooks/useOrder";
 
 const OrderHistory = () => {
   const [expandedOrders, setExpandedOrders] = useState({});
   const [selectedStatus, setSelectedStatus] = useState("all");
+  const [orders, setOrders] = useState([]);
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [cancellingOrder, setCancellingOrder] = useState(null);
 
-  const orders = [
-    {
-      id: "ORD-2024-001",
-      date: "2024-10-28",
-      total: 3450000,
-      status: "delivered",
-      currentStatus: "Đã giao",
-      deliveryDate: "2024-10-31",
-      products: [
-        {
-          name: "Adidas Ultraboost 22",
-          quantity: 1,
-          price: 2850000,
-          color: "Trắng",
-          size: "42",
-        },
-        {
-          name: "Adidas Tee",
-          quantity: 2,
-          price: 600000,
-          color: "Đen",
-          size: "M",
-        },
-      ],
-      statusHistory: [
-        {
-          status: "Đã giao",
-          timestamp: "2024-10-31 14:30",
-          description: "Đơn hàng đã được giao thành công",
-          icon: "delivered",
-        },
-        {
-          status: "Đang vận chuyển",
-          timestamp: "2024-10-30 08:15",
-          description: "Đơn hàng đang trên đường giao đến bạn",
-          icon: "shipping",
-        },
-        {
-          status: "Đã xác nhận",
-          timestamp: "2024-10-29 10:20",
-          description: "Đơn hàng đã được xác nhận và đang chuẩn bị",
-          icon: "confirmed",
-        },
-        {
-          status: "Đang chờ xử lý",
-          timestamp: "2024-10-28 16:45",
-          description: "Đơn hàng đã được đặt thành công",
-          icon: "pending",
-        },
-      ],
-    },
-    {
-      id: "ORD-2024-002",
-      date: "2024-10-30",
-      total: 1950000,
-      status: "shipping",
-      currentStatus: "Đang vận chuyển",
-      estimatedDelivery: "2024-11-03",
-      products: [
-        {
-          name: "Adidas Stan Smith",
-          quantity: 1,
-          price: 1950000,
-          color: "Xanh lá",
-          size: "41",
-        },
-      ],
-      statusHistory: [
-        {
-          status: "Đang vận chuyển",
-          timestamp: "2024-11-01 09:00",
-          description: "Đơn hàng đang trên đường giao đến bạn",
-          icon: "shipping",
-        },
-        {
-          status: "Đã xác nhận",
-          timestamp: "2024-10-31 11:30",
-          description: "Đơn hàng đã được xác nhận và đang chuẩn bị",
-          icon: "confirmed",
-        },
-        {
-          status: "Đang chờ xử lý",
-          timestamp: "2024-10-30 14:20",
-          description: "Đơn hàng đã được đặt thành công",
-          icon: "pending",
-        },
-      ],
-    },
-    {
-      id: "ORD-2024-003",
-      date: "2024-11-01",
-      total: 4200000,
-      status: "confirmed",
-      currentStatus: "Đã xác nhận",
-      estimatedDelivery: "2024-11-05",
-      products: [
-        {
-          name: "Adidas NMD_R1",
-          quantity: 1,
-          price: 2800000,
-          color: "Đen",
-          size: "42",
-        },
-        { name: "Adidas Backpack", quantity: 1, price: 1400000, color: "Xám" },
-      ],
-      statusHistory: [
-        {
-          status: "Đã xác nhận",
-          timestamp: "2024-11-02 08:45",
-          description: "Đơn hàng đã được xác nhận và đang chuẩn bị",
-          icon: "confirmed",
-        },
-        {
-          status: "Đang chờ xử lý",
-          timestamp: "2024-11-01 17:30",
-          description: "Đơn hàng đã được đặt thành công",
-          icon: "pending",
-        },
-      ],
-    },
-    {
-      id: "ORD-2024-004",
-      date: "2024-11-02",
-      total: 2100000,
-      status: "pending",
-      currentStatus: "Đang chờ xử lý",
-      estimatedDelivery: "2024-11-06",
-      products: [
-        {
-          name: "Adidas Superstar",
-          quantity: 1,
-          price: 2100000,
-          color: "Trắng/Đen",
-          size: "40",
-        },
-      ],
-      statusHistory: [
-        {
-          status: "Đang chờ xử lý",
-          timestamp: "2024-11-02 10:15",
-          description: "Đơn hàng đã được đặt thành công",
-          icon: "pending",
-        },
-      ],
-    },
-  ];
+  const { getAllOrders, getOrdersByStatus, getOrderStats, cancelOrder } =
+    useOrderAPI();
 
-  const getStatusIcon = (iconType) => {
-    switch (iconType) {
+  useEffect(() => {
+    fetchOrders();
+    fetchStats();
+  }, []);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [selectedStatus]);
+
+  const fetchOrders = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      let result;
+      if (selectedStatus === "all") {
+        result = await getAllOrders();
+      } else {
+        result = await getOrdersByStatus(selectedStatus);
+      }
+      setOrders(result.data || []);
+    } catch (err) {
+      setError(err.message || "Không thể tải đơn hàng");
+      console.error("Error fetching orders:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchStats = async () => {
+    try {
+      const result = await getOrderStats();
+      setStats(result.data);
+    } catch (err) {
+      console.error("Error fetching stats:", err);
+    }
+  };
+
+  const handleCancelOrder = async (orderId) => {
+    if (!window.confirm("Bạn có chắc chắn muốn hủy đơn hàng này?")) {
+      return;
+    }
+
+    try {
+      setCancellingOrder(orderId);
+      await cancelOrder(orderId);
+      await fetchOrders();
+      await fetchStats();
+      alert("Đơn hàng đã được hủy thành công");
+    } catch (err) {
+      alert(err.message || "Không thể hủy đơn hàng");
+    } finally {
+      setCancellingOrder(null);
+    }
+  };
+
+  const getStatusIcon = (status) => {
+    switch (status) {
       case "delivered":
         return <CheckCircle className="w-5 h-5 text-green-600" />;
       case "shipping":
         return <Truck className="w-5 h-5 text-blue-600" />;
       case "confirmed":
         return <Package className="w-5 h-5 text-purple-600" />;
+      case "cancelled":
+        return <XCircle className="w-5 h-5 text-red-600" />;
       default:
         return <Clock className="w-5 h-5 text-orange-600" />;
     }
@@ -180,6 +101,8 @@ const OrderHistory = () => {
         return "bg-blue-100 text-blue-800";
       case "confirmed":
         return "bg-purple-100 text-purple-800";
+      case "cancelled":
+        return "bg-red-100 text-red-800";
       default:
         return "bg-orange-100 text-orange-800";
     }
@@ -199,17 +122,24 @@ const OrderHistory = () => {
     }));
   };
 
-  const filteredOrders =
-    selectedStatus === "all"
-      ? orders
-      : orders.filter((order) => order.status === selectedStatus);
+  const canCancelOrder = (status) => {
+    return ["pending", "confirmed"].includes(status);
+  };
+
+  if (loading && !orders.length) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-gray-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
         {/* Title & Filter */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold">LỊCH SỬ ĐƠN HÀNG</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">LỊCH SỬ ĐơN HÀNG</h2>
 
           <div className="flex items-center gap-2">
             <select
@@ -222,39 +152,55 @@ const OrderHistory = () => {
               <option value="confirmed">Đã xác nhận</option>
               <option value="shipping">Đang vận chuyển</option>
               <option value="delivered">Đã giao</option>
+              <option value="cancelled">Đã hủy</option>
             </select>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-            <p className="text-2xl font-bold">{orders.length}</p>
-            <p className="text-sm text-gray-600">Tổng đơn hàng</p>
+        {stats && (
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+            <div className="bg-white p-4 rounded-lg shadow-sm text-center">
+              <p className="text-2xl font-bold">{stats.total}</p>
+              <p className="text-sm text-gray-600">Tổng đơn hàng</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm text-center">
+              <p className="text-2xl font-bold text-orange-600">
+                {stats.pending}
+              </p>
+              <p className="text-sm text-gray-600">Chờ xử lý</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm text-center">
+              <p className="text-2xl font-bold text-blue-600">
+                {stats.shipping}
+              </p>
+              <p className="text-sm text-gray-600">Đang vận chuyển</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm text-center">
+              <p className="text-2xl font-bold text-green-600">
+                {stats.delivered}
+              </p>
+              <p className="text-sm text-gray-600">Đã giao</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm text-center">
+              <p className="text-2xl font-bold text-red-600">
+                {stats.cancelled}
+              </p>
+              <p className="text-sm text-gray-600">Đã hủy</p>
+            </div>
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-            <p className="text-2xl font-bold text-orange-600">
-              {orders.filter((o) => o.status === "pending").length}
-            </p>
-            <p className="text-sm text-gray-600">Chờ xử lý</p>
+        )}
+
+        {/* Error Message */}
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {error}
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-            <p className="text-2xl font-bold text-blue-600">
-              {orders.filter((o) => o.status === "shipping").length}
-            </p>
-            <p className="text-sm text-gray-600">Đang vận chuyển</p>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-            <p className="text-2xl font-bold text-green-600">
-              {orders.filter((o) => o.status === "delivered").length}
-            </p>
-            <p className="text-sm text-gray-600">Đã giao</p>
-          </div>
-        </div>
+        )}
 
         {/* Orders List */}
         <div className="space-y-4">
-          {filteredOrders.length === 0 ? (
+          {orders.length === 0 ? (
             <div className="bg-white rounded-lg shadow-sm p-12 text-center">
               <Package className="w-16 h-16 mx-auto mb-4 text-gray-400" />
               <p className="text-xl font-semibold text-gray-600">
@@ -262,7 +208,7 @@ const OrderHistory = () => {
               </p>
             </div>
           ) : (
-            filteredOrders.map((order) => (
+            orders.map((order) => (
               <div
                 key={order.id}
                 className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
@@ -294,14 +240,24 @@ const OrderHistory = () => {
                             </span>
                           </p>
                         )}
-                        {order.estimatedDelivery && !order.deliveryDate && (
+                        {order.cancelledDate && (
                           <p>
-                            Dự kiến giao:{" "}
+                            Đã hủy:{" "}
                             <span className="font-semibold">
-                              {order.estimatedDelivery}
+                              {order.cancelledDate}
                             </span>
                           </p>
                         )}
+                        {order.estimatedDelivery &&
+                          !order.deliveryDate &&
+                          !order.cancelledDate && (
+                            <p>
+                              Dự kiến giao:{" "}
+                              <span className="font-semibold">
+                                {order.estimatedDelivery}
+                              </span>
+                            </p>
+                          )}
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -346,8 +302,16 @@ const OrderHistory = () => {
                               key={idx}
                               className="flex gap-4 items-start py-3 border-b last:border-b-0"
                             >
-                              <div className="w-16 h-16 bg-gray-100 rounded flex items-center justify-center text-2xl flex-shrink-0">
-                                👟
+                              <div className="w-16 h-16 bg-gray-100 rounded flex items-center justify-center flex-shrink-0">
+                                {product.image ? (
+                                  <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="w-full h-full object-cover rounded"
+                                  />
+                                ) : (
+                                  <span className="text-2xl">👟</span>
+                                )}
                               </div>
                               <div className="flex-1">
                                 <p className="font-semibold mb-1">
@@ -369,55 +333,24 @@ const OrderHistory = () => {
                         </div>
                       </div>
 
-                      {/* Status History */}
-                      <div>
-                        <h4 className="font-bold mb-4 uppercase text-sm">
-                          Lịch sử trạng thái
-                        </h4>
-                        <div className="overflow-x-auto">
-                          <table className="w-full">
-                            <thead>
-                              <tr className="border-b-2 border-gray-200">
-                                <th className="text-left py-3 px-2 font-bold text-xs uppercase">
-                                  Trạng thái
-                                </th>
-                                <th className="text-left py-3 px-2 font-bold text-xs uppercase">
-                                  Thời gian
-                                </th>
-                                <th className="text-left py-3 px-2 font-bold text-xs uppercase hidden md:table-cell">
-                                  Mô tả
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {order.statusHistory.map((history, idx) => (
-                                <tr
-                                  key={idx}
-                                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
-                                >
-                                  <td className="py-3 px-2">
-                                    <div className="flex items-center gap-2">
-                                      {getStatusIcon(history.icon)}
-                                      <span className="font-medium text-sm">
-                                        {history.status}
-                                      </span>
-                                    </div>
-                                  </td>
-                                  <td className="py-3 px-2 text-gray-600 text-sm">
-                                    {history.timestamp}
-                                  </td>
-                                  <td className="py-3 px-2 text-gray-600 text-sm hidden md:table-cell">
-                                    {history.description}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-
                       {/* Actions */}
                       <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                        {canCancelOrder(order.status) && (
+                          <button
+                            onClick={() => handleCancelOrder(order.id)}
+                            disabled={cancellingOrder === order.id}
+                            className="flex-1 bg-red-600 text-white px-6 py-3 rounded font-bold hover:bg-red-700 transition-colors uppercase text-sm disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                          >
+                            {cancellingOrder === order.id ? (
+                              <>
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                                Đang hủy...
+                              </>
+                            ) : (
+                              "Hủy đơn hàng"
+                            )}
+                          </button>
+                        )}
                         <button className="flex-1 bg-black text-white px-6 py-3 rounded font-bold hover:bg-gray-800 transition-colors uppercase text-sm">
                           Mua lại
                         </button>

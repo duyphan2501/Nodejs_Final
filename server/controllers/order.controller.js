@@ -7,6 +7,7 @@ import {
 import { removeCartItem } from "../services/cart.service.js";
 import dotenv from "dotenv";
 import { payOS } from "../config/payos.init.js";
+import OrderService from "../services/order.service.js";
 import OrderModel from "../models/order.model.js";
 
 dotenv.config({ quiet: true });
@@ -227,3 +228,152 @@ export {
   deleteOrder,
   getOrderById,
 };
+
+class OrderController {
+  // GET /api/orders - Lấy tất cả đơn hàng của user
+  async getAllOrders(req, res) {
+    try {
+      const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
+      const orders = await OrderService.getUserOrders(userId);
+      const formattedOrders = orders.map((order) =>
+        OrderService.formatOrderForFrontend(order)
+      );
+      res.status(200).json({
+        success: true,
+        data: formattedOrders,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+
+  // GET /api/orders/active - Lấy đơn hàng đang xử lý
+  async getActiveOrders(req, res) {
+    try {
+      const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
+      const orders = await OrderService.getActiveOrders(userId);
+      const formattedOrders = orders.map((order) =>
+        OrderService.formatOrderForFrontend(order)
+      );
+      res.status(200).json({
+        success: true,
+        data: formattedOrders,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+
+  // GET /api/orders/:orderId - Lấy chi tiết đơn hàng
+  async getOrderById(req, res) {
+    try {
+      const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
+      const { orderId } = req.params;
+      const order = await OrderService.getOrderById(orderId, userId);
+      const formattedOrder = OrderService.formatOrderForFrontend(order);
+      res.status(200).json({
+        success: true,
+        data: formattedOrder,
+      });
+    } catch (error) {
+      res.status(404).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+  async cancelOrder(req, res) {
+    try {
+      const userId = req.user.userId; // Lấy userId từ JWT
+      const { orderId } = req.params;
+
+      const cancelledOrder = await OrderService.cancelOrder(orderId, userId);
+      const formattedOrder =
+        OrderService.formatOrderForFrontend(cancelledOrder);
+
+      res.status(200).json({
+        success: true,
+        message: "Đơn hàng đã được hủy thành công",
+        data: formattedOrder,
+      });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+  // GET /api/orders/status/:status - Lọc đơn hàng theo trạng thái
+  async getOrdersByStatus(req, res) {
+    try {
+      const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
+      const { status } = req.params;
+
+      const validStatuses = ["pending", "confirmed", "shipping", "delivered"];
+      if (!validStatuses.includes(status)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid status",
+        });
+      }
+
+      const orders = await OrderService.getOrdersByStatus(userId, status);
+      const formattedOrders = orders.map((order) =>
+        OrderService.formatOrderForFrontend(order)
+      );
+      res.status(200).json({
+        success: true,
+        data: formattedOrders,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+
+  // GET /api/orders/stats - Lấy thống kê đơn hàng
+  async getOrderStats(req, res) {
+    try {
+      const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
+      const stats = await OrderService.getOrderStats(userId);
+      res.status(200).json({
+        success: true,
+        data: stats,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+
+  // POST /api/orders/fake-delivery/:orderId - FAKE API để test chuyển trạng thái
+  async fakeDeliveryUpdate(req, res) {
+    try {
+      const { orderId } = req.params;
+      const updatedOrder = await OrderService.updateOrderStatus(orderId);
+      const formattedOrder = OrderService.formatOrderForFrontend(updatedOrder);
+      res.status(200).json({
+        success: true,
+        message: `Order status updated to ${updatedOrder.status}`,
+        data: formattedOrder,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+}
+
+export default new OrderController();

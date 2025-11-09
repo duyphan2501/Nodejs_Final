@@ -2,6 +2,8 @@ import createHttpError from "http-errors";
 import {
   addOneProduct,
   deleteManyProduct,
+  fetchProducts,
+  getAllBrandNames,
   getAllProductWithVariantStock,
   getProductBySlug,
   getProductQuantity,
@@ -197,11 +199,67 @@ const getProductStats = async (req, res, next) => {
   }
 };
 
+const fetchProductsController = async (req, res, next) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const sortOption = req.query.sort || "createdAt_desc";
+
+    const categoryIds = Array.isArray(req.query.categoryId)
+      ? req.query.categoryId
+      : req.query.categoryId
+      ? [req.query.categoryId]
+      : [];
+
+    const brands = Array.isArray(req.query.brand)
+      ? req.query.brand
+      : req.query.brand
+      ? [req.query.brand]
+      : [];
+
+    const filterParams = {
+      categoryId: categoryIds,
+      brand: brands,
+      minPrice: req.query.minPrice,
+      maxPrice: req.query.maxPrice,
+    };
+
+    const { totalPages, products } = await fetchProducts(
+      page,
+      limit,
+      sortOption,
+      filterParams
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Lấy dữ liệu thành công",
+      totalPages,
+      products,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAllBrands = async (req, res, next) => {
+  try {
+    const brands = await getAllBrandNames();
+    return res.status(200).json({
+      brands,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   addProduct,
   getProduct,
   deleteProduct,
-  updateProduct,
   getProductBySlugController,
+  updateProduct,
+  fetchProductsController,
+  getAllBrands,
   getProductStats,
 };

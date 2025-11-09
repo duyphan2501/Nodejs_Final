@@ -9,6 +9,7 @@ import VariantImageHover from "../VariantImageHover/index.jsx";
 import AttributeMenu from "../AttributeMenu/index.jsx";
 
 const ProductItem = ({ product, addCart }) => {
+  if (!product) return;
   const { setSelectedProduct } = useContext(MyContext);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [selectedAttr, setSelectedAttr] = useState(
@@ -58,18 +59,20 @@ const ProductItem = ({ product, addCart }) => {
   return (
     <div className="w-full mx-auto group flex flex-col flex-1 h-full relative ">
       <div className="relative h-[450px] sm:h-[400px] lg:h-[300px] overflow-hidden">
-        <img
-          src={selectedVariant.images?.[0]}
-          alt={product?.name}
-          className="w-full h-full object-cover"
-        />
-        {selectedVariant.images?.[1] && (
+        <a href={`/product/${product.slug}`}>
           <img
-            src={selectedVariant.images?.[1]}
+            src={selectedVariant.images?.[0]}
             alt={product?.name}
-            className="w-full h-full object-cover absolute opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all z-10 inset-0 duration-200"
+            className="w-full h-full object-cover"
           />
-        )}
+          {selectedVariant.images?.[1] && (
+            <img
+              src={selectedVariant.images?.[1]}
+              alt={product?.name}
+              className="w-full h-full object-cover absolute opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all z-10 inset-0 duration-200"
+            />
+          )}
+        </a>
         <div className="bg-primary px-2 absolute top-2 left-2 z-20 title">
           Hàng mới
         </div>
@@ -101,8 +104,8 @@ const ProductItem = ({ product, addCart }) => {
       <div className="flex flex-col justify-between flex-1">
         <div className="p-2">
           <p className="line-clamp-1 font-semibold ">{product?.name}</p>
-          <p className="text-sm text-gray-600">{product?.category}</p>
-          <p className="text-[13px]">{product?.variants.length} Colours</p>
+          <p className="text-sm text-gray-600">{product?.brand}</p>
+          <p className="text-[13px]">{selectedVariant.color}</p>
           <div className="flex justify-between items-center">
             <div>
               {discount === 0 ? (

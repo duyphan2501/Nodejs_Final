@@ -1,35 +1,38 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Slider from "@mui/material/Slider";
 import CollapseButton from "../CollapseButton";
 import { formatMoney } from "../../utils/formatMoney";
-const categories = [
-  "Điện mặt trời",
-  "Thiết bị điện",
-  "Thiết bị điện tử",
-  "Thiết bị gia dụng",
-  "Phụ kiện điện tử",
-  "Đèn chiếu sáng",
-];
+import useProductStore from "../../store/useProductStore";
+import useCategoryStore from "../../store/useCategoryStore";
+import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import CategoryItem from "../CategoryItem";
 
-const brandNames = [
-  "Deye",
-  "Solis",
-  "Growatt",
-  "Victron Energy",
-  "SMA",
-  "Huawei",
-  "Sungrow",
-  "Fronius",
-];
 
-const Sidebar = () => {
-  const [openCategory, setOpenCategory] = useState(true);
-  const [openBrandName, setOpenBrandName] = useState(true);
+const Sidebar = ({filter, handleChangeFilter}) => {
+  const { getAllBrands } = useProductStore();
+  const { getListCategories } = useCategoryStore();
+  const [brandNames, setBrandNames] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  const [value, setValue] = useState([10000, 5000000]);
-
+  const [value, setValue] = useState([filter.minPrice, filter.maxPrice]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    handleChangeFilter("minPrice", newValue[0])
+    handleChangeFilter("maxPrice", newValue[1])
+  };
+
+  const handleCheckBoxChange = (event, field, value) => {
+      const isChecked = event.target.checked;
+      const current = filter[field] || []; 
+  
+      let updated;
+      if (isChecked) {
+          updated = [...current, value]; 
+      } else {
+          updated = current.filter(id => id !== value); 
+      }
+      
+      handleChangeFilter(field, updated);
   };
 
   const sliderSx = useMemo(
@@ -52,21 +55,56 @@ const Sidebar = () => {
     []
   );
 
+  const fetchData = async () => {
+    const [categoriesList, brands] = await Promise.allSettled([
+      getListCategories(),
+      getAllBrands(),
+    ]);
+    setCategories(categoriesList.value);
+    setBrandNames(brands.value);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="">
       <div className="sidebar flex lg:flex-col justify-center lg:gap-2 gap-5 lg:sticky">
-        <CollapseButton
-          array={categories}
-          title={"danh mục"}
-          open={openCategory}
-          setOpen={setOpenCategory}
-        />
-        <CollapseButton
-          array={brandNames}
-          title={"Thương hiệu"}
-          open={openBrandName}
-          setOpen={setOpenBrandName}
-        />
+        <CollapseButton title={"Danh mục"}>
+          <FormGroup>
+            {/* Duyệt qua các danh mục cấp cha (parent level) */}
+            {categories.map((category) => (
+              <CategoryItem key={category._id} category={category} handleChange={handleCheckBoxChange}/>
+            ))}
+          </FormGroup>
+        </CollapseButton>
+        <CollapseButton title={"Thương hiệu"}>
+          <FormGroup>
+            {brandNames.map((item) => {
+              return (
+                <FormControlLabel
+                  key={item}
+                  control={
+                    <Checkbox
+                      onChange={e => handleCheckBoxChange(e, "brand", item)}
+                      sx={{
+                        color: "black", // màu viền khi chưa chọn
+                        "&.Mui-checked": {
+                          color: "black", // màu tick khi được chọn
+                        },
+                        "&:hover": {
+                          backgroundColor: "rgba(0, 43, 91, 0.08)", // hiệu ứng hover nhẹ
+                        },
+                      }}
+                    />
+                  }
+                  label={item}
+                />
+              );
+            })}
+          </FormGroup>
+        </CollapseButton>
       </div>
       <div className="">
         <h4 className="font-semibold font-sans text-xl text-gray-800 title px-2">
@@ -76,8 +114,8 @@ const Sidebar = () => {
           <Slider
             value={value}
             onChange={handleChange}
-            min={10000}
-            max={5000000}
+            min={0}
+            max={10000000}
             step={10000}
             sx={sliderSx}
           />
@@ -91,7 +129,7 @@ const Sidebar = () => {
             </div>
             <div className="text-sm ml-auto">
               Đến
-              <span className="text-black font-semibold">
+              <span className="text-black font-semibold money">
                 {" "}
                 {formatMoney(value[1])}
               </span>

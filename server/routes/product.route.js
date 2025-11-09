@@ -2,6 +2,8 @@ import express from "express";
 import {
   addProduct,
   deleteProduct,
+  fetchProductsController,
+  getAllBrands,
   getProduct,
   getProductBySlugController,
   getProductStats,
@@ -32,7 +34,9 @@ productRouter.put(
 );
 productRouter.get("/", getProduct);
 productRouter.delete("/delete", deleteProduct);
-productRouter.get("/:slug", getProductBySlugController);
+productRouter.get("/fetch", fetchProductsController);
+productRouter.get("/brands", getAllBrands); 
+productRouter.get("/:slug", getProductBySlugController); 
 
 //Route thống kê
 

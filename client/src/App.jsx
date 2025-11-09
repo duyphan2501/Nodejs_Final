@@ -30,14 +30,18 @@ import AddressForm from "./components/Address/AddressForm";
 import ProductDetail from "./pages/Products/ProductDetail";
 
 function App() {
-  const { isOpenAccountMenu, setIsOpenAccountMenu, selectedProduct, isOpenAddressForm } =
-    useContext(MyContext);
+  const {
+    isOpenAccountMenu,
+    setIsOpenAccountMenu,
+    selectedProduct,
+    isOpenAddressForm,
+  } = useContext(MyContext);
 
   const axiosPrivate = useAxiosPrivate();
 
   const user = useUserStore((state) => state.user);
   const getCart = useCartStore((state) => state.getCart);
-  const getAllAddresses = useAddressStore(state => state.getAllAddresses)
+  const getAllAddresses = useAddressStore((state) => state.getAllAddresses);
 
   useEffect(() => {
     getCart(user?._id);
@@ -85,7 +89,8 @@ function App() {
             <Route path="cart" element={<Cart />} />
             <Route path="my-account" element={<MyAccount />} />
             <Route path="order-history" element={<OrderHistory />} />
-            <Route path="order/ORD-2024-002" element={<OrderTracking />} />
+
+            <Route path="/api/order/:orderId" element={<OrderTracking />} />
             <Route path="order" element={<OrderList />} />
             <Route path="addresses" element={<Address />} />
             <Route path="cart" element={<Cart />} />

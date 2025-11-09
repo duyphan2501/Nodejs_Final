@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import {  useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useCartStore from "../../../../store/useCartStore";
 import { FaRegTrashAlt } from "react-icons/fa";

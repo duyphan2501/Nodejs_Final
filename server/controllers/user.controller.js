@@ -18,6 +18,7 @@ import {
 } from "../helpers/jwt.helper.js";
 import { verifyToken } from "../helpers/googleAuth.helper.js";
 import { mergeCart } from "../services/cart.service.js";
+import UserService from "../services/user.service.js";
 
 const signUp = async (req, res, next) => {
   try {
@@ -480,3 +481,204 @@ export {
   sendVerificationEmail,
   updatePersonalInfo,
 };
+
+class UserController {
+  // GET /api/users - Lấy danh sách users
+  async getUsers(req, res) {
+    try {
+      const result = await UserService.getUsers(req.query);
+
+      return res.status(200).json({
+        success: true,
+        message: "Lấy danh sách người dùng thành công",
+        data: result.users,
+        pagination: result.pagination,
+      });
+    } catch (error) {
+      console.error("Error in getUsers:", error);
+      return res.status(500).json({
+        success: false,
+        message: error.message || "Lỗi khi lấy danh sách người dùng",
+      });
+    }
+  }
+
+  // GET /api/users/:id - Lấy thông tin chi tiết user
+  async getUserById(req, res) {
+    try {
+      const { id } = req.params;
+      const user = await UserService.getUserById(id);
+
+      return res.status(200).json({
+        success: true,
+        message: "Lấy thông tin người dùng thành công",
+        data: user,
+      });
+    } catch (error) {
+      console.error("Error in getUserById:", error);
+      return res.status(404).json({
+        success: false,
+        message: error.message || "Không tìm thấy người dùng",
+      });
+    }
+  }
+
+  // POST /api/users - Tạo user mới
+  async createUser(req, res) {
+    try {
+      const newUser = await UserService.createUser(req.body);
+
+      return res.status(201).json({
+        success: true,
+        message: "Tạo người dùng thành công",
+        data: newUser,
+      });
+    } catch (error) {
+      console.error("Error in createUser:", error);
+      return res.status(400).json({
+        success: false,
+        message: error.message || "Lỗi khi tạo người dùng",
+      });
+    }
+  }
+
+  // PUT /api/users/:id - Cập nhật thông tin user
+  async updateUser(req, res) {
+    try {
+      const { id } = req.params;
+      const updatedUser = await UserService.updateUser(id, req.body);
+
+      return res.status(200).json({
+        success: true,
+        message: "Cập nhật người dùng thành công",
+        data: updatedUser,
+      });
+    } catch (error) {
+      console.error("Error in updateUser:", error);
+      return res.status(400).json({
+        success: false,
+        message: error.message || "Lỗi khi cập nhật người dùng",
+      });
+    }
+  }
+
+  // PATCH /api/users/bulk-update-status - Cập nhật status nhiều users
+  async bulkUpdateStatus(req, res) {
+    try {
+      const { userIds, status } = req.body;
+
+      if (!userIds || !Array.isArray(userIds) || userIds.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Danh sách user IDs không hợp lệ",
+        });
+      }
+
+      if (!status) {
+        return res.status(400).json({
+          success: false,
+          message: "Vui lòng cung cấp trạng thái",
+        });
+      }
+
+      const result = await UserService.bulkUpdateStatus(userIds, status);
+
+      return res.status(200).json({
+        success: true,
+        message: result.message,
+        data: result,
+      });
+    } catch (error) {
+      console.error("Error in bulkUpdateStatus:", error);
+      return res.status(400).json({
+        success: false,
+        message: error.message || "Lỗi khi cập nhật trạng thái",
+      });
+    }
+  }
+
+  // GET /api/users/:id/addresses - Lấy danh sách địa chỉ của user
+  async getUserAddresses(req, res) {
+    try {
+      const { id } = req.params;
+      const addresses = await UserService.getUserAddresses(id);
+
+      return res.status(200).json({
+        success: true,
+        message: "Lấy danh sách địa chỉ thành công",
+        data: addresses,
+      });
+    } catch (error) {
+      console.error("Error in getUserAddresses:", error);
+      return res.status(500).json({
+        success: false,
+        message: error.message || "Lỗi khi lấy danh sách địa chỉ",
+      });
+    }
+  }
+
+  // POST /api/users/:id/addresses - Thêm địa chỉ cho user
+  async addAddress(req, res) {
+    try {
+      const { id } = req.params;
+      const newAddress = await UserService.addAddress(id, req.body);
+
+      return res.status(201).json({
+        success: true,
+        message: "Thêm địa chỉ thành công",
+        data: newAddress,
+      });
+    } catch (error) {
+      console.error("Error in addAddress:", error);
+      return res.status(400).json({
+        success: false,
+        message: error.message || "Lỗi khi thêm địa chỉ",
+      });
+    }
+  }
+
+  // PUT /api/users/:id/addresses/:addressId - Cập nhật địa chỉ
+  async updateAddress(req, res) {
+    try {
+      const { id, addressId } = req.params;
+      const updatedAddress = await UserService.updateAddress(
+        addressId,
+        id,
+        req.body
+      );
+
+      return res.status(200).json({
+        success: true,
+        message: "Cập nhật địa chỉ thành công",
+        data: updatedAddress,
+      });
+    } catch (error) {
+      console.error("Error in updateAddress:", error);
+      return res.status(400).json({
+        success: false,
+        message: error.message || "Lỗi khi cập nhật địa chỉ",
+      });
+    }
+  }
+
+  // DELETE /api/users/:id/addresses/:addressId - Xóa địa chỉ
+  async deleteAddress(req, res) {
+    try {
+      const { id, addressId } = req.params;
+      const result = await UserService.deleteAddress(addressId, id);
+
+      return res.status(200).json({
+        success: true,
+        message: result.message,
+      });
+    } catch (error) {
+      console.error("Error in deleteAddress:", error);
+      return res.status(400).json({
+        success: false,
+        message: error.message || "Lỗi khi xóa địa chỉ",
+      });
+    }
+  }
+}
+
+export default new UserController();

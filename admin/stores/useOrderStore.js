@@ -10,7 +10,7 @@ const useOrderStore = create((set, get) => ({
 
   getOrders: async () => {
     try {
-      const res = await axiosPrivate.get("/api/order/");
+      const res = await axiosPrivate.get("/api/order/all/");
 
       set(() => ({
         orders: res.data.result,
@@ -24,7 +24,7 @@ const useOrderStore = create((set, get) => ({
 
   getOrderById: async (_id) => {
     try {
-      const res = await axiosPrivate.get(`/api/order/${_id}`);
+      const res = await axiosPrivate.get(`/api/order/all/${_id}`);
 
       set(() => ({
         orderDetail: res.data.result,
@@ -38,7 +38,7 @@ const useOrderStore = create((set, get) => ({
 
   updateOrderStatus: async (_id, status) => {
     try {
-      const res = await axiosPrivate.put(`/api/order/${_id}`, {
+      const res = await axiosPrivate.put(`/api/order/all/${_id}`, {
         status,
       });
 

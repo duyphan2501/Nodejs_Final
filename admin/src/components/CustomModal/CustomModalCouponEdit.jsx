@@ -264,14 +264,7 @@ export default function CustomModalCouponEdit() {
                     value={editedCoupon.startDate}
                     handleChangeInput={handleChangeInput}
                   />
-                  <CustomInput
-                    type="date"
-                    id="endDate"
-                    label="Ngày kết thúc"
-                    name="endDate"
-                    value={editedCoupon.endDate}
-                    handleChangeInput={handleChangeInput}
-                  />
+
                   <CustomInput
                     type="number"
                     id="minOrderValue"

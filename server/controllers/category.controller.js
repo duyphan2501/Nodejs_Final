@@ -1,11 +1,11 @@
 import createHttpError from "http-errors";
-import CategoryModel from "../models/category.model.js";
 import {
   getCategorydByName,
   getChildByObjectID,
   deleteManyCategoryByID,
   editNameCategoryByID,
   addOneCategory,
+  getListOfCategories,
 } from "../services/category.service.js";
 
 const getShoeCategory = async (req, res, next) => {
@@ -140,6 +140,17 @@ const addCategory = async (req, res, next) => {
   }
 };
 
+const getListCategories = async (req, res, next) => {
+  try {
+    const categories = (await getListOfCategories()) || [];
+    res.status(200).json({
+      categories,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   getShoeCategory,
   getSandalCategory,
@@ -147,4 +158,5 @@ export {
   deleteCategory,
   editCategory,
   addCategory,
+  getListCategories,
 };
