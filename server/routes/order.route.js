@@ -20,22 +20,12 @@ orderRouter.delete("/delete", checkAuth, deleteOrder);
 orderRouter.post("/create", createOrder);
 orderRouter.post("/webhook/payos", verifyWebhookData);
 
-// GET /api/orders - Lấy tất cả đơn hàng
+orderRouter.use(checkAuth);
 orderRouter.get("/", OrderController.getAllOrders);
-
-// GET /api/orders/active - Lấy đơn hàng đang xử lý
 orderRouter.get("/active", OrderController.getActiveOrders);
-
-// GET /api/orders/stats - Lấy thống kê đơn hàng
 orderRouter.get("/stats", OrderController.getOrderStats);
-
-// GET /api/orders/status/:status - Lọc đơn hàng theo trạng thái
 orderRouter.get("/status/:status", OrderController.getOrdersByStatus);
-
-// GET /api/orders/:orderId - Lấy chi tiết đơn hàng
 orderRouter.get("/:orderId", OrderController.getOrderById);
-
-// POST /api/orders/fake-delivery/:orderId - FAKE API test chuyển trạng thái
 orderRouter.post("/fake-delivery/:orderId", OrderController.fakeDeliveryUpdate);
 orderRouter.post(
   "/:orderId/cancel",
