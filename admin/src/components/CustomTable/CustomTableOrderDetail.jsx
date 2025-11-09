@@ -1,6 +1,10 @@
-import React from "react";
+import { useEffect, useMemo } from "react";
+import useOrderStore from "../../../stores/useOrderStore";
 
 export default function CustomTableOrderDetail() {
+  const orderDetailList = useOrderStore((s) => s.orderDetailList);
+  const orderDetail = useOrderStore((s) => s.orderDetail);
+
   const columns = [
     { id: "detail", label: "Chi Tiết", minWidth: 160 },
     { id: "price", label: "Giá", minWidth: 100 },
@@ -8,48 +12,16 @@ export default function CustomTableOrderDetail() {
     { id: "subtotal", label: "Tổng Đơn", minWidth: 100 },
   ];
 
-  const rows = [
+  const rows = orderDetailList.map((item) =>
     createData(
-      "Giày mẫu 1",
-      "42",
-      "Trắng",
-      "https://m.media-amazon.com/images/I/61BeLM4rxXL._SL1500_.jpg",
-      650000,
-      1
-    ),
-    createData(
-      "Giày mẫu 2",
-      "41",
-      "Đen",
-      "https://m.media-amazon.com/images/I/61BeLM4rxXL._SL1500_.jpg",
-      620000,
-      2
-    ),
-    createData(
-      "Giày mẫu 3",
-      "40",
-      "Xám",
-      "https://m.media-amazon.com/images/I/61BeLM4rxXL._SL1500_.jpg",
-      600000,
-      1
-    ),
-    createData(
-      "Giày mẫu 4",
-      "43",
-      "Trắng/Xanh",
-      "https://m.media-amazon.com/images/I/61BeLM4rxXL._SL1500_.jpg",
-      670000,
-      1
-    ),
-    createData(
-      "Giày mẫu 5",
-      "44",
-      "Đỏ",
-      "https://m.media-amazon.com/images/I/61BeLM4rxXL._SL1500_.jpg",
-      700000,
-      3
-    ),
-  ];
+      item.name,
+      item.size,
+      item.color,
+      item.image,
+      item.price,
+      item.quantity
+    )
+  );
 
   return (
     <>
@@ -105,25 +77,39 @@ export default function CustomTableOrderDetail() {
             <td className="p-2 text-lg text-gray-500" colSpan={3}>
               Phí ship
             </td>
-            <td className="p-2 text-lg font-semibold">30.000đ</td>
+            <td className="p-2 text-lg font-semibold">- 0đ</td>
           </tr>
           <tr>
             <td className="p-2 text-lg text-gray-500" colSpan={3}>
-              Coupon: FREESHIP
+              Discount gốc:
             </td>
-            <td className="p-2 text-lg font-semibold">-27.000đ</td>
+            <td className="p-2 text-lg font-semibold">
+              - {orderDetail?.itemsDiscounted?.toLocaleString() || 0}đ
+            </td>
           </tr>
           <tr>
             <td className="p-2 text-lg text-gray-500" colSpan={3}>
-              Điểm thưởng
+              Coupon: {orderDetail?.coupon?.code}
             </td>
-            <td className="p-2 text-lg font-semibold">-20.000đ</td>
+            <td className="p-2 text-lg font-semibold">
+              - {orderDetail?.coupon?.amountReduced}đ
+            </td>
+          </tr>
+          <tr>
+            <td className="p-2 text-lg text-gray-500" colSpan={3}>
+              Điểm thưởng: {orderDetail?.usedPoint?.point}
+            </td>
+            <td className="p-2 text-lg font-semibold">
+              - {orderDetail?.usedPoint?.amountReduced}đ
+            </td>
           </tr>
           <tr>
             <td className="p-2 text-xl font-bold" colSpan={3}>
               Thành Tiền
             </td>
-            <td className="p-2 text-xl font-bold">5.183.000đ</td>
+            <td className="p-2 text-xl font-bold">
+              {orderDetail?.orderAmount?.toLocaleString()}đ
+            </td>
           </tr>
         </tbody>
       </table>

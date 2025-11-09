@@ -1,8 +1,13 @@
 import createHttpError from "http-errors";
-import { createNewOrder } from "../services/order.service.js";
+import {
+  createNewOrder,
+  deleteManyOrder,
+  getAllOrder,
+} from "../services/order.service.js";
 import { removeCartItem } from "../services/cart.service.js";
 import dotenv from "dotenv";
 import { payOS } from "../config/payos.init.js";
+import OrderModel from "../models/order.model.js";
 
 dotenv.config({ quiet: true });
 const BACKEND_URL = process.env.BACKEND_URL;
@@ -19,7 +24,7 @@ const createOrder = async (req, res, next) => {
       usedPoint,
       orderAmount,
       itemsDiscounted,
-      userId
+      userId,
     } = req.body;
 
     // 1. Xác thực dữ liệu đầu vào chi tiết hơn
@@ -130,4 +135,95 @@ const verifyWebhookData = async (req, res, next) => {
   }
 };
 
-export { createOrder, verifyWebhookData };
+const getOrders = async (req, res, next) => {
+  try {
+    const result = await getAllOrder();
+
+    return res.status(200).json({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateOrderStatus = async (req, res, next) => {
+  try {
+    const _id = req.params._id;
+    const status = req.body.status;
+
+    if (!_id || !status) {
+      throw createHttpError.BadRequest("Thiếu thông tin");
+    }
+
+    const order = await OrderModel.find({ _id });
+
+    if (!order) {
+      throw createHttpError.NotFound("Không tìm thấy đơn hàng");
+    }
+
+    const result = await OrderModel.updateOne(
+      { _id: req.params._id },
+      { status: req.body.status }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Cập nhật trạng thái thành công",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteOrder = async (req, res, next) => {
+  try {
+    const _ids = req.body._ids;
+
+    if (!_ids) {
+      throw createHttpError.BadRequest("Không tồn tại id này");
+    }
+
+    const result = await deleteManyOrder(_ids);
+
+    return res.status(200).json({
+      success: true,
+      message: `Đã xóa thành công ${result.deletedCount} đơn hàng!`,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOrderById = async (req, res, next) => {
+  try {
+    const _id = req.params._id;
+
+    if (!_id) {
+      throw createHttpError.BadRequest("Thiếu _id truy vấn");
+    }
+
+    const result = await OrderModel.findById(_id);
+
+    if (!result) {
+      throw createHttpError.NotFound("Không tồn tại đơn hàng này");
+    }
+
+    return res.status(200).json({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export {
+  createOrder,
+  verifyWebhookData,
+  getOrders,
+  updateOrderStatus,
+  deleteOrder,
+  getOrderById,
+};

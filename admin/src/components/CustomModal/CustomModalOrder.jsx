@@ -4,12 +4,48 @@ import CustomTable from "../CustomTable";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
 import { useTableControl } from "../TableControl/TableControllerContext";
+import { useEffect, useState } from "react";
+import useOrderStore from "../../../stores/useOrderStore";
+import BiLoader from "../BiLoader";
 
 export default function CustomModalOrder() {
   const { selectedDetail, setSelectedDetail } = useTableControl();
+  const getOrderById = useOrderStore((s) => s.getOrderById);
+  const orderDetail = useOrderStore((s) => s.orderDetail);
+  const setOrderDetail = useOrderStore((s) => s.setOrderDetail);
+  const setOrderDetailList = useOrderStore((s) => s.setOrderDetailList);
+  const orders = useOrderStore((s) => s.orders);
+  const [search, setSearch] = useState("");
+
+  const handleChange = (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearch(value);
+
+    if (!orderDetail?.items) return;
+
+    const orderSearched = orderDetail.items.filter((item) =>
+      item.name.toLowerCase().includes(value)
+    );
+    setOrderDetailList(orderSearched);
+  };
+
+  useEffect(() => {
+    if (!selectedDetail) {
+      return;
+    }
+
+    getOrderById(selectedDetail);
+  }, [selectedDetail]);
+
   return (
     <>
-      <Modal open={selectedDetail} onClose={() => setSelectedDetail(false)}>
+      <Modal
+        open={selectedDetail}
+        onClose={() => {
+          setSelectedDetail(null);
+          setOrderDetail({});
+        }}
+      >
         <div
           style={{
             position: "absolute",
@@ -38,22 +74,16 @@ export default function CustomModalOrder() {
           <h1 className="text-2xl font-bold capitalize">Đơn hàng #1001</h1>
           <p>Tổng quan</p>
 
-          <div className="grid md:grid-cols-3 gap-5 mt-5">
-            <div className="product-info col-span-2">
-              <input
-                type="text"
-                className="rounded-sm w-full border border-gray-400 p-2"
-                placeholder="Tìm kiếm sản phẩm"
-              />
-
-              <CustomTable type={"order-detail"} />
-            </div>
-
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-5">
             <div className="user-info flex flex-col items-center">
               <img src={avatarUser} alt="" className="w-20" />
-              <h4 className="text-xl font-bold mt-5">Đỗ Trần Minh Đức</h4>
-              <h6 className="text-blue-500">duc@gmail.com</h6>
-              <p className="text-sm">09809787692</p>
+              <h4 className="text-xl font-bold mt-5">
+                {orderDetail?.shippingInfo?.receiver || "Unknown"}
+              </h4>
+              <h4 className="text-sm font-italic text-blue-500">
+                {orderDetail?.email || "Unknown"}
+              </h4>
+              <p className="text-sm ">{orderDetail?.shippingInfo?.phone}</p>
 
               <div className="w-2/3 border border-gray-300 mt-3"></div>
 
@@ -61,8 +91,18 @@ export default function CustomModalOrder() {
                 Địa chỉ ship
               </h4>
               <p className="text-sm w-full text-left">
-                27, Đường D6, Phường Tân Phong, TP Hồ Chí Minh
+                {`${orderDetail?.shippingInfo?.addressDetail}, ${orderDetail?.shippingInfo?.ward}, ${orderDetail?.shippingInfo?.province}`}
               </p>
+            </div>
+            <div className="product-info col-span-2">
+              <input
+                type="text"
+                className="rounded-sm w-full border border-gray-400 p-2"
+                placeholder="Tìm kiếm sản phẩm"
+                onChange={(e) => handleChange(e)}
+              />
+
+              <CustomTable type={"order-detail"} />
             </div>
           </div>
         </div>

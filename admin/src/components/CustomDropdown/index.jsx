@@ -3,10 +3,10 @@ import CustomDropdownOrder from "./CustomDropdownOrder";
 import CustomDropdownCoupon from "./CustomDropdownCoupon";
 import CustomDropdownCouponEdit from "./CustomDropdownCouponType";
 
-const CustomDropdown = ({ type, choose, handleChangeInput }) => {
+const CustomDropdown = ({ type, choose, handleChangeInput, id }) => {
   return (
     <>
-      {type === "order" && <CustomDropdownOrder choose={choose} />}
+      {type === "order" && <CustomDropdownOrder choose={choose} id={id} />}
       {type === "user" && <CustomDropdownUser choose={choose} />}
       {type === "coupon" && (
         <CustomDropdownCoupon

@@ -1,63 +1,50 @@
-// src/api/axiosPrivate.js
-import axios from 'axios';
+import axios from "axios";
+import useUserStore from "../stores/useUserStore.js";
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL ;
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-// Tạo axios instance
+// 🧩 Tạo instance axiosPrivate
 const axiosPrivate = axios.create({
   baseURL: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true, // Quan trọng để gửi cookie
+  headers: { "Content-Type": "application/json" },
+  withCredentials: true, // Gửi cookie nếu có
 });
 
-// Request interceptor - Thêm token vào header
+// 🧠 Thêm interceptor request
 axiosPrivate.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('accessToken');
+    const token = useUserStore.getState().accessToken;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Response interceptor - Xử lý token hết hạn
+// 🔁 Thêm interceptor response để refresh token
 axiosPrivate.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    const prevRequest = error?.config;
+    const { refreshToken, logout } = useUserStore.getState();
 
-    // Nếu lỗi 401 và chưa retry
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
+    // 🧩 Lấy persist từ localStorage (giá trị "true"/"false")
+    const persist = localStorage.getItem("persist") === "true";
+
+    if (
+      (error.response?.status === 401 || error.response?.status === 403) &&
+      !prevRequest._retry &&
+      persist
+    ) {
+      prevRequest._retry = true;
 
       try {
-        // Gọi API refresh token
-        const refreshToken = localStorage.getItem('refreshToken');
-        const response = await axios.post(
-          `${BASE_URL}/auth/refresh`,
-          { refreshToken },
-          { withCredentials: true }
-        );
-
-        const { accessToken } = response.data;
-
-        // Lưu token mới
-        localStorage.setItem('accessToken', accessToken);
-
-        // Retry request ban đầu với token mới
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        return axiosPrivate(originalRequest);
+        const refreshed = await refreshToken();
+        prevRequest.headers.Authorization = `Bearer ${refreshed.accessToken}`;
+        return axiosPrivate(prevRequest); // Retry request ban đầu
       } catch (refreshError) {
-        // Refresh token thất bại -> Đăng xuất
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        window.location.href = '/login';
+        logout();
         return Promise.reject(refreshError);
       }
     }

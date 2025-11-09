@@ -3,7 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Menu, MenuItem } from "@mui/material";
 import { Button, Popover } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTableControl } from "./TableControllerContext";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -12,14 +12,19 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import useOrderStore from "../../../stores/useOrderStore";
 
 const TableControlOrder = () => {
+  const orders = useOrderStore((s) => s.orders);
+  const originalOrders = useOrderStore((s) => s.originalOrders);
+  const setOrders = useOrderStore((s) => s.setOrders);
+
   const [anchorAll, setAnchorAll] = useState(null);
   const [anchorFilter, setAnchorFilter] = useState(null);
   const [anchorCustomizeDate, setAnchorCustomizeDate] = useState(false);
   const { confirmDelete, setConfirmDelete } = useTableControl();
-  const { filter, setFilter } = useTableControl();
-  const { setSelectedItem, orderData } = useTableControl();
+  const [filter, setFilter] = useState({});
+  const { setSelectedItem } = useTableControl();
 
   const handleChange = (key, value) => {
     setFilter((prev) => ({
@@ -27,6 +32,52 @@ const TableControlOrder = () => {
       [key]: value,
     }));
   };
+
+  const handleFilter = () => {
+    const filtered = originalOrders.filter((order) => {
+      const matchSearch =
+        !filter.search ||
+        order.customerName
+          ?.toLowerCase()
+          .includes(filter.search.toLowerCase()) ||
+        order.orderCode
+          ?.toString()
+          .toLowerCase()
+          .includes(filter.search.toLowerCase());
+
+      const orderDate = new Date(order.createdAt);
+      const today = new Date();
+      let matchDate = true;
+
+      if (filter.range === "today") {
+        matchDate = orderDate.toDateString() === today.toDateString();
+      } else if (filter.range === "yesterday") {
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+        matchDate = orderDate.toDateString() === yesterday.toDateString();
+      } else if (filter.range === "thisWeek") {
+        const startOfWeek = new Date(today);
+        startOfWeek.setDate(today.getDate() - today.getDay());
+        matchDate = orderDate >= startOfWeek && orderDate <= today;
+      } else if (filter.range === "thisMonth") {
+        matchDate =
+          orderDate.getMonth() === today.getMonth() &&
+          orderDate.getFullYear() === today.getFullYear();
+      } else if (filter.range === "customize" && filter.from && filter.to) {
+        const fromDate = new Date(filter.from);
+        const toDate = new Date(filter.to);
+        matchDate = orderDate >= fromDate && orderDate <= toDate;
+      }
+
+      return matchSearch && matchDate;
+    });
+
+    setOrders(filtered);
+  };
+
+  useEffect(() => {
+    handleFilter();
+  }, [filter]);
 
   return (
     <div className="mt-6 bg-white p-3 rounded-lg shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.2),0px_1px_1px_0px_rgba(0,0,0,0.14),0px_1px_3px_0px_rgba(0,0,0,0.12)]">
@@ -69,9 +120,7 @@ const TableControlOrder = () => {
             }}
           >
             <MenuItem
-              onClick={() =>
-                setSelectedItem(() => orderData.map((o) => o.orderCode))
-              }
+              onClick={() => setSelectedItem(() => orders.map((o) => o._id))}
             >
               Chọn tất cả
             </MenuItem>
@@ -108,6 +157,7 @@ const TableControlOrder = () => {
                 </FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
+                  value={filter?.range || ""}
                   defaultValue="female"
                   name="radio-buttons-group"
                   onChange={(e) => {
@@ -149,12 +199,14 @@ const TableControlOrder = () => {
                     id="dateFrom"
                     type="date"
                     className="border p-2 rounded-md"
+                    value={filter?.from || ""}
                     onChange={(e) => handleChange("from", e.target.value)}
                   />
                   <label htmlFor="dateTo">Đến ngày:</label>
                   <input
                     id="dateTo"
                     type="date"
+                    value={filter?.to || ""}
                     className="border p-2 rounded-md"
                     onChange={(e) => handleChange("to", e.target.value)}
                   />

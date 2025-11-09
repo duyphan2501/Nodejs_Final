@@ -34,11 +34,11 @@ const createNewOrder = async (
   email,
   address,
   provider,
-  coupon, 
+  coupon,
   usedPoint,
   orderAmount,
   itemsDiscounted,
-  userId, 
+  userId,
   orderStatus = "pending"
 ) => {
   const session = await mongoose.startSession();
@@ -124,4 +124,27 @@ const createNewOrder = async (
   }
 };
 
-export { generateOrderId, createNewOrder };
+const getAllOrder = async () => {
+  try {
+    const result = await OrderModel.find({});
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const deleteManyOrder = async (_ids) => {
+  try {
+    const objectIds = _ids.map((id) => ({
+      _id: new mongoose.Types.ObjectId(id),
+    }));
+    const result = OrderModel.deleteMany({ _id: { $in: objectIds } });
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export { generateOrderId, createNewOrder, getAllOrder, deleteManyOrder };
