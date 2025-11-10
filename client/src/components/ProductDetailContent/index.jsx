@@ -72,7 +72,7 @@ const ProductDetailContent = ({
                 onClick={() => setselectedVariant(variant)}
               >
                 <img
-                  src={variant.images[0]}
+                  src={`${import.meta.env.VITE_API_URL}/${variant.images[0]}`}
                   alt=""
                   className="size-full object-cover"
                 />

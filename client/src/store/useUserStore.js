@@ -3,6 +3,10 @@ import { toast } from "react-toastify";
 import API from "../API/axiosInstance";
 
 const useUserStore = create((set) => {
+  const setUser = (user, accessToken = null) => {
+    set({ user, accessToken });
+  };
+
   const login = async (user) => {
     set({ isLoading: { login: true } });
     try {
@@ -196,6 +200,7 @@ const useUserStore = create((set) => {
       change: false,
     },
     login,
+    setUser,
     refreshToken,
     signUp,
     verifyAccount,

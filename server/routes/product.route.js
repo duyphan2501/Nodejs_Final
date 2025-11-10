@@ -7,6 +7,7 @@ import {
   getProduct,
   getProductBySlugController,
   getProductDashboardData,
+  getProductFeature,
   getProductStats,
   updateProduct,
 } from "../controllers/product.controller.js";
@@ -34,6 +35,7 @@ productRouter.put(
   validate(updateProductSchema),
   updateProduct
 );
+productRouter.get("/feature", getProductFeature);
 productRouter.get("/", checkAuth, getProduct);
 productRouter.post("/dashboard", checkAuth, getProductDashboardData);
 productRouter.delete("/delete", checkAuth, deleteProduct);

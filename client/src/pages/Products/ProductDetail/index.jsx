@@ -17,11 +17,11 @@ const ProductDetail = () => {
     const getProduct = async () => {
       let fetchProduct = await getProductBySlug(slug);
       if (!fetchProduct) return;
-      const variant = fetchProduct.variants[0]
-      const attribute = variant.attributes[0]
+      const variant = fetchProduct.variants[0];
+      const attribute = variant.attributes[0];
       setProduct(fetchProduct);
-      setselectedVariant(variant)
-      setSelectedAttr(attribute)
+      setselectedVariant(variant);
+      setSelectedAttr(attribute);
     };
     getProduct();
   }, [slug, getProductBySlug]);
@@ -36,12 +36,18 @@ const ProductDetail = () => {
                 <ImageSlider isDetail={true} images={selectedVariant?.images} />
               </section>
               <section>
-                <ProductDetailContent selectedProduct={product} selectedAttr={selectedAttr} selectedVariant={selectedVariant} setSelectedAttr={setSelectedAttr} setselectedVariant={setselectedVariant}/>
+                <ProductDetailContent
+                  selectedProduct={product}
+                  selectedAttr={selectedAttr}
+                  selectedVariant={selectedVariant}
+                  setSelectedAttr={setSelectedAttr}
+                  setselectedVariant={setselectedVariant}
+                />
               </section>
             </section>
             <section className="mt-10">
               <Comment />
-            </section> 
+            </section>
           </div>
         </div>
       )}

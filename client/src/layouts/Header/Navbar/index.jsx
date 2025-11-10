@@ -197,7 +197,31 @@ const Navbar = ({
         </div>
       )}
 
-      {activeCategory?.type === "shoes" && (
+      {activeCategory?.type === "shoe" && (
+        <div className="absolute top-full left-0 right-0 z-30">
+          <Flyout
+            activeCategory={activeCategory}
+            flyoutOpen={flyoutOpen}
+            flyoutPosition={flyoutPosition}
+            onMouseEnter={handleFlyoutMouseEnter}
+            onMouseLeave={handleFlyoutMouseLeave}
+          />
+        </div>
+      )}
+
+      {activeCategory?.type === "sandal" && (
+        <div className="absolute top-full left-0 right-0 z-30">
+          <Flyout
+            activeCategory={activeCategory}
+            flyoutOpen={flyoutOpen}
+            flyoutPosition={flyoutPosition}
+            onMouseEnter={handleFlyoutMouseEnter}
+            onMouseLeave={handleFlyoutMouseLeave}
+          />
+        </div>
+      )}
+
+      {activeCategory?.type === "backpack" && (
         <div className="absolute top-full left-0 right-0 z-30">
           <Flyout
             activeCategory={activeCategory}

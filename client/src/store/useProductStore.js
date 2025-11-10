@@ -16,6 +16,12 @@ const cleanParams = (params) => {
   }
   return cleaned;
 };
+const normalizeSectionHeader = (items) => {
+  return items.slice(0, 3).map((item) => ({
+    name: item.name,
+    link: `product/${item.slug}`,
+  }));
+};
 
 const useProductStore = create((set) => {
   const getProductBySlug = async (slug) => {
@@ -73,10 +79,54 @@ const useProductStore = create((set) => {
     }
   };
 
+  const getProductFeature = async (limitBest, limitNewest) => {
+    try {
+      const types = ["shoe", "sandal", "backpack"];
+
+      // Gọi API riêng cho từng type
+      const requests = types.map((t) =>
+        API.get(
+          `/api/product/feature?limitBest=${limitBest}&limitNewest=${limitNewest}&type=${t}`
+        )
+      );
+
+      const [resShoe, resSandal, resBackpack] = await Promise.all(requests);
+
+      return {
+        topSellShoe: normalizeSectionHeader(resShoe.data.topSellingProducts),
+        topNewShoe: normalizeSectionHeader(resShoe.data.topNewProducts),
+        topSellSandal: normalizeSectionHeader(
+          resSandal.data.topSellingProducts
+        ),
+        topNewSandal: normalizeSectionHeader(resSandal.data.topNewProducts),
+        topSellBackpack: normalizeSectionHeader(
+          resBackpack.data.topSellingProducts
+        ),
+        topNewBackpack: normalizeSectionHeader(resBackpack.data.topNewProducts),
+      };
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        error.response?.data?.message || "Get featured products error"
+      );
+      return {
+        topSellShoe: [],
+        topNewShoe: [],
+        topSellSandal: [],
+        topNewSandal: [],
+        topSellBackpack: [],
+        topNewBackpack: [],
+      };
+    }
+  };
+
   return {
+    topSelling: [],
+    topNewest: [],
     getProductBySlug,
     fetchProducts,
     getAllBrands,
+    getProductFeature,
   };
 });
 

@@ -44,7 +44,7 @@ export default function CustomTableOrderDetail() {
             <tr key={i} className="border-b border-gray-300 hover:bg-gray-50">
               <td className="p-2 flex items-center gap-3">
                 <img
-                  src={row.detail.img}
+                  src={`${import.meta.env.VITE_BACKEND_URL}/${row.detail.img}`}
                   alt={row.detail.name}
                   className="w-12 h-12 object-cover rounded-md"
                 />

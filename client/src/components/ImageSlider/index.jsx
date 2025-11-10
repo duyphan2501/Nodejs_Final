@@ -35,7 +35,7 @@ const ImageSlider = ({ images = [], isDetail = false }) => {
             {images.map((image, index) => (
               <SwiperSlide key={index}>
                 <img
-                  src={image}
+                  src={`${import.meta.env.VITE_API_URL}/${image}`}
                   alt={`Slide ${index + 1}`}
                   className="w-full h-full object-cover rounded-lg"
                 />
@@ -55,7 +55,7 @@ const ImageSlider = ({ images = [], isDetail = false }) => {
               onClick={() => handleThumbnailClick(index)}
             >
               <img
-                src={image}
+                src={`${import.meta.env.VITE_API_URL}/${image}`}
                 alt={`Thumbnail ${index + 1}`}
                 className="w-full h-full object-cover"
               />
@@ -73,7 +73,7 @@ const ImageSlider = ({ images = [], isDetail = false }) => {
         {images.map((image, index) => (
           <div key={index} className="min-w-[200px]">
             <img
-              src={image}
+              src={`${import.meta.env.VITE_API_URL}/${image}`}
               alt={`Image ${index + 1}`}
               className="w-full h-auto object-cover rounded-lg"
             />

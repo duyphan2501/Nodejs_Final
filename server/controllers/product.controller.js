@@ -8,6 +8,8 @@ import {
   getAllProductWithVariantStock,
   getProductBySlug,
   getProductQuantity,
+  getTopNBestSellingProducts,
+  getTopNNewProducts,
 } from "../services/product.service.js";
 import { addManyVariant } from "../services/variant.service.js";
 import ProductModel from "../models/product.model.js";
@@ -278,6 +280,29 @@ const getAllBrands = async (req, res, next) => {
   }
 };
 
+const getProductFeature = async (req, res, next) => {
+  try {
+    const limitNewest = parseInt(req.query.limitNewest) || 6;
+    const limitBest = parseInt(req.query.limitBest) || 6;
+    const type = req.query.type || "shoe";
+
+    const topSellingProducts = await getTopNBestSellingProducts(
+      limitBest,
+      type
+    );
+    const topNewProducts = await getTopNNewProducts(limitNewest, type);
+
+    return res.status(200).json({
+      success: true,
+      message: "Lấy dữ liệu thành công",
+      topSellingProducts,
+      topNewProducts,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   addProduct,
   getProduct,
@@ -288,4 +313,5 @@ export {
   getAllBrands,
   getProductStats,
   getProductDashboardData,
+  getProductFeature,
 };

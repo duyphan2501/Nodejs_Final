@@ -2,6 +2,7 @@ import createHttpError from "http-errors";
 import ProductModel from "../models/product.model.js";
 import mongoose from "mongoose";
 import CategoryModel from "../models/category.model.js";
+import OrderModel from "../models/order.model.js";
 
 const getAllProductDashboard = async () => {
   try {
@@ -378,6 +379,116 @@ const getProductQuantity = async () => {
   }
 };
 
+// Lấy top 3 sản phẩm mới
+const getTopNNewProducts = async (n, type) => {
+  try {
+    const pipeline = [
+      { $sort: { createdAt: -1 } },
+      { $limit: n },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "categoryId",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+      { $unwind: "$category" },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category.parentId",
+          foreignField: "_id",
+          as: "parent",
+        },
+      },
+      { $unwind: { path: "$parent", preserveNullAndEmptyArrays: true } },
+      // $match cuối cùng là hoàn toàn hợp lý
+      ...(type ? [{ $match: { "parent.slug": type } }] : []),
+    ];
+
+    const products = await ProductModel.aggregate(pipeline);
+    return products;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+// Lấy top 3 sản phẩm bán chạy nhất
+const getTopNBestSellingProducts = async (n, type) => {
+  try {
+    const result = await OrderModel.aggregate([
+      { $match: { status: "delivered" } },
+      { $unwind: "$items" },
+      {
+        $group: {
+          _id: "$items.variantId",
+          totalSold: { $sum: "$items.quantity" },
+        },
+      },
+      { $sort: { totalSold: -1 } },
+      { $limit: n },
+      // Join variants
+      {
+        $lookup: {
+          from: "variants",
+          localField: "_id",
+          foreignField: "_id",
+          as: "variant",
+        },
+      },
+      { $unwind: "$variant" },
+      // Join products
+      {
+        $lookup: {
+          from: "products",
+          localField: "variant._id",
+          foreignField: "variants",
+          as: "product",
+        },
+      },
+      { $unwind: "$product" },
+      // Join category of product
+      {
+        $lookup: {
+          from: "categories",
+          localField: "product.categoryId",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+      { $unwind: "$category" },
+      // Join parent category
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category.parentId",
+          foreignField: "_id",
+          as: "parent",
+        },
+      },
+      { $unwind: { path: "$parent", preserveNullAndEmptyArrays: true } },
+      // Filter by parent name if type provided
+      ...(type ? [{ $match: { "parent.slug": type } }] : []),
+      {
+        $project: {
+          _id: 0,
+          name: "$product.name",
+          slug: "$product.slug",
+          variantColor: "$variant.color",
+          totalSold: 1,
+        },
+      },
+    ]);
+
+    return result;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
 export {
   addOneProduct,
   deleteOneProduct,
@@ -388,4 +499,6 @@ export {
   fetchProducts,
   getAllBrandNames,
   getAllProductDashboard,
+  getTopNBestSellingProducts,
+  getTopNNewProducts,
 };

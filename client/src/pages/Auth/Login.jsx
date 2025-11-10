@@ -11,6 +11,7 @@ import useUserStore from "../../store/useUserStore";
 import BiLoader from "../../components/BiLoader";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../Context/MyContext";
+import GoogleLoginButton from "../../components/GoogleLoginButton";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -106,12 +107,7 @@ const Login = () => {
           <div className="h-[0.5px] w-10 bg-black"></div>
         </div>
         <div className="flex mt-3 gap-5 items-center justify-center">
-          <div className="size-10 border-2 border-gray-300 rounded-md flex items-center justify-center cursor-pointer hover:bg-gray-200 transition active:bg-gray-300">
-            <FaFacebookF />
-          </div>
-          <div className="size-10 border-2 border-gray-300 rounded-md flex items-center justify-center cursor-pointer hover:bg-gray-200 transition active:bg-gray-300">
-            <FaGoogle />
-          </div>
+          <GoogleLoginButton />
         </div>
       </form>
       <div className="bg-gray-800 text-center py-2 text-white text-sm">
