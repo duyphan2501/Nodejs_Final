@@ -67,10 +67,10 @@ const CustomTableOrder = () => {
       order.orderCode,
       formatDate(order.createdAt),
       totalQuantity,
-      order.payment.provider.toUpperCase() || "Chưa xác định",
-      order.coupon.code || "-",
-      order.orderAmount || 100000,
-      order.status
+      order?.payment?.provider.toUpperCase() || "Chưa xác định",
+      order?.coupon?.code || "-",
+      order?.orderAmount || 100000,
+      order?.status
     );
   });
 

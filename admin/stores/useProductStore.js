@@ -8,6 +8,8 @@ const useProductStore = create((set) => ({
   shoeQuantity: 0,
   sandalQuantity: 0,
   backpackQuantity: 0,
+  productForChart: [],
+  orderForChart: [],
 
   setProducts: (products) => set({ products }),
 
@@ -36,6 +38,25 @@ const useProductStore = create((set) => ({
         backpackQuantity:
           res.data.result.find((v) => v.parentName === "Balo")?.total || 0,
       }));
+    } catch (error) {
+      console.log(error);
+      toast.error("Tải dữ liệu thống kê sản phẩm thất bại");
+    }
+  },
+
+  getProductDashboardData: async (startDate, endDate) => {
+    try {
+      const res = await axiosPrivate.post("/api/product/dashboard", {
+        startDate,
+        endDate,
+      });
+
+      if (res.data.success) {
+        set(() => ({
+          productForChart: res.data.productData,
+          orderForChart: res.data.orderData,
+        }));
+      }
     } catch (error) {
       console.log(error);
       toast.error("Tải dữ liệu thống kê sản phẩm thất bại");

@@ -3,6 +3,39 @@ import ProductModel from "../models/product.model.js";
 import mongoose from "mongoose";
 import CategoryModel from "../models/category.model.js";
 
+const getAllProductDashboard = async () => {
+  try {
+    const res = ProductModel.aggregate([
+      {
+        $lookup: {
+          from: "variants",
+          localField: "variants",
+          foreignField: "_id",
+          as: "variantData",
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          product_id: "$_id",
+          product_name: "$name",
+          price: "$inputPrice",
+          image: {
+            $let: {
+              vars: { firstVariant: { $arrayElemAt: ["$variantData", 0] } },
+              in: { $arrayElemAt: ["$$firstVariant.images", 0] },
+            },
+          },
+        },
+      },
+    ]);
+
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const addOneProduct = async (product) => {
   try {
     const result = ProductModel.insertOne(product);
@@ -354,4 +387,5 @@ export {
   getProductQuantity,
   fetchProducts,
   getAllBrandNames,
+  getAllProductDashboard,
 };

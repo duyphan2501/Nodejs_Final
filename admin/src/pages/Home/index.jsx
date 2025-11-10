@@ -27,8 +27,25 @@ import {
 import AdvanceOverallDashboard from "../../components/AdvanceOverallDashboard";
 import AdvanceProductDashboard from "../../components/AdvanceProductDashboard";
 import useUserStore from "../../../stores/useUserStore";
+import useOrderStore from "../../../stores/useOrderStore";
+import { useEffect } from "react";
+import dayjs from "dayjs";
+import useVisitStore from "../../../stores/useVisitStore";
 
 function Home() {
+  const getOrders = useOrderStore((s) => s.getOrders);
+  const orders = useOrderStore((s) => s.orders);
+  const getUsers = useUserStore((s) => s.getUsers);
+  const users = useUserStore((s) => s.users);
+  const visits = useVisitStore((s) => s.visits);
+  const getDashboardData = useOrderStore((s) => s.getDashboardData);
+
+  useEffect(() => {
+    getOrders();
+    getUsers();
+    getDashboardData();
+  }, []);
+
   return (
     <>
       <Box sx={{ background: "#F9FAFB" }}>
@@ -64,31 +81,51 @@ function Home() {
               <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <DashboardCard
                   BackgroundColor="green"
-                  CardHeader="100 Orders"
-                  CardDesc="10 is waiting"
+                  CardHeader={`${orders.length} Đơn Hàng`}
+                  CardDesc={`${
+                    orders.filter((o) => o.status === "pending").length
+                  } chờ xử lý`}
                 />
               </Grid>
               <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <DashboardCard
                   BackgroundColor="red"
-                  CardHeader="100 Users"
-                  CardDesc="10 is new"
+                  CardHeader={`${users.length} Người Dùng`}
+                  CardDesc={`${
+                    users.filter((u) =>
+                      dayjs(u.createdAt).isSame(dayjs(), "day")
+                    ).length
+                  } được tạo hôm nay`}
                   icon={PermIdentityOutlinedIcon}
                 />
               </Grid>
               <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <DashboardCard
                   BackgroundColor="#4F200D"
-                  CardHeader="20 Access today"
-                  CardDesc="2 is online"
+                  CardHeader={`
+                ${
+                  visits.filter(
+                    (v) => dayjs(v.visitedAt).isSame(dayjs(), "month") // cùng tháng hiện tại
+                  ).length
+                } Truy Cập 
+              `}
+                  CardDesc={`
+                ${
+                  visits.filter(
+                    (v) => dayjs(v.visitedAt).isSame(dayjs(), "day") // cùng ngày hiện tại
+                  ).length
+                } truy cập hôm nay
+              `}
                   icon={AdsClickOutlinedIcon}
                 />
               </Grid>
               <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <DashboardCard
                   BackgroundColor="gray"
-                  CardHeader="100 Orders"
-                  CardDesc="10 is waiting"
+                  CardHeader={`${orders.length} Đơn Hàng`}
+                  CardDesc={`${
+                    orders.filter((o) => o.status === "delivered").length
+                  } đã giao`}
                   icon={AttachMoneyOutlinedIcon}
                 />
               </Grid>
@@ -118,6 +155,9 @@ function WelcomeBoard({
   growRise = false,
 }) {
   const user = useUserStore((s) => s.user);
+  const orders = useOrderStore((s) => s.orders);
+  const dashboard = useOrderStore((s) => s.dashboard);
+
   return (
     <Card sx={{ width: "100%" }}>
       <Grid padding={2} borderRadius={40} container>
@@ -126,9 +166,14 @@ function WelcomeBoard({
           sx={{ display: "flex", flexDirection: "column" }}
         >
           <Typography variant="h6" fontWeight={500}>
-            Chào mừng, {user.name}
+            Chào mừng, {user?.name}
           </Typography>
-          <Typography variant="body2">{description}</Typography>
+          <Typography variant="body2">
+            Bạn có {orders.filter((o) => o.status === "pending").length} đơn
+            hàng đang chờ xử lý và{" "}
+            {orders.filter((o) => o.status === "cancelled").length} hóa đơn bị
+            hủy
+          </Typography>
 
           <Box flexGrow={1}></Box>
 
@@ -148,16 +193,16 @@ function WelcomeBoard({
                   variant="h6"
                   fontWeight={500}
                 >
-                  {growPercent}
+                  {`${dashboard?.growthDataMonth?.rate}%` || "0%"}
                 </Typography>
-                {growRise ? (
+                {dashboard?.growthDataMonth?.variance ? (
                   <Typography
                     sx={{ color: "#2FB344" }}
                     padding={0}
                     variant="body2"
                     fontWeight={500}
                   >
-                    {growDifference}
+                    {dashboard?.growthDataMonth?.variance || "0%"}
                   </Typography>
                 ) : (
                   <Typography
@@ -166,11 +211,11 @@ function WelcomeBoard({
                     variant="body2"
                     fontWeight={500}
                   >
-                    {growDifference}
+                    {dashboard?.growthDataMonth?.variance || "0%"}
                   </Typography>
                 )}
 
-                {growRise ? (
+                {dashboard?.growthDataMonth?.variance ? (
                   <TrendingUpOutlinedIcon sx={{ color: "#2FB344" }} />
                 ) : (
                   <TrendingDownSharpIcon sx={{ color: "#D63939" }} />
@@ -192,16 +237,17 @@ function WelcomeBoard({
                   variant="h6"
                   fontWeight={500}
                 >
-                  {todayAmount}
+                  {`${dashboard?.growthDataDaily?.today.toLocaleString()}đ` ||
+                    "0đ"}
                 </Typography>
-                {todayRise ? (
+                {dashboard?.growthDataDaily?.variance ? (
                   <Typography
                     sx={{ color: "#2FB344" }}
                     padding={0}
                     variant="body2"
                     fontWeight={500}
                   >
-                    {todayPercent}
+                    {`${dashboard?.growthDataDaily?.variance}%` || "0%"}
                   </Typography>
                 ) : (
                   <Typography
@@ -210,7 +256,7 @@ function WelcomeBoard({
                     variant="body2"
                     fontWeight={500}
                   >
-                    {todayPercent}
+                    {`${dashboard?.growthDataDaily?.variance}%` || "0%"}
                   </Typography>
                 )}
 
@@ -232,70 +278,78 @@ function WelcomeBoard({
 }
 
 function TrendingUserBoard() {
-  const sampleData = [
-    { date: "2024-07-21", visits: 1250 },
-    { date: "2024-07-22", visits: 1340 },
-    { date: "2024-07-23", visits: 1420 },
-    { date: "2024-07-24", visits: 1380 },
-    { date: "2024-07-25", visits: 1465 },
-    { date: "2024-07-26", visits: 1290 },
-    { date: "2024-07-27", visits: 980 },
-    { date: "2024-07-28", visits: 1180 },
-    { date: "2024-07-29", visits: 1520 },
-    { date: "2024-07-30", visits: 1680 },
-    { date: "2024-07-31", visits: 1590 },
-    { date: "2024-08-01", visits: 1720 },
-    { date: "2024-08-02", visits: 1390 },
-    { date: "2024-08-03", visits: 1050 },
-    { date: "2024-08-04", visits: 1180 },
-    { date: "2024-08-05", visits: 1450 },
-    { date: "2024-08-06", visits: 1520 },
-    { date: "2024-08-07", visits: 1480 },
-    { date: "2024-08-08", visits: 1640 },
-    { date: "2024-08-09", visits: 1390 },
-    { date: "2024-08-10", visits: 1120 },
-    { date: "2024-08-11", visits: 1280 },
-    { date: "2024-08-12", visits: 1580 },
-    { date: "2024-08-13", visits: 1640 },
-    { date: "2024-08-14", visits: 1720 },
-    { date: "2024-08-15", visits: 1890 },
-    { date: "2024-08-16", visits: 1450 },
-    { date: "2024-08-17", visits: 1280 },
-    { date: "2024-08-18", visits: 1380 },
-    { date: "2024-08-19", visits: 1520 },
-    { date: "2024-08-20", visits: 1680 },
-    { date: "2024-08-21", visits: 1750 },
-    { date: "2024-08-22", visits: 1820 },
-    { date: "2024-08-23", visits: 1890 },
-    { date: "2024-08-24", visits: 1650 },
-    { date: "2024-08-25", visits: 1480 },
-    { date: "2024-08-26", visits: 1580 },
-    { date: "2024-08-27", visits: 1720 },
-    { date: "2024-08-28", visits: 1850 },
-    { date: "2024-08-29", visits: 1950 },
-    { date: "2024-08-30", visits: 2120 },
-    { date: "2024-08-31", visits: 2050 },
-    { date: "2024-09-01", visits: 1890 },
-    { date: "2024-09-02", visits: 1950 },
-    { date: "2024-09-03", visits: 1820 },
-    { date: "2024-09-04", visits: 1720 },
-    { date: "2024-09-05", visits: 1680 },
-    { date: "2024-09-06", visits: 1780 },
-    { date: "2024-09-07", visits: 1850 },
-    { date: "2024-09-08", visits: 1590 },
-    { date: "2024-09-09", visits: 1720 },
-    { date: "2024-09-10", visits: 1890 },
-    { date: "2024-09-11", visits: 1950 },
-    { date: "2024-09-12", visits: 2020 },
-    { date: "2024-09-13", visits: 2180 },
-    { date: "2024-09-14", visits: 1850 },
-    { date: "2024-09-15", visits: 1680 },
-    { date: "2024-09-16", visits: 1780 },
-    { date: "2024-09-17", visits: 1920 },
-    { date: "2024-09-18", visits: 2050 },
-    { date: "2024-09-19", visits: 2180 },
-    { date: "2024-09-20", visits: 2250 },
-  ];
+  const visits = useVisitStore((s) => s.visits);
+  const loading = useVisitStore((s) => s.loading);
+  const getVisits = useVisitStore((s) => s.getVisits);
+
+  // const visits = [
+  //   { date: "2024-07-21", visits: 1250 },
+  //   { date: "2024-07-22", visits: 1340 },
+  //   { date: "2024-07-23", visits: 1420 },
+  //   { date: "2024-07-24", visits: 1380 },
+  //   { date: "2024-07-25", visits: 1465 },
+  //   { date: "2024-07-26", visits: 1290 },
+  //   { date: "2024-07-27", visits: 980 },
+  //   { date: "2024-07-28", visits: 1180 },
+  //   { date: "2024-07-29", visits: 1520 },
+  //   { date: "2024-07-30", visits: 1680 },
+  //   { date: "2024-07-31", visits: 1590 },
+  //   { date: "2024-08-01", visits: 1720 },
+  //   { date: "2024-08-02", visits: 1390 },
+  //   { date: "2024-08-03", visits: 1050 },
+  //   { date: "2024-08-04", visits: 1180 },
+  //   { date: "2024-08-05", visits: 1450 },
+  //   { date: "2024-08-06", visits: 1520 },
+  //   { date: "2024-08-07", visits: 1480 },
+  //   { date: "2024-08-08", visits: 1640 },
+  //   { date: "2024-08-09", visits: 1390 },
+  //   { date: "2024-08-10", visits: 1120 },
+  //   { date: "2024-08-11", visits: 1280 },
+  //   { date: "2024-08-12", visits: 1580 },
+  //   { date: "2024-08-13", visits: 1640 },
+  //   { date: "2024-08-14", visits: 1720 },
+  //   { date: "2024-08-15", visits: 1890 },
+  //   { date: "2024-08-16", visits: 1450 },
+  //   { date: "2024-08-17", visits: 1280 },
+  //   { date: "2024-08-18", visits: 1380 },
+  //   { date: "2024-08-19", visits: 1520 },
+  //   { date: "2024-08-20", visits: 1680 },
+  //   { date: "2024-08-21", visits: 1750 },
+  //   { date: "2024-08-22", visits: 1820 },
+  //   { date: "2024-08-23", visits: 1890 },
+  //   { date: "2024-08-24", visits: 1650 },
+  //   { date: "2024-08-25", visits: 1480 },
+  //   { date: "2024-08-26", visits: 1580 },
+  //   { date: "2024-08-27", visits: 1720 },
+  //   { date: "2024-08-28", visits: 1850 },
+  //   { date: "2024-08-29", visits: 1950 },
+  //   { date: "2024-08-30", visits: 2120 },
+  //   { date: "2024-08-31", visits: 2050 },
+  //   { date: "2024-09-01", visits: 1890 },
+  //   { date: "2024-09-02", visits: 1950 },
+  //   { date: "2024-09-03", visits: 1820 },
+  //   { date: "2024-09-04", visits: 1720 },
+  //   { date: "2024-09-05", visits: 1680 },
+  //   { date: "2024-09-06", visits: 1780 },
+  //   { date: "2024-09-07", visits: 1850 },
+  //   { date: "2024-09-08", visits: 1590 },
+  //   { date: "2024-09-09", visits: 1720 },
+  //   { date: "2024-09-10", visits: 1890 },
+  //   { date: "2024-09-11", visits: 1950 },
+  //   { date: "2024-09-12", visits: 2020 },
+  //   { date: "2024-09-13", visits: 2180 },
+  //   { date: "2024-09-14", visits: 1850 },
+  //   { date: "2024-09-15", visits: 1680 },
+  //   { date: "2024-09-16", visits: 1780 },
+  //   { date: "2024-09-17", visits: 1920 },
+  //   { date: "2024-09-18", visits: 2050 },
+  //   { date: "2024-09-19", visits: 2180 },
+  //   { date: "2024-09-20", visits: 2250 },
+  // ];
+
+  useEffect(() => {
+    getVisits();
+  }, []);
 
   const calculateCycleTotal = (data, startDate, endDate) => {
     const cycleData = data.filter((item) => {
@@ -309,8 +363,9 @@ function TrendingUserBoard() {
     return cycleData.reduce((sum, item) => sum + item.visits, 0);
   };
 
-  const startDate = new Date(sampleData[0].date);
-  const endDate = new Date(sampleData[sampleData.length - 1].date);
+  const startDate = visits.length > 0 ? new Date(visits[0].date) : new Date();
+  const endDate =
+    visits.length > 0 ? new Date(visits[visits.length - 1].date) : new Date();
 
   const middleMonth = startDate.getMonth() + 1; // Tháng bắt đầu + 1
   const middleYear = startDate.getFullYear();
@@ -318,8 +373,8 @@ function TrendingUserBoard() {
   const day20 = new Date(middleYear, middleMonth, 20); // Lưu ý: month = 0-indexed
   const day21 = new Date(middleYear, middleMonth, 21);
 
-  const totalPreviousMonth = calculateCycleTotal(sampleData, startDate, day20);
-  const totalAfterMonth = calculateCycleTotal(sampleData, day21, endDate);
+  const totalPreviousMonth = calculateCycleTotal(visits, startDate, day20);
+  const totalAfterMonth = calculateCycleTotal(visits, day21, endDate);
 
   const formatWithSuffix = (dateStr) => {
     const date = new Date(dateStr);
@@ -338,7 +393,7 @@ function TrendingUserBoard() {
     return `${month} ${day}${suffix}`;
   };
 
-  const transformedData = sampleData.map((item) => {
+  const transformedData = visits.map((item) => {
     const date = new Date(item.date);
     return {
       ...item,
@@ -347,13 +402,13 @@ function TrendingUserBoard() {
     };
   });
 
-  const transformCycleData = (sampleData) => {
-    const cycle1 = sampleData.filter((d) => {
+  const transformCycleData = (visits) => {
+    const cycle1 = visits.filter((d) => {
       const dt = new Date(d.date);
       return dt >= startDate && dt <= day20;
     });
 
-    const cycle2 = sampleData.filter((d) => {
+    const cycle2 = visits.filter((d) => {
       const dt = new Date(d.date);
       return dt >= day21 && dt <= endDate;
     });
@@ -373,7 +428,7 @@ function TrendingUserBoard() {
     return result;
   };
 
-  const chartData = transformCycleData(sampleData); // array
+  const chartData = transformCycleData(visits); // array
 
   return (
     <>

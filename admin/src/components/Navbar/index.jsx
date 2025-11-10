@@ -79,7 +79,6 @@ const Navbar = () => {
     { label: "Đơn Hàng", path: "/admin/orders", icon: <ShoppingBagIcon /> },
     { label: "Người Dùng", path: "/admin/users", icon: <PersonIcon /> },
     { label: "Coupon", path: "/admin/coupon", icon: <DiscountIcon /> },
-    { label: "Cài Đặt Theme", path: "/admin/themes", icon: <WidgetsIcon /> },
   ];
 
   return (
@@ -206,6 +205,7 @@ const Navbar = () => {
 function AvatarUser({ user }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
+  const logout = useUserStore((s) => s.logout);
   const handleCloseMenu = () => setAnchorEl(null);
 
   return (
@@ -250,8 +250,14 @@ function AvatarUser({ user }) {
           },
         }}
       >
-        <MenuItem onClick={handleCloseMenu}>Cá nhân</MenuItem>
-        <MenuItem onClick={handleCloseMenu}>Đăng xuất</MenuItem>
+        <MenuItem
+          onClick={async () => {
+            handleCloseMenu;
+            await logout();
+          }}
+        >
+          Đăng xuất
+        </MenuItem>
       </Menu>
     </>
   );

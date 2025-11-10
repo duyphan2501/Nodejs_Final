@@ -4,6 +4,7 @@ import {
   deleteManyProduct,
   fetchProducts,
   getAllBrandNames,
+  getAllProductDashboard,
   getAllProductWithVariantStock,
   getProductBySlug,
   getProductQuantity,
@@ -11,6 +12,30 @@ import {
 import { addManyVariant } from "../services/variant.service.js";
 import ProductModel from "../models/product.model.js";
 import VariantModel from "../models/variant.model.js";
+import { getOrdersSummary } from "../services/order.service.js";
+
+const getProductDashboardData = async (req, res, next) => {
+  try {
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+
+    if (!startDate || !endDate) {
+      throw createHttpError.BadRequest("Không xác định được thời gian!");
+    }
+
+    const resProduct = await getAllProductDashboard();
+
+    const resOrder = await getOrdersSummary(startDate, endDate);
+
+    return res.status(200).json({
+      success: true,
+      productData: resProduct,
+      orderData: resOrder,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const addProduct = async (req, res, next) => {
   try {
@@ -262,4 +287,5 @@ export {
   fetchProductsController,
   getAllBrands,
   getProductStats,
+  getProductDashboardData,
 };

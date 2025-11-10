@@ -14,78 +14,23 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { style } from "@mui/system";
+import useOrderStore from "../../../stores/useOrderStore";
+import { useEffect } from "react";
 
 export default function AdvanceOverallDashboard() {
   const now = new Date();
   const year = now.getFullYear();
   const firstDay = new Date(year, 0, 1);
   const lastDay = new Date(year, 11, 31);
+  const dashboard = useOrderStore((s) => s.dashboard);
+  const getDashboardData = useOrderStore((s) => s.getDashboardData);
 
-  const [data, setData] = useState([
-    {
-      order_id: 1,
-      revenue: 1500000,
-      profit: 450000,
-      date_created: "2025-01-15",
-    },
-    {
-      order_id: 2,
-      revenue: 2300000,
-      profit: 690000,
-      date_created: "2025-01-19",
-    },
-    {
-      order_id: 3,
-      revenue: 1800000,
-      profit: 540000,
-      date_created: "2025-01-19",
-    },
-    {
-      order_id: 4,
-      revenue: 3200000,
-      profit: 960000,
-      date_created: "2025-02-12",
-    },
-    {
-      order_id: 5,
-      revenue: 2800000,
-      profit: 840000,
-      date_created: "2025-02-25",
-    },
-    {
-      order_id: 6,
-      revenue: 4100000,
-      profit: 1230000,
-      date_created: "2025-03-08",
-    },
-    {
-      order_id: 7,
-      revenue: 1900000,
-      profit: 570000,
-      date_created: "2025-03-15",
-    },
-    {
-      order_id: 8,
-      revenue: 3500000,
-      profit: 1050000,
-      date_created: "2025-03-22",
-    },
-    {
-      order_id: 9,
-      revenue: 2600000,
-      profit: 780000,
-      date_created: "2025-04-03",
-    },
-    {
-      order_id: 10,
-      revenue: 4500000,
-      profit: 1350000,
-      date_created: "2025-04-18",
-    },
-  ]);
   const [startDate, setStartDate] = useState(firstDay);
   const [endDate, setEndDate] = useState(lastDay);
   const [view, setView] = useState("week");
+  useEffect(() => {
+    getDashboardData(startDate, endDate);
+  }, [startDate, endDate]);
 
   const calculatorDataByView = useMemo(() => {
     const getWeekRange = (dateString) => {
@@ -144,7 +89,7 @@ export default function AdvanceOverallDashboard() {
       case "week":
         const weeklyData = {};
 
-        data.forEach((item) => {
+        dashboard?.revenueChartData?.forEach((item) => {
           const weekRange = getWeekRange(item.date_created);
           const weekKey = weekRange.key;
 
@@ -176,7 +121,7 @@ export default function AdvanceOverallDashboard() {
         );
       case "month":
         const monthlyData = {};
-        data.forEach((item) => {
+        dashboard?.revenueChartData.forEach((item) => {
           const date = new Date(item.date_created);
           const month = date.getMonth();
 
@@ -202,7 +147,7 @@ export default function AdvanceOverallDashboard() {
       case "quarter":
         const quarterlyData = {};
 
-        data.forEach((item) => {
+        dashboard?.revenueChartData.forEach((item) => {
           const quarter = quarterDetection(item.date_created);
 
           if (
@@ -226,7 +171,7 @@ export default function AdvanceOverallDashboard() {
 
         return Object.values(quarterlyData);
     }
-  }, [data, view, startDate, endDate]);
+  }, [dashboard?.revenueChartData, view, startDate, endDate]);
 
   return (
     <>

@@ -7,6 +7,7 @@ const useOrderStore = create((set, get) => ({
   originalOrders: [],
   orderDetail: {},
   orderDetailList: [],
+  dashboard: {},
 
   getOrders: async () => {
     try {
@@ -68,6 +69,31 @@ const useOrderStore = create((set, get) => ({
     set(() => ({
       orderDetail,
     }));
+  },
+
+  getDashboardData: async (
+    startDate = "2025-01-01",
+    endDate = "2025-12-31"
+  ) => {
+    try {
+      const res = await axiosPrivate.post("/api/order/dashboard", {
+        startDate,
+        endDate,
+      });
+
+      if (res.data.success) {
+        set(() => ({
+          dashboard: {
+            growthDataMonth: res.data.growthDataMonth,
+            growthDataDaily: res.data.growthDataDaily,
+            revenueChartData: res.data.revenueChartData,
+          },
+        }));
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Không tải được dữ liệu");
+    }
   },
 }));
 

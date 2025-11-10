@@ -5,6 +5,85 @@ import { useCouponAtomic } from "./coupon.service.js";
 import { usePurchasePoint } from "./user.service.js";
 import { deductStockAtomic } from "./variant.service.js";
 
+const getOrdersSummary = async (startDate, endDate) => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  const result = await OrderModel.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: start, $lte: end },
+        status: "delivered",
+      },
+    },
+
+    { $unwind: "$items" },
+
+    {
+      $lookup: {
+        from: "variants",
+        localField: "items.variantId",
+        foreignField: "_id",
+        as: "variantData",
+      },
+    },
+    { $unwind: "$variantData" },
+
+    {
+      $lookup: {
+        from: "products",
+        localField: "variantData._id",
+        foreignField: "variants",
+        as: "productData",
+      },
+    },
+    { $unwind: "$productData" },
+
+    {
+      $group: {
+        _id: { orderId: "$orderId", productId: "$productData._id" },
+        orderCreatedAt: { $first: "$createdAt" },
+        product_name: { $first: "$productData.name" },
+        image: { $first: { $arrayElemAt: ["$variantData.images", 0] } },
+        quantity: { $sum: "$items.quantity" },
+      },
+    },
+
+    {
+      $group: {
+        _id: "$_id.orderId",
+        date_created: {
+          $first: {
+            $dateToString: { format: "%Y-%m-%d", date: "$orderCreatedAt" },
+          },
+        },
+        items: {
+          $push: {
+            product_id: "$_id.productId",
+            product_name: "$product_name",
+            quantity: "$quantity",
+            image: "$image",
+          },
+        },
+      },
+    },
+
+    // Project đổi tên fields
+    {
+      $project: {
+        _id: 0,
+        order_id: "$_id",
+        date_created: 1,
+        items: 1,
+      },
+    },
+
+    { $sort: { date_created: 1 } },
+  ]);
+
+  return result;
+};
+
 async function generateOrderId() {
   let orderId;
   let isUnique = false;
@@ -147,7 +226,164 @@ const deleteManyOrder = async (_ids) => {
   }
 };
 
-export { generateOrderId, createNewOrder, getAllOrder, deleteManyOrder };
+async function getMonthlyOrderAmounts() {
+  const now = new Date();
+
+  // Tháng này
+  const startOfThisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const startOfNextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+
+  // Tháng trước
+  const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  const startOfThisMonthForLast = startOfThisMonth; // đã tính ở trên
+
+  const results = await OrderModel.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: startOfLastMonth, $lt: startOfNextMonth },
+      },
+    },
+
+    {
+      $project: {
+        orderAmount: 1,
+        month: { $month: "$createdAt" },
+        year: { $year: "$createdAt" },
+      },
+    },
+
+    {
+      $group: {
+        _id: { year: "$year", month: "$month" },
+        totalAmount: { $sum: "$orderAmount" },
+      },
+    },
+
+    { $sort: { "_id.year": 1, "_id.month": 1 } },
+  ]);
+
+  return results;
+}
+
+async function getDailyOrderAmounts() {
+  const now = new Date();
+
+  // Hôm nay: từ 00:00 đến 23:59:59
+  const startOfToday = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
+  const startOfTomorrow = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1
+  );
+
+  // Hôm qua: từ 00:00 đến 23:59:59
+  const startOfYesterday = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() - 1
+  );
+
+  const results = await OrderModel.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: startOfYesterday, $lt: startOfTomorrow },
+      },
+    },
+    {
+      $project: {
+        orderAmount: 1,
+        date: {
+          $dateToString: { format: "%Y-%m-%d", date: "$createdAt" },
+        },
+      },
+    },
+    {
+      $group: {
+        _id: "$date",
+        totalAmount: { $sum: "$orderAmount" },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ]);
+
+  return results;
+}
+
+const getRevenueAndProfit = async (startDate, endDate) => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  const result = await OrderModel.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: start, $lte: end },
+        status: "delivered", // chỉ tính đơn đã giao
+      },
+    },
+    { $unwind: "$items" },
+    {
+      $lookup: {
+        from: "variants",
+        localField: "items.variantId",
+        foreignField: "_id",
+        as: "variantData",
+      },
+    },
+    { $unwind: "$variantData" },
+    {
+      $lookup: {
+        from: "products",
+        localField: "variantData._id",
+        foreignField: "variants",
+        as: "productData",
+      },
+    },
+    { $unwind: "$productData" },
+    {
+      $project: {
+        _id: 0,
+        revenue: { $multiply: ["$items.price", "$items.quantity"] },
+        cost: { $multiply: ["$productData.inputPrice", "$items.quantity"] },
+        date_created: {
+          $dateToString: { format: "%Y-%m-%d", date: "$createdAt" },
+        },
+      },
+    },
+    {
+      $group: {
+        _id: "$date_created",
+        revenue: { $sum: "$revenue" },
+        profit: { $sum: { $subtract: ["$revenue", "$cost"] } },
+      },
+    },
+    { $sort: { _id: 1 } },
+    {
+      $project: {
+        _id: 0,
+        date_created: "$_id",
+        revenue: 1,
+        profit: 1,
+      },
+    },
+  ]);
+
+  return result;
+};
+
+export {
+  generateOrderId,
+  createNewOrder,
+  getAllOrder,
+  deleteManyOrder,
+  getMonthlyOrderAmounts,
+  getDailyOrderAmounts,
+  getRevenueAndProfit,
+  getOrdersSummary,
+};
 
 class OrderService {
   // Lấy email từ userId

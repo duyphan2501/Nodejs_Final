@@ -6,6 +6,7 @@ import {
   getAllBrands,
   getProduct,
   getProductBySlugController,
+  getProductDashboardData,
   getProductStats,
   updateProduct,
 } from "../controllers/product.controller.js";
@@ -28,15 +29,17 @@ productRouter.post(
 );
 productRouter.put(
   "/:_id",
+  checkAuth,
   uploadAnyFiles,
   validate(updateProductSchema),
   updateProduct
 );
-productRouter.get("/", getProduct);
-productRouter.delete("/delete", deleteProduct);
+productRouter.get("/", checkAuth, getProduct);
+productRouter.post("/dashboard", checkAuth, getProductDashboardData);
+productRouter.delete("/delete", checkAuth, deleteProduct);
 productRouter.get("/fetch", fetchProductsController);
-productRouter.get("/brands", getAllBrands); 
-productRouter.get("/:slug", getProductBySlugController); 
+productRouter.get("/brands", getAllBrands);
+productRouter.get("/:slug", getProductBySlugController);
 
 //Route thống kê
 

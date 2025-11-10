@@ -12,6 +12,7 @@ import Users from "./pages/Users";
 import Coupons from "./pages/Coupon";
 import Themes from "./pages/Themes";
 import Login from "./pages/Login";
+import Layouts from "./layouts";
 
 const theme = createTheme({
   palette: {
@@ -34,14 +35,17 @@ function App() {
         <ThemeProvider theme={theme}>
           <Router>
             <Routes>
-              <Route path="/admin/home" element={<Home />}></Route>
-              <Route path="/admin/products" element={<Products />}></Route>
-              <Route path="/admin/orders" element={<Orders />}></Route>
-              <Route path="/admin/category" element={<Category />}></Route>
-              <Route path="/admin/users" element={<Users />}></Route>
-              <Route path="/admin/coupon" element={<Coupons />}></Route>
-              <Route path="/admin/themes" element={<Themes />}></Route>
-              <Route path="/admin/login" element={<Login />}></Route>
+              <Route path="/login" element={<Login />} />
+
+              <Route path="/admin/" element={<Layouts />}>
+                <Route path="home" element={<Home />} />
+                <Route path="products" element={<Products />} />
+                <Route path="orders" element={<Orders />} />
+                <Route path="category" element={<Category />} />
+                <Route path="users" element={<Users />} />
+                <Route path="coupon" element={<Coupons />} />
+                <Route path="themes" element={<Themes />} />
+              </Route>
             </Routes>
           </Router>
           <ToastContainer

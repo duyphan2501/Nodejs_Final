@@ -3,6 +3,9 @@ import {
   createNewOrder,
   deleteManyOrder,
   getAllOrder,
+  getDailyOrderAmounts,
+  getMonthlyOrderAmounts,
+  getRevenueAndProfit,
 } from "../services/order.service.js";
 import { removeCartItem } from "../services/cart.service.js";
 import dotenv from "dotenv";
@@ -220,6 +223,63 @@ const getOrderById = async (req, res, next) => {
   }
 };
 
+const getDashboardData = async (req, res, next) => {
+  try {
+    const startDate = req.body?.startDate;
+    const endDate = req.body?.endDate;
+
+    if (!startDate || !endDate) {
+      throw createHttpError.BadRequest("Thiếu dữ liệu thời gian");
+    }
+
+    let growthDataMonth = {};
+    let growthDataDaily = {};
+    let revenueChartData = [];
+    let soldChartData = [];
+
+    const monthlyRevenueData = await getMonthlyOrderAmounts();
+    const dailyRevenueData = await getDailyOrderAmounts();
+    const resRevenue = await getRevenueAndProfit(startDate, endDate);
+
+    if (monthlyRevenueData.length < 2) {
+      growthDataMonth.message = "Chưa có dữ liệu 2 tháng gần nhất";
+      growthDataMonth.rate = 0;
+      growthDataMonth.variance = 0;
+    } else {
+      const lastMonth = monthlyRevenueData[0].totalAmount;
+      const thisMonth = monthlyRevenueData[1].totalAmount;
+
+      growthDataMonth.rate = Number(
+        (((thisMonth - lastMonth) / lastMonth) * 100).toFixed(2)
+      );
+      growthDataMonth.variance = growthDataMonth.rate - 100;
+    }
+
+    if (dailyRevenueData.length < 2) {
+      growthDataDaily.today = 0;
+      growthDataDaily.variance = 0;
+    } else {
+      const yesterday = dailyRevenueData[0].totalAmount;
+      const today = dailyRevenueData[1].totalAmount;
+
+      growthDataDaily.today = Number(today);
+      growthDataDaily.variance =
+        100 - Number((((today - yesterday) / yesterday) * 100).toFixed(2));
+    }
+
+    revenueChartData = resRevenue;
+
+    return res.status(200).json({
+      success: true,
+      growthDataMonth,
+      growthDataDaily,
+      revenueChartData,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   createOrder,
   verifyWebhookData,
@@ -227,6 +287,7 @@ export {
   updateOrderStatus,
   deleteOrder,
   getOrderById,
+  getDashboardData,
 };
 
 class OrderController {

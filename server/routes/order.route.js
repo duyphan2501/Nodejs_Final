@@ -2,6 +2,7 @@ import express from "express";
 import {
   createOrder,
   deleteOrder,
+  getDashboardData,
   getOrderById,
   getOrders,
   updateOrderStatus,
@@ -13,6 +14,7 @@ import checkAuth from "../middlewares/auth.middleware.js";
 const orderRouter = express.Router();
 
 orderRouter.get("/all", checkAuth, getOrders);
+orderRouter.post("/dashboard", getDashboardData);
 orderRouter.get("/all/:_id", checkAuth, getOrderById);
 orderRouter.put("/all/:_id", checkAuth, updateOrderStatus);
 orderRouter.delete("/delete", checkAuth, deleteOrder);

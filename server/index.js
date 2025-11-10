@@ -11,7 +11,7 @@ import cartRouter from "./routes/cart.route.js";
 import adminRoutes from "./routes/admin.route.js";
 import couponRouter from "./routes/coupon.route.js";
 import productRouter from "./routes/product.route.js";
-
+import visitRouter from "./routes/visit.route.js";
 import orderRouter from "./routes/order.route.js";
 
 import { startNgrokAndConfirmWebhook } from "./config/payos.init.js";
@@ -42,7 +42,7 @@ app.use("/api/category", categoryRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/product", productRouter);
-
+app.use("/api/visit", visitRouter);
 app.use("/api/address", addressRouter);
 
 app.use("/api/coupon", couponRouter);

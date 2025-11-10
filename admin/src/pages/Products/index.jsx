@@ -49,6 +49,10 @@ export default function Products() {
     getProducts();
   }, []);
 
+  const memoizedInfo = useMemo(() => {
+    return products.find((p) => p._id == chooseID);
+  }, [products, chooseID]);
+
   if (products.length === 0) {
     return (
       <div style={{ background: "#F9FAFB" }}>
@@ -59,10 +63,6 @@ export default function Products() {
       </div>
     );
   }
-
-  const memoizedInfo = useMemo(() => {
-    return products.find((p) => p._id == chooseID);
-  }, [products, chooseID]);
 
   if (!products) {
     return (
