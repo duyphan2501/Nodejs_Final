@@ -9,12 +9,15 @@ import {
   getProductBySlug,
   getProductQuantity,
   getTopNBestSellingProducts,
+  getLimitProductsByCategorySlug,
   getTopNNewProducts,
 } from "../services/product.service.js";
 import { addManyVariant } from "../services/variant.service.js";
 import ProductModel from "../models/product.model.js";
 import VariantModel from "../models/variant.model.js";
 import { getOrdersSummary } from "../services/order.service.js";
+import { getCategoryBySlug } from "../services/category.service.js";
+import mongoose from "mongoose";
 
 const getProductDashboardData = async (req, res, next) => {
   try {
@@ -52,13 +55,10 @@ const addProduct = async (req, res, next) => {
       return { ...variant, images };
     });
 
-    //Thêm variant vào db
     const resultVariant = await addManyVariant(variants);
 
-    //Tách mảng ObjectId của variant đã add
     const variantsObjId = resultVariant.map((v) => v._id);
 
-    //Thêm sản phẩm vao db
     const formatProduct = {
       name,
       categoryId,
@@ -80,12 +80,24 @@ const addProduct = async (req, res, next) => {
 
 const getProduct = async (req, res, next) => {
   try {
-    const result = await getAllProductWithVariantStock();
-    return res.status(200).json({
-      success: true,
-      message: "Lấy dữ liệu thành công",
-      products: result,
-    });
+    const limit = req.query.limit;
+    const slug = req.query.slug;
+
+    if (limit && slug) {
+      const result = await getLimitProductsByCategorySlug(limit, slug);
+
+      return res.status(200).json({
+        success: true,
+        products: result,
+      });
+    } else {
+      const result = await getAllProductWithVariantStock();
+      return res.status(200).json({
+        success: true,
+        message: "Lấy dữ liệu thành công",
+        products: result,
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -232,7 +244,7 @@ const fetchProductsController = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 10;
     const sortOption = req.query.sort || "createdAt_desc";
 
-    const categoryIds = Array.isArray(req.query.categoryId)
+    let categoryIds = Array.isArray(req.query.categoryId)
       ? req.query.categoryId
       : req.query.categoryId
       ? [req.query.categoryId]
@@ -284,7 +296,7 @@ const getProductFeature = async (req, res, next) => {
   try {
     const limitNewest = parseInt(req.query.limitNewest) || 6;
     const limitBest = parseInt(req.query.limitBest) || 6;
-    const type = req.query.type || "shoe";
+    const type = req.query.type || "";
 
     const topSellingProducts = await getTopNBestSellingProducts(
       limitBest,

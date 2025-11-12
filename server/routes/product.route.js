@@ -36,7 +36,7 @@ productRouter.put(
   updateProduct
 );
 productRouter.get("/feature", getProductFeature);
-productRouter.get("/", checkAuth, getProduct);
+productRouter.get("/", getProduct);
 productRouter.post("/dashboard", checkAuth, getProductDashboardData);
 productRouter.delete("/delete", checkAuth, deleteProduct);
 productRouter.get("/fetch", fetchProductsController);

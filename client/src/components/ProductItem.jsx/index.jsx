@@ -61,7 +61,9 @@ const ProductItem = ({ product, addCart }) => {
       <div className="relative h-[450px] sm:h-[400px] lg:h-[300px] overflow-hidden">
         <a href={`/product/${product.slug}`}>
           <img
-            src={selectedVariant.images?.[0]}
+            src={`${import.meta.env.VITE_API_URL}/${
+              selectedVariant.images?.[0]
+            }`}
             alt={product?.name}
             className="w-full h-full object-cover"
           />

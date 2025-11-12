@@ -9,9 +9,9 @@ import ProductByCategory from "../../components/ProductDisplay/ProductByCategory
 import StackButton from "../../components/StackButton";
 
 const categories = [
-  { _id: 1, name: "Giày nam" },
-  { _id: 2, name: "Giày nam" },
-  { _id: 3, name: "Giày nam" },
+  { _id: 1, name: "Giày nam", slug: "shoe-nam" },
+  { _id: 2, name: "Giày nữ", slug: "shoe-nu" },
+  { _id: 3, name: "Giày trẻ em", slug: "shoe-tre-em" },
 ];
 
 const Home = () => {

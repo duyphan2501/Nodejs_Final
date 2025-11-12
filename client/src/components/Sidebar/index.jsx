@@ -7,8 +7,7 @@ import useCategoryStore from "../../store/useCategoryStore";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import CategoryItem from "../CategoryItem";
 
-
-const Sidebar = ({filter, handleChangeFilter}) => {
+const Sidebar = ({ filter, handleChangeFilter }) => {
   const { getAllBrands } = useProductStore();
   const { getListCategories } = useCategoryStore();
   const [brandNames, setBrandNames] = useState([]);
@@ -17,22 +16,22 @@ const Sidebar = ({filter, handleChangeFilter}) => {
   const [value, setValue] = useState([filter.minPrice, filter.maxPrice]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    handleChangeFilter("minPrice", newValue[0])
-    handleChangeFilter("maxPrice", newValue[1])
+    handleChangeFilter("minPrice", newValue[0]);
+    handleChangeFilter("maxPrice", newValue[1]);
   };
 
   const handleCheckBoxChange = (event, field, value) => {
-      const isChecked = event.target.checked;
-      const current = filter[field] || []; 
-  
-      let updated;
-      if (isChecked) {
-          updated = [...current, value]; 
-      } else {
-          updated = current.filter(id => id !== value); 
-      }
-      
-      handleChangeFilter(field, updated);
+    const isChecked = event.target.checked;
+    const current = filter[field] || [];
+
+    let updated;
+    if (isChecked) {
+      updated = [...current, value];
+    } else {
+      updated = current.filter((id) => id !== value);
+    }
+
+    handleChangeFilter(field, updated);
   };
 
   const sliderSx = useMemo(
@@ -74,8 +73,12 @@ const Sidebar = ({filter, handleChangeFilter}) => {
         <CollapseButton title={"Danh mục"}>
           <FormGroup>
             {/* Duyệt qua các danh mục cấp cha (parent level) */}
-            {categories.map((category) => (
-              <CategoryItem key={category._id} category={category} handleChange={handleCheckBoxChange}/>
+            {categories?.map((category) => (
+              <CategoryItem
+                key={category._id}
+                category={category}
+                handleChange={handleCheckBoxChange}
+              />
             ))}
           </FormGroup>
         </CollapseButton>
@@ -87,7 +90,7 @@ const Sidebar = ({filter, handleChangeFilter}) => {
                   key={item}
                   control={
                     <Checkbox
-                      onChange={e => handleCheckBoxChange(e, "brand", item)}
+                      onChange={(e) => handleCheckBoxChange(e, "brand", item)}
                       sx={{
                         color: "black", // màu viền khi chưa chọn
                         "&.Mui-checked": {

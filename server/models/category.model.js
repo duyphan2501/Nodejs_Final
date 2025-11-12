@@ -20,7 +20,7 @@ categorySchema.pre("save", async function (next) {
       const parent = await this.constructor.findById(this.parentId);
       if (parent) {
         this.parentSlug = parent.slug;
-        this.slug = `${parent.slug}/${slugify(this.name, {
+        this.slug = `${parent.slug}-${slugify(this.name, {
           lower: true,
           strict: true,
         })}`;

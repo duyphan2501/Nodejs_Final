@@ -19,9 +19,15 @@ const cleanParams = (params) => {
 const normalizeSectionHeader = (items) => {
   return items.slice(0, 3).map((item) => ({
     name: item.name,
-    link: `product/${item.slug}`,
+    link: `/product/${item.slug}`,
   }));
 };
+
+const normalizeForCard = (products) =>
+  products.map((p) => ({
+    ...p,
+    category: p.categoryId?.[0]?.name || "Không xác định",
+  }));
 
 const useProductStore = create((set) => {
   const getProductBySlug = async (slug) => {
@@ -74,36 +80,51 @@ const useProductStore = create((set) => {
 
       return { products: res.data?.products, totalPages: res.data?.totalPages };
     } catch (error) {
+      console.log(error);
       toast.error(error.response?.data?.message || "Get product error");
       return { products: [], totalPages: 0 };
     }
   };
 
-  const getProductFeature = async (limitBest, limitNewest) => {
+  const getProductFeature = async (limitBest, limitNewest, option = {}) => {
     try {
-      const types = ["shoe", "sandal", "backpack"];
+      if (option.forHeader) {
+        const types = ["shoe", "sandal", "backpack"];
 
-      // Gọi API riêng cho từng type
-      const requests = types.map((t) =>
-        API.get(
-          `/api/product/feature?limitBest=${limitBest}&limitNewest=${limitNewest}&type=${t}`
-        )
-      );
+        // Gọi API riêng cho từng type
+        const requests = types.map((t) =>
+          API.get(
+            `/api/product/feature?limitBest=${limitBest}&limitNewest=${limitNewest}&type=${t}`
+          )
+        );
 
-      const [resShoe, resSandal, resBackpack] = await Promise.all(requests);
+        const [resShoe, resSandal, resBackpack] = await Promise.all(requests);
 
-      return {
-        topSellShoe: normalizeSectionHeader(resShoe.data.topSellingProducts),
-        topNewShoe: normalizeSectionHeader(resShoe.data.topNewProducts),
-        topSellSandal: normalizeSectionHeader(
-          resSandal.data.topSellingProducts
-        ),
-        topNewSandal: normalizeSectionHeader(resSandal.data.topNewProducts),
-        topSellBackpack: normalizeSectionHeader(
-          resBackpack.data.topSellingProducts
-        ),
-        topNewBackpack: normalizeSectionHeader(resBackpack.data.topNewProducts),
-      };
+        return {
+          topSellShoe: normalizeSectionHeader(resShoe.data.topSellingProducts),
+          topNewShoe: normalizeSectionHeader(resShoe.data.topNewProducts),
+          topSellSandal: normalizeSectionHeader(
+            resSandal.data.topSellingProducts
+          ),
+          topNewSandal: normalizeSectionHeader(resSandal.data.topNewProducts),
+          topSellBackpack: normalizeSectionHeader(
+            resBackpack.data.topSellingProducts
+          ),
+          topNewBackpack: normalizeSectionHeader(
+            resBackpack.data.topNewProducts
+          ),
+        };
+      }
+
+      if (option.forCard) {
+        const res = await API.get(
+          `/api/product/feature?limitBest=${limitBest}&limitNewest=${limitNewest}`
+        );
+        return {
+          topSellingProducts: normalizeForCard(res.data.topSellingProducts),
+          topNewProducts: normalizeForCard(res.data.topNewProducts),
+        };
+      }
     } catch (error) {
       console.log(error);
       toast.error(
@@ -120,6 +141,22 @@ const useProductStore = create((set) => {
     }
   };
 
+  const getProductByCategorySlug = async (limit = 10, slug) => {
+    try {
+      const result = await API.get("/api/product", {
+        params: {
+          limit,
+          slug,
+        },
+      });
+
+      return normalizeForCard(result.data.products);
+    } catch (error) {
+      console.error("Lấy sản phẩm theo category slug thất bại:", error);
+      toast.error(`Lấy sản phẩm theo ${slug} thất bại`);
+      return [];
+    }
+  };
   return {
     topSelling: [],
     topNewest: [],
@@ -127,6 +164,7 @@ const useProductStore = create((set) => {
     fetchProducts,
     getAllBrands,
     getProductFeature,
+    getProductByCategorySlug,
   };
 });
 

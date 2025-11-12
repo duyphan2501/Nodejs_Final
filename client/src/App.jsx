@@ -95,6 +95,8 @@ function App() {
             <Route path="addresses" element={<Address />} />
             <Route path="cart" element={<Cart />} />
             <Route path="products" element={<ProductPage />} />
+
+            <Route path="products/:slug" element={<ProductPage />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="/product/:slug" element={<ProductDetail />} />
           </Route>

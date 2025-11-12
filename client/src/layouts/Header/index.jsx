@@ -479,16 +479,21 @@ const Header = ({
   const fetchMenuData = async () => {
     const [resCate, resProduct] = await Promise.all([
       getCategoriesForHeader(),
-      getProductFeature(6, 6),
+      getProductFeature(6, 6, { forHeader: true }),
     ]);
-
-    console.log(resProduct);
 
     const menu = resCate.map((c) => ({
       ...c,
       sections: [
         {
-          title: "GIÀY HÀNG MỚI VỀ",
+          title:
+            c.type === "shoe"
+              ? "GIÀY HÀNG MỚI VỀ"
+              : c.type === "sandal"
+              ? "DÉP HÀNG MỚI VỀ"
+              : c.type === "backpack"
+              ? "BA LÔ HÀNG MỚI VỀ"
+              : "",
           items:
             c.type === "shoe"
               ? resProduct.topNewShoe
@@ -499,7 +504,14 @@ const Header = ({
               : [],
         },
         {
-          title: "XU HƯỚNG GIÀY",
+          title:
+            c.type === "shoe"
+              ? "XU HƯỚNG GIÀY"
+              : c.type === "sandal"
+              ? "XU HƯỚNG DÉP"
+              : c.type === "backpack"
+              ? "XU HƯỚNG BA LÔ"
+              : "",
           items:
             c.type === "shoe"
               ? resProduct.topSellShoe
@@ -598,7 +610,7 @@ const Header = ({
           }`}
         >
           <div className="p-4 space-y-0">
-            {mobileActiveCategory.categories.map((sub, index) => (
+            {mobileActiveCategory?.categories?.map((sub, index) => (
               <button
                 key={index}
                 onClick={() => handleMobileSubcategoryClick(sub)}
@@ -631,6 +643,12 @@ const Header = ({
           !mobileActiveCategory ? "translate-x-0" : "-translate-x-full"
         }`}
       >
+        <a
+          href={"/products"}
+          className="text-black font-medium cursor-pointer text-sm uppercase tracking-wide hover:underline py-2 px-1 transition-all"
+        >
+          tất cả sản phẩm
+        </a>
         {menuData?.categories.map((category, index) => (
           <button
             key={category.id}

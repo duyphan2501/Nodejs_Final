@@ -1,6 +1,8 @@
 import { useState } from "react";
 import ViewMoreBtn from "../ViewMoreBtn";
 import ProductSlider from "../ProductSlider.jsx";
+import useProductStore from "../../store/useProductStore.js";
+import { useEffect } from "react";
 
 const sampleProducts = [
   {
@@ -180,8 +182,28 @@ const sampleProducts = [
 ];
 
 const FirstSection = () => {
+  const getProductFeature = useProductStore((s) => s.getProductFeature);
+
+  const [newProducts, setNewProducts] = useState([]);
+  const [trendingProducts, setTrendingProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  //Fetch dữ liệu sản phẩm mới nhất và bán chạy
+  const fetchFeature = async () => {
+    setLoading(true);
+    const products = await getProductFeature(6, 6, { forCard: true });
+    setNewProducts(products.topNewProducts);
+    setTrendingProducts(products.topSellingProducts);
+    setLoading(false);
+  };
+
+  //Useeffect khoi tao
+  useEffect(() => {
+    fetchFeature();
+  }, []);
+
   const [isBtnNewProduct, setIsBtnNewProduct] = useState(true);
-  
+
   return (
     <div className="">
       <section className="mb-5">
@@ -210,7 +232,22 @@ const FirstSection = () => {
         </div>
       </section>
       <section>
-        <ProductSlider products={sampleProducts} />
+        {loading ? (
+          // Skeleton trực tiếp trong đây
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="rounded-lg p-2 shadow-sm animate-pulse">
+                <div className="w-full h-80 bg-gray-300 rounded-lg mb-2"></div>
+                <div className="h-4 bg-gray-300 rounded mb-1"></div>
+                <div className="h-3 bg-gray-300 rounded w-1/2"></div>
+              </div>
+            ))}
+          </div>
+        ) : isBtnNewProduct ? (
+          <ProductSlider products={newProducts} />
+        ) : (
+          <ProductSlider products={trendingProducts} />
+        )}
       </section>
     </div>
   );

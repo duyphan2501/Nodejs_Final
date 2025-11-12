@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const FlyoutShoes = ({
   activeCategory,
@@ -31,12 +32,12 @@ const FlyoutShoes = ({
                 <ul className="space-y-2">
                   {section.items?.map((item, idx) => (
                     <li key={idx}>
-                      <a
-                        href={item.link || "#"}
+                      <Link
+                        to={item.link || "#"}
                         className="text-sm text-gray-700 hover:text-black transition-colors"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

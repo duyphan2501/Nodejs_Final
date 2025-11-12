@@ -73,6 +73,15 @@ const getListOfCategories = async () => {
   return rootCategories;
 };
 
+const getCategoryBySlug = async (slug) => {
+  try {
+    const result = await CategoryModel.findOne({ slug });
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export {
   getCategorydByName,
@@ -80,5 +89,6 @@ export {
   deleteManyCategoryByID,
   editNameCategoryByID,
   addOneCategory,
-  getListOfCategories
+  getListOfCategories,
+  getCategoryBySlug,
 };

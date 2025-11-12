@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import ProductSlider from "../ProductSlider.jsx";
 import ViewMoreBtn from "../ViewMoreBtn";
+import useProductStore from "../../store/useProductStore.js";
 
 const sampleProducts = [
   {
@@ -179,6 +181,22 @@ const sampleProducts = [
 ];
 
 const ProductByCategory = ({ category }) => {
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+  const getProductByCategorySlug = useProductStore(
+    (s) => s.getProductByCategorySlug
+  );
+
+  const fetchProductsSlug = async () => {
+    setLoading(false);
+    const data = await getProductByCategorySlug(6, category.slug);
+    setProducts(data);
+    setLoading(true);
+  };
+
+  useEffect(() => {
+    fetchProductsSlug();
+  }, []);
   return (
     <div>
       <section className="mb-4">
@@ -191,7 +209,7 @@ const ProductByCategory = ({ category }) => {
           </div>
         </div>
       </section>
-      <ProductSlider products={sampleProducts} />
+      <ProductSlider products={products} />
     </div>
   );
 };

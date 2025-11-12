@@ -6,6 +6,7 @@ import {
   editNameCategoryByID,
   addOneCategory,
   getListOfCategories,
+  getCategoryBySlug,
 } from "../services/category.service.js";
 
 const getShoeCategory = async (req, res, next) => {
@@ -151,6 +152,26 @@ const getListCategories = async (req, res, next) => {
   }
 };
 
+const getCategoryIdBySlug = async (req, res, next) => {
+  try {
+    const slug = req.params.slug;
+
+    if (!slug) {
+      throw createHttpError.BadRequest("Thiếu slug");
+    }
+
+    const result = await getCategoryBySlug(slug);
+
+    return res.status(200).json({
+      success: true,
+      _id: result._id,
+      message: "Lấy dữ liệu id thành công",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   getShoeCategory,
   getSandalCategory,
@@ -159,4 +180,5 @@ export {
   editCategory,
   addCategory,
   getListCategories,
+  getCategoryIdBySlug,
 };

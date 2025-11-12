@@ -5,6 +5,7 @@ import CollectionsFlyout from "./CollectionsFlyout";
 import CartIcon from "./CartIcon";
 import { MyContext } from "../../../Context/MyContext";
 import useUserStore from "../../../store/useUserStore";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({
   menuData,
@@ -19,6 +20,7 @@ const Navbar = ({
   const { isOpenAccountMenu, setIsOpenAccountMenu } = useContext(MyContext);
   const flyoutTimeoutRef = useRef(null);
   const user = useUserStore((state) => state.user);
+  const navigate = useNavigate();
 
   useEffect(() => {
     return () => {
@@ -106,11 +108,17 @@ const Navbar = ({
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center space-x-8">
+          <button
+            className="text-black font-medium cursor-pointer text-sm uppercase tracking-wide hover:underline py-2 px-1 transition-all"
+            onClick={() => navigate("/products", { replace: false })}
+          >
+            tất cả sản phẩm
+          </button>
           {menuData ? (
             menuData.categories.map((category) => (
               <button
                 key={category.id}
-                className="text-black font-medium text-sm uppercase tracking-wide hover:underline py-2 px-1 transition-all"
+                className="text-black cursor-pointer font-medium text-sm uppercase tracking-wide hover:underline py-2 px-1 transition-all"
                 onMouseEnter={(e) => handleMouseEnter(e, category)}
                 onMouseLeave={handleMouseLeave}
               >

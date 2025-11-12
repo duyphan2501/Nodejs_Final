@@ -17,6 +17,8 @@ import ProductListShape from "../../../components/ProductListShape";
 import useProductStore from "../../../store/useProductStore";
 import useCartStore from "../../../store/useCartStore.js";
 import useUserStore from "../../../store/useUserStore.js";
+import { useParams } from "react-router-dom";
+import useCategoryStore from "../../../store/useCategoryStore.js";
 
 const ProductPage = () => {
   const [openSort, setOpenSort] = useState(false);
@@ -26,6 +28,12 @@ const ProductPage = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("createdAt_desc");
+
+  //Slug cua Category
+  const { slug } = useParams();
+
+  //Store chuyen slug => id
+  const getCategoryIdBySlug = useCategoryStore((s) => s.getCategoryIdBySlug);
 
   const [filter, setFilter] = useState({
     categoryId: [],
@@ -55,7 +63,6 @@ const ProductPage = () => {
     setOpenSort((prev) => !prev);
   };
 
-
   const { fetchProducts } = useProductStore();
 
   const fetchProductsAPI = async (page, limit, sortOption, filterParams) => {
@@ -70,6 +77,32 @@ const ProductPage = () => {
     setTotalPages(totalPages);
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (!slug) return;
+    initialParamsFetch();
+  }, []);
+
+  //Hàm gán giá trị khởi tạo lọc category đầu tiên nếu có params
+  const initialParamsFetch = async () => {
+    const isMount = true;
+    const id = await getCategoryIdBySlug(slug);
+    if (isMount) handleChangeFilter("categoryId", [id]);
+  };
+
+  useEffect(() => {
+    const fetchInitial = async () => {
+      if (slug) {
+        const id = await getCategoryIdBySlug(slug);
+        handleChangeFilter("categoryId", [id]);
+      } else {
+        // Không có slug → reset filter
+        handleChangeFilter("categoryId", []);
+      }
+    };
+
+    fetchInitial();
+  }, [slug]); // <--- chạy lại khi slug thay đổi
 
   useEffect(() => {
     fetchProductsAPI(currentPage, limit, sortBy, filter);
@@ -168,31 +201,28 @@ const ProductPage = () => {
             <div className="my-4">
               {loading ? (
                 <div>Đang tải sản phẩm...</div>
+              ) : products.length === 0 ? ( // <-- check products rỗng
+                <div>Không có sản phẩm nào</div>
               ) : view === 0 ? (
                 <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3 overflow-hidden">
-                  {products &&
-                    products.map((product) => {
-                      return (
-                        <div key={product._id}>
-                          <ProductItem
-                            product={product}
-                            addCart={(item, quantity) =>
-                              handleAddToCart(item, quantity)
-                            }
-                          />
-                        </div>
-                      );
-                    })}
+                  {products.map((product) => (
+                    <div key={product._id}>
+                      <ProductItem
+                        product={product}
+                        addCart={(item, quantity) =>
+                          handleAddToCart(item, quantity)
+                        }
+                      />
+                    </div>
+                  ))}
                 </div>
               ) : (
                 <div className="flex flex-col gap-4">
-                  {products.map((product) => {
-                    return (
-                      <div className="" key={product._id}>
-                        <ProductListShape product={product} />
-                      </div>
-                    );
-                  })}
+                  {products.map((product) => (
+                    <div key={product._id}>
+                      <ProductListShape product={product} />
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
