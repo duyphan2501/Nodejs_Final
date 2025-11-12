@@ -12,7 +12,7 @@ const CategoryItem = ({ category }) => {
       </div>
       <div className="text-center mt-4">
         <Link
-          to={""}
+          to={`products/${category.slug}`}
           className="text-center uppercase font-bold hover:underline"
         >
           {category.name}

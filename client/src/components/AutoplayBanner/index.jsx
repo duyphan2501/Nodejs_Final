@@ -58,15 +58,9 @@ export default function AutoplayBanner() {
                   alt=""
                   className="size-full object-cover z-10"
                 />
-                <div className="absolute z-20 left-10    lg:left-30 bottom-20 space-y-3">
-                  <h4 className="title text-2xl bg-white w-fit px-2 font-black">
-                    {banner.title}
-                  </h4>
-                  <h6 className="bg-white w-fit px-2 italic">
-                    {banner.subtitle}
-                  </h6>
+                {/* <div className="absolute z-20 left-10    lg:left-30 bottom-20 space-y-3">
                   <StackButton label={"Mua Ngay"} />
-                </div>
+                </div> */}
               </div>
             </SwiperSlide>
           ))}

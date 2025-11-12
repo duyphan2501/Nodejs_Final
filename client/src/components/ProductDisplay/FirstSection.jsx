@@ -243,7 +243,7 @@ const FirstSection = () => {
               </div>
             ))}
           </div>
-        ) : isBtnNewProduct ? (
+        ) : isBtnNewProduct === true ? (
           <ProductSlider products={newProducts} />
         ) : (
           <ProductSlider products={trendingProducts} />

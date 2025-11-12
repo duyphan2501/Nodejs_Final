@@ -152,7 +152,7 @@ const getListCategories = async (req, res, next) => {
   }
 };
 
-const getCategoryIdBySlug = async (req, res, next) => {
+const getCategoryFromSlug = async (req, res, next) => {
   try {
     const slug = req.params.slug;
 
@@ -164,7 +164,7 @@ const getCategoryIdBySlug = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      _id: result._id,
+      category: result,
       message: "Lấy dữ liệu id thành công",
     });
   } catch (error) {
@@ -180,5 +180,5 @@ export {
   editCategory,
   addCategory,
   getListCategories,
-  getCategoryIdBySlug,
+  getCategoryFromSlug,
 };

@@ -29,6 +29,7 @@ const ProductPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("createdAt_desc");
 
+  const [category, setCategory] = useState("");
   //Slug cua Category
   const { slug } = useParams();
 
@@ -78,25 +79,27 @@ const ProductPage = () => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    if (!slug) return;
-    initialParamsFetch();
-  }, []);
+  // useEffect(() => {
+  //   if (!slug) return;
+  //   initialParamsFetch();
+  // }, []);
 
   //Hàm gán giá trị khởi tạo lọc category đầu tiên nếu có params
-  const initialParamsFetch = async () => {
-    const isMount = true;
-    const id = await getCategoryIdBySlug(slug);
-    if (isMount) handleChangeFilter("categoryId", [id]);
-  };
+  // const initialParamsFetch = async () => {
+  //   const isMount = true;
+  //   const category = await getCategoryIdBySlug(slug);
+  //   if (isMount) handleChangeFilter("categoryId", [category._id]);
+  // };
 
   useEffect(() => {
     const fetchInitial = async () => {
       if (slug) {
-        const id = await getCategoryIdBySlug(slug);
-        handleChangeFilter("categoryId", [id]);
+        const category = await getCategoryIdBySlug(slug);
+        setCategory(category);
+        handleChangeFilter("categoryId", [category._id]);
       } else {
         // Không có slug → reset filter
+        setCategory("");
         handleChangeFilter("categoryId", []);
       }
     };
@@ -196,6 +199,10 @@ const ProductPage = () => {
                 )}
               </div>
             </div>
+
+            <h4 className="mt-3 uppercase font-bold text-2xl">
+              Kết quả {category?.name}:
+            </h4>
 
             {/* Phần Render Sản phẩm */}
             <div className="my-4">

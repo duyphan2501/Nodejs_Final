@@ -42,6 +42,7 @@ const CategoryDisplay = () => {
         _id: c.children[0]._id,
         name: c.children[0].name,
         image: c.children[0].image,
+        slug: c.children[0].slug,
       }));
       setCategories(result);
       setLoading(true);

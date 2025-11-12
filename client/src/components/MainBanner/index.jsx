@@ -20,33 +20,26 @@ const MainBanner = () => {
           src="https://images.unsplash.com/photo-1604327538197-ecc8a394200e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE1fHx8ZW58MHx8fHx8"
           alt=""
           className=" h-full flex-1 object-cover"
-        />  
+        />
       </div>
       <div className="absolute z-10 w-full h-1/2 inset-0 items-center flex justify-center ">
-        <h2 className="title text-7xl font-bold text-primary">Striped Days</h2>
+        <h2 className="title text-7xl font-bold text-primary">Black Fridays</h2>
       </div>
       <div className="absolute z-20 lg:left-30 bottom-20 w-full lg:w-1/3 flex flex-col gap-4 items-center lg:items-baseline">
         <h3 className="subtitle text-xl md:text-2xl font-semibold text-secondary uppercase bg-white rounded-tl-4xl rounded-br-4xl py-2 px-4 max-w-fit whitespace-nowrap">
           Giảm giá ngay hôm nay
         </h3>
         <p className="text-white text-sm text-center lg:text-start w-100 sm:w-110">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum
-          voluptates sit quidem sint numquam nisi ipsum qui?
+          Khám phá những đôi giày hot nhất mùa này. Phong cách – thoải mái – phù
+          hợp cho mọi bước chân.
         </p>
         <div className="flex gap-3">
           <Button
-            components={Link}
-            to={"href"}
+            component={Link}
+            to={"/products/"}
             className=" p-2 !bg-white !rounded-lg !text-black hover:!bg-secondary hover:!text-white"
           >
             Mua sắm ngay <ArrowRightIcon />
-          </Button>
-          <Button
-            components={Link}
-            to={""}
-            className=" p-2 !bg-white !rounded-lg !text-black hover:!bg-secondary hover:!text-white"
-          >
-            Tìm hiểu thêm <ArrowRightIcon />
           </Button>
         </div>
       </div>

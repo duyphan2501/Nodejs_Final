@@ -392,22 +392,19 @@ const getTopNNewProducts = async (n, type) => {
           from: "categories",
           localField: "categoryId",
           foreignField: "_id",
-          as: "categories",
+          as: "categoryId",
         },
       },
       // Lấy category đầu tiên (hoặc tất cả nếu muốn)
-      { $unwind: { path: "$categories", preserveNullAndEmptyArrays: true } },
 
-      // Join parent category
       {
         $lookup: {
           from: "categories",
-          localField: "categories.parentId",
+          localField: "categoryId.parentId",
           foreignField: "_id",
           as: "parent",
         },
       },
-      { $unwind: { path: "$parent", preserveNullAndEmptyArrays: true } },
 
       // Join variants
       {
@@ -416,17 +413,6 @@ const getTopNNewProducts = async (n, type) => {
           localField: "variants",
           foreignField: "_id",
           as: "variants", // tất cả variants của product
-        },
-      },
-
-      { $unwind: "$categoryId" },
-
-      {
-        $lookup: {
-          from: "categories",
-          localField: "categoryId",
-          foreignField: "_id",
-          as: "categoryId",
         },
       },
 
@@ -445,15 +431,21 @@ const getTopNNewProducts = async (n, type) => {
 // Lấy top 3 sản phẩm bán chạy nhất
 const getTopNBestSellingProducts = async (n, type) => {
   try {
-    const result = OrderModel.aggregate([
+    const result = await OrderModel.aggregate([
       { $match: { status: "delivered" } },
-
       { $unwind: "$items" },
+
+      {
+        $group: {
+          _id: "$items.variantId",
+          totalQuantityPerVariant: { $sum: "$items.quantity" },
+        },
+      },
 
       {
         $lookup: {
           from: "variants",
-          localField: "items.variantId",
+          localField: "_id",
           foreignField: "_id",
           as: "variant",
         },
@@ -495,42 +487,43 @@ const getTopNBestSellingProducts = async (n, type) => {
       {
         $group: {
           _id: "$product._id",
-          product: { $first: "$product" },
-          totalQuantity: { $sum: "$items.quantity" },
+          productData: { $first: "$product" },
+          totalQuantity: { $sum: "$totalQuantityPerVariant" },
         },
       },
 
       { $sort: { totalQuantity: -1 } },
-
       { $limit: n },
-
-      {
-        $replaceRoot: {
-          newRoot: {
-            $mergeObjects: ["$product", { totalQuantity: "$totalQuantity" }],
-          },
-        },
-      },
-
-      { $unwind: "$variants" },
 
       {
         $lookup: {
           from: "variants",
-          localField: "variants",
+          localField: "productData.variants",
           foreignField: "_id",
           as: "variants",
         },
       },
 
-      { $unwind: "$categoryId" },
-
       {
         $lookup: {
           from: "categories",
-          localField: "categoryId",
+          localField: "productData.categoryId",
           foreignField: "_id",
-          as: "categoryId",
+          as: "categories",
+        },
+      },
+
+      {
+        $project: {
+          _id: "$productData._id",
+          name: "$productData.name",
+          slug: "$productData.slug",
+          description: "$productData.description",
+          images: "$productData.images",
+          price: "$productData.price",
+          variants: 1,
+          categoryId: { $arrayElemAt: ["$categories", 0] },
+          totalQuantity: 1,
         },
       },
     ]);

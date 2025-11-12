@@ -43,7 +43,7 @@ const useCategoryStore = create((set) => {
     try {
       const result = await API.get(`/api/category/trans/${slug}`);
 
-      return result.data._id;
+      return result.data.category;
     } catch (error) {
       toast.error("Chuyển slug sang id thất bại");
     }

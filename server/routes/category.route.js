@@ -7,15 +7,16 @@ import {
   editCategory,
   addCategory,
   getListCategories,
-  getCategoryIdBySlug,
+  getCategoryFromSlug,
 } from "../controllers/category.controller.js";
 import checkAuth from "../middlewares/auth.middleware.js";
 import { uploadSingleImage } from "../middlewares/multer.middleware.js";
+import { getCategoryBySlug } from "../services/category.service.js";
 
 const categoryRouter = express.Router();
 
 categoryRouter.post("/", uploadSingleImage, addCategory);
-categoryRouter.get("/trans/:slug", getCategoryIdBySlug);
+categoryRouter.get("/trans/:slug", getCategoryFromSlug);
 categoryRouter.get("/shoe", checkAuth, getShoeCategory);
 categoryRouter.get("/sandal", checkAuth, getSandalCategory);
 categoryRouter.get("/backpack", checkAuth, getBackpackCategory);
