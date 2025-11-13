@@ -158,11 +158,12 @@ const getProductBySlug = async (slug) => {
   return product;
 };
 
-const fetchProducts = async (page, limit, sortOption, filterParams) => {
+const fetchProducts = async (page, limit, sortOption, filterParams, terms) => {
   const skipIndex = (page - 1) * limit;
 
   // --- 1. Xây dựng điều kiện Lọc cơ bản (Match Stage) ---
   let matchCriteria = {};
+  let matchTerm = {};
 
   if (filterParams.categoryId && filterParams.categoryId.length > 0) {
     matchCriteria.categoryId = {
@@ -174,6 +175,18 @@ const fetchProducts = async (page, limit, sortOption, filterParams) => {
 
   if (filterParams.brand && filterParams.brand.length > 0) {
     matchCriteria.brand = { $in: filterParams.brand };
+  }
+
+  if (terms && Array.isArray(terms) && terms.length > 0) {
+    matchTerm.$or = terms.map((t) => {
+      const regex = new RegExp(t.trim(), "i");
+      return {
+        $or: [
+          { name: { $regex: regex } },
+          { "categoryId.name": { $regex: regex } },
+        ],
+      };
+    });
   }
 
   // --- 2. Xây dựng Pipeline ---
@@ -190,6 +203,31 @@ const fetchProducts = async (page, limit, sortOption, filterParams) => {
         as: "variantDetails",
       },
     },
+
+    {
+      $lookup: {
+        from: "categories",
+        localField: "categoryId",
+        foreignField: "_id",
+        as: "categoryId",
+      },
+    },
+
+    {
+      $unwind: "$categoryId",
+    },
+
+    {
+      $group: {
+        _id: "$_id",
+        doc: { $first: "$$ROOT" },
+      },
+    },
+    {
+      $replaceRoot: { newRoot: "$doc" },
+    },
+
+    { $match: matchTerm },
 
     // Stage 3 (MỚI): Tạo trường giá trị của variant đầu tiên
     {
@@ -553,7 +591,6 @@ const getLimitProductsByCategorySlug = (limit, slug) => {
         "categoryId.slug": slug,
       },
     },
-    { $unwind: "$variants" },
 
     {
       $lookup: {
@@ -569,6 +606,58 @@ const getLimitProductsByCategorySlug = (limit, slug) => {
   return res;
 };
 
+const getProductsByTerm = async (terms = []) => {
+  try {
+    const regexConditions = terms.map((t) => ({
+      $or: [
+        { name: { $regex: t, $options: "i" } },
+        { "categories.name": { $regex: t, $options: "i" } },
+      ],
+    }));
+
+    const res = await ProductModel.aggregate([
+      {
+        $lookup: {
+          from: "categories",
+          localField: "categoryId",
+          foreignField: "_id",
+          as: "categories",
+        },
+      },
+      { $unwind: "$categories" },
+      {
+        $match: {
+          $or: regexConditions.flat(),
+        },
+      },
+      {
+        $lookup: {
+          from: "variants",
+          localField: "variants",
+          foreignField: "_id",
+          as: "variants",
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          doc: { $first: "$$ROOT" },
+        },
+      },
+      {
+        $replaceRoot: { newRoot: "$doc" },
+      },
+      // {
+      //   collation: { locale: "vi", strength: 1 },
+      // },
+    ]);
+
+    return res;
+  } catch (error) {
+    return [];
+  }
+};
+
 export {
   addOneProduct,
   deleteOneProduct,
@@ -582,4 +671,5 @@ export {
   getTopNBestSellingProducts,
   getTopNNewProducts,
   getLimitProductsByCategorySlug,
+  getProductsByTerm,
 };

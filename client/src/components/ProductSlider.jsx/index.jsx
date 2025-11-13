@@ -13,8 +13,8 @@ const ProductSlider = ({ products }) => {
   const { addToCart } = useCartStore();
 
   const handleAddToCart = async (item, quantity) => {
-    await addToCart(item, quantity, user?._id)
-  }
+    await addToCart(item, quantity, user?._id);
+  };
 
   return (
     <Swiper
@@ -35,8 +35,11 @@ const ProductSlider = ({ products }) => {
     >
       {products &&
         products.map((product) => (
-          <SwiperSlide key={product.name}>
-            <ProductItem product={product} addCart={(item, quantity) => handleAddToCart(item, quantity)}/>
+          <SwiperSlide key={product._id}>
+            <ProductItem
+              product={product}
+              addCart={(item, quantity) => handleAddToCart(item, quantity)}
+            />
           </SwiperSlide>
         ))}
     </Swiper>

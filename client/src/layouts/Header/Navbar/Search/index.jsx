@@ -1,62 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-
-// Fake API data
-const fakeProducts = [
-  {
-    id: 1,
-    name: "Giày Samba OG",
-    category: "Originals",
-    price: "2.700.000đ",
-    image:
-      "https://assets.adidas.com/images/w_600,f_auto,q_auto/3bbecbdf584e40398446a8bf0117cf62_9366/Giay_Samba_OG_trang_B75806_01_standard.jpg",
-  },
-  {
-    id: 2,
-    name: "Giày Adizero EVO SL",
-    category: "Nam Performance",
-    price: "4.000.000đ",
-    image:
-      "https://assets.adidas.com/images/w_600,f_auto,q_auto/d7c1e3af8ab34e5ca2fca8bf01179d62_9366/Giay_Adizero_EVO_SL_DJen_IF9342_01_standard.jpg",
-  },
-  {
-    id: 3,
-    name: "Dép Lightblaze",
-    category: "Sportswear",
-    price: "1.500.000đ",
-    image:
-      "https://assets.adidas.com/images/w_600,f_auto,q_auto/fd92b5c6c8964a2e8c7ca8bf01177e5e_9366/Dep_Lightblaze_DJen_IF3940_01_standard.jpg",
-  },
-  {
-    id: 4,
-    name: "Giày Superstar",
-    category: "Originals",
-    price: "2.500.000đ",
-    image:
-      "https://assets.adidas.com/images/w_600,f_auto,q_auto/12365dbc5f2945fe93e4a8bf01177e0e_9366/Giay_Superstar_trang_EG4958_01_standard.jpg",
-  },
-  {
-    id: 5,
-    name: "Giày Stan Smith",
-    category: "Originals",
-    price: "2.600.000đ",
-    image:
-      "https://assets.adidas.com/images/w_600,f_auto,q_auto/771d70adf3f743778c5aa8bf01177d9e_9366/Giay_Stan_Smith_trang_FX5500_01_standard.jpg",
-  },
-  {
-    id: 6,
-    name: "Giày Ultraboost Light",
-    category: "Nam Running",
-    price: "5.500.000đ",
-    image:
-      "https://assets.adidas.com/images/w_600,f_auto,q_auto/5a3f8c21b03d4b228b8aa8bf01177c0e_9366/Giay_Ultraboost_Light_DJen_GY9350_01_standard.jpg",
-  },
-];
+import useProductStore from "../../../../store/useProductStore";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const searchRef = useRef(null);
+  const searchProducts = useProductStore((s) => s.searchProducts);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -70,18 +20,34 @@ const Search = () => {
   }, []);
 
   useEffect(() => {
-    if (searchQuery.trim()) {
-      const filtered = fakeProducts.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          product.category.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredProducts(filtered);
-      setIsOpen(true);
-    } else {
-      setFilteredProducts([]);
-      setIsOpen(false);
-    }
+    const timer = setTimeout(async () => {
+      if (searchQuery !== "") {
+        const res = await searchProducts(searchQuery);
+
+        const filtered = res.map((p) => ({
+          id: p._id,
+          name: p.name,
+          category: p.categories?.name || "Không xác định",
+          price: p.variants?.[0]?.price
+            ? (
+                Number(p.variants[0].price) *
+                (1 - Number(p.variants[0].discount || 0) / 100)
+              ).toLocaleString("vi-VN") + "đ"
+            : "Liên hệ",
+
+          image: `${import.meta.env.VITE_API_URL}/${
+            p.variants[0]?.images?.[0] || ""
+          }`,
+        }));
+        setFilteredProducts(filtered);
+        setIsOpen(true);
+      } else {
+        setFilteredProducts([]);
+        // setIsOpen(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, [searchQuery]);
 
   const handleClearSearch = () => {
@@ -99,7 +65,7 @@ const Search = () => {
 
   const handleViewAll = () => {
     // Navigation to all products with search query
-    window.location.href = `/products?search=${searchQuery}`;
+    window.location.href = `/products/search?term=${searchQuery}`;
     setIsOpen(false);
     setSearchQuery("");
   };
@@ -177,7 +143,7 @@ const Search = () => {
                 <div className="p-4">
                   <h3 className="font-bold text-lg mb-3">Sản phẩm</h3>
                   <div className="space-y-3">
-                    {filteredProducts.map((product) => (
+                    {filteredProducts.slice(0, 3).map((product) => (
                       <div
                         key={product.id}
                         onClick={() => handleProductClick(product.id)}

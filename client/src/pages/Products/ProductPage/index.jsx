@@ -19,6 +19,7 @@ import useCartStore from "../../../store/useCartStore.js";
 import useUserStore from "../../../store/useUserStore.js";
 import { useParams } from "react-router-dom";
 import useCategoryStore from "../../../store/useCategoryStore.js";
+import { useLocation } from "react-router-dom";
 
 const ProductPage = () => {
   const [openSort, setOpenSort] = useState(false);
@@ -33,8 +34,14 @@ const ProductPage = () => {
   //Slug cua Category
   const { slug } = useParams();
 
+  const location = useLocation();
+
   //Store chuyen slug => id
   const getCategoryIdBySlug = useCategoryStore((s) => s.getCategoryIdBySlug);
+
+  //Store search products
+  const searchProductArray = useProductStore((s) => s.searchProductsArray);
+  const searchProducts = useProductStore((s) => s.searchProducts);
 
   const [filter, setFilter] = useState({
     categoryId: [],
@@ -66,37 +73,44 @@ const ProductPage = () => {
 
   const { fetchProducts } = useProductStore();
 
-  const fetchProductsAPI = async (page, limit, sortOption, filterParams) => {
+  const fetchProductsAPI = async (
+    page,
+    limit,
+    sortOption,
+    filterParams,
+    term
+  ) => {
     setLoading(true);
     const { products, totalPages } = await fetchProducts(
       page,
       limit,
       sortOption,
-      filterParams
+      filterParams,
+      term
     );
     setProducts(products);
     setTotalPages(totalPages);
     setLoading(false);
   };
 
-  // useEffect(() => {
-  //   if (!slug) return;
-  //   initialParamsFetch();
-  // }, []);
-
-  //Hàm gán giá trị khởi tạo lọc category đầu tiên nếu có params
-  // const initialParamsFetch = async () => {
-  //   const isMount = true;
-  //   const category = await getCategoryIdBySlug(slug);
-  //   if (isMount) handleChangeFilter("categoryId", [category._id]);
-  // };
-
   useEffect(() => {
     const fetchInitial = async () => {
       if (slug) {
         const category = await getCategoryIdBySlug(slug);
-        setCategory(category);
-        handleChangeFilter("categoryId", [category._id]);
+
+        if (category) {
+          setCategory(category);
+          handleChangeFilter("categoryId", [category._id]);
+        } else {
+          const searchParams = new URLSearchParams(location.search);
+          const term = searchParams.get("term");
+          if (term) {
+            setCategory({ name: term });
+          } else {
+            setCategory({ name: slug });
+          }
+          handleChangeFilter("categoryId", []);
+        }
       } else {
         // Không có slug → reset filter
         setCategory("");
@@ -105,10 +119,13 @@ const ProductPage = () => {
     };
 
     fetchInitial();
-  }, [slug]); // <--- chạy lại khi slug thay đổi
+  }, [slug]);
 
   useEffect(() => {
-    fetchProductsAPI(currentPage, limit, sortBy, filter);
+    const searchParams = new URLSearchParams(location.search);
+    const term = searchParams.get("term");
+
+    fetchProductsAPI(currentPage, limit, sortBy, filter, term);
   }, [currentPage, sortBy, filter, limit]);
 
   const handlePageChange = (event, value) => {

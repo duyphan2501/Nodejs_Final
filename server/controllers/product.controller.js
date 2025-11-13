@@ -11,6 +11,7 @@ import {
   getTopNBestSellingProducts,
   getLimitProductsByCategorySlug,
   getTopNNewProducts,
+  getProductsByTerm,
 } from "../services/product.service.js";
 import { addManyVariant } from "../services/variant.service.js";
 import ProductModel from "../models/product.model.js";
@@ -243,6 +244,8 @@ const fetchProductsController = async (req, res, next) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const sortOption = req.query.sort || "createdAt_desc";
+    const term = req.query.term || "";
+    const searchTerm = term.split("+");
 
     let categoryIds = Array.isArray(req.query.categoryId)
       ? req.query.categoryId
@@ -267,7 +270,8 @@ const fetchProductsController = async (req, res, next) => {
       page,
       limit,
       sortOption,
-      filterParams
+      filterParams,
+      searchTerm
     );
 
     return res.status(200).json({
@@ -315,6 +319,20 @@ const getProductFeature = async (req, res, next) => {
   }
 };
 
+const searchProducts = async (req, res, next) => {
+  try {
+    const term = req.query.term || "";
+    const searchTerm = term.split("+");
+    const result = await getProductsByTerm(searchTerm);
+    return res.status(200).json({
+      success: true,
+      products: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   addProduct,
   getProduct,
@@ -326,4 +344,5 @@ export {
   getProductStats,
   getProductDashboardData,
   getProductFeature,
+  searchProducts,
 };

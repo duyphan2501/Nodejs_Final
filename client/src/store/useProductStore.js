@@ -29,6 +29,11 @@ const normalizeForCard = (products) =>
     category: p.categoryId?.[0]?.name || "Không xác định",
   }));
 
+const formatSearchTerm = (term) => {
+  const normalized = term.toLowerCase();
+  return normalized.trim().replace(/\s+/g, "+");
+};
+
 const useProductStore = create((set) => {
   const getProductBySlug = async (slug) => {
     try {
@@ -52,7 +57,8 @@ const useProductStore = create((set) => {
     page,
     itemsPerPage,
     sortOption,
-    filterParams
+    filterParams,
+    term = ""
   ) => {
     try {
       const params = new URLSearchParams(
@@ -74,6 +80,10 @@ const useProductStore = create((set) => {
       }
       params.append("minPrice", filterParams.minPrice);
       params.append("maxPrice", filterParams.maxPrice);
+
+      if (term !== null && term !== undefined) {
+        params.append("term", formatSearchTerm(term));
+      }
 
       // Gọi API với đầy đủ tham số
       const res = await API.get(`/api/product/fetch?${params.toString()}`);
@@ -157,6 +167,24 @@ const useProductStore = create((set) => {
       return [];
     }
   };
+
+  const searchProducts = async (term, option = {}) => {
+    try {
+      const formattedTerm = formatSearchTerm(term);
+      const res = await API.get("/api/product/search", {
+        params: { term: formattedTerm },
+      });
+
+      let products = res.data.products;
+
+      if (option.normalizeForCard) {
+        products = normalizeForCard(res.data.products);
+      }
+      return products;
+    } catch (error) {
+      return [];
+    }
+  };
   return {
     topSelling: [],
     topNewest: [],
@@ -165,6 +193,7 @@ const useProductStore = create((set) => {
     getAllBrands,
     getProductFeature,
     getProductByCategorySlug,
+    searchProducts,
   };
 });
 

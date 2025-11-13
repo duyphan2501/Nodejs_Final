@@ -9,6 +9,7 @@ import {
   getProductDashboardData,
   getProductFeature,
   getProductStats,
+  searchProducts,
   updateProduct,
 } from "../controllers/product.controller.js";
 import {
@@ -37,6 +38,7 @@ productRouter.put(
 );
 productRouter.get("/feature", getProductFeature);
 productRouter.get("/", getProduct);
+productRouter.get("/search", searchProducts);
 productRouter.post("/dashboard", checkAuth, getProductDashboardData);
 productRouter.delete("/delete", checkAuth, deleteProduct);
 productRouter.get("/fetch", fetchProductsController);
