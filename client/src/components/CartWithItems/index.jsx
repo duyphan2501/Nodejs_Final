@@ -70,13 +70,17 @@ const CartWithItems = ({}) => {
                   >
                     <div className="w-[150px] h-[150px] relative">
                       <img
-                        src={item.image}
+                        src={`${import.meta.env.VITE_API_URL}/${item.image}`}
                         alt={item.name}
                         className="size-full object-cover flex-shrink-0"
                       />
-                      {item.inStock === 0 && <div className="size-full bg-black/30 flex items-center inset-0 absolute justify-center">
-                        <p className="p-1 rounded-md bg-white text-red-500 title uppercase font-semibold">Hết hàng</p>
-                      </div>}
+                      {item.inStock === 0 && (
+                        <div className="size-full bg-black/30 flex items-center inset-0 absolute justify-center">
+                          <p className="p-1 rounded-md bg-white text-red-500 title uppercase font-semibold">
+                            Hết hàng
+                          </p>
+                        </div>
+                      )}
                     </div>
                     <div className="flex flex-col justify-between flex-1">
                       <h3 className=" font-semibold mb-1 md:text-xl line-clamp-2">

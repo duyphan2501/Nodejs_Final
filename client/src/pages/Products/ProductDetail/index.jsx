@@ -46,7 +46,7 @@ const ProductDetail = () => {
               </section>
             </section>
             <section className="mt-10">
-              <Comment />
+              <Comment product={product} />
             </section>
           </div>
         </div>

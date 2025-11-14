@@ -1,38 +1,5 @@
 import useCategoryStore from "../../store/useCategoryStore";
-
-const categories = [
-  {
-    _id: 1,
-    name: "Giày nam",
-    children: [
-      { _id: 11, name: "Sneaker" },
-      { _id: 12, name: "Sandal" },
-      { _id: 13, name: "Giày Tây" },
-      { _id: 14, name: "Boot" },
-      { _id: 15, name: "Dép" },
-    ],
-  },
-  {
-    _id: 2,
-    name: "Giày nữ",
-    children: [
-      { _id: 21, name: "Sneaker nữ" },
-      { _id: 22, name: "Cao gót" },
-      { _id: 23, name: "Búp bê" },
-      { _id: 24, name: "Boot nữ" },
-    ],
-  },
-  {
-    _id: 3,
-    name: "Phụ kiện",
-    children: [
-      { _id: 31, name: "Túi xách" },
-      { _id: 32, name: "Balo" },
-      { _id: 33, name: "Thắt lưng" },
-      { _id: 34, name: "Vớ / Tất" },
-    ],
-  },
-];
+import { useEffect } from "react";
 
 function transformCategories(data) {
   return data.map((parent) => ({
@@ -48,6 +15,15 @@ function transformCategories(data) {
 
 const Footer = () => {
   const categories = useCategoryStore((s) => s.categories);
+  const getListCategories = useCategoryStore((s) => s.getListCategories);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    await getListCategories();
+  };
   return (
     <footer className="border-t-2 border-white bg-dark text-white px-6 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-12">

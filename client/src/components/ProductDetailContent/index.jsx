@@ -4,6 +4,8 @@ import { getDiscountedPrice } from "../../utils/formatMoney";
 import QuantityDetailBtn from "../QuantityDetailBtn";
 import { ShoppingCart } from "lucide-react";
 import StackButton from "../StackButton";
+import { useEffect } from "react";
+import useEvaluationStore from "../../store/useEvaluationStore";
 
 const ProductDetailContent = ({
   selectedProduct,
@@ -13,6 +15,7 @@ const ProductDetailContent = ({
   selectedVariant,
 }) => {
   const [quantity, setQuantity] = useState(1);
+
   if (!selectedProduct || !selectedVariant || !selectedAttr) return;
 
   const price = selectedVariant.price;
@@ -21,6 +24,20 @@ const ProductDetailContent = ({
     price,
     discount
   );
+
+  //Store đánh giá
+  const getEvaluationsByProductId = useEvaluationStore(
+    (state) => state.getEvaluationsByProductId
+  );
+  const evaluations = useEvaluationStore((state) => state.evaluations);
+  const averageStar = useEvaluationStore((state) => state.averageStar);
+
+  const fetchEvaluations = async () => {
+    await getEvaluationsByProductId(selectedProduct._id);
+  };
+  useEffect(() => {
+    fetchEvaluations();
+  }, [selectedProduct._id]);
 
   return (
     <div className="flex flex-col gap-3 max-w-120 mx-auto sticky top-5">
@@ -34,18 +51,18 @@ const ProductDetailContent = ({
         <Stack spacing={1}>
           <Rating
             name="half-rating"
-            defaultValue={2.5}
+            value={averageStar}
             precision={0.5}
             readOnly
           />
         </Stack>
-        <div className="text-gray-700">({1} Đánh giá)</div>
+        <div className="text-gray-700">{`(${evaluations.length} đánh giá)`}</div>
       </div>
-      <p className="">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum saepe,
-        labore eligendi eius voluptas, beatae minus cum modi error quam,
-        expedita eos itaque laudantium!
-      </p>
+      <p
+        className=""
+        dangerouslySetInnerHTML={{ __html: selectedProduct.description }}
+      ></p>
+
       {/*  */}
       <div className="flex items-center gap-3 font-bold text-lg">
         <p>Giá: </p>{" "}

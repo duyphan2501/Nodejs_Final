@@ -101,7 +101,7 @@ const CartIcon = () => {
                     >
                       <div className="w-20 h-20 relative">
                         <img
-                          src={item.image}
+                          src={`${import.meta.env.VITE_API_URL}/${item.image}`}
                           alt={item.name}
                           className="size-full object-cover flex-shrink-0"
                         />
