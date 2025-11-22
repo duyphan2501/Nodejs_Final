@@ -9,7 +9,12 @@ import Alert from "@mui/material/Alert";
 import CustomSnackbar from "../CustomSnackbar";
 import ConfirmDialog from "../ConfirmDialog";
 
-const VariantManager = ({ openSnackbar, handleChangeInput, reset }) => {
+const VariantManager = ({
+  openSnackbar,
+  handleChangeInput,
+  reset,
+  variantEdit,
+}) => {
   const [variants, setVariants] = useState([]);
 
   useEffect(() => {

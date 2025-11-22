@@ -164,6 +164,8 @@ const Header = ({ logoText = "Thrift Shop", customLogo = null }) => {
                       </div>
                     )}
                   </div>
+
+                  <div className="font-medium">{item?.name}</div>
                 </div>
               </a>
             ))}
@@ -202,6 +204,18 @@ const Header = ({ logoText = "Thrift Shop", customLogo = null }) => {
                 </svg>
               </button>
             ))}
+
+            {mobileActiveCategory?.featured.map((item, index) => (
+              <a
+                key={index}
+                href={item.link || "#"}
+                className="w-full flex items-center justify-between py-4 text-left text-gray-800 hover:text-black border-b border-gray-100 last:border-b-0 transition-all duration-200 hover:bg-gray-50 hover:translate-x-1"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="font-medium">{item?.name}</div>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       );
@@ -215,9 +229,9 @@ const Header = ({ logoText = "Thrift Shop", customLogo = null }) => {
       >
         <a
           href={"/products"}
-          className="text-black font-medium cursor-pointer text-sm uppercase tracking-wide hover:underline py-2 px-1 transition-all"
+          className="w-full font-semibold flex items-center justify-between py-4 text-left text-gray-800 hover:text-black border-b border-gray-100 last:border-b-0 transition-all duration-200 hover:bg-gray-50 hover:translate-x-1"
         >
-          tất cả sản phẩm
+          TẤT CẢ SẢN PHẨM
         </a>
         {menuData?.categories.map((category, index) => (
           <button

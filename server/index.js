@@ -13,15 +13,20 @@ import couponRouter from "./routes/coupon.route.js";
 import productRouter from "./routes/product.route.js";
 import visitRouter from "./routes/visit.route.js";
 import orderRouter from "./routes/order.route.js";
+import evaluationRouter from "./routes/evaluation.route.js";
+import http from "http";
+import { initSocket } from "./config/socket.config.js";
 
 import { startNgrokAndConfirmWebhook } from "./config/payos.init.js";
 import addressRouter from "./routes/address.route.js";
 
-import fakeDeliveryCron from "./fakeDelivery.cron.js";
-
 dotenv.config({ quiet: true });
 
 const app = express();
+
+const server = http.createServer(app);
+
+initSocket(server);
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
@@ -44,13 +49,14 @@ app.use("/api/order", orderRouter);
 app.use("/api/product", productRouter);
 app.use("/api/visit", visitRouter);
 app.use("/api/address", addressRouter);
+app.use("/api/evaluation", evaluationRouter);
 
 app.use("/api/coupon", couponRouter);
 
 app.use(errorHandeler);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log("Server is running at PORT :::", PORT);
   connectToDB();
 
