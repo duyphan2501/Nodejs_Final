@@ -1,17 +1,12 @@
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { formatMoney } from "../../utils/formatMoney";
 import useUserStore from "../../store/useUserStore";
 import { useEffect, useState } from "react";
 import useOrderStore from "../../store/useOrderStore";
 
 const OrderSuccess = () => {
-  const location = useLocation();
-  const { state } = location;
   const navigator = useNavigate();
-
-  const orderFromState = state || null;
-  const [order, setOrder] = useState(orderFromState);
-
+  const [order, setOrder] = useState(null);
   // Lấy orderCode từ query (?orderCode=xxxx)
   const query = new URLSearchParams(location.search);
   const orderCodeQuery = query.get("orderCode");
@@ -21,8 +16,6 @@ const OrderSuccess = () => {
 
   // Fetch order nếu PayOS redirect về mà không có state
   const fetchOrderDetails = async () => {
-    if (order || !orderCodeQuery) return;
-
     const orderDetails = await orderStore.getOrderByOrderCode(orderCodeQuery);
     if (orderDetails) {
       setOrder(orderDetails);
@@ -68,6 +61,7 @@ const OrderSuccess = () => {
       </div>
     );
   }
+  console.log("order", order)
 
   return (
     <div className="max-w-6xl mx-auto p-6 mt-6 grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -99,7 +93,7 @@ const OrderSuccess = () => {
           Mã đơn hàng #: <strong>{order.orderId}</strong>.
         </p>
         <p className="text-gray-600 mb-2">
-          Dùng mã này để theo dõi đơn hàng của bạn
+          Dùng mã này để theo dõi đơn hàng của bạn.
         </p>
 
         <p className="text-gray-600">
@@ -142,15 +136,17 @@ const OrderSuccess = () => {
           <thead className="bg-gray-100">
             <tr>
               <th className="p-2 border">Tên sản phẩm</th>
+              <th className="p-2 border">Size</th>
               <th className="p-2 border">Giá</th>
-              <th className="p-2 border">S.lượng</th>
+              <th className="p-2 border">S.L</th>
               <th className="p-2 border">Thành tiền</th>
             </tr>
           </thead>
           <tbody>
-            {order.items.map((item) => (
+            {order && order?.items?.map((item) => (
               <tr key={item.productId}>
-                <td className="p-2 border">{item.name}</td>
+                <td className="p-2 border">{item.name} - {item.color}</td>
+                <td className="p-2 border">{item.size}</td>
                 <td className="p-2 border money">{formatMoney(item.price)}</td>
                 <td className="p-2 border">{item.quantity}</td>
                 <td className="p-2 border money">
@@ -179,20 +175,20 @@ const OrderSuccess = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div>
             <h4 className="font-semibold">Địa chỉ giao hàng</h4>
-            <p>{order.shippingInfo.receiver}</p>
-            <p>{order.shippingInfo.addressDetail}</p>
+            <p>{order.shippingInfo?.receiver}</p>
+            <p>{order.shippingInfo?.addressDetail}</p>
             <p>
-              {order.shippingInfo.ward}, {order.shippingInfo.province}
+              {order.shippingInfo?.ward}, {order.shippingInfo?.province}
             </p>
-            <p>SĐT: {order.shippingInfo.phone}</p>
+            <p>SĐT: {order.shippingInfo?.phone}</p>
           </div>
 
           <div>
             <h4 className="font-semibold">Phương thức thanh toán</h4>
-            <p>{formatPaymentProvider(order.payment.provider)}</p>
+            <p>{formatPaymentProvider(order.payment?.provider)}</p>
             <p>
               Trạng thái:
-              {order.payment.status === "paid"
+              {order.payment?.status === "paid"
                 ? " Đã thanh toán"
                 : " Chưa thanh toán"}
             </p>

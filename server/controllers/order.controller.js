@@ -6,6 +6,7 @@ import {
   getDailyOrderAmounts,
   getMonthlyOrderAmounts,
   getRevenueAndProfit,
+  publishSendOrderEmail,
 } from "../services/order.service.js";
 import { removeCartItem } from "../services/cart.service.js";
 import dotenv from "dotenv";
@@ -75,6 +76,10 @@ const createOrder = async (req, res, next) => {
       paymentLinkRes = await payOS.createPaymentLink(payload);
     }
 
+    if (provider !== "payos") {
+      await publishSendOrderEmail(newOrder)
+    }
+
     res.status(201).json({
       success: true,
       message: "Đơn hàng đã được tạo thành công.",
@@ -117,6 +122,7 @@ const verifyWebhookData = async (req, res, next) => {
     if (verifiedData.code === "00") {
       order.status = "processing";
       order.payment.status = "paid";
+      await publishSendOrderEmail(order)
       // xoá giỏ hàng
       // const userId = order.userId;
       // for (const item of order.items) {

@@ -110,7 +110,7 @@ const Checkout = () => {
       if (formData.provider === "payos" && url) {
         window.location.href = url;
       } else {
-        navigator(`/order-success`, { state: { order } });
+        navigator(`/order-success?orderCode=${order.orderCode}`);
       }
     }
   };
