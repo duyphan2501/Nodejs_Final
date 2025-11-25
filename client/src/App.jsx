@@ -37,7 +37,7 @@ function App() {
     isOpenAddressForm,
   } = useContext(MyContext);
 
-  // const axiosPrivate = useAxiosPrivate();
+  const axiosPrivate = useAxiosPrivate();
 
   const user = useUserStore((state) => state.user);
   const getCart = useCartStore((state) => state.getCart);
