@@ -49,7 +49,8 @@ const Signup = () => {
     useContext(MyContext);
   const navigate = useNavigate();
 
-  const { signUp, isLoading } = useUserStore();
+  const signUp = useUserStore((s) => s.signUp);
+  const isLoading = useUserStore((s) => s.isLoading);
 
   const handleUserChange = (field, value) => {
     setUser((prev) => ({ ...prev, [field]: value }));
@@ -60,7 +61,6 @@ const Signup = () => {
     if (isLoading.signUp) return;
     const { success, verifyUser } = await signUp(user);
     if (checkValidAddress(address)) {
-
     }
     if (success) navigate("/verify-account");
     else {

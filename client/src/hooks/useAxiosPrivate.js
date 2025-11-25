@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import axiosPrivate from "../API/axiosInstance.js";
+import axiosCustom from "../API/axiosCustom.js";
 import { MyContext } from "../Context/MyContext.jsx";
 import useUserStore from "../store/useUserStore.js";
 
@@ -8,7 +8,7 @@ const useAxiosPrivate = () => {
   const { persist } = useContext(MyContext);
 
   useEffect(() => {
-    const requestInterceptor = axiosPrivate.interceptors.request.use(
+    const requestInterceptor = axiosCustom.interceptors.request.use(
       (config) => {
         const token = useUserStore.getState().accessToken;
         if (token) {
@@ -22,7 +22,7 @@ const useAxiosPrivate = () => {
       (error) => Promise.reject(error)
     );
 
-    const responseInterceptor = axiosPrivate.interceptors.response.use(
+    const responseInterceptor = axiosCustom.interceptors.response.use(
       (response) => response,
       async (error) => {
         const prevRequest = error?.config;
@@ -38,7 +38,7 @@ const useAxiosPrivate = () => {
               ...prevRequest.headers,
               Authorization: `Bearer ${refreshed.accessToken}`,
             };
-            return axiosPrivate(prevRequest);
+            return axiosCustom(prevRequest);
           } catch (err) {
             useUserStore.getState().logout();
             return Promise.reject(err);
@@ -49,12 +49,12 @@ const useAxiosPrivate = () => {
     );
 
     return () => {
-      axiosPrivate.interceptors.request.eject(requestInterceptor);
-      axiosPrivate.interceptors.response.eject(responseInterceptor);
+      axiosCustom.interceptors.request.eject(requestInterceptor);
+      axiosCustom.interceptors.response.eject(responseInterceptor);
     };
   }, [refreshToken, persist]);
 
-  return axiosPrivate;
+  return axiosCustom;
 };
 
 export default useAxiosPrivate;
