@@ -1,9 +1,11 @@
 import express from "express";
 import {
+  canclePayment,
   createOrder,
   deleteOrder,
   getDashboardData,
   getOrderById,
+  getOrderByOrderCode,
   getOrders,
   updateOrderStatus,
   verifyWebhookData,
@@ -18,9 +20,11 @@ orderRouter.post("/dashboard", getDashboardData);
 orderRouter.get("/all/:_id", checkAuth, getOrderById);
 orderRouter.put("/all/:_id", checkAuth, updateOrderStatus);
 orderRouter.delete("/delete", checkAuth, deleteOrder);
+orderRouter.get("/by-order-code/:orderCode", getOrderByOrderCode);
 
 orderRouter.post("/create", createOrder);
 orderRouter.post("/webhook/payos", verifyWebhookData);
+orderRouter.get("/cancel-payment", canclePayment)
 
 orderRouter.use(checkAuth);
 orderRouter.get("/", OrderController.getAllOrders);

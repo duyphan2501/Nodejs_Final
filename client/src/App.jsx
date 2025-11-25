@@ -16,18 +16,13 @@ import Verification from "./pages/Auth/Verification";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import ResetPassword from "./pages/Auth/ResetPassword";
 import AuthLayout from "./layouts/AuthLayout";
-
 import OrderTracking from "./pages/OrderTracking";
 import OrderHistory from "./pages/OrderHistory";
 import OrderList from "./pages/OrderList";
-
-import useUserStore from "./store/useUserStore";
-import useCartStore from "./store/useCartStore";
 import Checkout from "./pages/Checkout";
-import useAxiosPrivate from "./hooks/useAxiosPrivate";
-import useAddressStore from "./store/useAddressStore";
 import AddressForm from "./components/Address/AddressForm";
 import ProductDetail from "./pages/Products/ProductDetail";
+import OrderSuccess from "./pages/OrderSuccess";
 
 function App() {
   const {
@@ -37,31 +32,9 @@ function App() {
     isOpenAddressForm,
   } = useContext(MyContext);
 
-  const axiosPrivate = useAxiosPrivate();
-
-  const user = useUserStore((state) => state.user);
-  const getCart = useCartStore((state) => state.getCart);
-  const getAllAddresses = useAddressStore((state) => state.getAllAddresses);
-
-  useEffect(() => {
-    getCart(user?._id);
-  }, [user, getCart]);
-
   const handleAccountMenuClose = () => {
     setIsOpenAccountMenu(false);
   };
-
-  useEffect(() => {
-    if (!user) return;
-    const fetchAddresses = async () => {
-      try {
-        await getAllAddresses(axiosPrivate);
-      } catch (error) {
-        console.error("Error fetching addresses:", error);
-      }
-    };
-    fetchAddresses();
-  }, [user]);
 
   useEffect(() => {
     document.body.style.overflow = isOpenAddressForm ? "hidden" : "auto";
@@ -95,6 +68,7 @@ function App() {
             <Route path="addresses" element={<Address />} />
             <Route path="cart" element={<Cart />} />
             <Route path="products" element={<ProductPage />} />
+            <Route path="order-success" element={<OrderSuccess />} />
 
             <Route path="products/:slug" element={<ProductPage />} />
             <Route path="checkout" element={<Checkout />} />

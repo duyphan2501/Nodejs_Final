@@ -338,7 +338,7 @@ export {
   getProduct,
   deleteProduct,
   getProductBySlugController,
-  updateProduct,
+  updateProduct,  
   fetchProductsController,
   getAllBrands,
   getProductStats,

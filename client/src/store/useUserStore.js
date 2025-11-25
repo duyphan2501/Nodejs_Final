@@ -47,10 +47,10 @@ const useUserStore = create((set) => {
     }
   };
 
-  const signUp = async (user) => {
+  const signUp = async (email, fullname, address) => {
     set({ isLoading: { signUp: true } });
     try {
-      const res = await API.post(`/api/user/sign-up`, user);
+      const res = await API.post(`/api/user/sign-up`, { email, fullname, address });
       toast.success(res.data.message);
       set({ user: res.data.user });
       return { verifyUser: res.data.user, success: true };

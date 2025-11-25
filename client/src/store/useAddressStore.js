@@ -24,7 +24,7 @@ const useAddressStore = create((set) => {
       const res = await axiosPrivate.get(`/api/address/all`);
       set({ addresses: res.data.addresses });
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to fetch addresses");
+      console.error(error.response?.data?.message || "Failed to fetch addresses");
     }
   };
 

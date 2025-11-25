@@ -69,7 +69,7 @@ const createOrder = async (req, res, next) => {
         description: newOrder.orderId,
         items: itemsPayos,
         cancelUrl: `${BACKEND_URL}/api/order/cancel-payment`,
-        returnUrl: `${CLIENT_URL}/payment/success`,
+        returnUrl: `${CLIENT_URL}/order-success`,
         expiredAt: Math.floor(Date.now() / 1000) + 15 * 60,
       };
       paymentLinkRes = await payOS.createPaymentLink(payload);
@@ -108,7 +108,7 @@ const verifyWebhookData = async (req, res, next) => {
     // Nếu xác minh thành công
     console.log("Webhook nhận thành công:", verifiedData);
 
-    const order = await orderModel.findOne({
+    const order = await OrderModel.findOne({
       orderCode: verifiedData.orderCode,
     });
 
@@ -118,11 +118,11 @@ const verifyWebhookData = async (req, res, next) => {
       order.status = "processing";
       order.payment.status = "paid";
       // xoá giỏ hàng
-      const userId = order.userId;
-      for (const item of order.items) {
-        await removeCartItem(userId, null, item.variantId, item.size);
-        // await cancelStockReservation(userId, item.modelId, true);
-      }
+      // const userId = order.userId;
+      // for (const item of order.items) {
+      //   await removeCartItem(userId, null, item.variantId, item.size);
+      //   // await cancelStockReservation(userId, item.modelId, true);
+      // }
       //   await CartModel.deleteOne({ userId });
     } else {
       // Thanh toán thất bại
@@ -134,6 +134,28 @@ const verifyWebhookData = async (req, res, next) => {
 
     // Phản hồi cho PayOS
     res.status(200).json({ data: verifiedData, success: true });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const canclePayment = async (req, res, next) => {
+  try {
+    const { orderCode } = req.query;
+    if (!orderCode) {
+      throw createHttpError.BadRequest("Thiếu orderCode truy vấn");
+    }
+    const order = await OrderModel.findOne({ orderCode });
+    if (!order) {
+      throw createHttpError.NotFound("Không tồn tại đơn hàng này");
+    }
+
+    order.status = "cancelled";
+    order.payment.status = "cancelled";
+    order.description = "Khách hàng hủy thanh toán PayOS";
+    await order.save();
+
+    return res.redirect(`${CLIENT_URL}/checkout`);
   } catch (error) {
     next(error);
   }
@@ -223,6 +245,25 @@ const getOrderById = async (req, res, next) => {
   }
 };
 
+const getOrderByOrderCode = async (req, res, next) => {
+  try {
+    const orderCode = req.params.orderCode;
+    if (!orderCode) {
+      throw createHttpError.BadRequest("Thiếu orderCode truy vấn");
+    }
+    const result = await OrderModel.findOne({ orderCode });
+    if (!result) {
+      throw createHttpError.NotFound("Không tồn tại đơn hàng này");
+    }
+    return res.status(200).json({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getDashboardData = async (req, res, next) => {
   try {
     const startDate = req.body?.startDate;
@@ -288,6 +329,8 @@ export {
   deleteOrder,
   getOrderById,
   getDashboardData,
+  getOrderByOrderCode,
+  canclePayment,
 };
 
 class OrderController {
