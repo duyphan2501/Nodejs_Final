@@ -451,7 +451,7 @@ export default function AdvanceProductDashboard() {
             {filteredProducts.map((product) => (
               <div key={product.product_id} className="border rounded-lg p-4">
                 <img
-                  src={product.image}
+                  src={`${import.meta.env.VITE_BACKEND_URL}/${product.image}`}
                   alt={product.product_name}
                   className="w-full h-32 object-cover rounded mb-2"
                 />

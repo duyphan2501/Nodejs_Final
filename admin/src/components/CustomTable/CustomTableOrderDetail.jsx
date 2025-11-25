@@ -92,7 +92,7 @@ export default function CustomTableOrderDetail() {
               Coupon: {orderDetail?.coupon?.code}
             </td>
             <td className="p-2 text-lg font-semibold">
-              - {orderDetail?.coupon?.amountReduced || 0}đ
+              - {orderDetail?.coupon?.amountReduced.toLocaleString() || 0}đ
             </td>
           </tr>
           <tr>
@@ -100,7 +100,7 @@ export default function CustomTableOrderDetail() {
               Điểm thưởng: {orderDetail?.usedPoint?.point}
             </td>
             <td className="p-2 text-lg font-semibold">
-              - {orderDetail?.usedPoint?.amountReduced || 0}đ
+              - {orderDetail?.usedPoint?.amountReduced.toLocaleString() || 0}đ
             </td>
           </tr>
           <tr>

@@ -27,8 +27,8 @@ const CustomTableOrder = () => {
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
   const columns = [
-    { id: "checkbox", label: "Chọn", minWidth: 100 },
-    { id: "orderCode", label: "Mã Đơn Hàng", minWidth: 100 },
+    { id: "checkbox", label: "Chọn", minWidth: 50 },
+    { id: "orderId", label: "Mã Đơn Hàng", minWidth: 180 },
     { id: "date", label: "Thời Gian", minWidth: 100 },
     { id: "amount", label: "Số Lượng Tổng", minWidth: 100 },
     { id: "payment", label: "Phương Thức", minWidth: 100 },
@@ -63,8 +63,8 @@ const CustomTableOrder = () => {
     };
 
     return createData(
-      order._id,
-      order.orderCode,
+      order?._id,
+      order?.orderId,
       formatDate(order.createdAt),
       totalQuantity,
       order?.payment?.provider.toUpperCase() || "Chưa xác định",
@@ -179,7 +179,7 @@ const CustomTableOrder = () => {
 // Hàm tạo dữ liệu row
 function createData(
   _id,
-  orderCode,
+  orderId,
   date,
   amount,
   payment,
@@ -189,7 +189,7 @@ function createData(
 ) {
   return {
     _id,
-    orderCode,
+    orderId,
     date,
     amount,
     payment,

@@ -28,13 +28,22 @@ const orderSchema = new mongoose.Schema(
         quantity: Number,
       },
     ],
-    orderAmount: {type: Number, required: true},
-    itemsDiscounted: {type: Number, required: true},
+    orderAmount: { type: Number, required: true },
+    itemsDiscounted: { type: Number, required: true },
     payment: {
       provider: String,
       status: String,
     },
     status: { type: String, default: "pending" },
+    statusHistory: [
+      {
+        status: {
+          type: String,
+          enum: ["pending", "confirmed", "shipping", "delivered", "cancelled"],
+        },
+        updatedAt: { type: Date, default: Date.now },
+      },
+    ],
     coupon: { code: String, amountReduced: Number },
     usedPoint: { point: Number, amountReduced: Number },
   },

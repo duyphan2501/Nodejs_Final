@@ -36,7 +36,7 @@ const AccountMenu = ({ onClose }) => {
     >
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
         <div className="flex items-center space-x-4">
-          <h2 className="text-xl font-bold tracking-tight">adiclub</h2>
+          <h2 className="text-xl font-bold tracking-tight">Our Club</h2>
         </div>
 
         <div className="flex items-center space-x-2">
@@ -121,6 +121,9 @@ const AccountMenu = ({ onClose }) => {
                   <div className="font-bold ">{user?.name || "Duy Phan"}</div>
                   <div className="text-sm ">
                     {user?.email || "duyneon09@gmail.com"}
+                  </div>
+                  <div className="text-lg text-blue-500 font-regular italic">
+                    {user?.purchasePoint?.toLocaleString("vi-VN") || "0"} điểm
                   </div>
                 </div>
               </div>

@@ -110,7 +110,7 @@ export default function AdvanceOverallDashboard() {
               };
             }
 
-            weeklyData[weekKey].orders += 1;
+            weeklyData[weekKey].orders += item.orderCount;
             weeklyData[weekKey].revenue += item.revenue;
             weeklyData[weekKey].profit += item.profit;
           }
@@ -138,7 +138,7 @@ export default function AdvanceOverallDashboard() {
               };
             }
 
-            monthlyData[month].orders += 1;
+            monthlyData[month].orders += item.orderCount;
             monthlyData[month].revenue += item.revenue;
             monthlyData[month].profit += item.profit;
           }
@@ -163,7 +163,7 @@ export default function AdvanceOverallDashboard() {
               };
             }
 
-            quarterlyData[quarter].orders += 1;
+            quarterlyData[quarter].orders += item.orderCount;
             quarterlyData[quarter].revenue += item.revenue;
             quarterlyData[quarter].profit += item.profit;
           }
@@ -224,7 +224,6 @@ export default function AdvanceOverallDashboard() {
                 orientation="right"
                 tickFormatter={(value) => `${Math.round(value / 1000)}k VND`}
               />
-              <Tooltip />
               <Bar
                 yAxisId="left"
                 dataKey="orders"

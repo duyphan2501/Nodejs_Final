@@ -6,6 +6,7 @@ import {
 import UserModel from "../models/user.model.js";
 import AddressModel from "../models/address.model.js";
 import bcrypt from "bcryptjs";
+import mongoose from "mongoose";
 
 const getUserByEmail = async (email) => {
   const user = await UserModel.findOne({
@@ -104,7 +105,22 @@ const usePurchasePoint = async (userId, point, session = null) => {
   return user;
 };
 
+const updateUserPoint = async (userEmail, point) => {
+  try {
+    const result = await UserModel.updateOne(
+      { email: userEmail },
+
+      { $inc: { purchasePoint: point } }
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
+  updateUserPoint,
   getUserByEmail,
   hashPassword,
   createNewUser,
@@ -335,6 +351,8 @@ class UserService {
       .lean();
     return addresses;
   }
+
+  //Chỉnh sửa điểm thanh toán cho người dùng
 }
 
 export default new UserService();

@@ -173,6 +173,12 @@ const createNewOrder = async (
             status: orderStatus,
           },
           status: orderStatus,
+          statusHistory: [
+            {
+              status: "pending",
+              updatedAt: Date.now(),
+            },
+          ],
           coupon,
           usedPoint,
         },
@@ -205,7 +211,7 @@ const createNewOrder = async (
 
 const getAllOrder = async () => {
   try {
-    const result = await OrderModel.find({});
+    const result = await OrderModel.find({}).sort({ createdAt: -1 });
 
     return result;
   } catch (error) {
@@ -321,10 +327,10 @@ const getRevenueAndProfit = async (startDate, endDate) => {
     {
       $match: {
         createdAt: { $gte: start, $lte: end },
-        status: "delivered", // chỉ tính đơn đã giao
+        status: "delivered",
       },
     },
-    { $unwind: "$items" },
+    { $unwind: "$items" }, // mỗi document là 1 item
     {
       $lookup: {
         from: "variants",
@@ -345,11 +351,16 @@ const getRevenueAndProfit = async (startDate, endDate) => {
     { $unwind: "$productData" },
     {
       $project: {
-        _id: 0,
-        revenue: { $multiply: ["$items.price", "$items.quantity"] },
-        cost: { $multiply: ["$productData.inputPrice", "$items.quantity"] },
         date_created: {
           $dateToString: { format: "%Y-%m-%d", date: "$createdAt" },
+        },
+        orderId: 1,
+        revenue: { $multiply: ["$items.price", "$items.quantity"] },
+        profit: {
+          $multiply: [
+            { $subtract: ["$items.price", "$productData.inputPrice"] },
+            "$items.quantity",
+          ],
         },
       },
     },
@@ -357,18 +368,20 @@ const getRevenueAndProfit = async (startDate, endDate) => {
       $group: {
         _id: "$date_created",
         revenue: { $sum: "$revenue" },
-        profit: { $sum: { $subtract: ["$revenue", "$cost"] } },
+        profit: { $sum: "$profit" },
+        orderCount: { $addToSet: "$orderId" }, // gom orderId duy nhất
       },
     },
-    { $sort: { _id: 1 } },
     {
       $project: {
         _id: 0,
         date_created: "$_id",
         revenue: 1,
         profit: 1,
+        orderCount: { $size: "$orderCount" }, // số đơn hàng trong ngày
       },
     },
+    { $sort: { date_created: 1 } },
   ]);
 
   return result;

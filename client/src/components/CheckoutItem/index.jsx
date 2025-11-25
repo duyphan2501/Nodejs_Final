@@ -5,7 +5,11 @@ const CheckoutItem = ({ item }) => {
   const discountedPrice = Math.round(discountPrice / 1000) * 1000;
   return (
     <div className="flex items-center gap-3">
-      <img src={item.image} alt="" className="w-20 h-20 object-cover rounded" />
+      <img
+        src={`${import.meta.env.VITE_API_URL}/${item.image}`}
+        alt=""
+        className="w-20 h-20 object-cover rounded"
+      />
       <div className="flex-1">
         <div className="flex items-center  ">
           <p className="font-medium flex-1 line-clamp-1 text-gray-800">

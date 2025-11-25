@@ -46,6 +46,14 @@ function Home() {
     getDashboardData();
   }, []);
 
+  const currentMonthVisits = visits
+    .filter((v) => dayjs(v.date).isSame(dayjs(), "month"))
+    .reduce((sum, v) => sum + v.visits, 0); // Cộng dồn trường visits
+
+  const todayVisits = visits
+    .filter((v) => dayjs(v.date).isSame(dayjs(), "day"))
+    .reduce((sum, v) => sum + v.visits, 0); // Cộng dồn trường visits
+
   return (
     <>
       <Box sx={{ background: "#F9FAFB" }}>
@@ -102,20 +110,8 @@ function Home() {
               <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <DashboardCard
                   BackgroundColor="#4F200D"
-                  CardHeader={`
-                ${
-                  visits.filter(
-                    (v) => dayjs(v.visitedAt).isSame(dayjs(), "month") // cùng tháng hiện tại
-                  ).length
-                } Truy Cập 
-              `}
-                  CardDesc={`
-                ${
-                  visits.filter(
-                    (v) => dayjs(v.visitedAt).isSame(dayjs(), "day") // cùng ngày hiện tại
-                  ).length
-                } truy cập hôm nay
-              `}
+                  CardHeader={`${currentMonthVisits} Truy Cập`}
+                  CardDesc={`${todayVisits} truy cập hôm nay`}
                   icon={AdsClickOutlinedIcon}
                 />
               </Grid>
@@ -193,7 +189,7 @@ function WelcomeBoard({
                   variant="h6"
                   fontWeight={500}
                 >
-                  {`${dashboard?.growthDataMonth?.rate}%` || "0%"}
+                  {`${dashboard?.growthDataMonth?.rate.toFixed(2)}%` || "0%"}
                 </Typography>
                 {dashboard?.growthDataMonth?.variance ? (
                   <Typography
@@ -202,7 +198,7 @@ function WelcomeBoard({
                     variant="body2"
                     fontWeight={500}
                   >
-                    {dashboard?.growthDataMonth?.variance || "0%"}
+                    {dashboard?.growthDataMonth?.variance.toFixed(2) || "0%"}
                   </Typography>
                 ) : (
                   <Typography
@@ -240,7 +236,7 @@ function WelcomeBoard({
                   {`${dashboard?.growthDataDaily?.today.toLocaleString()}đ` ||
                     "0đ"}
                 </Typography>
-                {dashboard?.growthDataDaily?.variance ? (
+                {dashboard?.growthDataDaily?.variance > 0 ? (
                   <Typography
                     sx={{ color: "#2FB344" }}
                     padding={0}
@@ -260,7 +256,7 @@ function WelcomeBoard({
                   </Typography>
                 )}
 
-                {todayRise ? (
+                {dashboard?.growthDataDaily?.variance > 0 ? (
                   <TrendingUpOutlinedIcon sx={{ color: "#2FB344" }} />
                 ) : (
                   <TrendingDownSharpIcon sx={{ color: "#D63939" }} />
@@ -367,11 +363,11 @@ function TrendingUserBoard() {
   const endDate =
     visits.length > 0 ? new Date(visits[visits.length - 1].date) : new Date();
 
-  const middleMonth = startDate.getMonth() + 1; // Tháng bắt đầu + 1
+  const middleMonth = startDate.getMonth(); // Tháng bắt đầu + 1
   const middleYear = startDate.getFullYear();
 
-  const day20 = new Date(middleYear, middleMonth, 20); // Lưu ý: month = 0-indexed
-  const day21 = new Date(middleYear, middleMonth, 21);
+  const day20 = new Date(middleYear, middleMonth, 30); // Lưu ý: month = 0-indexed
+  const day21 = new Date(middleYear, middleMonth + 1, 1);
 
   const totalPreviousMonth = calculateCycleTotal(visits, startDate, day20);
   const totalAfterMonth = calculateCycleTotal(visits, day21, endDate);
@@ -480,13 +476,13 @@ function TrendingUserBoard() {
             <Tooltip />
             <Line
               type="monotone"
-              dataKey="visitsCycle1"
+              dataKey="visitsCycle2"
               name="Tháng này"
               stroke="#8884d8"
             />
             <Line
               type="monotone"
-              dataKey="visitsCycle2"
+              dataKey="visitsCycle1"
               name="Tháng trước"
               stroke="#D63939"
             />

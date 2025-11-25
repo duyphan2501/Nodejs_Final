@@ -1,14 +1,35 @@
+import createHttpError from "http-errors";
 import VisitModel from "../models/visit.model.js";
 const recordVisit = async (req, res, next) => {
   try {
+    const { userId, deviceType, browser, page } = req.body;
+
+    if (!deviceType || !browser || !page) {
+      throw createHttpError.BadRequest("Thiếu thông tin truy cập");
+    }
+
+    const ipAddress = req.ip || req.headers["x-forwarded-for"] || "unknown";
+
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+
+    const recentVisit = await VisitModel.find({
+      userId: userId || null,
+      page,
+      visitedAt: { $gte: fiveMinutesAgo },
+    });
+
+    if (recentVisit.length !== 0) {
+      return res.status(200).json({
+        message: "Đã được lưu truy cập trước đó",
+      });
+    }
+
     const newVisit = new VisitModel({
-      userId: req.user?._id || null,
-      ipAddress: req.ip,
-      deviceType: req.headers["user-agent"]?.includes("Mobile")
-        ? "mobile"
-        : "desktop",
-      browser: req.headers["user-agent"],
-      page: req.originalUrl,
+      userId: userId || null,
+      ipAddress,
+      deviceType,
+      browser,
+      page,
     });
 
     await newVisit.save();
@@ -28,15 +49,22 @@ const getDailyVisits = async (req, res, next) => {
     const currentYear = today.getFullYear();
 
     // Chu kỳ hiện tại: 21 tháng trước → 20 tháng hiện tại
-    const cycleCurrentStart = new Date(currentYear, currentMonth - 1, 21);
-    const cycleCurrentEnd = new Date(currentYear, currentMonth, 20, 23, 59, 59);
+    const cycleCurrentStart = new Date(currentYear, currentMonth - 1, 1);
+    const cycleCurrentEnd = new Date(
+      currentYear,
+      currentMonth,
+      today.getDate(),
+      23,
+      59,
+      59
+    );
 
     // Chu kỳ trước: 21 tháng trước - 1 → 20 tháng trước
-    const cyclePreviousStart = new Date(currentYear, currentMonth - 2, 21);
+    const cyclePreviousStart = new Date(currentYear, currentMonth - 2, 1);
     const cyclePreviousEnd = new Date(
       currentYear,
       currentMonth - 1,
-      20,
+      30,
       23,
       59,
       59

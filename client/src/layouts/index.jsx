@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import useUserStore from "../store/useUserStore";
 import { toast } from "react-toastify";
 import { MyContext } from "../Context/MyContext";
+import useTrackVisit from "../hooks/useTrackVisit";
 
 const Layouts = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -16,6 +17,9 @@ const Layouts = () => {
   const location = useLocation();
   const user = useUserStore((state) => state.user);
   const [isLoading, setIsLoading] = useState(true);
+
+  //Track luot truy cap
+  useTrackVisit(user?._id);
 
   useEffect(() => {
     const handleScroll = () => {

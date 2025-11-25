@@ -14,8 +14,6 @@ export default function AccountOverview() {
 
   return (
     <div className=" lg:w-[380px] bg-gray-50">
-      
-
       {/* Menu Items */}
       <div className="bg-white overflow-hidden shadow-sm divide-y divide-gray-200">
         {menuItems.map((item, index) => (
@@ -32,7 +30,6 @@ export default function AccountOverview() {
             )}
           </button>
         ))}
-       
       </div>
     </div>
   );

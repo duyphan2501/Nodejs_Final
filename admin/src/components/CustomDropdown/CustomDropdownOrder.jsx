@@ -32,6 +32,29 @@ export default function CustomDropdownOrder({ choose, id }) {
     }
   };
 
+  const statusOptions = {
+    pending: [
+      { value: "pending", label: "Đang xử lý" },
+      { value: "confirmed", label: "Đã xác nhận" },
+      { value: "shipping", label: "Đang vận chuyển" },
+      { value: "delivered", label: "Đã giao" },
+      { value: "cancelled", label: "Đã hủy" },
+    ],
+    confirmed: [
+      { value: "confirmed", label: "Đã xác nhận" },
+      { value: "shipping", label: "Đang vận chuyển" },
+      { value: "delivered", label: "Đã giao" },
+      { value: "cancelled", label: "Đã hủy" },
+    ],
+    shipping: [
+      { value: "shipping", label: "Đang vận chuyển" },
+      { value: "delivered", label: "Đã giao" },
+      { value: "cancelled", label: "Đã hủy" },
+    ],
+    delivered: [{ value: "delivered", label: "Đã giao" }],
+    cancelled: [{ value: "cancelled", label: "Đã hủy" }],
+  };
+
   return (
     <>
       <ConfirmDialog
@@ -65,11 +88,11 @@ export default function CustomDropdownOrder({ choose, id }) {
             },
           }}
         >
-          <MenuItem value="pending">Đang xử lý</MenuItem>
-          <MenuItem value="confirmed">Đã xác nhận</MenuItem>
-          <MenuItem value="shipping">Đang vận chuyển</MenuItem>
-          <MenuItem value="delivered">Đã giao</MenuItem>
-          <MenuItem value="cancelled">Đã hủy</MenuItem>
+          {statusOptions[status]?.map((item) => (
+            <MenuItem key={item.value} value={item.value}>
+              {item.label}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </>

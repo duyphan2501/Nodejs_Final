@@ -12,6 +12,7 @@ import dotenv from "dotenv";
 import { payOS } from "../config/payos.init.js";
 import OrderService from "../services/order.service.js";
 import OrderModel from "../models/order.model.js";
+import { updateUserPoint } from "../services/user.service.js";
 
 dotenv.config({ quiet: true });
 const BACKEND_URL = process.env.BACKEND_URL;
@@ -169,8 +170,23 @@ const updateOrderStatus = async (req, res, next) => {
 
     const result = await OrderModel.updateOne(
       { _id: req.params._id },
-      { status: req.body.status }
+      {
+        $set: { status: req.body.status },
+        $push: {
+          statusHistory: {
+            status: req.body.status,
+            updatedAt: new Date(),
+          },
+        },
+      }
     );
+
+    if (status === "delivered" && result.modifiedCount !== 0) {
+      const amount = order[0].orderAmount || 0;
+      const pointToAdd = Math.floor((amount * 10) / 100 / 1000);
+
+      await updateUserPoint(order[0].email, pointToAdd);
+    }
 
     return res.status(200).json({
       success: true,
@@ -235,7 +251,6 @@ const getDashboardData = async (req, res, next) => {
     let growthDataMonth = {};
     let growthDataDaily = {};
     let revenueChartData = [];
-    let soldChartData = [];
 
     const monthlyRevenueData = await getMonthlyOrderAmounts();
     const dailyRevenueData = await getDailyOrderAmounts();
@@ -255,16 +270,35 @@ const getDashboardData = async (req, res, next) => {
       growthDataMonth.variance = growthDataMonth.rate - 100;
     }
 
-    if (dailyRevenueData.length < 2) {
+    let yesterday = 0;
+    let today = 0;
+
+    if (dailyRevenueData.length === 0) {
       growthDataDaily.today = 0;
       growthDataDaily.variance = 0;
+    } else if (dailyRevenueData.length < 2) {
+      const now = new Date();
+      const todayStr = now.toLocaleDateString("sv-SE");
+      if (dailyRevenueData[0]._id === todayStr) {
+        yesterday = 0;
+        today = dailyRevenueData[0].totalAmount;
+      } else {
+        yesterday = dailyRevenueData[0].totalAmount;
+        today = 0;
+      }
+
+      growthDataDaily.today = Number(today);
+      growthDataDaily.variance = Number(
+        (((today - yesterday) / yesterday) * 100).toFixed(2)
+      );
     } else {
       const yesterday = dailyRevenueData[0].totalAmount;
       const today = dailyRevenueData[1].totalAmount;
 
       growthDataDaily.today = Number(today);
-      growthDataDaily.variance =
-        100 - Number((((today - yesterday) / yesterday) * 100).toFixed(2));
+      growthDataDaily.variance = Number(
+        (((today - yesterday) / yesterday) * 100).toFixed(2)
+      );
     }
 
     revenueChartData = resRevenue;
