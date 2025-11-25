@@ -140,6 +140,31 @@ const Header = ({ logoText = "Thrift Shop", customLogo = null }) => {
                 className="block py-2 text-gray-800 hover:text-black border-b border-gray-100 last:border-b-0 transform transition-all duration-200 hover:translate-x-1"
               >
                 <div className="flex items-center space-x-3">
+                  {item.product_images?.[0] && (
+                    <img
+                      src={item.product_images[0]}
+                      alt={item.title}
+                      className="w-16 h-16 object-cover rounded"
+                    />
+                  )}
+                  <div>
+                    <div className="font-medium">{item.title}</div>
+                    {item.discount_price ? (
+                      <div className="text-sm">
+                        <span className="text-red-600 font-semibold">
+                          {item.discount_price.toLocaleString()}₫
+                        </span>
+                        <span className="text-gray-400 line-through ml-2">
+                          {item.original_price.toLocaleString()}₫
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="text-sm text-gray-600">
+                        {item.original_price.toLocaleString()}₫
+                      </div>
+                    )}
+                  </div>
+
                   <div className="font-medium">{item?.name}</div>
                 </div>
               </a>
