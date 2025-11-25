@@ -14,11 +14,10 @@ import {
 import { MyContext } from "../../Context/MyContext";
 import { toast } from "react-toastify";
 
-const AddressForm = ({ address = null, setAddress }) => {
+const AddressForm = ({ address = null, setAddress, onClose }) => {
   const [provinces, setProvinces] = useState([]);
   const [wards, setWards] = useState([]);
   const [wardsList, setWardsList] = useState([]);
-  const { closeAddrFrm } = useContext(MyContext);
   const [formData, setFormData] = useState(
     address || {
       receiver: "",
@@ -65,7 +64,7 @@ const AddressForm = ({ address = null, setAddress }) => {
       return;
     }
     setAddress(formData);
-    setIsOpenAddressForm(false);
+    onClose();
   };
 
   useEffect(() => {
@@ -81,7 +80,7 @@ const AddressForm = ({ address = null, setAddress }) => {
         setProvinces(provincesData);
         setWardsList(wardsData);
 
-        if (address.province) {
+        if (address?.province) {
           loadWards(formData.province, provincesData, wardsData);
         }
       } catch (err) {
@@ -127,7 +126,7 @@ const AddressForm = ({ address = null, setAddress }) => {
             </h4>
             <div
               className="size-8 rounded-full p-1 cursor-pointer hover:bg-gray-200 flex justify-center items-center"
-              onClick={closeAddrFrm}
+              onClick={onClose}
             >
               <IoClose size={25} />
             </div>

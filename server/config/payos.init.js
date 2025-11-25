@@ -1,6 +1,7 @@
 import PayOS from "@payos/node";
 import dotenv from "dotenv";
-//import ngrok from "ngrok";
+import ngrok from "ngrok";
+
 dotenv.config({ quiet: true });
 
 const PORT = process.env.PORT || 3000;

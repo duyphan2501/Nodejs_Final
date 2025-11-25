@@ -14,6 +14,7 @@ import {
 } from "../../utils/calculatePrice";
 import AddressList from "../../components/Address/AddressList";
 import useAddressStore from "../../store/useAddressStore";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -90,9 +91,11 @@ const Checkout = () => {
     setCompletedStep((prev) => Math.max(prev, step));
   };
 
+  const navigator = useNavigate();
+
   const handleCompleteOrder = async () => {
     if (isLoading) return;
-    await createOrder(
+    const { order, url } = await createOrder(
       cartItems,
       formData.email,
       formData.address,
@@ -103,6 +106,13 @@ const Checkout = () => {
       itemsDiscounted,
       user?._id
     );
+    if (order) {
+      if (formData.provider === "payos" && url) {
+        window.location.href = url;
+      } else {
+        navigator(`/order-success?orderCode=${order.orderCode}`);
+      }
+    }
   };
 
   useEffect(() => {

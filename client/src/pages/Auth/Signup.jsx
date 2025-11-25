@@ -6,21 +6,26 @@ import { MapPinHouse, X } from "lucide-react";
 import AddressSignUpForm from "../../components/Address/AddressSignUpForm";
 import { MyContext } from "../../Context/MyContext";
 import useUserStore from "../../store/useUserStore";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAddressStore from "../../store/useAddressStore";
 
 const Signup = () => {
+  const { state } = useLocation();
+  const addressFromState = state.address || null;
+  const [isOpenAddressForm, setIsOpenAddressForm] = useState(false);
+
   const [user, setUser] = useState({
-    email: "",
+    email: state?.email || "",
     fullname: "",
   });
   const [address, setAddress] = useState({
-    receiver: "",
-    phone: "",
-    province: "",
-    ward: "",
+    receiver: addressFromState.receiver || "",
+    phone: addressFromState.phone || "",
+    province: addressFromState.province || "",
+    ward: addressFromState.ward || "",
     addressType: "home",
-    addressDetail: "",
-    isDefault: false,
+    addressDetail: addressFromState.addressDetail || "",
+    isDefault: addressFromState ? true : false,
   });
 
   const checkValidAddress = (addr) => {
@@ -45,8 +50,7 @@ const Signup = () => {
     });
   };
 
-  const { isOpenAddressForm, setIsOpenAddressForm, setVerifyUser } =
-    useContext(MyContext);
+  const { setVerifyUser } = useContext(MyContext);
   const navigate = useNavigate();
 
   const signUp = useUserStore((s) => s.signUp);
@@ -59,11 +63,15 @@ const Signup = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     if (isLoading.signUp) return;
-    const { success, verifyUser } = await signUp(user);
-    if (checkValidAddress(address)) {
-    }
-    if (success) navigate("/verify-account");
-    else {
+    const { success, verifyUser } = await signUp(
+      user.email,
+      user.fullname,
+      address
+    );
+
+    if (success) {
+      navigate("/verify-account");
+    } else {
       if (verifyUser && !verifyUser?.isVerified) {
         setVerifyUser(verifyUser);
         navigate("/verify-account");
@@ -119,7 +127,7 @@ const Signup = () => {
                       <span>Địa chỉ: </span>
                       <span className="font-medium italic">
                         {address.addressDetail}, {address.ward},{" "}
-                        {address.province}, Việt Nam
+                        {address.province}
                       </span>
                     </div>
                   </div>
@@ -151,7 +159,11 @@ const Signup = () => {
         </a>
       </div>
       {isOpenAddressForm && (
-        <AddressSignUpForm address={address} setAddress={setAddress} />
+        <AddressSignUpForm
+          address={address}
+          setAddress={setAddress}
+          onClose={() => setIsOpenAddressForm(false)}
+        />
       )}
     </div>
   );

@@ -1,5 +1,6 @@
 import transporter from "../config/email.config.js";
 import forgotPasswordEmail from "../templates/forgotPassword.template.js";
+import orderConfirmationEmail from "../templates/orderConfirm.template.js";
 import verificationEmail from "../templates/verification.template.js";
 import crypto from "crypto";
 import dotenv from "dotenv";
@@ -31,4 +32,20 @@ const sendForgotPasswordEmail = async (name, email, minutes) => {
   return token;
 };
 
-export { sendEmail, sendVerificationEmail, sendForgotPasswordEmail };
+const sendOrderConfirmEmail = async (order) => {
+  const { subject, html } = orderConfirmationEmail(
+    order.orderId,
+    order.items,
+    order.orderAmount,
+    order.shippingInfo,
+    order.payment.provider
+  );
+  await sendEmail(order.email, subject, html)
+};
+
+export {
+  sendEmail,
+  sendVerificationEmail,
+  sendForgotPasswordEmail,
+  sendOrderConfirmEmail,
+};

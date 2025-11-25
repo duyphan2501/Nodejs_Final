@@ -4,6 +4,8 @@ import UserModel from "../models/user.model.js";
 import { useCouponAtomic } from "./coupon.service.js";
 import { usePurchasePoint } from "./user.service.js";
 import { deductStockAtomic } from "./variant.service.js";
+import client from "../config/init.redis.js";
+const REDIS_CHANNEL = "order_events";
 
 const getOrdersSummary = async (startDate, endDate) => {
   const start = new Date(startDate);
@@ -108,6 +110,14 @@ async function generateOrderId() {
 
   return orderId;
 }
+
+const publishSendOrderEmail = async (order) => {
+  const messagePayload = JSON.stringify(order);
+  const subscriberCount = await client.publish(REDIS_CHANNEL, messagePayload);
+  console.log(
+    `Đã publish sự kiện đơn hàng lên Redis. ${subscriberCount} người nghe nhận được.`
+  );
+};
 
 const createNewOrder = async (
   cartItems,
@@ -396,6 +406,7 @@ export {
   getDailyOrderAmounts,
   getRevenueAndProfit,
   getOrdersSummary,
+  publishSendOrderEmail
 };
 
 class OrderService {

@@ -46,6 +46,7 @@ const orderSchema = new mongoose.Schema(
     ],
     coupon: { code: String, amountReduced: Number },
     usedPoint: { point: Number, amountReduced: Number },
+    description: String,
   },
   { timestamps: true, collection: "orders" }
 );

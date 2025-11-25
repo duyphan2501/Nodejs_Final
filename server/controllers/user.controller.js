@@ -19,10 +19,11 @@ import {
 import { verifyToken } from "../helpers/googleAuth.helper.js";
 import { mergeCart } from "../services/cart.service.js";
 import UserService from "../services/user.service.js";
+import AddressModel from "../models/address.model.js";
 
 const signUp = async (req, res, next) => {
   try {
-    const { email, fullname } = req.body;
+    const { email, fullname, address } = req.body;
 
     if (!email) throw CreateError.BadRequest("Vui lòng nhập email!");
 
@@ -43,6 +44,9 @@ const signUp = async (req, res, next) => {
 
     // create new user in db
     const user = await createNewUser(fullname, email, "default");
+    if (user && address) {
+      await AddressModel.create({ ...address, userId: user._id });
+    }
 
     // send verification email
     await sendVerificationEmailtoUser(user);

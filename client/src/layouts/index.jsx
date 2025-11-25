@@ -3,9 +3,12 @@ import Header from "./Header";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import Footer from "../components/Footer";
-import useUserStore from "../store/useUserStore";
 import { toast } from "react-toastify";
 import { MyContext } from "../Context/MyContext";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useUserStore from "../store/useUserStore";
+import useCartStore from "../store/useCartStore";
+import useAddressStore from "../store/useAddressStore";
 import useTrackVisit from "../hooks/useTrackVisit";
 
 const Layouts = () => {
@@ -15,11 +18,7 @@ const Layouts = () => {
   const { persist } = useContext(MyContext);
   const navigator = useNavigate();
   const location = useLocation();
-  const user = useUserStore((state) => state.user);
   const [isLoading, setIsLoading] = useState(true);
-
-  //Track luot truy cap
-  useTrackVisit(user?._id);
 
   useEffect(() => {
     const handleScroll = () => {

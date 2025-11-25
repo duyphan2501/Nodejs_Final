@@ -91,7 +91,7 @@ const ProductPage = () => {
     setProducts(products);
     setTotalPages(totalPages);
     setLoading(false);
-  };
+  };  
 
   useEffect(() => {
     const fetchInitial = async () => {
