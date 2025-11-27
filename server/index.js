@@ -60,6 +60,6 @@ server.listen(PORT, () => {
   console.log("Server is running at PORT :::", PORT);
   connectToDB();
 
-  startNgrokAndConfirmWebhook();
+  // startNgrokAndConfirmWebhook();
   //fakeDeliveryCron.start();
 });

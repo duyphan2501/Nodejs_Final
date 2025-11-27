@@ -1,5 +1,6 @@
 import createHttpError from "http-errors";
 import {
+  cancelOrder,
   createNewOrder,
   deleteManyOrder,
   getAllOrder,
@@ -78,7 +79,7 @@ const createOrder = async (req, res, next) => {
     }
 
     if (provider !== "payos") {
-      await publishSendOrderEmail(newOrder)
+      await publishSendOrderEmail(newOrder);
     }
 
     res.status(201).json({
@@ -123,7 +124,7 @@ const verifyWebhookData = async (req, res, next) => {
     if (verifiedData.code === "00") {
       order.status = "processing";
       order.payment.status = "paid";
-      await publishSendOrderEmail(order)
+      await publishSendOrderEmail(order);
       // xoá giỏ hàng
       // const userId = order.userId;
       // for (const item of order.items) {
@@ -214,6 +215,10 @@ const updateOrderStatus = async (req, res, next) => {
       const pointToAdd = Math.floor((amount * 10) / 100 / 1000);
 
       await updateUserPoint(order[0].email, pointToAdd);
+    }
+
+    if (status === "cancelled" && result.modifiedCount !== 0) {
+      await cancelOrder(order);
     }
 
     return res.status(200).json({

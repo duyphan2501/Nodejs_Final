@@ -14,7 +14,7 @@ import useTrackVisit from "../hooks/useTrackVisit";
 const Layouts = () => {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const { refreshToken } = useUserStore();
+  const { refreshToken, user } = useUserStore();
   const { persist } = useContext(MyContext);
   const navigator = useNavigate();
   const location = useLocation();

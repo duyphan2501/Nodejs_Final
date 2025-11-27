@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import OrderModel from "../models/order.model.js";
 import UserModel from "../models/user.model.js";
-import { useCouponAtomic } from "./coupon.service.js";
-import { usePurchasePoint } from "./user.service.js";
-import { deductStockAtomic } from "./variant.service.js";
+import { rollbackCoupon, useCouponAtomic } from "./coupon.service.js";
+import { rollbackPurchasePoint, usePurchasePoint } from "./user.service.js";
+import { addStockAtomic, deductStockAtomic } from "./variant.service.js";
 import client from "../config/init.redis.js";
 const REDIS_CHANNEL = "order_events";
 
@@ -219,6 +219,32 @@ const createNewOrder = async (
   }
 };
 
+const cancelOrder = async (order) => {
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+
+    order.items.forEach(async (item) => {
+      await addStockAtomic(item, session);
+    });
+
+    if (order?.coupon?.code !== "") {
+      await rollbackCoupon(order.coupon.code, session);
+    }
+
+    if (order?.usedPoint?.point && order?.usedPoint?.point !== 0) {
+      await rollbackPurchasePoint(order.email, order.usedPoint.point);
+    }
+
+    await session.commitTransaction();
+  } catch (error) {
+    await session.abortTransaction();
+    throw error;
+  } finally {
+    session.endSession();
+  }
+};
+
 const getAllOrder = async () => {
   try {
     const result = await OrderModel.find({}).sort({ createdAt: -1 });
@@ -406,7 +432,8 @@ export {
   getDailyOrderAmounts,
   getRevenueAndProfit,
   getOrdersSummary,
-  publishSendOrderEmail
+  publishSendOrderEmail,
+  cancelOrder,
 };
 
 class OrderService {

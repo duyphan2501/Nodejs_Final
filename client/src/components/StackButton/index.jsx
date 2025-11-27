@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import { ArrowRight } from "lucide-react";
 
-const StackButton = ({ label, theme = "light", icon = null }) => {
+const StackButton = ({ label, theme = "light", icon = null, onClick }) => {
   // Quy định màu theo theme
   const themes = {
     light: {
@@ -17,7 +17,7 @@ const StackButton = ({ label, theme = "light", icon = null }) => {
   const current = themes[theme] || themes.light;
 
   return (
-    <div className="relative w-fit">
+    <div onClick={onClick} className="relative w-fit">
       <Button
         endIcon={icon ? icon : <ArrowRight />}
         className={`!rounded-none !p-3 !absolute -bottom-1 -right-1 !font-semibold !border-2 !border-white ${current.overlayBg}`}

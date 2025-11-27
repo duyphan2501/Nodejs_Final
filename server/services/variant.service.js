@@ -36,6 +36,31 @@ const getAvailableStockDB = async (variantId, size) => {
   return attribute.inStock;
 };
 
+const addStockAtomic = async (item, session) => {
+  let { variantId, size, quantity, name } = item;
+  variantId = new mongoose.Types.ObjectId(`${variantId}`);
+
+  const updateResult = await VariantModel.findOneAndUpdate(
+    {
+      _id: variantId,
+      "attributes.size": size,
+    },
+    {
+      $inc: { "attributes.$.inStock": quantity }, // Giảm số lượng
+    },
+    {
+      new: true,
+      session,
+    }
+  );
+
+  if (!updateResult) {
+    throw new Error(`Variant ${variantId} with size ${size} not found`);
+  }
+
+  return updateResult;
+};
+
 const deductStockAtomic = async (item, session) => {
   let { variantId, size, quantity, name } = item;
   variantId = new mongoose.Types.ObjectId(`${variantId}`);
@@ -95,4 +120,9 @@ const deductStockAtomic = async (item, session) => {
   };
 };
 
-export { addManyVariant, deductStockAtomic, getAvailableStockDB };
+export {
+  addManyVariant,
+  deductStockAtomic,
+  getAvailableStockDB,
+  addStockAtomic,
+};

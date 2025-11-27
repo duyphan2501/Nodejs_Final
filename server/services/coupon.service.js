@@ -194,7 +194,36 @@ export const getCouponsWithFilter = async (
   }
 };
 
-export const useCouponAtomic = async (code, orderId, orderAmount, session = null) => {
+export const rollbackCoupon = async (code, orderId) => {
+  if (!code) return;
+
+  const updatedCoupon = await CouponModel.findOneAndUpdate(
+    {
+      code: code,
+    },
+    {
+      $inc: { remainingUsage: 1 },
+      $pull: { order: orderId },
+    },
+    {
+      new: true,
+      session: session,
+    }
+  );
+
+  if (!updatedCoupon) {
+    throw new Error(`Coupon ${couponCode} not found`);
+  }
+
+  return updateCoupon;
+};
+
+export const useCouponAtomic = async (
+  code,
+  orderId,
+  orderAmount,
+  session = null
+) => {
   if (!code) return;
   const updatedCoupon = await CouponModel.findOneAndUpdate(
     {

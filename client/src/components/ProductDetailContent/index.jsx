@@ -6,6 +6,7 @@ import { ShoppingCart } from "lucide-react";
 import StackButton from "../StackButton";
 import { useEffect } from "react";
 import useEvaluationStore from "../../store/useEvaluationStore";
+// import useCartStore from "../../store/useCartStore";
 
 const ProductDetailContent = ({
   selectedProduct,
@@ -15,6 +16,12 @@ const ProductDetailContent = ({
   selectedVariant,
 }) => {
   const [quantity, setQuantity] = useState(1);
+
+  // const { addToCart } = useCartStore();
+
+  // const handleAddToCart = async (item, quantity) => {
+  //   await addToCart(item, quantity, user?._id);
+  // };
 
   if (!selectedProduct || !selectedVariant || !selectedAttr) return;
 
