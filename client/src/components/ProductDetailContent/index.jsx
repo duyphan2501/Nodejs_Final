@@ -6,6 +6,8 @@ import { ShoppingCart } from "lucide-react";
 import StackButton from "../StackButton";
 import { useEffect } from "react";
 import useEvaluationStore from "../../store/useEvaluationStore";
+import useCartStore from "../../store/useCartStore";
+import useUserStore from "../../store/useUserStore";
 
 const ProductDetailContent = ({
   selectedProduct,
@@ -15,6 +17,8 @@ const ProductDetailContent = ({
   selectedVariant,
 }) => {
   const [quantity, setQuantity] = useState(1);
+  const user = useUserStore(state => state.user)
+  const {addToCart} = useCartStore()
 
   if (!selectedProduct || !selectedVariant || !selectedAttr) return;
 
@@ -35,6 +39,21 @@ const ProductDetailContent = ({
   const fetchEvaluations = async () => {
     await getEvaluationsByProductId(selectedProduct._id);
   };
+
+  const handleAddCart = async () => {
+    const item = {
+      variantId: selectedVariant._id,
+      name: selectedProduct.name,
+      size: selectedAttr.size,
+      price,
+      discount,
+      color: selectedVariant.color,
+      image: selectedVariant.images[0],
+      inStock: selectedAttr.inStock,
+    };
+    await addToCart(item, quantity, user?._id);
+  };
+
   useEffect(() => {
     fetchEvaluations();
   }, [selectedProduct._id]);
@@ -142,6 +161,7 @@ const ProductDetailContent = ({
           label={"Thêm vào giỏ hàng"}
           theme="dark"
           icon={<ShoppingCart size={18} />}
+          onClick={handleAddCart}
         />
       </div>
     </div>

@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import { ArrowRight } from "lucide-react";
 
-const StackButton = ({ label, theme = "light", icon = null }) => {
+const StackButton = ({ label, theme = "light", icon = null, onClick=null }) => {
   // Quy định màu theo theme
   const themes = {
     light: {
@@ -27,6 +27,7 @@ const StackButton = ({ label, theme = "light", icon = null }) => {
 
       <Button
         endIcon={icon ? icon : <ArrowRight />}
+        onClick={onClick}
         className={`!rounded-none text-nowrap !p-3 !font-semibold !border-2 !border-white ${current.mainBg}`}
       >
         {label}
