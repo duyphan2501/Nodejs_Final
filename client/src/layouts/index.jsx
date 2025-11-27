@@ -9,7 +9,6 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useUserStore from "../store/useUserStore";
 import useCartStore from "../store/useCartStore";
 import useAddressStore from "../store/useAddressStore";
-import useTrackVisit from "../hooks/useTrackVisit";
 
 const Layouts = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -19,6 +18,27 @@ const Layouts = () => {
   const navigator = useNavigate();
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
+
+  const axiosPrivate = useAxiosPrivate();
+  const user = useUserStore((state) => state.user);
+  const getCart = useCartStore((state) => state.getCart);
+  const getAllAddresses = useAddressStore((state) => state.getAllAddresses);
+
+  useEffect(() => {
+    getCart(user?._id);
+  }, [user, getCart]);
+
+  useEffect(() => {
+    if (!user) return;
+    const fetchAddresses = async () => {
+      try {
+        await getAllAddresses(axiosPrivate);
+      } catch (error) {
+        console.error("Error fetching addresses:", error);
+      }
+    };
+    fetchAddresses();
+  }, [user]);
 
   useEffect(() => {
     const handleScroll = () => {
