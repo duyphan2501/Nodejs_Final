@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import API from "../API/axiosInstance";
 
 const useOrderStore = create((set) => {
-  
   const createOrder = async (
     cartItems,
     email,
@@ -26,7 +25,7 @@ const useOrderStore = create((set) => {
         usedPoint,
         orderAmount,
         itemsDiscounted,
-        userId
+        userId,
       });
       toast.success(res.data.message);
       return { order: res.data.order, url: res.data.url };
@@ -50,11 +49,17 @@ const useOrderStore = create((set) => {
     }
   };
 
+  const getOrderById = async (orderId) => {
+    const res = await API.get(`/api/order/order-tracker/${orderId}`);
+    return res.data.data;
+  };
+
   return {
     isLoading: false,
     order: null,
     createOrder,
     getOrderByOrderCode,
+    getOrderById,
   };
 });
 

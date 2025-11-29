@@ -224,16 +224,32 @@ const cancelOrder = async (order) => {
   try {
     session.startTransaction();
 
-    order.items.forEach(async (item) => {
+    await OrderModel.updateOne(
+      { _id: order._id },
+      {
+        $set: { status: "cancelled" },
+        $push: {
+          statusHistory: {
+            status: "cancelled",
+            updatedAt: new Date(),
+          },
+        },
+      },
+      {
+        session,
+      }
+    );
+
+    for (const item of order.items) {
       await addStockAtomic(item, session);
-    });
+    }
 
     if (order?.coupon?.code !== "") {
-      await rollbackCoupon(order.coupon.code, session);
+      await rollbackCoupon(order.coupon.code, order._id, session);
     }
 
     if (order?.usedPoint?.point && order?.usedPoint?.point !== 0) {
-      await rollbackPurchasePoint(order.email, order.usedPoint.point);
+      await rollbackPurchasePoint(order.email, order.usedPoint.point, session);
     }
 
     await session.commitTransaction();
@@ -464,10 +480,9 @@ class OrderService {
   }
 
   // Lấy đơn hàng theo ID
-  async getOrderById(orderId, userId) {
+  async getOrderById(orderId) {
     try {
-      const email = await this.getUserEmail(userId);
-      const order = await OrderModel.findOne({ orderId, email }).populate(
+      const order = await OrderModel.findOne({ orderId }).populate(
         "items.variantId"
       );
       if (!order) {
@@ -644,6 +659,12 @@ class OrderService {
       coupon: order.coupon,
       usedPoint: order.usedPoint,
       itemsDiscounted: order.itemsDiscounted,
+      statusHistory: order.statusHistory
+        .map((his) => ({
+          status: statusMap[his.status],
+          updatedAt: his.updatedAt.toTimeString().split(" ")[0].substring(0, 5),
+        }))
+        .reverse(),
     };
   }
 

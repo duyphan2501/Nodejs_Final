@@ -9,6 +9,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useUserStore from "../store/useUserStore";
 import useCartStore from "../store/useCartStore";
 import useAddressStore from "../store/useAddressStore";
+import useTrackVisit from "../hooks/useTrackVisit";
 
 const Layouts = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -80,6 +81,8 @@ const Layouts = () => {
       isMounted = false;
     };
   }, []);
+
+  useTrackVisit(user?.id);
 
   return (
     <>

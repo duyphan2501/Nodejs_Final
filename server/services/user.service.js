@@ -84,17 +84,13 @@ const getForgotPasswordUser = async (email, forgotPasswordToken) => {
 };
 
 const rollbackPurchasePoint = async (email, point, session = null) => {
-  const user = await UserModel.getUserByEmail(email).session(session);
-
-  user.purchasePoint += point;
-
-  if (!user) {
-    throw createHttpError(404, "Người dùng không tồn tại.");
-  }
-
-  await user.save({ session });
-
-  return user;
+  await UserModel.updateOne(
+    {
+      email,
+    },
+    { $inc: { purchasePoint: point } },
+    { session }
+  );
 };
 
 const usePurchasePoint = async (userId, point, session = null) => {

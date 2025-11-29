@@ -194,7 +194,7 @@ export const getCouponsWithFilter = async (
   }
 };
 
-export const rollbackCoupon = async (code, orderId) => {
+export const rollbackCoupon = async (code, orderId, session) => {
   if (!code) return;
 
   const updatedCoupon = await CouponModel.findOneAndUpdate(
@@ -211,11 +211,7 @@ export const rollbackCoupon = async (code, orderId) => {
     }
   );
 
-  if (!updatedCoupon) {
-    throw new Error(`Coupon ${couponCode} not found`);
-  }
-
-  return updateCoupon;
+  return updatedCoupon;
 };
 
 export const useCouponAtomic = async (
