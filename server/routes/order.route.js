@@ -7,6 +7,7 @@ import {
   getOrderById,
   getOrderByOrderCode,
   getOrders,
+  getOrderTrackingById,
   updateOrderStatus,
   verifyWebhookData,
 } from "../controllers/order.controller.js";
@@ -24,18 +25,21 @@ orderRouter.get("/by-order-code/:orderCode", getOrderByOrderCode);
 
 orderRouter.post("/create", createOrder);
 orderRouter.post("/webhook/payos", verifyWebhookData);
-orderRouter.get("/cancel-payment", canclePayment)
+orderRouter.get("/cancel-payment", canclePayment);
+
+orderRouter.get("/order-tracker/:orderId", getOrderTrackingById);
 
 orderRouter.use(checkAuth);
 orderRouter.get("/", OrderController.getAllOrders);
 orderRouter.get("/active", OrderController.getActiveOrders);
 orderRouter.get("/stats", OrderController.getOrderStats);
 orderRouter.get("/status/:status", OrderController.getOrdersByStatus);
-orderRouter.get("/:orderId", OrderController.getOrderById);
 orderRouter.post("/fake-delivery/:orderId", OrderController.fakeDeliveryUpdate);
 orderRouter.post(
   "/:orderId/cancel",
   OrderController.cancelOrder.bind(OrderController)
 );
+
+orderRouter.get("/:orderId", OrderController.getOrderById);
 
 export default orderRouter;

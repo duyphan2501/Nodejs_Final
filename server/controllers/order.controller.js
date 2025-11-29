@@ -197,28 +197,30 @@ const updateOrderStatus = async (req, res, next) => {
       throw createHttpError.NotFound("Không tìm thấy đơn hàng");
     }
 
-    const result = await OrderModel.updateOne(
-      { _id: req.params._id },
-      {
-        $set: { status: req.body.status },
-        $push: {
-          statusHistory: {
-            status: req.body.status,
-            updatedAt: new Date(),
+    let result = "";
+
+    if (status !== "cancelled") {
+      result = await OrderModel.updateOne(
+        { _id: req.params._id },
+        {
+          $set: { status: req.body.status },
+          $push: {
+            statusHistory: {
+              status: req.body.status,
+              updatedAt: new Date(),
+            },
           },
-        },
+        }
+      );
+
+      if (status === "delivered" && result.modifiedCount !== 0) {
+        const amount = order[0].orderAmount || 0;
+        const pointToAdd = Math.floor((amount * 10) / 100 / 1000);
+
+        await updateUserPoint(order[0].email, pointToAdd);
       }
-    );
-
-    if (status === "delivered" && result.modifiedCount !== 0) {
-      const amount = order[0].orderAmount || 0;
-      const pointToAdd = Math.floor((amount * 10) / 100 / 1000);
-
-      await updateUserPoint(order[0].email, pointToAdd);
-    }
-
-    if (status === "cancelled" && result.modifiedCount !== 0) {
-      await cancelOrder(order);
+    } else {
+      await cancelOrder(order[0]);
     }
 
     return res.status(200).json({
@@ -366,6 +368,25 @@ const getDashboardData = async (req, res, next) => {
   }
 };
 
+// GET /api/orders/:orderId - Lấy chi tiết đơn hàng
+const getOrderTrackingById = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const order = await OrderService.getOrderById(orderId);
+    const formattedOrder = OrderService.formatOrderForFrontend(order);
+    console.log(formattedOrder);
+    res.status(200).json({
+      success: true,
+      data: formattedOrder,
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export {
   createOrder,
   verifyWebhookData,
@@ -376,6 +397,7 @@ export {
   getDashboardData,
   getOrderByOrderCode,
   canclePayment,
+  getOrderTrackingById,
 };
 
 class OrderController {

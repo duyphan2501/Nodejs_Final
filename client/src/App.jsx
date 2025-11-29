@@ -23,6 +23,7 @@ import Checkout from "./pages/Checkout";
 import AddressForm from "./components/Address/AddressForm";
 import ProductDetail from "./pages/Products/ProductDetail";
 import OrderSuccess from "./pages/OrderSuccess";
+import OrderTracker from "./pages/OrderTracker";
 
 function App() {
   const {
@@ -64,6 +65,7 @@ function App() {
             <Route path="order-history" element={<OrderHistory />} />
 
             <Route path="/api/order/:orderId" element={<OrderTracking />} />
+            <Route path="/order-tracker" element={<OrderTracker />} />
             <Route path="order" element={<OrderList />} />
             <Route path="addresses" element={<Address />} />
             <Route path="cart" element={<Cart />} />

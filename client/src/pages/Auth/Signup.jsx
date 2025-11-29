@@ -11,7 +11,7 @@ import useAddressStore from "../../store/useAddressStore";
 
 const Signup = () => {
   const { state } = useLocation();
-  const addressFromState = state.address || null;
+  const addressFromState = state?.address || null;
   const [isOpenAddressForm, setIsOpenAddressForm] = useState(false);
 
   const [user, setUser] = useState({
@@ -19,12 +19,12 @@ const Signup = () => {
     fullname: "",
   });
   const [address, setAddress] = useState({
-    receiver: addressFromState.receiver || "",
-    phone: addressFromState.phone || "",
-    province: addressFromState.province || "",
-    ward: addressFromState.ward || "",
+    receiver: addressFromState?.receiver || "",
+    phone: addressFromState?.phone || "",
+    province: addressFromState?.province || "",
+    ward: addressFromState?.ward || "",
     addressType: "home",
-    addressDetail: addressFromState.addressDetail || "",
+    addressDetail: addressFromState?.addressDetail || "",
     isDefault: addressFromState ? true : false,
   });
 

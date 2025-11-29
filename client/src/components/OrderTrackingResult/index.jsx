@@ -8,48 +8,17 @@ import {
   CreditCard,
   Loader2,
 } from "lucide-react";
-import { useParams } from "react-router-dom";
-import useOrderAPI, { useAutoUpdateOrder } from "../../hooks/useOrder";
 
-const OrderTracking = () => {
-  const { orderId } = useParams();
-  const [currentOrder, setCurrentOrder] = useState(null);
-  const [loading, setLoading] = useState(true);
+const OrderTrackingResult = ({ currentOrder, loading }) => {
   const [error, setError] = useState(null);
-
-  const { getOrderById } = useOrderAPI();
-
-  // Auto-update order status mỗi 1 phút
-  const { isRunning } = useAutoUpdateOrder(orderId, (updatedOrder) => {
-    setCurrentOrder(updatedOrder);
-  });
-
-  useEffect(() => {
-    fetchOrder();
-  }, [orderId]);
-
-  const fetchOrder = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const result = await getOrderById(orderId);
-      console.log(result);
-      setCurrentOrder(result.data);
-    } catch (err) {
-      setError(err.message || "Không thể tải thông tin đơn hàng");
-      console.error("Error fetching order:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case "delivered":
+      case "Đã giao":
         return <CheckCircle className="w-6 h-6 text-green-600" />;
-      case "shipping":
+      case "Đang vận chuyển":
         return <Truck className="w-6 h-6 text-blue-600" />;
-      case "confirmed":
+      case "Đã xác nhận":
         return <Package className="w-6 h-6 text-purple-600" />;
       default:
         return <Clock className="w-6 h-6 text-orange-600" />;
@@ -58,11 +27,11 @@ const OrderTracking = () => {
 
   const getStatusColorClass = (status) => {
     switch (status) {
-      case "delivered":
+      case "Đã giao":
         return "bg-green-50 border-green-500";
-      case "shipping":
+      case "Đang vận chuyển":
         return "bg-blue-50 border-blue-500";
-      case "confirmed":
+      case "Đã xác nhận":
         return "bg-purple-50 border-purple-500";
       default:
         return "bg-orange-50 border-orange-500";
@@ -84,7 +53,7 @@ const OrderTracking = () => {
     );
   }
 
-  if (error || !currentOrder) {
+  if (!currentOrder || Object.keys(currentOrder).length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -100,14 +69,6 @@ const OrderTracking = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 md:px-8 py-8">
-        {/* Auto-update indicator */}
-        {isRunning && currentOrder.status !== "delivered" && (
-          <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded mb-4 text-sm flex items-center gap-2">
-            <Loader2 className="w-4 h-4 animate-spin" />
-            Trạng thái đơn hàng sẽ tự động cập nhật mỗi 1 phút
-          </div>
-        )}
-
         {/* Thông tin đơn hàng */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="bg-white p-6 rounded-lg shadow-sm">
@@ -115,20 +76,20 @@ const OrderTracking = () => {
               <Clock className="w-5 h-5 text-gray-600" />
               <h3 className="font-bold text-sm uppercase">Ngày đặt hàng</h3>
             </div>
-            <p className="text-lg font-semibold">{currentOrder.date}</p>
-            <p className="text-sm text-gray-600">{currentOrder.time}</p>
+            <p className="text-lg font-semibold">{currentOrder?.date}</p>
+            <p className="text-sm text-gray-600">{currentOrder?.time}</p>
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <div className="flex items-center gap-3 mb-3">
               <Truck className="w-5 h-5 text-gray-600" />
               <h3 className="font-bold text-sm uppercase">
-                {currentOrder.deliveryDate ? "Đã giao" : "Dự kiến giao hàng"}
+                {currentOrder?.deliveryDate ? "Đã giao" : "Dự kiến giao hàng"}
               </h3>
             </div>
             <p className="text-lg font-semibold">
-              {currentOrder.deliveryDate ||
-                currentOrder.estimatedDelivery ||
+              {currentOrder?.deliveryDate ||
+                currentOrder?.estimatedDelivery ||
                 "Đang cập nhật"}
             </p>
             <p className="text-sm text-gray-600">Giao hàng tiêu chuẩn</p>
@@ -140,39 +101,38 @@ const OrderTracking = () => {
               <h3 className="font-bold text-sm uppercase">Tổng tiền</h3>
             </div>
             <p className="text-lg font-bold">
-              {formatCurrency(currentOrder.total)}
+              {formatCurrency(currentOrder?.total)}
             </p>
             <p className="text-sm text-gray-600">
-              {currentOrder.paymentMethod}
+              {currentOrder?.paymentMethod}
             </p>
           </div>
         </div>
 
+        {/* Trạng thái đơn hàng */}
         {/* Trạng thái đơn hàng */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <h3 className="font-bold text-xl mb-6 uppercase">
             Trạng thái đơn hàng
           </h3>
 
-          <div
-            className={`flex items-center gap-4 p-5 rounded-lg border-l-4 ${getStatusColorClass(
-              currentOrder.status
-            )}`}
-          >
-            {getStatusIcon(currentOrder.status)}
-            <div className="flex-1">
-              <p className="font-bold text-lg">{currentOrder.currentStatus}</p>
-              <p className="text-sm text-gray-600 mt-1">
-                {currentOrder.status === "pending" &&
-                  "Đơn hàng đã được đặt thành công và đang chờ xác nhận"}
-                {currentOrder.status === "confirmed" &&
-                  "Đơn hàng đã được xác nhận và đang chuẩn bị"}
-                {currentOrder.status === "shipping" &&
-                  "Đơn hàng đang trên đường giao đến bạn"}
-                {currentOrder.status === "delivered" &&
-                  "Đơn hàng đã được giao thành công"}
-              </p>
-            </div>
+          <div className="space-y-4">
+            {currentOrder?.statusHistory?.map((item, idx) => (
+              <div
+                key={idx}
+                className={`flex items-center gap-4 p-5 rounded-lg border-l-4 ${getStatusColorClass(
+                  item.status
+                )}`}
+              >
+                {getStatusIcon(item.status)}
+                <div className="flex-1">
+                  <p className="font-bold text-lg">{item.status}</p>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Cập nhật lúc: {item.updatedAt}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -180,7 +140,7 @@ const OrderTracking = () => {
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <h3 className="font-bold text-xl mb-4 uppercase">Sản phẩm</h3>
           <div className="space-y-4">
-            {currentOrder.products.map((product, idx) => (
+            {currentOrder?.products.map((product, idx) => (
               <div
                 key={idx}
                 className="flex gap-4 pb-4 border-b last:border-b-0"
@@ -216,7 +176,7 @@ const OrderTracking = () => {
             <div className="flex justify-between items-center">
               <p className="font-bold text-lg">TỔNG CỘNG:</p>
               <p className="font-bold text-2xl">
-                {formatCurrency(currentOrder.total)}
+                {formatCurrency(currentOrder?.total)}
               </p>
             </div>
           </div>
@@ -231,10 +191,10 @@ const OrderTracking = () => {
             </div>
             <div className="space-y-2 text-gray-700">
               <p className="font-semibold">
-                {currentOrder.shippingAddress.name}
+                {currentOrder?.shippingAddress.name}
               </p>
-              <p>{currentOrder.shippingAddress.phone}</p>
-              <p>{currentOrder.shippingAddress.address}</p>
+              <p>{currentOrder?.shippingAddress.phone}</p>
+              <p>{currentOrder?.shippingAddress.address}</p>
             </div>
           </div>
 
@@ -243,7 +203,7 @@ const OrderTracking = () => {
               <CreditCard className="w-5 h-5 text-gray-600" />
               <h3 className="font-bold uppercase">Phương thức thanh toán</h3>
             </div>
-            <p className="text-gray-700">{currentOrder.paymentMethod}</p>
+            <p className="text-gray-700">{currentOrder?.paymentMethod}</p>
           </div>
         </div>
       </div>
@@ -251,4 +211,4 @@ const OrderTracking = () => {
   );
 };
 
-export default OrderTracking;
+export default OrderTrackingResult;

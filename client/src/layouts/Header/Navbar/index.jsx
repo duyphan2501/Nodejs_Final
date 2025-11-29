@@ -76,6 +76,14 @@ const Navbar = ({
 
   return (
     <div className="relative">
+      <div className="text-sm font-regular py-1 pr-2 block w-full text-gray-700 flex justify-end">
+        <span
+          onClick={() => navigate("/order-tracker", { replace: true })}
+          className="cursor-pointer hover:text-black-900 hover:underline"
+        >
+          Tra cứu đơn hàng
+        </span>
+      </div>
       <div className="flex items-center justify-between px-4 lg:px-8 h-16">
         {/* Mobile Menu Button */}
         <button className="lg:hidden p-2" onClick={onMobileMenuToggle}>
