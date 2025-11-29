@@ -374,7 +374,6 @@ const getOrderTrackingById = async (req, res) => {
     const { orderId } = req.params;
     const order = await OrderService.getOrderById(orderId);
     const formattedOrder = OrderService.formatOrderForFrontend(order);
-    console.log(formattedOrder);
     res.status(200).json({
       success: true,
       data: formattedOrder,
