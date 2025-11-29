@@ -188,7 +188,7 @@ const OrderTracking = () => {
                 <div className="w-20 h-20 bg-gray-100 rounded flex items-center justify-center flex-shrink-0">
                   {product.image ? (
                     <img
-                      src={product.image}
+                      src={`${import.meta.env.VITE_API_URL}/${product.image}`}
                       alt={product.name}
                       className="w-full h-full object-cover rounded"
                     />
