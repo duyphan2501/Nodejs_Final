@@ -1,0 +1,408 @@
+[{
+  "_id": {
+    "$oid": "6911f5716ac21b1822ede4e9"
+  },
+  "name": "Campus 00",
+  "brand": "Adidas",
+  "categoryId": [
+    {
+      "$oid": "6911f33b6ac21b1822ede46e"
+    },
+    {
+      "$oid": "69143092c50025fed8f49d0a"
+    },
+    {
+      "$oid": "69143087c50025fed8f49d00"
+    }
+  ],
+  "inputPrice": 100000,
+  "description": "<h1><strong>Đôi giày Campus nâng tầm di sản thiết kế.</strong></h1><p></p><p>Dù ra mắt trên sân bóng rổ nhưng dòng giày adidas Campus đã nhanh chóng được ưa chuộng ở khắp mọi nơi. Ở phiên bản này, chúng tôi biến hóa kiểu dáng biểu tượng ấy theo một hướng mới và kết hợp các chất liệu, màu sắc và tỷ lệ thiết kế hiện đại. Thân giày bằng da cao cấp với lớp lót bằng vải dệt terry mềm mại, tất cả đặt trên đế giữa màu trắng ngà — mối liên kết đậm nét với di sản Campus.</p>",
+  "variants": [
+    {
+      "$oid": "6911f5716ac21b1822ede4e7"
+    },
+    {
+      "$oid": "6911f5716ac21b1822ede4e6"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-10T14:23:45.837Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:02:09.476Z"
+  },
+  "slug": "campus-00",
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6911fb2f6ac21b1822ede564"
+  },
+  "name": "GIÀY GAZELLE LO PRO",
+  "brand": "Adidas",
+  "categoryId": [
+    {
+      "$oid": "6911f37d6ac21b1822ede48c"
+    },
+    {
+      "$oid": "69143092c50025fed8f49d0a"
+    },
+    {
+      "$oid": "69143087c50025fed8f49d00"
+    }
+  ],
+  "inputPrice": 500000,
+  "description": "<h1><strong>Đôi giày với phom dáng thấp và chất liệu da lộn mang đến vẻ ngoài tinh tế, lấy cảm hứng từ phong cách cổ điển trên khán đài sân bóng.</strong></h1><p>Giày Gazelle Lo Pro sẵn sàng nâng tầm phong cách của bạn lên một đẳng cấp mới. Lấy cảm hứng từ mẫu giày huyền thoại biểu tượng Gazelle, thiết kế này mang đến diện mạo mới mẻ với các chi tiết tinh chỉnh và tỉ lệ được làm lại đầy tinh tế.<br><br>Thiết kế dáng thấp thời thượng bắt kịp xu hướng hiện đại, mang đến vẻ ngoài thanh thoát đầy cuốn hút cho tín đồ thời trang. Đường chỉ may ở mũi giày tái hiện thiết kế mũi chữ T biểu tượng, mang hơi thở di sản vào diện mạo hiện đại của bạn.<br><br>Thiết kế thân giày với lớp da lộn cao cấp cùng các chi tiết tổng hợp, đôi giày mang lại cảm giác chắc chắn và vẻ ngoài sang trọng. Đế ngoài cao su mang lại độ bám và sự ổn định vượt trội, khiến đôi giày này trở thành lựa chọn lý tưởng cho những cuộc phiêu lưu hàng ngày của bạn.<br><br>Hãy đắm chìm trong thế giới adidas Originals với đôi giày này, nơi phong cách hòa quyện cùng sự thoải mái. Cho dù bạn xuống phố hay thư giãn bên hội bạn, đôi giày này luôn giúp bạn trông thật phong cách và cảm thấy thoải mái.</p>",
+  "variants": [
+    {
+      "$oid": "6911fb2f6ac21b1822ede562"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-10T14:48:15.272Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:02:23.192Z"
+  },
+  "slug": "giay-gazelle-lo-pro",
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6911fb9a6ac21b1822ede56a"
+  },
+  "name": "Giày Samba OG",
+  "brand": "Adidas",
+  "categoryId": [
+    {
+      "$oid": "6911f35a6ac21b1822ede480"
+    },
+    {
+      "$oid": "69143092c50025fed8f49d0a"
+    },
+    {
+      "$oid": "69143087c50025fed8f49d00"
+    }
+  ],
+  "inputPrice": 200000,
+  "description": "<h1><strong>SAMBA ORIGINALS</strong></h1><p>Ra đời trên sân bóng, giày Samba là biểu tượng kinh điển của phong cách đường phố. Phiên bản này trung thành với di sản, thể hiện qua thân giày bằng da mềm, dáng thấp, nhã nhặn, các chi tiết phủ ngoài bằng da lộn và đế gum, biến đôi giày trở thành item không thể thiếu trong tủ đồ của tất cả mọi người - cả trong và ngoài sân cỏ.</p>",
+  "variants": [
+    {
+      "$oid": "6911fb9a6ac21b1822ede568"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-10T14:50:02.814Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:02:36.195Z"
+  },
+  "slug": "giay-samba-og",
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6911fc4f6ac21b1822ede598"
+  },
+  "name": "Giày Superstar 82",
+  "brand": "Adidas",
+  "categoryId": [
+    {
+      "$oid": "6911f32a6ac21b1822ede465"
+    }
+  ],
+  "inputPrice": 1000000,
+  "description": "<h1><strong>Giày adidas Superstar denim được xử lý bạc màu với phong cách tinh tế.</strong></h1><p>Đôi giày adidas Superstar lần đầu xuất hiện trên sân bóng rổ hơn 50 năm trước và từ đó đã khám phá khắp mọi ngóc ngách văn hóa. Đôi giày này sở hữu thân giày denim được xử lý bạc màu và chi tiết 3 Sọc tinh tế, mang đến vẻ ngoài độc đáo tôn vinh di sản thể thao của nó. Lớp lót và lót giày bằng da mang lại sự thoải mái, trong khi mũi giày vỏ sò bằng cao su đặc trưng vừa bảo vệ vừa tạo điểm nhấn phong cách.</p>",
+  "variants": [
+    {
+      "$oid": "6911fc4f6ac21b1822ede596"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-10T14:53:03.531Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:53:03.531Z"
+  },
+  "slug": "giay-superstar-82",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6912f2897bef65accab41095"
+  },
+  "name": "Bitis Hunter X",
+  "brand": "Bitis",
+  "categoryId": [
+    {
+      "$oid": "6911f4226ac21b1822ede4a7"
+    }
+  ],
+  "inputPrice": 200000,
+  "description": "<p><strong>Bitis Hunter X</strong></p>",
+  "variants": [
+    {
+      "$oid": "6912f2897bef65accab41093"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-11T08:23:37.059Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-11T08:23:37.059Z"
+  },
+  "slug": "bitis-hunter-x",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691304a41cbd9f29d0dd13ea"
+  },
+  "name": "Ba Lô Đa Năng 2 Trong 1",
+  "brand": "Adidas",
+  "categoryId": [
+    {
+      "$oid": "6911f48a6ac21b1822ede4b9"
+    }
+  ],
+  "inputPrice": 300000,
+  "description": "<h1><strong>Chiếc ba lô tiện dụng dành cho những chuyến đi làm hiện đại.</strong></h1><p>Chiếc ba lô adidas này được thiết kế dành cho những tâm hồn thích khám phá thời hiện đại. Được làm từ chất vải nylon bền bỉ, các ngăn của ba lô giúp bạn sắp xếp đồ đạc gọn gàng và dễ tìm. Thiết kế gồm ngăn riêng cho laptop cùng nhiều ngăn phụ tiện lợi cho các món đồ nhỏ.</p>",
+  "variants": [
+    {
+      "$oid": "691304a41cbd9f29d0dd13e8"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-11T09:40:52.973Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-11T09:40:52.973Z"
+  },
+  "slug": "ba-lo-dja-nang-2-trong-1",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691599881bf5cbae09471e47"
+  },
+  "name": "Dép Lightblaze",
+  "brand": "Adidas",
+  "categoryId": [
+    {
+      "$oid": "6911f3d66ac21b1822ede495"
+    },
+    {
+      "$oid": "691430aec50025fed8f49d1e"
+    }
+  ],
+  "inputPrice": 200000,
+  "description": "<h1><strong>Dép xỏ ngón hiện đại, thoải mái với lòng dép đúc và quai dép tùy chỉnh.</strong></h1><p>Chỉ cần xỏ chân vào và tận hưởng cảm giác thoải mái cùng đôi dép adidas này. Công nghệ đệm Lightstrike siêu nhẹ mang đến sự linh hoạt tối đa, hoàn hảo cho những ngày bận rộn và năng động. Phần thân dép tổng hợp với quai dép tùy chỉnh giúp bạn dễ dàng tìm được kích cỡ vừa vặn, trong khi lớp lót bằng vải dệt mang lại cảm giác mềm mại khi chạm vào chân. Thiết kế hiện đại được hoàn thiện bằng đế ngoài tổng hợp, mang lại độ bám cần thiết cho bạn.</p>",
+  "variants": [
+    {
+      "$oid": "691599881bf5cbae09471e45"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-13T08:40:40.514Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-13T08:40:40.514Z"
+  },
+  "slug": "dep-lightblaze",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b2e3a5b8cadf507c6fdd8"
+  },
+  "name": "Mostro Fey Satin Shoes Unisex",
+  "brand": "Puma",
+  "categoryId": [
+    {
+      "$oid": "69143092c50025fed8f49d0a"
+    },
+    {
+      "$oid": "6911f3f26ac21b1822ede49e"
+    },
+    {
+      "$oid": "69143087c50025fed8f49d00"
+    }
+  ],
+  "inputPrice": 500000,
+  "description": "<p><span style=\"color: rgb(84, 84, 84);\"><strong>First released</strong> in 1999, the Mostro has become one of <strong>PUMA's best-selling shoes</strong> ever. Affectionally named after the Italian word for \"monster\", it was originally inspired by two sports shoes – a sprinting spike from 1968 and a surfing shoe from the 80s. With the Mostro Fey Satin we combine this signature, bold design with delicate, ballerina vibes for a look that's entirely new and undeniably PUMA.</span></p>",
+  "variants": [
+    {
+      "$oid": "692b2e3a5b8cadf507c6fdd6"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-29T17:32:42.738Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:35:24.396Z"
+  },
+  "slug": "mostro-fey-satin-shoes-unisex",
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "692b30655b8cadf507c6fde4"
+  },
+  "name": "Roma 24 Sneakers Unisex",
+  "brand": "Puma",
+  "categoryId": [
+    {
+      "$oid": "69143092c50025fed8f49d0a"
+    },
+    {
+      "$oid": "69143087c50025fed8f49d00"
+    }
+  ],
+  "inputPrice": 400000,
+  "description": "<p><span style=\"color: rgb(84, 84, 84);\">We’re bringing back an icon. Born in 1968, the PUMA Roma was originally created to celebrate the Italian Euro Cup win – and become a sport-turned-street sensation overnight. Today, over 50 years later, the Roma is back with its signature sleek look and gum rubber sole. This lightweight trainer comes fully equipped with a thick, padded tongue, orthopaedic arch supports and EVA midsoles for added comfort wherever you go.</span></p>",
+  "variants": [
+    {
+      "$oid": "692b30655b8cadf507c6fde2"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-29T17:41:57.113Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:41:57.113Z"
+  },
+  "slug": "roma-24-sneakers-unisex",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b30ec5b8cadf507c6fe2e"
+  },
+  "name": "Easy Rider Vintage Sneakers Unisex",
+  "brand": "Puma",
+  "categoryId": [
+    {
+      "$oid": "69143092c50025fed8f49d0a"
+    },
+    {
+      "$oid": "69143087c50025fed8f49d00"
+    }
+  ],
+  "inputPrice": 500000,
+  "description": "<p><span style=\"color: rgb(84, 84, 84);\">The PUMA Easy Rider was born in the late '70s, when running made its move from the track to the streets. Today it's back with its classic slim profile and vintage vibes intact. This version, featuring a textile upper and suede overlays, is sure to become your go-to for bringing a touch of easy, retro-style to everyday looks</span></p>",
+  "variants": [
+    {
+      "$oid": "692b30ec5b8cadf507c6fe2c"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-29T17:44:12.773Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:44:12.773Z"
+  },
+  "slug": "easy-rider-vintage-sneakers-unisex",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b31735b8cadf507c6fe34"
+  },
+  "name": "PUMA Phase Backpack",
+  "brand": "Puma",
+  "categoryId": [
+    {
+      "$oid": "691430cec50025fed8f49d3c"
+    },
+    {
+      "$oid": "691430d7c50025fed8f49d46"
+    },
+    {
+      "$oid": "6911f48a6ac21b1822ede4b9"
+    }
+  ],
+  "inputPrice": 700000,
+  "description": "<p><span style=\"color: rgb(84, 84, 84);\">Step up your game with this dynamic backpack. Featuring a two-way zip main compartment, front zip pocket, and side mesh pocket, it keeps you organized. Padded shoulder straps ...</span></p>",
+  "variants": [
+    {
+      "$oid": "692b31735b8cadf507c6fe32"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-29T17:46:27.858Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:46:27.858Z"
+  },
+  "slug": "puma-phase-backpack",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b32015b8cadf507c6fe3a"
+  },
+  "name": "Nike One",
+  "brand": "Nike",
+  "categoryId": [
+    {
+      "$oid": "6911f48a6ac21b1822ede4b9"
+    },
+    {
+      "$oid": "691430cec50025fed8f49d3c"
+    },
+    {
+      "$oid": "691430d7c50025fed8f49d46"
+    }
+  ],
+  "inputPrice": 500000,
+  "description": "<p><span style=\"color: rgb(17, 17, 17);\">Don't tell your other bags, but this might just be the only one you need. A large main pocket and interior pockets make organising essentials a breeze. Padded and adjustable shoulder straps for comfortable carrying.</span></p>",
+  "variants": [
+    {
+      "$oid": "692b32015b8cadf507c6fe38"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-29T17:48:49.431Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:48:49.431Z"
+  },
+  "slug": "nike-one",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b32945b8cadf507c6fe40"
+  },
+  "name": "Nike Sportswear Commute",
+  "brand": "Nike",
+  "categoryId": [
+    {
+      "$oid": "6911f4966ac21b1822ede4c2"
+    },
+    {
+      "$oid": "6911f4806ac21b1822ede4b0"
+    },
+    {
+      "$oid": "691430cec50025fed8f49d3c"
+    },
+    {
+      "$oid": "691430d7c50025fed8f49d46"
+    }
+  ],
+  "inputPrice": 500000,
+  "description": "<p>The ultimate bag for the modern commuter – this bag is the perfect size for all your small, daily essentials. It has both front and back zip compartments. An internal slip pocket in the back helps keep your valuables organised and easy to access.</p><p><br></p><ul><li><p>Colour Shown: Clay Green/Clay Green/Steam</p></li><li><p>Style: FZ6133-364</p></li><li><p>Country/Region of Origin: Indonesia</p></li></ul><p></p>",
+  "variants": [
+    {
+      "$oid": "692b32945b8cadf507c6fe3e"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-29T17:51:16.055Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:51:16.055Z"
+  },
+  "slug": "nike-sportswear-commute",
+  "__v": 0
+}]

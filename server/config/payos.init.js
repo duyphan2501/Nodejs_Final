@@ -1,10 +1,8 @@
 import PayOS from "@payos/node";
 import dotenv from "dotenv";
-import ngrok from "ngrok";
+import axios from "axios";
 
 dotenv.config({ quiet: true });
-
-const PORT = process.env.PORT || 3000;
 
 const payOS = new PayOS(
   process.env.PAYOS_CLIENT_ID,
@@ -14,16 +12,25 @@ const payOS = new PayOS(
 
 const startNgrokAndConfirmWebhook = async () => {
   try {
-    // Khởi tạo ngrok và lấy URL runtime
-    const url = await ngrok.connect(PORT);
-    const webhookUrl = `${url}/api/order/webhook/payos`;
+    console.log("Waiting for ngrok to start...");
+    await new Promise(r => setTimeout(r, 4000));
 
-    // Confirm webhook với PayOS
+    const { data } = await axios.get(process.env.NGROK_API_URL);
+    const tunnel = data.tunnels.find(t => t.public_url.startsWith("https"));
+
+    if (!tunnel) return console.error("No HTTPS tunnel found from ngrok");
+
+    const publicUrl = tunnel.public_url;
+    const webhookUrl = `${publicUrl}/api/order/webhook/payos`;
+
     await payOS.confirmWebhook(webhookUrl);
-    console.log("Webhook confirmed with:", webhookUrl);
-  } catch (error) {
-    console.error("Error confirming webhook:", error);
+    console.log("Webhook confirmed:", webhookUrl);
+  } catch (e) {
+    console.error("Webhook error:", e);
   }
 };
+
+export default startNgrokAndConfirmWebhook;
+
 
 export { payOS, startNgrokAndConfirmWebhook };

@@ -1,0 +1,139 @@
+
+services:
+  # ======================
+  # MONGO REPLICA SET
+  # ======================
+  mongo1:
+    image: mongo:6.0
+    container_name: mongo1
+    command: mongod --replSet rs0 --bind_ip_all
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo1_data:/data/db
+    networks:
+      - finalnodejs
+    restart: unless-stopped
+  
+  mongo2:
+    image: mongo:6.0
+    container_name: mongo2
+    command: mongod --replSet rs0 --bind_ip_all
+    volumes:
+      - mongo2_data:/data/db
+    networks:
+      - finalnodejs
+    restart: unless-stopped
+
+  mongo3:
+    image: mongo:6.0
+    container_name: mongo3
+    command: mongod --replSet rs0 --bind_ip_all
+    volumes:
+      - mongo3_data:/data/db
+    networks:
+      - finalnodejs
+    restart: unless-stopped
+
+  mongo-init:
+    image: mongo:6.0
+    container_name: mongo_init
+    volumes:
+      - ./scripts/init-mongo.sh:/usr/local/bin/init-mongo.sh
+      - ./data:/data
+    entrypoint: ["init-mongo.sh"]
+    networks:
+      - finalnodejs
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+
+  # ======================
+  # REDIS CACHE
+  # ======================
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis_cache
+    networks:
+      - finalnodejs
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  # ======================
+  # NGROK — expose server for webhook PayOS
+  # ======================
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: ngrok_tunnel
+    depends_on:
+      - server
+    command: http server_service:3000
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    ports:
+      - "4040:4040"
+    networks:
+      - finalnodejs
+
+  # ======================
+  # SERVER — Node.js API
+  # ======================
+  server:
+    build: ./server
+    container_name: server_service
+    networks:
+      - finalnodejs
+    ports:
+      - "3000:3000"
+    depends_on:
+      mongo-init:
+        condition: service_started
+      redis:
+        condition: service_started
+    env_file:
+      - .env
+    environment:
+      NGROK_API_URL: ${NGROK_API_URL}
+    restart: on-failure
+
+  # ======================
+  # CLIENT (Vite Build)
+  # ======================
+  client:
+    build: ./client
+    container_name: client_service
+    networks:
+      - finalnodejs
+    ports:
+      - "5173:80"
+    depends_on:
+      server:
+        condition: service_started
+
+  # ======================
+  # ADMIN
+  # ======================
+  admin:
+    build: ./admin
+    container_name: admin_service
+    networks:
+      - finalnodejs
+    ports:
+      - "5174:80"
+    depends_on:
+      server:
+        condition: service_started
+
+# ======================
+# NETWORKS & VOLUMES
+# ======================
+networks:
+  finalnodejs:
+    driver: bridge
+
+volumes:
+  mongo1_data:
+  mongo2_data:
+  mongo3_data:

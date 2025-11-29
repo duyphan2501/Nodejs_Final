@@ -1,0 +1,415 @@
+[{
+  "_id": {
+    "$oid": "650000000000000000000001"
+  },
+  "name": "Giày",
+  "image": "https://example.com/images/shoes.jpg",
+  "parentId": null,
+  "slug": "shoe"
+},
+{
+  "_id": {
+    "$oid": "650000000000000000000002"
+  },
+  "name": "Dép",
+  "image": "https://example.com/images/sandals.jpg",
+  "parentId": null,
+  "slug": "sandal"
+},
+{
+  "_id": {
+    "$oid": "650000000000000000000003"
+  },
+  "name": "Balo",
+  "image": "https://example.com/images/backpacks.jpg",
+  "parentId": null,
+  "slug": "backpack"
+},
+{
+  "_id": {
+    "$oid": "6911f32a6ac21b1822ede465"
+  },
+  "name": "Superstar",
+  "image": "uploads\\images\\1762784042630-superstar.avif",
+  "parentId": {
+    "$oid": "650000000000000000000001"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:14:02.636Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:14:02.636Z"
+  },
+  "__v": 0,
+  "slug": "shoe-superstar"
+},
+{
+  "_id": {
+    "$oid": "6911f33b6ac21b1822ede46e"
+  },
+  "name": "Campus",
+  "image": "uploads\\images\\1762784059570-Campus.jpg",
+  "parentId": {
+    "$oid": "650000000000000000000001"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:14:19.577Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:14:19.577Z"
+  },
+  "__v": 0,
+  "slug": "shoe-campus"
+},
+{
+  "_id": {
+    "$oid": "6911f34a6ac21b1822ede477"
+  },
+  "name": "Spezial",
+  "image": "uploads\\images\\1762784074017-spezial.jpg",
+  "parentId": {
+    "$oid": "650000000000000000000001"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:14:34.023Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:14:34.023Z"
+  },
+  "__v": 0,
+  "slug": "shoe-spezial"
+},
+{
+  "_id": {
+    "$oid": "6911f35a6ac21b1822ede480"
+  },
+  "name": "Samba",
+  "image": "uploads\\images\\1762784090068-samba.webp",
+  "parentId": {
+    "$oid": "650000000000000000000001"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:14:50.073Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:14:50.073Z"
+  },
+  "__v": 0,
+  "slug": "shoe-samba"
+},
+{
+  "_id": {
+    "$oid": "6911f37d6ac21b1822ede48c"
+  },
+  "name": "Gazel",
+  "image": "uploads\\images\\1762784125418-gazel.webp",
+  "parentId": {
+    "$oid": "650000000000000000000001"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:15:25.422Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:15:25.422Z"
+  },
+  "__v": 0,
+  "slug": "shoe-gazel"
+},
+{
+  "_id": {
+    "$oid": "6911f3d66ac21b1822ede495"
+  },
+  "name": "Dép quai ngang",
+  "image": "uploads\\images\\1762784214778-Dep quai ngnag.jpg",
+  "parentId": {
+    "$oid": "650000000000000000000002"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:16:54.781Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:16:54.781Z"
+  },
+  "__v": 0,
+  "slug": "sandal-dep-quai-ngang"
+},
+{
+  "_id": {
+    "$oid": "6911f3f26ac21b1822ede49e"
+  },
+  "name": "Dép sục",
+  "image": "uploads\\images\\1762784242172-c4d241a90c7f4fbf95d81a25e4e0b7c3_thumbnail.jpg",
+  "parentId": {
+    "$oid": "650000000000000000000002"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:17:22.176Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:17:22.176Z"
+  },
+  "__v": 0,
+  "slug": "sandal-dep-suc"
+},
+{
+  "_id": {
+    "$oid": "6911f4226ac21b1822ede4a7"
+  },
+  "name": "Bóng đá",
+  "image": "uploads\\images\\1762784290636-giay bon da.webp",
+  "parentId": {
+    "$oid": "650000000000000000000001"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:18:10.639Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:18:10.639Z"
+  },
+  "__v": 0,
+  "slug": "shoe-bong-da"
+},
+{
+  "_id": {
+    "$oid": "6911f4806ac21b1822ede4b0"
+  },
+  "name": "Túi xách thể thao",
+  "image": "uploads\\images\\1762784384523-tui xach the thao.jpg",
+  "parentId": {
+    "$oid": "650000000000000000000003"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:19:44.532Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:19:44.532Z"
+  },
+  "__v": 0,
+  "slug": "backpack-tui-xach-the-thao"
+},
+{
+  "_id": {
+    "$oid": "6911f48a6ac21b1822ede4b9"
+  },
+  "name": "Ba lô bóng đá",
+  "image": "uploads\\images\\1762784394360-ba lo bong da.webp",
+  "parentId": {
+    "$oid": "650000000000000000000003"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:19:54.363Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:19:54.363Z"
+  },
+  "__v": 0,
+  "slug": "backpack-ba-lo-bong-da"
+},
+{
+  "_id": {
+    "$oid": "6911f4966ac21b1822ede4c2"
+  },
+  "name": "Túi đeo chéo",
+  "image": "uploads\\images\\1762784406201-tui deo cheo.webp",
+  "parentId": {
+    "$oid": "650000000000000000000003"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T14:20:06.204Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:20:06.204Z"
+  },
+  "__v": 0,
+  "slug": "backpack-tui-deo-cheo"
+},
+{
+  "_id": {
+    "$oid": "691207a05e578b6f2fb13476"
+  },
+  "name": "Dép thể thao",
+  "image": "uploads\\images\\1762789280635-Dep quai ngnag.jpg",
+  "parentId": {
+    "$oid": "650000000000000000000002"
+  },
+  "createdAt": {
+    "$date": "2025-11-10T15:41:20.642Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T15:41:20.642Z"
+  },
+  "parentSlug": "sandal",
+  "slug": "sandal-dep-the-thao",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69143087c50025fed8f49d00"
+  },
+  "name": "Nữ",
+  "image": "uploads\\images\\1762930823382-OIP (4).webp",
+  "parentId": {
+    "$oid": "650000000000000000000001"
+  },
+  "createdAt": {
+    "$date": "2025-11-12T07:00:23.393Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:00:23.393Z"
+  },
+  "parentSlug": "shoe",
+  "slug": "shoe-nu",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69143092c50025fed8f49d0a"
+  },
+  "name": "Nam",
+  "image": "uploads\\images\\1762930834176-OIP (3).webp",
+  "parentId": {
+    "$oid": "650000000000000000000001"
+  },
+  "createdAt": {
+    "$date": "2025-11-12T07:00:34.186Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:00:34.186Z"
+  },
+  "parentSlug": "shoe",
+  "slug": "shoe-nam",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691430a0c50025fed8f49d14"
+  },
+  "name": "Trẻ em",
+  "image": "uploads\\images\\1762930848523-R (4).jpg",
+  "parentId": {
+    "$oid": "650000000000000000000001"
+  },
+  "createdAt": {
+    "$date": "2025-11-12T07:00:48.536Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:00:48.536Z"
+  },
+  "parentSlug": "shoe",
+  "slug": "shoe-tre-em",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691430aec50025fed8f49d1e"
+  },
+  "name": "Nam",
+  "image": "uploads\\images\\1762930862061-OIP (3).webp",
+  "parentId": {
+    "$oid": "650000000000000000000002"
+  },
+  "createdAt": {
+    "$date": "2025-11-12T07:01:02.102Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:01:02.102Z"
+  },
+  "parentSlug": "sandal",
+  "slug": "sandal-nam",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691430b6c50025fed8f49d28"
+  },
+  "name": "Nữ",
+  "image": "uploads\\images\\1762930870959-OIP (4).webp",
+  "parentId": {
+    "$oid": "650000000000000000000002"
+  },
+  "createdAt": {
+    "$date": "2025-11-12T07:01:10.966Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:01:10.966Z"
+  },
+  "parentSlug": "sandal",
+  "slug": "sandal-nu",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691430c2c50025fed8f49d32"
+  },
+  "name": "Trẻ em",
+  "image": "uploads\\images\\1762930882600-R (4).jpg",
+  "parentId": {
+    "$oid": "650000000000000000000002"
+  },
+  "createdAt": {
+    "$date": "2025-11-12T07:01:22.612Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:01:22.612Z"
+  },
+  "parentSlug": "sandal",
+  "slug": "sandal-tre-em",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691430cec50025fed8f49d3c"
+  },
+  "name": "Nam",
+  "image": "uploads\\images\\1762930894052-OIP (3).webp",
+  "parentId": {
+    "$oid": "650000000000000000000003"
+  },
+  "createdAt": {
+    "$date": "2025-11-12T07:01:34.061Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:01:34.061Z"
+  },
+  "parentSlug": "backpack",
+  "slug": "backpack-nam",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691430d7c50025fed8f49d46"
+  },
+  "name": "Nữ",
+  "image": "uploads\\images\\1762930903926-OIP (4).webp",
+  "parentId": {
+    "$oid": "650000000000000000000003"
+  },
+  "createdAt": {
+    "$date": "2025-11-12T07:01:43.932Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:01:43.932Z"
+  },
+  "parentSlug": "backpack",
+  "slug": "backpack-nu",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691430e1c50025fed8f49d50"
+  },
+  "name": "Trẻ em",
+  "image": "uploads\\images\\1762930913936-R (4).jpg",
+  "parentId": {
+    "$oid": "650000000000000000000003"
+  },
+  "createdAt": {
+    "$date": "2025-11-12T07:01:53.952Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-12T07:01:53.952Z"
+  },
+  "parentSlug": "backpack",
+  "slug": "backpack-tre-em",
+  "__v": 0
+}]

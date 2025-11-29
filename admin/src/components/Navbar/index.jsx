@@ -73,12 +73,12 @@ const Navbar = () => {
 
   // Danh sách các mục menu
   const menuItems = [
-    { label: "Trang Chủ", path: "/admin/home", icon: <HomeIcon /> },
-    { label: "Sản Phẩm", path: "/admin/products", icon: <CheckroomIcon /> },
-    { label: "Danh Mục", path: "/admin/category", icon: <CategoryIcon /> },
-    { label: "Đơn Hàng", path: "/admin/orders", icon: <ShoppingBagIcon /> },
-    { label: "Người Dùng", path: "/admin/users", icon: <PersonIcon /> },
-    { label: "Coupon", path: "/admin/coupon", icon: <DiscountIcon /> },
+    { label: "Trang Chủ", path: "/", icon: <HomeIcon /> },
+    { label: "Sản Phẩm", path: "/products", icon: <CheckroomIcon /> },
+    { label: "Danh Mục", path: "/category", icon: <CategoryIcon /> },
+    { label: "Đơn Hàng", path: "/orders", icon: <ShoppingBagIcon /> },
+    { label: "Người Dùng", path: "/users", icon: <PersonIcon /> },
+    { label: "Coupon", path: "/coupon", icon: <DiscountIcon /> },
   ];
 
   return (

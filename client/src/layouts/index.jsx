@@ -13,7 +13,7 @@ import useAddressStore from "../store/useAddressStore";
 const Layouts = () => {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const { refreshToken, user } = useUserStore();
+  const { refreshToken } = useUserStore();
   const { persist } = useContext(MyContext);
   const navigator = useNavigate();
   const location = useLocation();

@@ -319,7 +319,6 @@ const fetchProducts = async (page, limit, sortOption, filterParams, terms) => {
     delete product.computedPrice; // Xóa trường giá tạm
     return product;
   });
-
   return {
     totalPages,
     products: finalProducts,

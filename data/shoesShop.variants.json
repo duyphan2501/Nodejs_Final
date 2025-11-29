@@ -1,0 +1,984 @@
+[{
+  "_id": {
+    "$oid": "690b7a9147a26c4fede73b86"
+  },
+  "color": "Black Premium",
+  "images": [
+    "uploads\\images\\1762359953750-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large (1).jpg",
+    "uploads\\images\\1762359953750-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large.jpg",
+    "uploads\\images\\1762359953751-hsm012100den__2__597a4ac0f4804ac0a23d1cfc06d9902c_large.jpg",
+    "uploads\\images\\1762359953751-hsm012100den__3__ea34a75bfea54f239d42d31a05134bd6_large.jpg",
+    "uploads\\images\\1762359953751-hsm012100den__1__9dd4a9023e61403b9e33707e4d95890c_large.jpg"
+  ],
+  "price": 1280000,
+  "discount": 20,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "35"
+    },
+    {
+      "inStock": 12,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "38"
+    },
+    {
+      "inStock": 12,
+      "size": "39"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-05T16:25:53.767Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-05T16:25:53.767Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "690b7af147a26c4fede73b8b"
+  },
+  "color": "White Pearl",
+  "images": [
+    "uploads\\images\\1762360049615-hsm011900xnh__2__4339d8b3a1424bf58aeafc13a5cbcb93_large.jpg",
+    "uploads\\images\\1762360049615-hsm011900xnh__3__0de4421b0dff42428ee73226a5a86a71_large.jpg",
+    "uploads\\images\\1762360049615-hsm011900xnh__6__130dd74841aa4278a26878d57b89034f_large.jpg",
+    "uploads\\images\\1762360049615-hsm011900xnh__5__3ea804a800e4417183b2adee40c0251e_large.jpg",
+    "uploads\\images\\1762360049615-hsm011900xnh__1__19dfa19003004046a1c305af4c54293e_large.jpg"
+  ],
+  "price": 800000,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "35"
+    },
+    {
+      "inStock": 12,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "38"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-05T16:27:29.625Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-05T16:27:29.625Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "690b7af147a26c4fede73b8c"
+  },
+  "color": "Den Huyen Bi",
+  "images": [
+    "uploads\\images\\1762452548014-hsm011900xnh__2__4339d8b3a1424bf58aeafc13a5cbcb93_large.jpg",
+    "uploads\\images\\1762452548015-hsm011900xnh__3__0de4421b0dff42428ee73226a5a86a71_large.jpg",
+    "uploads\\images\\1762452548015-hsm011900xnh__6__130dd74841aa4278a26878d57b89034f_large.jpg",
+    "uploads\\images\\1762452548015-hsm011900xnh__5__3ea804a800e4417183b2adee40c0251e_large.jpg",
+    "uploads\\images\\1762452548015-hsm011900xnh__1__19dfa19003004046a1c305af4c54293e_large.jpg"
+  ],
+  "price": 700000,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "40"
+    },
+    {
+      "inStock": 12,
+      "size": "41"
+    },
+    {
+      "inStock": 12,
+      "size": "42"
+    },
+    {
+      "inStock": 12,
+      "size": "43"
+    }
+  ],
+  "__v": 1,
+  "createdAt": {
+    "$date": "2025-11-05T16:27:29.625Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-06T18:09:08.061Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "690ce59c734544d2c02239b7"
+  },
+  "color": "Trang Ngoc Trai",
+  "images": [
+    "uploads\\images\\1762454348712-575960803_1149641943977010_2119884257329011005_n.jpg",
+    "uploads\\images\\1762452892062-hsm011900xnh__2__4339d8b3a1424bf58aeafc13a5cbcb93_large.jpg",
+    "uploads\\images\\1762452892063-hsm011900xnh__3__0de4421b0dff42428ee73226a5a86a71_large.jpg",
+    "uploads\\images\\1762452892063-hsm011900xnh__5__3ea804a800e4417183b2adee40c0251e_large.jpg",
+    "uploads\\images\\1762452892063-hsm011900xnh__1__19dfa19003004046a1c305af4c54293e_large.jpg"
+  ],
+  "price": 799999,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 0,
+      "size": "35"
+    },
+    {
+      "inStock": 0,
+      "size": "36"
+    },
+    {
+      "inStock": 0,
+      "size": "37"
+    },
+    {
+      "inStock": 0,
+      "size": "38"
+    },
+    {
+      "inStock": 0,
+      "size": "39"
+    },
+    {
+      "inStock": 12,
+      "size": "40"
+    }
+  ],
+  "__v": 2,
+  "createdAt": {
+    "$date": "2025-11-06T18:14:52.073Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-06T18:39:08.726Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "690ceb25d8c47421e287a2fe"
+  },
+  "color": "Den Huyen AOOOOOO",
+  "images": [
+    "uploads\\images\\1762454378680-hsm011900xnh__3__0de4421b0dff42428ee73226a5a86a71_large.jpg",
+    "uploads\\images\\1762454378681-hsm011900xnh__5__3ea804a800e4417183b2adee40c0251e_large.jpg",
+    "uploads\\images\\1762454378681-hsm011900xnh__5__3ea804a800e4417183b2adee40c0251e_large.jpg",
+    "uploads\\images\\1762454309682-hsm012100den__2__597a4ac0f4804ac0a23d1cfc06d9902c_large.jpg",
+    "uploads\\images\\1762454309682-hsm012100den__3__ea34a75bfea54f239d42d31a05134bd6_large.jpg"
+  ],
+  "price": 1500202,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 100,
+      "size": "35"
+    },
+    {
+      "inStock": 100,
+      "size": "44"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-06T18:38:29.728Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-06T18:39:38.701Z"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "690dcff9b0903886ac077f92"
+  },
+  "color": "Balo Den",
+  "images": [
+    "uploads\\images\\1762512889083-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large (1).jpg",
+    "uploads\\images\\1762512889083-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large.jpg",
+    "uploads\\images\\1762512889083-hsm012100den__2__597a4ac0f4804ac0a23d1cfc06d9902c_large.jpg",
+    "uploads\\images\\1762512889083-hsm012100den__3__ea34a75bfea54f239d42d31a05134bd6_large.jpg",
+    "uploads\\images\\1762512889084-hsm012100den__1__9dd4a9023e61403b9e33707e4d95890c_large.jpg"
+  ],
+  "price": 500000,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "35"
+    },
+    {
+      "inStock": 13,
+      "size": "36"
+    },
+    {
+      "inStock": 13,
+      "size": "37"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-07T10:54:49.102Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T10:54:49.102Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "690e0bbe05e14e33243cf133"
+  },
+  "color": "Trang",
+  "images": [
+    "uploads\\images\\1762528282633-Vans-Logo.png",
+    "uploads\\images\\1762528190006-hsm011900xnh__3__0de4421b0dff42428ee73226a5a86a71_large.jpg",
+    "uploads\\images\\1762528190006-hsm011900xnh__6__130dd74841aa4278a26878d57b89034f_large.jpg",
+    "uploads\\images\\1762528190006-hsm011900xnh__5__3ea804a800e4417183b2adee40c0251e_large.jpg",
+    "uploads\\images\\1762528190006-hsm011900xnh__1__19dfa19003004046a1c305af4c54293e_large.jpg"
+  ],
+  "price": 6000000,
+  "discount": 10,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "38"
+    },
+    {
+      "inStock": 12,
+      "size": "39"
+    },
+    {
+      "inStock": 12,
+      "size": "40"
+    },
+    {
+      "inStock": 12,
+      "size": "41"
+    }
+  ],
+  "__v": 1,
+  "createdAt": {
+    "$date": "2025-11-07T15:09:50.027Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T15:11:22.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "690e0c3c05e14e33243cf142"
+  },
+  "color": "NNDwdd",
+  "images": [
+    "uploads\\images\\1762528316497-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large (1).jpg",
+    "uploads\\images\\1762528316497-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large.jpg",
+    "uploads\\images\\1762528316498-hsm012100den__2__597a4ac0f4804ac0a23d1cfc06d9902c_large.jpg",
+    "uploads\\images\\1762528316498-hsm012100den__3__ea34a75bfea54f239d42d31a05134bd6_large.jpg",
+    "uploads\\images\\1762528316498-hsm012100den__1__9dd4a9023e61403b9e33707e4d95890c_large.jpg"
+  ],
+  "price": 122112,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-11-07T15:11:56.511Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T15:11:56.511Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6910dd281bad99734002d7ef"
+  },
+  "color": "Cat",
+  "images": [
+    "uploads\\images\\1762712872324-Marry me_ __ Ushijima Wakatoshi text fic.jpg",
+    "uploads\\images\\1762712872325-7e09236ad85511d8216de2589bc02ff9.jpg",
+    "uploads\\images\\1762712872325-382315cf7f7dd697146533ea538db3a8.jpg",
+    "uploads\\images\\1762712872326-21c5b67a4901c14e706d63279157a9b7.jpg",
+    "uploads\\images\\1762712872328-Sigma Cat ð ð¹ð¹ð¹.jpg"
+  ],
+  "price": 12222,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "35"
+    },
+    {
+      "inStock": 12,
+      "size": "36"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-09T18:27:52.339Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-09T18:27:52.339Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6911f5716ac21b1822ede4e6"
+  },
+  "color": "Đen",
+  "images": [
+    "uploads\\images\\1762784625805-Giay_Campus_00s_Xam_HQ8707_02_standard_hover.avif",
+    "uploads\\images\\1762784625807-Giay_Campus_00s_DJen_HQ8708_41_detail.avif",
+    "uploads\\images\\1762784625808-Giay_Campus_00s_DJen_HQ8708_05_standard.avif",
+    "uploads\\images\\1762784625808-Giay_Campus_00s_DJen_HQ8708_04_standard.avif",
+    "uploads\\images\\1762784625811-Giay_Campus_00s_DJen_HQ8708_02_standard_hover.avif"
+  ],
+  "price": 1200000,
+  "discount": 20,
+  "attributes": [
+    {
+      "inStock": 100,
+      "size": "35"
+    },
+    {
+      "inStock": 12,
+      "size": "36"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-10T14:23:45.828Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:23:45.828Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6911f5716ac21b1822ede4e7"
+  },
+  "color": "Beige",
+  "images": [
+    "uploads\\images\\1762784625812-Giay_Campus_00s_DJen_HQ8708_41_detail.avif",
+    "uploads\\images\\1762784625812-Giay_Campus_00s_Xam_HQ8707_06_standard.avif",
+    "uploads\\images\\1762784625812-Giay_Campus_00s_Xam_HQ8707_09_standard.avif",
+    "uploads\\images\\1762784625814-Giay_Campus_00s_Xam_HQ8707_04_standard.avif",
+    "uploads\\images\\1762784625814-Giay_Campus_00s_Xam_HQ8707_03_standard.avif"
+  ],
+  "price": 1500000,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "35"
+    },
+    {
+      "inStock": 12,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-10T14:23:45.828Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T14:23:45.828Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6911fb2f6ac21b1822ede562"
+  },
+  "color": "Classice",
+  "images": [
+    "uploads\\images\\1762786095256-GIAY_GAZELLE_LO_PRO_nau_HQ7317_15_hover_standard.avif",
+    "uploads\\images\\1762786095256-GIAY_GAZELLE_LO_PRO_nau_HQ7317_06_standard.avif",
+    "uploads\\images\\1762786095261-GIAY_GAZELLE_LO_PRO_nau_HQ7317_04_standard.avif",
+    "uploads\\images\\1762786095261-GIAY_GAZELLE_LO_PRO_nau_HQ7317_03_standard.avif",
+    "uploads\\images\\1762786095261-GIAY_GAZELLE_LO_PRO_nau_HQ7317_01_00_standard.avif"
+  ],
+  "price": 2900000,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 9,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "38"
+    },
+    {
+      "inStock": 12,
+      "size": "39"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-10T14:48:15.268Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T17:48:42.291Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6911fb9a6ac21b1822ede568"
+  },
+  "color": "White",
+  "images": [
+    "uploads\\images\\1762786202806-Giay_Samba_OG_trang_B75806_05_standard.avif",
+    "uploads\\images\\1762786202806-Giay_Samba_OG_trang_B75806_04_standard.avif",
+    "uploads\\images\\1762786202806-Giay_Samba_OG_trang_B75806_03_standard.avif",
+    "uploads\\images\\1762786202808-Giay_Samba_OG_trang_B75806_02_standard.avif",
+    "uploads\\images\\1762786202808-Giay_Samba_OG_trang_B75806_01_01_standard.avif"
+  ],
+  "price": 1700000,
+  "discount": 10,
+  "attributes": [
+    {
+      "inStock": 97,
+      "size": "36"
+    },
+    {
+      "inStock": 100,
+      "size": "37"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-10T14:50:02.811Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T17:48:42.293Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6911fc4f6ac21b1822ede596"
+  },
+  "color": "Full Black",
+  "images": [
+    "uploads\\images\\1762786383521-Giay_Superstar_82_DJen_JQ3240_05_standard.avif",
+    "uploads\\images\\1762786383521-Giay_Superstar_82_DJen_JQ3240_04_standard.avif",
+    "uploads\\images\\1762786383523-Giay_Superstar_82_DJen_JQ3240_03_standard.avif",
+    "uploads\\images\\1762786383523-Giay_Superstar_82_DJen_JQ3240_02_standard_hover.avif",
+    "uploads\\images\\1762786383523-Giay_Superstar_82_DJen_JQ3240_01_00_standard.avif"
+  ],
+  "price": 2900000,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 9,
+      "size": "35"
+    },
+    {
+      "inStock": 12,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "38"
+    },
+    {
+      "inStock": 12,
+      "size": "39"
+    },
+    {
+      "inStock": 12,
+      "size": "40"
+    },
+    {
+      "inStock": 12,
+      "size": "41"
+    },
+    {
+      "inStock": 12,
+      "size": "42"
+    },
+    {
+      "inStock": 12,
+      "size": "43"
+    },
+    {
+      "inStock": 12,
+      "size": "44"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-10T14:53:03.529Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T17:48:42.290Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912f2897bef65accab41093"
+  },
+  "color": "Black Full",
+  "images": [
+    "uploads\\images\\1762849417032-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large (1).jpg",
+    "uploads\\images\\1762849417032-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large.jpg",
+    "uploads\\images\\1762849417032-hsm012100den__2__597a4ac0f4804ac0a23d1cfc06d9902c_large.jpg",
+    "uploads\\images\\1762849417032-hsm012100den__3__ea34a75bfea54f239d42d31a05134bd6_large.jpg",
+    "uploads\\images\\1762849417033-hsm012100den__1__9dd4a9023e61403b9e33707e4d95890c_large.jpg"
+  ],
+  "price": 500000,
+  "discount": 2,
+  "attributes": [
+    {
+      "inStock": 1,
+      "size": "38"
+    },
+    {
+      "inStock": 0,
+      "size": "39"
+    },
+    {
+      "inStock": 12,
+      "size": "40"
+    },
+    {
+      "inStock": 12,
+      "size": "41"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-11T08:23:37.049Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T17:48:42.279Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691304a41cbd9f29d0dd13e8"
+  },
+  "color": "Beige",
+  "images": [
+    "uploads\\images\\1762854052949-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_41_detail.avif",
+    "uploads\\images\\1762854052952-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_02_standard.avif",
+    "uploads\\images\\1762854052955-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_01_00_standard.avif",
+    "uploads\\images\\1762854052955-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_05_hover_standard.avif",
+    "uploads\\images\\1762854052957-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_04_standard.avif"
+  ],
+  "price": 1200000,
+  "discount": 2,
+  "attributes": [
+    {
+      "inStock": 0,
+      "size": "35"
+    },
+    {
+      "inStock": 7,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "38"
+    },
+    {
+      "inStock": 12,
+      "size": "39"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-11T09:40:52.968Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T08:09:11.918Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691599881bf5cbae09471e45"
+  },
+  "color": "Đen",
+  "images": [
+    "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+    "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_04_standard.avif",
+    "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_03_standard.avif",
+    "uploads\\images\\1763023240482-Dep_Lightblaze_DJen_JR1253_02_standard_hover.avif",
+    "uploads\\images\\1763023240482-Dep_Lightblaze_DJen_JR1253_01_00_standard.avif"
+  ],
+  "price": 1500000,
+  "discount": 12,
+  "attributes": [
+    {
+      "inStock": 0,
+      "size": "35"
+    },
+    {
+      "inStock": 10,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "38"
+    },
+    {
+      "inStock": 12,
+      "size": "39"
+    },
+    {
+      "inStock": 12,
+      "size": "40"
+    },
+    {
+      "inStock": 12,
+      "size": "41"
+    },
+    {
+      "inStock": 12,
+      "size": "42"
+    },
+    {
+      "inStock": 12,
+      "size": "43"
+    },
+    {
+      "inStock": 12,
+      "size": "44"
+    }
+  ],
+  "__v": 1,
+  "createdAt": {
+    "$date": "2025-11-13T08:40:40.506Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T07:42:14.924Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "692b2e3a5b8cadf507c6fdd6"
+  },
+  "color": "Rose Gold",
+  "images": [
+    "uploads\\images\\1764437562621-Mostro-Fey-Satin-Shoes-Unisex (4).png",
+    "uploads\\images\\1764437562630-Mostro-Fey-Satin-Shoes-Unisex (3).png",
+    "uploads\\images\\1764437562660-Mostro-Fey-Satin-Shoes-Unisex (2).png",
+    "uploads\\images\\1764437562668-Mostro-Fey-Satin-Shoes-Unisex (1).png",
+    "uploads\\images\\1764437562692-Mostro-Fey-Satin-Shoes-Unisex.png"
+  ],
+  "price": 1500000,
+  "discount": 10,
+  "attributes": [
+    {
+      "inStock": 100,
+      "size": "35"
+    },
+    {
+      "inStock": 100,
+      "size": "36"
+    },
+    {
+      "inStock": 100,
+      "size": "37"
+    },
+    {
+      "inStock": 100,
+      "size": "38"
+    },
+    {
+      "inStock": 100,
+      "size": "39"
+    },
+    {
+      "inStock": 100,
+      "size": "40"
+    },
+    {
+      "inStock": 100,
+      "size": "41"
+    },
+    {
+      "inStock": 100,
+      "size": "42"
+    },
+    {
+      "inStock": 100,
+      "size": "43"
+    },
+    {
+      "inStock": 100,
+      "size": "44"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-29T17:32:42.712Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:32:42.712Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "692b30655b8cadf507c6fde2"
+  },
+  "color": "Beige Rose",
+  "images": [
+    "uploads\\images\\1764438117093-Roma-24-Sneakers-Unisex (4).avif",
+    "uploads\\images\\1764438117093-Roma-24-Sneakers-Unisex (3).avif",
+    "uploads\\images\\1764438117093-Roma-24-Sneakers-Unisex (2).avif",
+    "uploads\\images\\1764438117095-Roma-24-Sneakers-Unisex (1).avif",
+    "uploads\\images\\1764438117096-Roma-24-Sneakers-Unisex.avif"
+  ],
+  "price": 2000000,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "35"
+    },
+    {
+      "inStock": 12,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "38"
+    },
+    {
+      "inStock": 12,
+      "size": "39"
+    },
+    {
+      "inStock": 12,
+      "size": "40"
+    },
+    {
+      "inStock": 12,
+      "size": "41"
+    },
+    {
+      "inStock": 12,
+      "size": "42"
+    },
+    {
+      "inStock": 12,
+      "size": "43"
+    },
+    {
+      "inStock": 12,
+      "size": "44"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-29T17:41:57.101Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:41:57.101Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "692b30ec5b8cadf507c6fe2c"
+  },
+  "color": "Black Stripe",
+  "images": [
+    "uploads\\images\\1764438252747-Easy-Rider-Vintage-Sneakers-Unisex (4).avif",
+    "uploads\\images\\1764438252749-Easy-Rider-Vintage-Sneakers-Unisex (3).avif",
+    "uploads\\images\\1764438252749-Easy-Rider-Vintage-Sneakers-Unisex (2).avif",
+    "uploads\\images\\1764438252749-Easy-Rider-Vintage-Sneakers-Unisex (1).avif",
+    "uploads\\images\\1764438252750-Easy-Rider-Vintage-Sneakers-Unisex.avif"
+  ],
+  "price": 2000000,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "38"
+    },
+    {
+      "inStock": 12,
+      "size": "39"
+    },
+    {
+      "inStock": 12,
+      "size": "40"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-29T17:44:12.753Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:44:12.753Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "692b31735b8cadf507c6fe32"
+  },
+  "color": "Black",
+  "images": [
+    "uploads\\images\\1764438387823-PUMA-Phase-Backpack (4).avif",
+    "uploads\\images\\1764438387823-PUMA-Phase-Backpack (3).avif",
+    "uploads\\images\\1764438387826-PUMA-Phase-Backpack (2).avif",
+    "uploads\\images\\1764438387828-PUMA-Phase-Backpack (1).avif",
+    "uploads\\images\\1764438387828-PUMA-Phase-Backpack.avif"
+  ],
+  "price": 2500000,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "35"
+    },
+    {
+      "inStock": 12,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "38"
+    },
+    {
+      "inStock": 12,
+      "size": "39"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-29T17:46:27.831Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:46:27.831Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "692b32015b8cadf507c6fe38"
+  },
+  "color": "Black",
+  "images": [
+    "uploads\\images\\1764438529408-NK+ONE+BKPK (4).avif",
+    "uploads\\images\\1764438529410-NK+ONE+BKPK (3).avif",
+    "uploads\\images\\1764438529410-NK+ONE+BKPK (2).avif",
+    "uploads\\images\\1764438529411-NK+ONE+BKPK (1).avif",
+    "uploads\\images\\1764438529411-NK+ONE+BKPK.avif"
+  ],
+  "price": 2500000,
+  "discount": 0,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "35"
+    },
+    {
+      "inStock": 12,
+      "size": "36"
+    },
+    {
+      "inStock": 12,
+      "size": "37"
+    },
+    {
+      "inStock": 12,
+      "size": "38"
+    },
+    {
+      "inStock": 1,
+      "size": "39"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-29T17:48:49.414Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:48:49.414Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "692b32945b8cadf507c6fe3e"
+  },
+  "color": "Green",
+  "images": [
+    "uploads\\images\\1764438676044-NK+NSW+COMMUTE+CROSSBODY (4).avif",
+    "uploads\\images\\1764438676045-NK+NSW+COMMUTE+CROSSBODY (3).avif",
+    "uploads\\images\\1764438676047-NK+NSW+COMMUTE+CROSSBODY (2).avif",
+    "uploads\\images\\1764438676047-NK+NSW+COMMUTE+CROSSBODY (1).avif",
+    "uploads\\images\\1764438676047-NK+NSW+COMMUTE+CROSSBODY.avif"
+  ],
+  "price": 2500000,
+  "discount": 12,
+  "attributes": [
+    {
+      "inStock": 12,
+      "size": "38"
+    }
+  ],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-11-29T17:51:16.050Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:51:16.050Z"
+  }
+}]
