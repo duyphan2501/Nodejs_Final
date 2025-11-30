@@ -17,6 +17,7 @@ const ProductDetailContent = ({
   selectedVariant,
 }) => {
   const [quantity, setQuantity] = useState(1);
+
   const user = useUserStore((state) => state.user);
   const { addToCart } = useCartStore();
 
@@ -50,6 +51,7 @@ const ProductDetailContent = ({
       color: selectedVariant.color,
       image: selectedVariant.images[0],
       inStock: selectedAttr.inStock,
+      slug: selectedProduct.slug,
     };
     await addToCart(item, quantity, user?._id);
   };
@@ -136,11 +138,11 @@ const ProductDetailContent = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 flex-nowrap">
+        <div className="flex items-center gap-2 flex-wrap">
           {selectedVariant &&
             selectedVariant.attributes?.map((attr) => (
               <div
-                className={`px-3 py-1 rounded-md cursor-pointer hover:bg-black hover:text-white font-bold border-2 flex items-center justify-center ${
+                className={`px-3 py-1 rounded-md cursor-pointer hover:bg-black hover:text-white font-bold border-2 flex items-center justify-center  ${
                   selectedAttr.size === attr.size && "bg-black text-white"
                 }`}
                 onClick={() => setSelectedAttr(attr)}
@@ -161,7 +163,7 @@ const ProductDetailContent = ({
           label={"Thêm vào giỏ hàng"}
           theme="dark"
           icon={<ShoppingCart size={18} />}
-          onClick={handleAddCart}
+          handleClick={handleAddCart}
         />
       </div>
     </div>

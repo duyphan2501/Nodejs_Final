@@ -34,9 +34,9 @@ const Home = () => {
             <ProductByCategory category={cate} />
           </section>
         ))}
-      <section className="!mt-10 container">
+      {/* <section className="!mt-10 container">
         <BrandSlider />
-      </section>
+      </section> */}
       <section className="mt-10">
         <div className="p-13 bg-black md:flex justify-center items-center gap-4">
           <p className="uppercase text-white  md:mb-0 mb-5 font-semibold text-3xl lg:text-4xl title">
