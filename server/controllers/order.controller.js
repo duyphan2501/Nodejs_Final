@@ -15,6 +15,7 @@ import { payOS } from "../config/payos.init.js";
 import OrderService from "../services/order.service.js";
 import OrderModel from "../models/order.model.js";
 import { updateUserPoint } from "../services/user.service.js";
+import { deductStockAtomic } from "../services/variant.service.js";
 
 dotenv.config({ quiet: true });
 const BACKEND_URL = process.env.BACKEND_URL;
@@ -51,6 +52,7 @@ const createOrder = async (req, res, next) => {
       throw createHttpError.BadRequest("Thiếu thông tin tổng tiền.");
     }
 
+    const isCOD = provider === "cod";
     // 2. Gọi hàm logic tạo đơn hàng cốt lõi
     const { newOrder, itemsPayos } = await createNewOrder(
       cartItems,
@@ -62,7 +64,7 @@ const createOrder = async (req, res, next) => {
       orderAmount,
       itemsDiscounted,
       userId,
-      "pending"
+      isCOD ? "pending": "draft"
     );
     let paymentLinkRes;
     if (provider === "payos") {
@@ -78,7 +80,7 @@ const createOrder = async (req, res, next) => {
       paymentLinkRes = await payOS.createPaymentLink(payload);
     }
 
-    if (provider !== "payos") {
+    if (isCOD) {
       await publishSendOrderEmail(newOrder);
     }
 
@@ -97,51 +99,68 @@ const createOrder = async (req, res, next) => {
 
 const verifyWebhookData = async (req, res, next) => {
   try {
-    // Dữ liệu từ PayOS gửi về
     const webhookData = req.body;
+
+    // Bypass giao dịch thử nghiệm
+    if (
+      ["Ma giao dich thu nghiem", "VQRIO123"].includes(
+        webhookData?.data?.description
+      )
+    ) {
+      return res.status(200).json({ success: true, data: webhookData });
+    }
 
     // Xác minh chữ ký
     const verifiedData = payOS.verifyPaymentWebhookData(webhookData);
-    if (
-      ["Ma giao dich thu nghiem", "VQRIO123"].includes(
-        webhookData.data.description
-      )
-    ) {
-      return res.status(200).json({
-        success: true,
-        data: webhookData,
-      });
-    }
-    // Nếu xác minh thành công
     console.log("Webhook nhận thành công:", verifiedData);
 
-    const order = await OrderModel.findOne({
-      orderCode: verifiedData.orderCode,
-    });
+    const { orderCode, code, desc } = verifiedData;
 
+    // Tìm đơn
+    const order = await OrderModel.findOne({ orderCode });
     if (!order) throw createHttpError.NotFound("Đơn hàng không tồn tại");
 
-    if (verifiedData.code === "00") {
-      order.status = "processing";
+    // Xử lý khi thanh toán thành công
+    const handleSuccess = async () => {
       order.payment.status = "paid";
+
+      // Giảm tồn kho
+      await Promise.all(order.items.map((item) => deductStockAtomic(item)));
+
+      // Sử dụng mã giảm giá
+      if (order.coupon?.code) {
+        await useCouponAtomic(order.coupon.code, order._id);
+      }
+
+      // Trừ điểm
+      if (order.usedPoint?.point > 0 && order.userId) {
+        await usePurchasePoint(order.userId, order.usedPoint.point);
+      }
+
+      // Gửi email
       await publishSendOrderEmail(order);
-      // xoá giỏ hàng
-      // const userId = order.userId;
-      // for (const item of order.items) {
-      //   await removeCartItem(userId, null, item.variantId, item.size);
-      //   // await cancelStockReservation(userId, item.modelId, true);
-      // }
-      //   await CartModel.deleteOne({ userId });
-    } else {
-      // Thanh toán thất bại
+    };
+
+    // Xử lý khi thất bại
+    const handleFailed = () => {
       order.payment.status = "failed";
-      order.description = verifiedData.desc;
-      await order.save();
+      order.description = desc || "";
+    };
+
+    // Quyết định theo mã trả về của PayOS
+    if (code === "00") {
+      await handleSuccess();
+    } else {
+      handleFailed();
     }
+
     await order.save();
 
-    // Phản hồi cho PayOS
-    res.status(200).json({ data: verifiedData, success: true });
+    // Trả về PayOS bắt buộc 200 OK
+    return res.status(200).json({
+      success: true,
+      data: verifiedData,
+    });
   } catch (error) {
     next(error);
   }
@@ -172,6 +191,7 @@ const canclePayment = async (req, res, next) => {
 const getOrders = async (req, res, next) => {
   try {
     const result = await getAllOrder();
+    console.log(result)
 
     return res.status(200).json({
       success: true,
@@ -485,7 +505,7 @@ class OrderController {
       const userId = req.user.userId; // ✅ FIX: Lấy userId từ JWT token
       const { status } = req.params;
 
-      const validStatuses = ["pending", "confirmed", "shipping", "delivered"];
+      const validStatuses = ["pending", "confirmed", "shipping", "delivered", "cancelled"];
       if (!validStatuses.includes(status)) {
         return res.status(400).json({
           success: false,

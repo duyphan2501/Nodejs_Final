@@ -20,8 +20,7 @@ export default function useTrackVisit(userId) {
       };
 
       try {
-        const res = await API.post("/api/visit/", payload);
-        console.log(res.data.message);
+        await API.post("/api/visit/", payload);
       } catch (error) {
         console.error(error);
       }

@@ -21,19 +21,19 @@ const QuickViewDialog = () => {
 
   return (
     <div
-      className="fixed z-100 inset-0 flex justify-center items-center bg-black/40"
+      className="fixed z-100 inset-0 flex justify-center items-center bg-black/40 "
       onClick={handelCloseQuickView}
     >
       <div
-        className="rounded-lg z-200 bg-white p-5"
+        className="rounded-lg z-200 bg-white px-5 pb-5 max-h-[90%] overflow-y-auto overflow-x-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-end mb-3">
+        <div className="flex justify-end mb-3 sticky top-0 z-200 bg-white pt-5">
           <button
             className="p-1 rounded-full hover:bg-gray-200 transition cursor-pointer"
             onClick={handelCloseQuickView}
           >
-            <X />
+            <X /> 
           </button>
         </div>
         <div className="flex md:flex-row flex-col gap-10">

@@ -139,10 +139,23 @@ const createNewOrder = async (
 
     const items = [];
     const itemsPayos = [];
+    const isCOD = provider === "cod";
 
     // --- 1. Kiểm tra tồn kho & Chuẩn bị dữ liệu ---
     for (const item of cartItems) {
-      const processedItem = await deductStockAtomic(item, session);
+      if (isCOD) await deductStockAtomic(item, session);
+
+      const discountPrice =
+        Math.round((item.price * (1 - item.discount / 100)) / 1000) * 1000;
+
+      const processedItem = {
+        orderItem: { ...item, inStock: undefined },
+        payosItem: {
+          name: `${item.name}-${item.color}`,
+          quantity: item.quantity,
+          price: discountPrice,
+        },
+      };
       items.push(processedItem.orderItem);
       itemsPayos.push(processedItem.payosItem);
     }
@@ -153,12 +166,14 @@ const createNewOrder = async (
     );
 
     // --- 3. Xử lý Coupon & User Points ---
-    if (coupon.code !== "") {
-      await useCouponAtomic(coupon.code, orderId, session);
-    }
+    if (isCOD) {
+      if (coupon.code !== "") {
+        await useCouponAtomic(coupon.code, orderId, session);
+      }
 
-    if (usedPoint.point > 0 && userId) {
-      await usePurchasePoint(userId, usedPoint.point, session);
+      if (usedPoint.point > 0 && userId) {
+        await usePurchasePoint(userId, usedPoint.point, session);
+      }
     }
 
     // --- 4. Tạo đơn hàng trong DB ---
@@ -168,6 +183,7 @@ const createNewOrder = async (
           orderCode,
           orderId,
           email,
+          userId,
           items,
           orderAmount,
           itemsDiscounted,
@@ -180,12 +196,12 @@ const createNewOrder = async (
           },
           payment: {
             provider: provider,
-            status: orderStatus,
+            status: "pending",
           },
           status: orderStatus,
           statusHistory: [
             {
-              status: "pending",
+              status: orderStatus,
               updatedAt: Date.now(),
             },
           ],
@@ -262,13 +278,8 @@ const cancelOrder = async (order) => {
 };
 
 const getAllOrder = async () => {
-  try {
-    const result = await OrderModel.find({}).sort({ createdAt: -1 });
-
-    return result;
-  } catch (error) {
-    throw error;
-  }
+  const result = await OrderModel.find({}).sort({ createdAt: -1 });
+  return result;
 };
 
 const deleteManyOrder = async (_ids) => {
@@ -459,7 +470,7 @@ class OrderService {
   async getUserOrders(userId) {
     try {
       const email = await this.getUserEmail(userId);
-      const orders = await OrderModel.find({ email })
+      const orders = await OrderModel.find({ email, status: { $ne: "draft" } })
         .populate("items.variantId")
         .sort({ createdAt: -1 });
       return orders;

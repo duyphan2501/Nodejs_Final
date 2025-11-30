@@ -124,7 +124,7 @@ const Coupons = () => {
           </Typography>
         </div>
 
-        <div className="mt-3 grid md:grid-cols-5 gap-3">
+        <div className="mt-3 grid md:grid-cols-4 gap-3">
           <DashboardCardProduct
             BackgroundColor="#4A90E2"
             icon={LocalOfferIcon}
@@ -137,12 +137,7 @@ const Coupons = () => {
             CardHeader="Hoạt động"
             CardDesc={`${activeCoupons} Mã`}
           />
-          <DashboardCardProduct
-            BackgroundColor="#FFC107"
-            icon={AccessTimeIcon}
-            CardHeader="Sắp hết hạn"
-            CardDesc="0 Mã"
-          />
+
           <DashboardCardProduct
             BackgroundColor="#DC3545"
             icon={CancelIcon}

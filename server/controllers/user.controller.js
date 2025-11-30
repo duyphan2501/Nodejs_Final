@@ -111,6 +111,7 @@ const login = async (req, res, next) => {
     const foundUser = await getUserByEmail(email);
 
     if (!foundUser) throw CreateError.NotFound("Tài khoản không tồn tại");
+
     if (!foundUser.isVerified) {
       return res.status(401).json({
         message:
@@ -118,6 +119,15 @@ const login = async (req, res, next) => {
         user: filterFieldUser(foundUser),
         success: false,
         notVerified: true,
+      });
+    }
+
+    if (foundUser.status === "inactive") {
+      return res.status(403).json({
+        message:
+          "Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên để được hỗ trợ.",
+        success: false,
+        isInactive: true,
       });
     }
 
@@ -426,6 +436,9 @@ const googleLogin = async (req, res, next) => {
     );
     foundUser.lastLogin = Date.now();
     await foundUser.save();
+    
+    const guestCartId = req.cookies.cartId;
+    await mergeCart(foundUser._id, guestCartId);
 
     return res.status(200).json({
       message: "Đăng nhập thành công!",

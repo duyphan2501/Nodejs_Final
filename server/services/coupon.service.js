@@ -77,7 +77,6 @@ export const getCouponById = async (couponId) => {
   }
 };
 
-// Cập nhật coupon
 export const updateCoupon = async (couponId, updateData) => {
   try {
     const {
@@ -91,12 +90,14 @@ export const updateCoupon = async (couponId, updateData) => {
       minOrderValue,
     } = updateData;
 
-    // Validate discount type
-    if (discountType === "percent" && !discountPercent) {
-      throw new Error("Discount percent is required for percent type");
-    }
-    if (discountType === "fixed" && !discountAmount) {
-      throw new Error("Discount amount is required for fixed type");
+    // ✅ CHỈ validate nếu discountType được gửi lên
+    if (discountType !== undefined) {
+      if (discountType === "percent" && discountPercent === undefined) {
+        throw new Error("Discount percent is required for percent type");
+      }
+      if (discountType === "fixed" && discountAmount === undefined) {
+        throw new Error("Discount amount is required for fixed type");
+      }
     }
 
     // Validate remaining usage
@@ -107,18 +108,24 @@ export const updateCoupon = async (couponId, updateData) => {
       throw new Error("Remaining usage must be between 0 and 10");
     }
 
+    // ✅ Chỉ update các field được gửi lên (không undefined)
+    const updateFields = {};
+    if (code !== undefined) updateFields.code = code;
+    if (remainingUsage !== undefined)
+      updateFields.remainingUsage = remainingUsage;
+    if (discountPercent !== undefined)
+      updateFields.discountPercent = discountPercent;
+    if (discountAmount !== undefined)
+      updateFields.discountAmount = discountAmount;
+    if (maxDiscountAmount !== undefined)
+      updateFields.maxDiscountAmount = maxDiscountAmount;
+    if (status !== undefined) updateFields.status = status;
+    if (discountType !== undefined) updateFields.discountType = discountType;
+    if (minOrderValue !== undefined) updateFields.minOrderValue = minOrderValue;
+
     const updatedCoupon = await CouponModel.findByIdAndUpdate(
       couponId,
-      {
-        code,
-        remainingUsage,
-        discountPercent,
-        discountAmount,
-        maxDiscountAmount,
-        status,
-        discountType,
-        minOrderValue,
-      },
+      updateFields,
       { new: true, runValidators: true }
     );
 
@@ -252,9 +259,9 @@ export const useCouponAtomic = async (
       throw createHttpError(400, "Mã khuyến mãi đã hết lượt sử dụng.");
     }
 
-    if (orderAmount < coupon.minOrderValue)
+    if (orderAmount < existingCoupon.minOrderValue)
       throw createHttpError.BadRequest(
-        `Đơn hàng tối thiểu để áp dụng mã này là ${coupon.minOrderValue} VNĐ.`
+        `Đơn hàng tối thiểu để áp dụng mã này là ${existingCoupon.minOrderValue} VNĐ.`
       );
 
     throw createHttpError(400, "Không thể áp dụng mã khuyến mãi này.");
