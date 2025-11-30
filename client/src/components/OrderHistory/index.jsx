@@ -139,7 +139,7 @@ const OrderHistory = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
         {/* Title & Filter */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold">LỊCH SỬ ĐơN HÀNG</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">LỊCH SỬ ĐƠN HÀNG</h2>
 
           <div className="flex items-center gap-2">
             <select
@@ -353,12 +353,6 @@ const OrderHistory = () => {
                             )}
                           </button>
                         )}
-                        <button className="flex-1 bg-black text-white px-6 py-3 rounded font-bold hover:bg-gray-800 transition-colors uppercase text-sm">
-                          Mua lại
-                        </button>
-                        <button className="flex-1 bg-white text-black border-2 border-black px-6 py-3 rounded font-bold hover:bg-gray-100 transition-colors uppercase text-sm">
-                          Liên hệ hỗ trợ
-                        </button>
                       </div>
                     </div>
                   )}

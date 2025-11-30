@@ -13,9 +13,7 @@ export default function CustomModalCouponAdd({ control }) {
   const [input, setInput] = useState({
     couponCode: "",
     discountValue: 0,
-    discountType: "percentage",
-    startDate: "",
-    endDate: "",
+    discountType: "percent",
     minOrderValue: 0,
     maxDiscount: 0,
     status: "active",
@@ -25,6 +23,78 @@ export default function CustomModalCouponAdd({ control }) {
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   const handleChangeInput = (key, value) => {
+    if (key === "couponCode") {
+      // Chỉ cho phép alphanumeric
+      const alphanumeric = value.replace(/[^a-zA-Z0-9]/g, "");
+      // Giới hạn 5 ký tự
+      setInput((prev) => ({
+        ...prev,
+        [key]: alphanumeric.slice(0, 5),
+      }));
+      return;
+    }
+
+    if (key === "discountValue") {
+      const numValue = parseFloat(value) || 0;
+
+      // Không cho phép giá trị âm
+      if (numValue < 0) {
+        setSaveError("Giá trị giảm không được âm");
+        return;
+      }
+
+      // Nếu là phần trăm, không vượt quá 100%
+      if (input.discountType === "percent" && numValue > 100) {
+        setSaveError("Giảm giá theo % không được vượt quá 100%");
+        return;
+      }
+
+      setSaveError(null);
+      setInput((prev) => ({
+        ...prev,
+        [key]: numValue,
+      }));
+      return;
+    }
+
+    if (key === "discountType") {
+      if (value === "percent" && input.discountValue > 100) {
+        setSaveError("Giảm giá theo % không được vượt quá 100%");
+        setInput((prev) => ({
+          ...prev,
+          [key]: value,
+          discountValue: 0, // Reset về 0
+        }));
+        return;
+      }
+
+      setSaveError(null);
+      setInput((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+      return;
+    }
+
+    if (["minOrderValue", "maxDiscount"].includes(key)) {
+      const numValue = parseFloat(value) || 0;
+      if (numValue < 0) {
+        setSaveError(
+          `${
+            key === "minOrderValue" ? "Giá trị đơn hàng" : "Giảm tối đa"
+          } không được âm`
+        );
+        return;
+      }
+      setSaveError(null);
+      setInput((prev) => ({
+        ...prev,
+        [key]: numValue,
+      }));
+      return;
+    }
+
+    // Các field khác
     setInput((prev) => ({
       ...prev,
       [key]: value,
@@ -36,28 +106,38 @@ export default function CustomModalCouponAdd({ control }) {
     setSaveSuccess(false);
 
     try {
-      // Validate
-      if (!input.couponCode) {
-        setSaveError("Vui lòng nhập mã coupon");
+      if (!input.couponCode || input.couponCode.length < 5) {
+        setSaveError("Mã coupon phải có đúng 5 ký tự alphanumeric");
         return;
       }
+
       if (!input.discountValue || input.discountValue <= 0) {
         setSaveError("Vui lòng nhập giá trị giảm hợp lệ");
+        return;
+      }
+
+      if (input.discountType === "percent" && input.discountValue > 100) {
+        setSaveError("Giảm giá theo % không được vượt quá 100%");
+        return;
+      }
+
+      if (input.minOrderValue < 0 || input.maxDiscount < 0) {
+        setSaveError("Các giá trị không được âm");
         return;
       }
 
       // Transform data từ frontend format sang backend format
       const couponData = {
         code: input.couponCode,
-        discountType: input.discountType === "percentage" ? "percent" : "fixed",
-        remainingUsage: 10, // Default
+        discountType: input.discountType,
+        remainingUsage: 10,
         minOrderValue: input.minOrderValue || 0,
         maxDiscountAmount: input.maxDiscount || 0,
         status: input.status || "active",
       };
 
       // Thêm discountPercent hoặc discountAmount
-      if (input.discountType === "percentage") {
+      if (input.discountType === "percent") {
         couponData.discountPercent = input.discountValue;
         couponData.discountAmount = 0;
       } else {
@@ -74,9 +154,7 @@ export default function CustomModalCouponAdd({ control }) {
       setInput({
         couponCode: "",
         discountValue: 0,
-        discountType: "percentage",
-        startDate: "",
-        endDate: "",
+        discountType: "percent",
         minOrderValue: 0,
         maxDiscount: 0,
         status: "active",
@@ -149,21 +227,33 @@ export default function CustomModalCouponAdd({ control }) {
           <h1 className="text-xl font-bold mb-2">Thêm Coupon</h1>
 
           <div className="grid sm:grid-cols-2 gap-3 mt-3">
-            <CustomInput
-              name="couponCode"
-              type="text"
-              label="Mã Coupon"
-              value={input.couponCode}
-              handleChangeInput={handleChangeInput}
-            />
+            <div>
+              <CustomInput
+                name="couponCode"
+                type="text"
+                label="Mã Coupon "
+                value={input.couponCode}
+                handleChangeInput={handleChangeInput}
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                {input.couponCode.length}/5 ký tự
+              </p>
+            </div>
 
-            <CustomInput
-              name="discountValue"
-              type="number"
-              label="Giá trị giảm"
-              value={input.discountValue}
-              handleChangeInput={handleChangeInput}
-            />
+            <div>
+              <CustomInput
+                name="discountValue"
+                type="number"
+                label={`Giá trị giảm ${
+                  input.discountType === "percent" ? "(tối đa 100%)" : "(VNĐ)"
+                }`}
+                value={input.discountValue}
+                handleChangeInput={handleChangeInput}
+              />
+              {input.discountType === "percent" && (
+                <p className="text-xs text-gray-500 mt-1">Giá trị từ 0-100%</p>
+              )}
+            </div>
 
             <div className="mb-2">
               <label className="text-black uppercase font-semibold">

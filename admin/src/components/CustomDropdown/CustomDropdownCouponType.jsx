@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormControl, Select, MenuItem } from "@mui/material";
 
 export default function CustomDropdownCouponType({
@@ -6,6 +6,11 @@ export default function CustomDropdownCouponType({
   handleChangeInput,
 }) {
   const [status, setStatus] = useState(choose);
+
+  // ✅ THÊM: Sync state khi choose thay đổi
+  useEffect(() => {
+    setStatus(choose);
+  }, [choose]);
 
   const handleChange = (e) => {
     const newValue = e.target.value;

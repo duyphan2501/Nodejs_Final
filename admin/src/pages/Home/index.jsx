@@ -173,7 +173,17 @@ function WelcomeBoard({
 
           <Box flexGrow={1}></Box>
 
-          <Box mt={10} display={"flex"} gap={3}>
+          <Box
+            mt={10}
+            display="flex"
+            gap={3}
+            sx={{
+              flexWrap: {
+                xs: "wrap",
+                sm: "nowrap",
+              },
+            }}
+          >
             <Box>
               <Typography variant="body2">GROWTH RATE</Typography>
               <Box

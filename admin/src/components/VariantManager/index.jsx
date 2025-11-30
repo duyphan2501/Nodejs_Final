@@ -8,6 +8,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import CustomSnackbar from "../CustomSnackbar";
 import ConfirmDialog from "../ConfirmDialog";
+import { toast } from "react-toastify";
 
 const VariantManager = ({
   openSnackbar,
@@ -228,10 +229,18 @@ const VariantEach = ({ id, onDelete, onSave, openSnackbar, save }) => {
   // Upload ảnh
   const handleImageChange = (e, startIndex) => {
     const files = Array.from(e.target.files);
-    if (files.length > 0) {
+
+    const validImages = files.filter((file) => file.type.startsWith("image/"));
+
+    if (validImages.length !== files.length) {
+      toast.error("Chỉ được chọn file hình ảnh!");
+      e.target.value = ""; // reset input để không lưu file sai
+    }
+
+    if (validImages.length > 0) {
       const newImages = [...images];
 
-      files.forEach((file, idx) => {
+      validImages.forEach((file, idx) => {
         const targetIndex = startIndex + idx;
         if (targetIndex < newImages.length) {
           newImages[targetIndex] = {
