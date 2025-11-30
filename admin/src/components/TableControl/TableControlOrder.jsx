@@ -56,9 +56,20 @@ const TableControlOrder = () => {
         yesterday.setDate(today.getDate() - 1);
         matchDate = orderDate.toDateString() === yesterday.toDateString();
       } else if (filter.range === "thisWeek") {
+        const today = new Date();
+        const day = today.getDay(); // 0 = Chủ nhật, 1 = Thứ Hai, ..., 6 = Thứ Bảy
+        const diffToMonday = day === 0 ? 6 : day - 1; // nếu Chủ nhật thì lùi 6 ngày
         const startOfWeek = new Date(today);
-        startOfWeek.setDate(today.getDate() - today.getDay());
-        matchDate = orderDate >= startOfWeek && orderDate <= today;
+        startOfWeek.setDate(today.getDate() - diffToMonday);
+        startOfWeek.setHours(0, 0, 0, 0);
+
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+        endOfWeek.setHours(23, 59, 59, 999);
+
+        matchDate =
+          new Date(orderDate) >= startOfWeek &&
+          new Date(orderDate) <= endOfWeek;
       } else if (filter.range === "thisMonth") {
         matchDate =
           orderDate.getMonth() === today.getMonth() &&

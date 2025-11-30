@@ -326,23 +326,12 @@ async function getMonthlyOrderAmounts() {
 async function getDailyOrderAmounts() {
   const now = new Date();
 
-  // Hôm nay: từ 00:00 đến 23:59:59
-  const startOfToday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate()
-  );
   const startOfTomorrow = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + 1
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1)
   );
 
-  // Hôm qua: từ 00:00 đến 23:59:59
   const startOfYesterday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() - 1
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - 1)
   );
 
   const results = await OrderModel.aggregate([

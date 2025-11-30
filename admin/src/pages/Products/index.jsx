@@ -202,9 +202,18 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
       }
     }
 
-    if (control?.filters) {
+    if (
+      (control?.filters?.shoes?.length ?? 0) !== 0 ||
+      (control?.filters?.sandals?.length ?? 0) !== 0 ||
+      (control?.filters?.backpacks?.length ?? 0) !== 0
+    ) {
       filteredPro = filteredPro.filter((item) => {
-        const { shoes, sandals, backpacks, others } = control.filters;
+        const {
+          shoes = [],
+          sandals = [],
+          backpacks = [],
+          others = [],
+        } = control?.filters || {};
         const allSelected = [...shoes, ...sandals, ...backpacks];
 
         // ép về mảng ID (dạng string)
@@ -226,6 +235,8 @@ function OverviewProduct({ setViewMode, products, onChooseID }) {
 
     return filteredPro;
   }, [control, products]);
+
+  console.log(control);
 
   //Data products de loc/tim/sap xep
 

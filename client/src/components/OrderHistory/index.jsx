@@ -139,7 +139,7 @@ const OrderHistory = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
         {/* Title & Filter */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold">LỊCH SỬ ĐơN HÀNG</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">LỊCH SỬ ĐƠN HÀNG</h2>
 
           <div className="flex items-center gap-2">
             <select
@@ -305,7 +305,9 @@ const OrderHistory = () => {
                               <div className="w-16 h-16 bg-gray-100 rounded flex items-center justify-center flex-shrink-0">
                                 {product.image ? (
                                   <img
-                                    src={product.image}
+                                    src={`${import.meta.env.VITE_API_URL}/${
+                                      product.image
+                                    }`}
                                     alt={product.name}
                                     className="w-full h-full object-cover rounded"
                                   />

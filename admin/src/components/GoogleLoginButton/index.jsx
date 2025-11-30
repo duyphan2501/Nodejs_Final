@@ -24,7 +24,7 @@ const GoogleLoginButton = ({ isLogin }) => {
       if (res.data.success && res.data.user.isAdmin) {
         toast.success(res.data.message);
         setUser(res.data.user, res.data.accessToken);
-        navigate("/admin/home");
+        navigate("/");
       } else {
         toast.error("Đăng nhập thất bại!");
       }
