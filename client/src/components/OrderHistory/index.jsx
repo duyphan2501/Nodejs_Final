@@ -351,12 +351,6 @@ const OrderHistory = () => {
                             )}
                           </button>
                         )}
-                        <button className="flex-1 bg-black text-white px-6 py-3 rounded font-bold hover:bg-gray-800 transition-colors uppercase text-sm">
-                          Mua lại
-                        </button>
-                        <button className="flex-1 bg-white text-black border-2 border-black px-6 py-3 rounded font-bold hover:bg-gray-100 transition-colors uppercase text-sm">
-                          Liên hệ hỗ trợ
-                        </button>
                       </div>
                     </div>
                   )}

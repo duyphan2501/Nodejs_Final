@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useTableControl } from "../TableControl/TableControllerContext";
 import CustomDropdown from "../CustomDropdown";
 import CustomDropdownCoupon from "../CustomDropdown/CustomDropdownCoupon";
+import CustomDropdownCouponType from "../CustomDropdown/CustomDropdownCouponType"; // ✅ DÙNG CÁI NÀY
 import useCoupon from "../../../hooks/useCoupon";
 import useCouponStore from "../../../stores/useCouponStore";
 
@@ -18,14 +19,11 @@ export default function CustomModalCouponEdit() {
   const couponFromData = couponData.find((c) => c._id === selectedCouponId);
   const coupon = couponFromStore || couponFromData;
 
-  // State để quản lý dữ liệu chỉnh sửa
   const [editedCoupon, setEditedCoupon] = useState({
     _id: "",
     couponCode: "",
-    discountType: "percentage",
+    discountType: "percent",
     discountValue: 0,
-    startDate: "",
-    endDate: "",
     minOrderValue: 0,
     maxDiscount: 0,
     quantity: 10,
@@ -35,27 +33,19 @@ export default function CustomModalCouponEdit() {
   const [saveError, setSaveError] = useState(null);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-  // Reset dữ liệu khi mở modal
   useEffect(() => {
     if (selectedDetail && coupon) {
-      // Kiểm tra xem coupon đã ở format frontend hay backend
       const isBackendFormat = coupon.code !== undefined;
 
       if (isBackendFormat) {
-        // Transform từ backend format
         setEditedCoupon({
           _id: coupon._id,
           couponCode: coupon.code,
-          discountType:
-            coupon.discountType === "percent" ? "percentage" : "fixed",
+          discountType: coupon.discountType,
           discountValue:
             coupon.discountType === "percent"
               ? coupon.discountPercent
               : coupon.discountAmount,
-          startDate: coupon.createdAt
-            ? new Date(coupon.createdAt).toISOString().split("T")[0]
-            : "",
-          endDate: "",
           minOrderValue: coupon.minOrderValue || 0,
           maxDiscount: coupon.maxDiscountAmount || 0,
           quantity: 10,
@@ -63,8 +53,11 @@ export default function CustomModalCouponEdit() {
           status: coupon.status || "active",
         });
       } else {
-        // Đã ở frontend format
-        setEditedCoupon(coupon);
+        setEditedCoupon({
+          ...coupon,
+          discountType:
+            coupon.discountType === "percentage" ? "percent" : "fixed",
+        });
       }
 
       setSaveError(null);
@@ -74,6 +67,73 @@ export default function CustomModalCouponEdit() {
 
   // Hàm xử lý thay đổi input
   const handleChangeInput = (field, value) => {
+    if (field === "couponCode") {
+      const alphanumeric = value.replace(/[^a-zA-Z0-9]/g, "");
+      setEditedCoupon((prev) => ({
+        ...prev,
+        [field]: alphanumeric.slice(0, 5),
+      }));
+      return;
+    }
+
+    if (field === "discountValue") {
+      const numValue = parseFloat(value) || 0;
+
+      if (numValue < 0) {
+        setSaveError("Giá trị giảm không được âm");
+        return;
+      }
+
+      if (editedCoupon.discountType === "percent" && numValue > 100) {
+        setSaveError("Giảm giá theo % không được vượt quá 100%");
+        return;
+      }
+
+      setSaveError(null);
+      setEditedCoupon((prev) => ({
+        ...prev,
+        [field]: numValue,
+      }));
+      return;
+    }
+
+    if (field === "discountType") {
+      if (value === "percent" && editedCoupon.discountValue > 100) {
+        setSaveError("Giảm giá theo % không được vượt quá 100%");
+        setEditedCoupon((prev) => ({
+          ...prev,
+          [field]: value,
+          discountValue: 0,
+        }));
+        return;
+      }
+
+      setSaveError(null);
+      setEditedCoupon((prev) => ({
+        ...prev,
+        [field]: value,
+      }));
+      return;
+    }
+
+    if (["minOrderValue", "maxDiscount"].includes(field)) {
+      const numValue = parseFloat(value) || 0;
+      if (numValue < 0) {
+        setSaveError(
+          `${
+            field === "minOrderValue" ? "Giá trị đơn hàng" : "Giảm tối đa"
+          } không được âm`
+        );
+        return;
+      }
+      setSaveError(null);
+      setEditedCoupon((prev) => ({
+        ...prev,
+        [field]: numValue,
+      }));
+      return;
+    }
+
     setEditedCoupon((prev) => ({
       ...prev,
       [field]: value,
@@ -86,28 +146,46 @@ export default function CustomModalCouponEdit() {
     setSaveSuccess(false);
 
     try {
-      // Kiểm tra xem coupon có _id không
       if (!editedCoupon._id) {
         setSaveError("Không tìm thấy ID coupon");
-        console.error("Coupon data:", editedCoupon);
+        return;
+      }
+
+      if (!editedCoupon.couponCode || editedCoupon.couponCode.length < 5) {
+        setSaveError("Mã coupon phải có đúng 5 ký tự alphanumeric");
+        return;
+      }
+
+      if (!editedCoupon.discountValue || editedCoupon.discountValue <= 0) {
+        setSaveError("Vui lòng nhập giá trị giảm hợp lệ");
+        return;
+      }
+
+      if (
+        editedCoupon.discountType === "percent" &&
+        editedCoupon.discountValue > 100
+      ) {
+        setSaveError("Giảm giá theo % không được vượt quá 100%");
+        return;
+      }
+
+      if (editedCoupon.minOrderValue < 0 || editedCoupon.maxDiscount < 0) {
+        setSaveError("Các giá trị không được âm");
         return;
       }
 
       const couponId = editedCoupon._id;
 
-      // Transform dữ liệu từ frontend format sang backend format
       const updateData = {
         code: editedCoupon.couponCode,
         status: editedCoupon.status,
         minOrderValue: editedCoupon.minOrderValue,
         maxDiscountAmount: editedCoupon.maxDiscount,
         remainingUsage: editedCoupon.quantity - editedCoupon.used,
-        discountType:
-          editedCoupon.discountType === "percentage" ? "percent" : "fixed",
+        discountType: editedCoupon.discountType,
       };
 
-      // Thêm discountPercent hoặc discountAmount tùy theo loại
-      if (editedCoupon.discountType === "percentage") {
+      if (editedCoupon.discountType === "percent") {
         updateData.discountPercent = editedCoupon.discountValue;
         updateData.discountAmount = 0;
       } else {
@@ -115,12 +193,10 @@ export default function CustomModalCouponEdit() {
         updateData.discountPercent = 0;
       }
 
-      // Gọi API cập nhật
-      await updateCoupon(couponId, updateData);
+      const result = await updateCoupon(couponId, updateData);
 
       setSaveSuccess(true);
 
-      // Đóng modal sau 1.5 giây
       setTimeout(() => {
         setSelectedDetail(false);
       }, 1500);
@@ -146,14 +222,12 @@ export default function CustomModalCouponEdit() {
           overflow: "auto",
         }}
       >
-        {/* Kiểm tra nếu không có dữ liệu */}
         {!coupon ? (
           <div className="text-center p-4">
             <p className="text-red-500">Không tìm thấy dữ liệu coupon</p>
           </div>
         ) : (
           <>
-            {/* Thông báo lỗi/thành công */}
             {saveError && (
               <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
                 {saveError}
@@ -165,7 +239,6 @@ export default function CustomModalCouponEdit() {
               </div>
             )}
 
-            {/* Nút lưu */}
             <div className="w-full flex justify-end mb-4">
               <Button
                 variant="contained"
@@ -186,7 +259,6 @@ export default function CustomModalCouponEdit() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Cột trái - Thông tin coupon */}
               <div className="flex flex-col gap-2">
                 <h1 className="text-lg font-bold mb-2">Thông tin Coupon</h1>
                 <p>
@@ -195,13 +267,9 @@ export default function CustomModalCouponEdit() {
 
                 <p>
                   <strong>Loại giảm giá:</strong>{" "}
-                  {editedCoupon.discountType === "percentage"
+                  {editedCoupon.discountType === "percent"
                     ? `Giảm ${editedCoupon.discountValue}%`
                     : `Giảm ${editedCoupon.discountValue.toLocaleString()}₫`}
-                </p>
-                <p>
-                  <strong>Thời gian:</strong> {editedCoupon.startDate} -{" "}
-                  {editedCoupon.endDate}
                 </p>
                 <p>
                   <strong>Giá trị tối thiểu:</strong>{" "}
@@ -225,45 +293,53 @@ export default function CustomModalCouponEdit() {
                 </div>
               </div>
 
-              {/* Cột phải - Chỉnh sửa */}
               <div className="col-span-2 w-full">
                 <h1 className="text-xl font-bold mb-2">Chỉnh sửa Coupon</h1>
 
                 <div className="grid sm:grid-cols-2 gap-3 mt-3">
-                  <CustomInput
-                    type="text"
-                    id="couponCode"
-                    label="Mã Coupon"
-                    name="couponCode"
-                    value={editedCoupon.couponCode}
-                    handleChangeInput={handleChangeInput}
-                  />
+                  <div>
+                    <CustomInput
+                      type="text"
+                      id="couponCode"
+                      label="Mã Coupon "
+                      name="couponCode"
+                      value={editedCoupon.couponCode}
+                      handleChangeInput={handleChangeInput}
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      {editedCoupon.couponCode.length}/5 ký tự
+                    </p>
+                  </div>
 
-                  <CustomInput
-                    type="number"
-                    id="discountValue"
-                    label="Giá trị giảm"
-                    name="discountValue"
-                    value={editedCoupon.discountValue}
-                    handleChangeInput={handleChangeInput}
-                  />
+                  <div>
+                    <CustomInput
+                      type="number"
+                      id="discountValue"
+                      label={`Giá trị giảm ${
+                        editedCoupon.discountType === "percent"
+                          ? "(tối đa 100%)"
+                          : "(VNĐ)"
+                      }`}
+                      name="discountValue"
+                      value={editedCoupon.discountValue}
+                      handleChangeInput={handleChangeInput}
+                    />
+                    {editedCoupon.discountType === "percent" && (
+                      <p className="text-xs text-gray-500 mt-1">
+                        Giá trị từ 0-100%
+                      </p>
+                    )}
+                  </div>
+
                   <div className="mb-2">
                     <label className="text-black uppercase font-semibold">
                       Loại giảm giá
                     </label>
-                    <CustomDropdown
-                      type="coupon-edit"
+                    <CustomDropdownCouponType
                       choose={editedCoupon.discountType}
+                      handleChangeInput={handleChangeInput}
                     />
                   </div>
-                  <CustomInput
-                    type="date"
-                    id="startDate"
-                    label="Ngày bắt đầu"
-                    name="startDate"
-                    value={editedCoupon.startDate}
-                    handleChangeInput={handleChangeInput}
-                  />
 
                   <CustomInput
                     type="number"
@@ -282,8 +358,6 @@ export default function CustomModalCouponEdit() {
                     handleChangeInput={handleChangeInput}
                   />
                 </div>
-
-                <div className="flex gap-4 overflow-x-auto scrollbar-hidden pb-2"></div>
               </div>
             </div>
           </>
