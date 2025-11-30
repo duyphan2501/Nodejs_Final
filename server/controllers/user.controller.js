@@ -426,6 +426,9 @@ const googleLogin = async (req, res, next) => {
     );
     foundUser.lastLogin = Date.now();
     await foundUser.save();
+    
+    const guestCartId = req.cookies.cartId;
+    await mergeCart(foundUser._id, guestCartId);
 
     return res.status(200).json({
       message: "Đăng nhập thành công!",

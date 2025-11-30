@@ -106,18 +106,6 @@ const deductStockAtomic = async (item, session) => {
       `Failed to update stock for item ${name} due to an unknown error.`
     );
   }
-
-  const discountPrice =
-    Math.round((item.price * (1 - item.discount / 100)) / 1000) * 1000;
-
-  return {
-    orderItem: { ...item, inStock: undefined },
-    payosItem: {
-      name: `${name}-${item.color}`,
-      quantity: quantity,
-      price: discountPrice,
-    },
-  };
 };
 
 export {

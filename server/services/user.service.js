@@ -6,7 +6,6 @@ import {
 import UserModel from "../models/user.model.js";
 import AddressModel from "../models/address.model.js";
 import bcrypt from "bcryptjs";
-import mongoose from "mongoose";
 
 const getUserByEmail = async (email) => {
   const user = await UserModel.findOne({

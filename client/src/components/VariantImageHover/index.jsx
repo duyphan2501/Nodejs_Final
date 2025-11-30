@@ -1,5 +1,4 @@
 const VariantImageHover = ({ variants, selected, setSelected }) => {
-  console.log(variants)
   if (!variants || variants.length === 0) return null;
   return (
     <div className="flex size-14">

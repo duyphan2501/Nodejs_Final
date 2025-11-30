@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const getEvaluationsByProductId = async (productId) => {
   try {
-    const productObjId = new mongoose.Types.ObjectId(productId);
+    const productObjId = new mongoose.Types.ObjectId(`${productId}`);
     const res = await evaluationModel.aggregate([
       {
         $match: {
@@ -29,7 +29,7 @@ const getEvaluationsByProductId = async (productId) => {
 };
 
 const addEvaluation = async (userName, rating, comment, productId) => {
-  const objectProductId = new mongoose.Types.ObjectId(productId);
+  const objectProductId = new mongoose.Types.ObjectId(`${productId}`);
   try {
     const result = await evaluationModel.create({
       userName,
