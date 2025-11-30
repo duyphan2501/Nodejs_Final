@@ -1,6 +1,5 @@
 import { Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
-import { IoMdArrowDropdown } from "react-icons/io";
 
 const AttributeMenu = ({ attributes, selectedAttr, setSelectedAttr }) => {
   const [anchorEl, setAnchorEl] = useState(null);

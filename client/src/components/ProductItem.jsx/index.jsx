@@ -51,6 +51,7 @@ const ProductItem = ({ product, addCart }) => {
       color: selectedVariant.color,
       image: selectedVariant.images[0],
       inStock: selectedAttr.inStock,
+      slug: product.slug
     };
     const quantity = 1;
     await addCart(item, quantity);
@@ -69,7 +70,9 @@ const ProductItem = ({ product, addCart }) => {
           />
           {selectedVariant.images?.[1] && (
             <img
-              src={selectedVariant.images?.[1]}
+              src={`${import.meta.env.VITE_API_URL}/${
+                selectedVariant.images?.[1]
+              }`}
               alt={product?.name}
               className="w-full h-full object-cover absolute opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all z-10 inset-0 duration-200"
             />
@@ -88,12 +91,7 @@ const ProductItem = ({ product, addCart }) => {
           />
         </div>
       </div>
-      <div className="absolute -top-20 right-2 z-10 space-y-2 group-hover:top-2 transition-all duration-200 opacity-0   group-hover:opacity-100 hidden md:block">
-        <div className="p-1 rounded-full hover:text-primary cursor-pointer transition bg-white active:bg-gray-200">
-          <MyTooltip label={"Yêu thích"} position="bottom">
-            <Heart />
-          </MyTooltip>
-        </div>
+      <div className="absolute -top-20 right-2 z-10 space-y-2 group-hover:top-2 transition-all duration-200 opacity-0   group-hover:opacity-100 pt-2">
         <div
           className="p-1 rounded-full hover:text-primary cursor-pointer transition bg-white active:bg-gray-200"
           onClick={() => setSelectedProduct(product)}

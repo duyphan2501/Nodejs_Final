@@ -297,39 +297,41 @@ const OrderHistory = () => {
                           Sản phẩm
                         </h4>
                         <div className="space-y-3">
-                          {order.products.map((product, idx) => (
-                            <div
-                              key={idx}
-                              className="flex gap-4 items-start py-3 border-b last:border-b-0"
-                            >
-                              <div className="w-16 h-16 bg-gray-100 rounded flex items-center justify-center flex-shrink-0">
-                                {product.image ? (
-                                  <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="w-full h-full object-cover rounded"
-                                  />
-                                ) : (
-                                  <span className="text-2xl">👟</span>
-                                )}
-                              </div>
-                              <div className="flex-1">
-                                <p className="font-semibold mb-1">
-                                  {product.name}
-                                </p>
-                                <div className="text-sm text-gray-600 space-y-1">
-                                  <p>
-                                    Màu: {product.color}{" "}
-                                    {product.size && `| Size: ${product.size}`}
-                                  </p>
-                                  <p>Số lượng: {product.quantity}</p>
+                          {order?.products.length > 0 &&
+                            order.products.map((product, idx) => (
+                              <div
+                                key={idx}
+                                className="flex gap-4 items-start py-3 border-b last:border-b-0"
+                              >
+                                <div className="w-16 h-16 bg-gray-100 rounded flex items-center justify-center flex-shrink-0">
+                                  {product.image ? (
+                                    <img
+                                      src={product.image}
+                                      alt={product.name}
+                                      className="w-full h-full object-cover rounded"
+                                    />
+                                  ) : (
+                                    <span className="text-2xl">👟</span>
+                                  )}
                                 </div>
+                                <div className="flex-1">
+                                  <p className="font-semibold mb-1">
+                                    {product.name}
+                                  </p>
+                                  <div className="text-sm text-gray-600 space-y-1">
+                                    <p>
+                                      Màu: {product.color}{" "}
+                                      {product.size &&
+                                        `| Size: ${product.size}`}
+                                    </p>
+                                    <p>Số lượng: {product.quantity}</p>
+                                  </div>
+                                </div>
+                                <p className="font-bold">
+                                  {formatCurrency(product.price)}
+                                </p>
                               </div>
-                              <p className="font-bold">
-                                {formatCurrency(product.price)}
-                              </p>
-                            </div>
-                          ))}
+                            ))}
                         </div>
                       </div>
 

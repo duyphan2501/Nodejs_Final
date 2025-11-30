@@ -100,11 +100,15 @@ const CartIcon = () => {
                       className="flex gap-3 p-3 border-b border-gray-200 hover:bg-gray-50 transition-colors"
                     >
                       <div className="w-20 h-20 relative">
-                        <img
-                          src={`${import.meta.env.VITE_API_URL}/${item.image}`}
-                          alt={item.name}
-                          className="size-full object-cover flex-shrink-0"
-                        />
+                        <a href={`/product/${item.slug}`}>
+                          <img
+                            src={`${import.meta.env.VITE_API_URL}/${
+                              item.image
+                            }`}
+                            alt={item.name}
+                            className="size-full object-cover flex-shrink-0"
+                          />
+                        </a>
                         {item.inStock === 0 && (
                           <div className="size-full bg-black/30 flex items-center inset-0 absolute justify-center">
                             <p className="p-1 rounded-md bg-white text-red-500 title uppercase font-semibold">

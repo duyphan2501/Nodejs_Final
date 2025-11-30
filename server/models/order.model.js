@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const orderSchema = new mongoose.Schema(
   {
     email: { type: String, required: true },
+    userId: String,
     orderCode: { type: Number, required: true, unique: true },
     orderId: { type: String, required: true, unique: true },
     shippingInfo: {
@@ -39,7 +40,7 @@ const orderSchema = new mongoose.Schema(
       {
         status: {
           type: String,
-          enum: ["pending", "confirmed", "shipping", "delivered", "cancelled"],
+          enum: ["draft", "pending", "confirmed", "shipping", "delivered", "cancelled"],
         },
         updatedAt: { type: Date, default: Date.now },
       },
