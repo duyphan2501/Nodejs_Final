@@ -21,7 +21,7 @@ const CartIcon = () => {
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN").format(price) + "₫";
   };
-
+  
   const handleRemoveItem = async (variantId, size) => {
     await deleteItem(user?._id, variantId, size);
   };

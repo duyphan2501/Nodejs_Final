@@ -16,6 +16,7 @@ import OrderService from "../services/order.service.js";
 import OrderModel from "../models/order.model.js";
 import { updateUserPoint } from "../services/user.service.js";
 import { deductStockAtomic } from "../services/variant.service.js";
+import mongoose from "mongoose";
 
 dotenv.config({ quiet: true });
 const BACKEND_URL = process.env.BACKEND_URL;
@@ -92,79 +93,93 @@ const createOrder = async (req, res, next) => {
     });
   } catch (error) {
     console.error("Lỗi khi tạo đơn hàng:", error.message);
-    // Chuyển lỗi xuống middleware xử lý lỗi tập trung
     next(error);
   }
 };
 
 const verifyWebhookData = async (req, res, next) => {
+  const session = await mongoose.startSession();
+
   try {
     const webhookData = req.body;
 
-    // Bypass giao dịch thử nghiệm
+    // Bypass test
     if (
       ["Ma giao dich thu nghiem", "VQRIO123"].includes(
         webhookData?.data?.description
       )
     ) {
-      return res.status(200).json({ success: true, data: webhookData });
+      return res.status(200).json({ success: true });
     }
 
-    // Xác minh chữ ký
     const verifiedData = payOS.verifyPaymentWebhookData(webhookData);
-    console.log("Webhook nhận thành công:", verifiedData);
-
     const { orderCode, code, desc } = verifiedData;
 
-    // Tìm đơn
     const order = await OrderModel.findOne({ orderCode });
+
     if (!order) throw createHttpError.NotFound("Đơn hàng không tồn tại");
 
-    // Xử lý khi thanh toán thành công
-    const handleSuccess = async () => {
-      order.payment.status = "paid";
-
-      // Giảm tồn kho
-      await Promise.all(order.items.map((item) => deductStockAtomic(item)));
-
-      // Sử dụng mã giảm giá
-      if (order.coupon?.code) {
-        await useCouponAtomic(order.coupon.code, order._id);
-      }
-
-      // Trừ điểm
-      if (order.usedPoint?.point > 0 && order.userId) {
-        await usePurchasePoint(order.userId, order.usedPoint.point);
-      }
-
-      // Gửi email
-      await publishSendOrderEmail(order);
-    };
-
-    // Xử lý khi thất bại
-    const handleFailed = () => {
-      order.payment.status = "failed";
-      order.description = desc || "";
-    };
-
-    // Quyết định theo mã trả về của PayOS
-    if (code === "00") {
-      await handleSuccess();
-    } else {
-      handleFailed();
+    // Nếu đã xử lý → bỏ qua webhook lặp
+    if (order.payment.status === "paid") {
+      return res.status(200).json({ success: true });
     }
 
-    await order.save();
+    session.startTransaction();
 
-    // Trả về PayOS bắt buộc 200 OK
-    return res.status(200).json({
-      success: true,
-      data: verifiedData,
-    });
+    if (code === "00") {
+      // === PAYMENT SUCCESS ===
+      for (const item of order.items) {
+        await deductStockAtomic(item, session); 
+      }
+
+      if (order.coupon?.code) {
+        await useCouponAtomic(order.coupon.code, order._id, session);
+      }
+
+      if (order.usedPoint?.point > 0 && order.userId) {
+        await usePurchasePoint(order.userId, order.usedPoint.point, session);
+      }
+
+      await OrderModel.updateOne(
+        { orderCode },
+        {
+          $set: {
+            "payment.status": "paid",
+            description: desc || ""
+          },
+        },
+        { session }
+      );
+
+      await publishSendOrderEmail(order);
+
+    } else {
+      // === PAYMENT FAILED ===
+      await OrderModel.updateOne(
+        { orderCode },
+        {
+          $set: {
+            "payment.status": "failed",
+            description: desc || ""
+          },
+        },
+        { session }
+      );
+    }
+
+    await session.commitTransaction();
+
+    return res.status(200).json({ success: true });
+
   } catch (error) {
+    await session.abortTransaction();
     next(error);
+
+  } finally {
+    session.endSession();
   }
 };
+
 
 const canclePayment = async (req, res, next) => {
   try {
