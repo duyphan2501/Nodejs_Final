@@ -201,7 +201,7 @@ function WelcomeBoard({
                 >
                   {`${dashboard?.growthDataMonth?.rate.toFixed(2)}%` || "0%"}
                 </Typography>
-                {dashboard?.growthDataMonth?.variance ? (
+                {dashboard?.growthDataMonth?.variance > 0 ? (
                   <Typography
                     sx={{ color: "#2FB344" }}
                     padding={0}
@@ -217,11 +217,11 @@ function WelcomeBoard({
                     variant="body2"
                     fontWeight={500}
                   >
-                    {dashboard?.growthDataMonth?.variance || "0%"}
+                    {dashboard?.growthDataMonth?.variance.toFixed(2) || "0%"}
                   </Typography>
                 )}
 
-                {dashboard?.growthDataMonth?.variance ? (
+                {dashboard?.growthDataMonth?.variance > 0 ? (
                   <TrendingUpOutlinedIcon sx={{ color: "#2FB344" }} />
                 ) : (
                   <TrendingDownSharpIcon sx={{ color: "#D63939" }} />
@@ -287,71 +287,6 @@ function TrendingUserBoard() {
   const visits = useVisitStore((s) => s.visits);
   const loading = useVisitStore((s) => s.loading);
   const getVisits = useVisitStore((s) => s.getVisits);
-
-  // const visits = [
-  //   { date: "2024-07-21", visits: 1250 },
-  //   { date: "2024-07-22", visits: 1340 },
-  //   { date: "2024-07-23", visits: 1420 },
-  //   { date: "2024-07-24", visits: 1380 },
-  //   { date: "2024-07-25", visits: 1465 },
-  //   { date: "2024-07-26", visits: 1290 },
-  //   { date: "2024-07-27", visits: 980 },
-  //   { date: "2024-07-28", visits: 1180 },
-  //   { date: "2024-07-29", visits: 1520 },
-  //   { date: "2024-07-30", visits: 1680 },
-  //   { date: "2024-07-31", visits: 1590 },
-  //   { date: "2024-08-01", visits: 1720 },
-  //   { date: "2024-08-02", visits: 1390 },
-  //   { date: "2024-08-03", visits: 1050 },
-  //   { date: "2024-08-04", visits: 1180 },
-  //   { date: "2024-08-05", visits: 1450 },
-  //   { date: "2024-08-06", visits: 1520 },
-  //   { date: "2024-08-07", visits: 1480 },
-  //   { date: "2024-08-08", visits: 1640 },
-  //   { date: "2024-08-09", visits: 1390 },
-  //   { date: "2024-08-10", visits: 1120 },
-  //   { date: "2024-08-11", visits: 1280 },
-  //   { date: "2024-08-12", visits: 1580 },
-  //   { date: "2024-08-13", visits: 1640 },
-  //   { date: "2024-08-14", visits: 1720 },
-  //   { date: "2024-08-15", visits: 1890 },
-  //   { date: "2024-08-16", visits: 1450 },
-  //   { date: "2024-08-17", visits: 1280 },
-  //   { date: "2024-08-18", visits: 1380 },
-  //   { date: "2024-08-19", visits: 1520 },
-  //   { date: "2024-08-20", visits: 1680 },
-  //   { date: "2024-08-21", visits: 1750 },
-  //   { date: "2024-08-22", visits: 1820 },
-  //   { date: "2024-08-23", visits: 1890 },
-  //   { date: "2024-08-24", visits: 1650 },
-  //   { date: "2024-08-25", visits: 1480 },
-  //   { date: "2024-08-26", visits: 1580 },
-  //   { date: "2024-08-27", visits: 1720 },
-  //   { date: "2024-08-28", visits: 1850 },
-  //   { date: "2024-08-29", visits: 1950 },
-  //   { date: "2024-08-30", visits: 2120 },
-  //   { date: "2024-08-31", visits: 2050 },
-  //   { date: "2024-09-01", visits: 1890 },
-  //   { date: "2024-09-02", visits: 1950 },
-  //   { date: "2024-09-03", visits: 1820 },
-  //   { date: "2024-09-04", visits: 1720 },
-  //   { date: "2024-09-05", visits: 1680 },
-  //   { date: "2024-09-06", visits: 1780 },
-  //   { date: "2024-09-07", visits: 1850 },
-  //   { date: "2024-09-08", visits: 1590 },
-  //   { date: "2024-09-09", visits: 1720 },
-  //   { date: "2024-09-10", visits: 1890 },
-  //   { date: "2024-09-11", visits: 1950 },
-  //   { date: "2024-09-12", visits: 2020 },
-  //   { date: "2024-09-13", visits: 2180 },
-  //   { date: "2024-09-14", visits: 1850 },
-  //   { date: "2024-09-15", visits: 1680 },
-  //   { date: "2024-09-16", visits: 1780 },
-  //   { date: "2024-09-17", visits: 1920 },
-  //   { date: "2024-09-18", visits: 2050 },
-  //   { date: "2024-09-19", visits: 2180 },
-  //   { date: "2024-09-20", visits: 2250 },
-  // ];
 
   useEffect(() => {
     getVisits();

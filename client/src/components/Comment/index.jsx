@@ -89,7 +89,7 @@ const Comment = ({ product }) => {
             )}
           </div>
         </div>
-        {user && !alreadyAdded && (
+        {!alreadyAdded && (
           <div className="p-3 shadow rounded bg-gray-100 my-5">
             <h4 className="text-lg font-bold mb-3">Bình luận</h4>
 
@@ -103,18 +103,21 @@ const Comment = ({ product }) => {
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
             />
-            <div className="my-3">
-              <Stack spacing={1}>
-                <Rating
-                  size="medium"
-                  name="half-rating"
-                  precision={0.5}
-                  defaultValue={5}
-                  value={ratingValue}
-                  onChange={(e) => setRatingValue(Number(e.target.value))}
-                />
-              </Stack>
-            </div>
+            {user && (
+              <div className="mb-3">
+                <Stack spacing={1}>
+                  <Rating
+                    size="medium"
+                    name="half-rating"
+                    precision={0.5}
+                    defaultValue={5}
+                    value={ratingValue}
+                    onChange={(e) => setRatingValue(Number(e.target.value))}
+                  />
+                </Stack>
+              </div>
+            )}
+
             <Button
               onClick={() => setConfirmOpen(true)}
               disabled={commentText.trim() === ""}
@@ -129,6 +132,7 @@ const Comment = ({ product }) => {
                   opacity: 0.7,
                 },
               }}
+              className="!mt-3"
             >
               Đánh giá
             </Button>

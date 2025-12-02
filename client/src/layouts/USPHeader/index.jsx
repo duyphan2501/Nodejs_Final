@@ -4,34 +4,35 @@ import { ChevronDown, ChevronUp, X, Truck, RotateCcw } from "lucide-react";
 // Mock API data
 const mockApiData = {
   headerTexts: [
-    "MIỄN PHÍ GIAO HÀNG & TRẢ HÀNG",
-    "TRẢ HÀNG DỄ DÀNG TRONG 30 NGÀY",
-    "THÀNH VIÊN ADICLUB ĐƯỢC ƯU ĐÃI ĐẶC BIỆT",
+    "MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC",
+    "ĐỔI TRẢ TRONG 15 NGÀY",
+    "ƯU ĐÃI ĐỘC QUYỀN CHO THÀNH VIÊN",
   ],
 
   panels: [
     {
       id: 1,
       icon: Truck,
-      title: "GIAO HÀNG MIỄN PHÍ CHO THÀNH VIÊN CỦA ADICLUB",
+      title: "VẬN CHUYỂN MIỄN PHÍ CHO THÀNH VIÊN",
       description:
-        "Đăng ký thành viên adiClub để hưởng thú dịch vụ giao hàng miễn phí! Hoặc bạn chỉ được nhận ưu đãi miễn phí giao hàng với hóa đơn có trị giá từ nhất 1.6 triệu đồng",
-      buttonText: "THAM GIA NGAY",
+        "Đăng ký tài khoản thành viên để nhận ưu đãi giao hàng miễn phí trên mọi đơn hàng. Hoặc miễn phí vận chuyển với đơn từ 1.000.000đ.",
+      buttonText: "ĐĂNG KÝ NGAY",
       buttonStyle: "primary",
-      buttonLink: "https://www.adidas.com.vn/adiClub",
+      buttonLink: "/sign-up",
     },
     {
       id: 2,
       icon: RotateCcw,
-      title: "TRẢ HÀNG DỄ DÀNG",
+      title: "CHÍNH SÁCH ĐỔI TRẢ NHANH CHÓNG",
       description:
-        "Nếu bạn không hài lòng với đơn hàng của mình, bạn có thể được hoàn lại tiền. Vui lòng xem Chính Sách Trả Hàng của chúng tôi để biết thêm chi tiết.",
-      buttonText: "TRẢ HÀNG DỄ DÀNG",
+        "Nếu sản phẩm không phù hợp, bạn có thể yêu cầu đổi hoặc trả hàng dễ dàng trong vòng 15 ngày kể từ khi nhận hàng. Xem thêm chi tiết tại trang chính sách.",
+      buttonText: "XEM CHI TIẾT",
       buttonStyle: "secondary",
-      buttonLink: "https://www.adidas.com.vn/adiClub",
+      buttonLink: "#",
     },
   ],
 };
+
 
 const fetchUspData = async () => {
   return new Promise((resolve) => {

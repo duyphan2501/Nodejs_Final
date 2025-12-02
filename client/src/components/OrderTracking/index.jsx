@@ -100,13 +100,6 @@ const OrderTracking = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 md:px-8 py-8">
-        {/* Auto-update indicator */}
-        {isRunning && currentOrder.status !== "delivered" && (
-          <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded mb-4 text-sm flex items-center gap-2">
-            <Loader2 className="w-4 h-4 animate-spin" />
-            Trạng thái đơn hàng sẽ tự động cập nhật mỗi 1 phút
-          </div>
-        )}
 
         {/* Thông tin đơn hàng */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">

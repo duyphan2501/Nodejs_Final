@@ -11,7 +11,10 @@ import {
 } from "lucide-react";
 import useOrderAPI from "../../hooks/useOrder";
 
+const VITE_API_URL = import.meta.env.VITE_API_URL
+
 const OrderHistory = () => {
+  
   const [expandedOrders, setExpandedOrders] = useState({});
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [orders, setOrders] = useState([]);
@@ -306,7 +309,7 @@ const OrderHistory = () => {
                                 <div className="w-16 h-16 bg-gray-100 rounded flex items-center justify-center flex-shrink-0">
                                   {product.image ? (
                                     <img
-                                      src={product.image}
+                                      src={`${VITE_API_URL}/${product.image}`}
                                       alt={product.name}
                                       className="w-full h-full object-cover rounded"
                                     />

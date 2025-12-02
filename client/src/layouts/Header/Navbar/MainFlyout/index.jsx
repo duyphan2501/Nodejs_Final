@@ -49,7 +49,7 @@ const MainFlyout = ({
                 className="bg-[#f5e6d3] text-black px-3 py-2 inline-block rounded-none
 "
               >
-                <span className="font-bold text-sm">adiclub DAYS</span>
+                <span className="font-bold text-sm">Shopping DAYS</span>
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 const MainBanner = () => {
   return (
     <section className="h-156 relative">
-      <div className="size-full flex ">
+      <div className="size-full flex overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1650301312852-7d009eaa5b0b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8"
           alt=""

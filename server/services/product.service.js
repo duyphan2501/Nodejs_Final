@@ -646,16 +646,24 @@ const getProductsByTerm = async (terms = []) => {
       {
         $replaceRoot: { newRoot: "$doc" },
       },
-      // {
-      //   collation: { locale: "vi", strength: 1 },
-      // },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          slug: 1,              
+          categories: 1,
+          variants: 1,
+          price: 1,
+          image: 1,
+        },
+      },
     ]);
-
     return res;
   } catch (error) {
     return [];
   }
 };
+
 
 export {
   addOneProduct,

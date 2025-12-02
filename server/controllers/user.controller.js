@@ -44,7 +44,7 @@ const signUp = async (req, res, next) => {
 
     // create new user in db
     const user = await createNewUser(fullname, email, "default");
-    if (user && address) {
+    if (user && address && address.receiver) {
       await AddressModel.create({ ...address, userId: user._id });
     }
 
