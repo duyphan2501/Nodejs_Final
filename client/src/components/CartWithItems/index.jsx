@@ -4,9 +4,10 @@ import EmptyCart from "../EmptyCart";
 import useCartStore from "../../store/useCartStore";
 import QuantityButton from "../QuantityButton.jsx";
 import useUserStore from "../../store/useUserStore.js";
-import { useState } from "react";
 import { getDiscountedPrice } from "../../utils/formatMoney.js";
 import { calculateTotal } from "../../utils/calculatePrice.js";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CartWithItems = ({}) => {
   const cartItems = useCartStore((state) => state.cartItems);
@@ -26,11 +27,31 @@ const CartWithItems = ({}) => {
     return new Intl.NumberFormat("vi-VN").format(price) + "₫";
   };
 
+  const navigator = useNavigate();
+
+  const handleNavToPayment = () => {
+    cartItems.forEach((item) => {
+      const name = `${item.name} - ${item.color}`;
+      if (item.inStock === 0) {
+        toast.error(`Sản phẩm ${name}, size ${item.size} đã hết hàng.`);
+        return;
+      }
+
+      if (item.inStock < item.quantity) {
+        toast.error(
+          `Không đủ hàng cho ${name}, size ${item.size}. Chỉ còn: ${attribute.inStock}`
+        );
+        return;
+      }
+      navigator("/checkout");
+    });
+  };
+
+  const total = calculateTotal(cartItems);
+
   if (cartItems.length === 0) {
     return <EmptyCart />;
   }
-
-  const total = calculateTotal(cartItems);
 
   return (
     <div className="min-h-screen bg-white-100 py-8 px-4">
@@ -171,12 +192,12 @@ const CartWithItems = ({}) => {
 
               <p className="text-xs text-gray-600 mb-4">(Đã bao gồm thuế)</p>
 
-              <a
-                className="w-full bg-black text-white py-3 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors"
-                href="/checkout"
+              <button
+                className="w-full bg-black text-white py-3 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors cursor-pointer"
+                onClick={handleNavToPayment}
               >
                 TIẾN HÀNH THANH TOÁN <ArrowRight size={16} />
-              </a>
+              </button>
             </div>
           </div>
         </div>

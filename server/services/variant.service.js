@@ -62,37 +62,48 @@ const addStockAtomic = async (item, session) => {
 };
 
 const deductStockAtomic = async (item, session) => {
-  let { variantId, size, quantity, name } = item;
+  let { variantId, size, quantity } = item;
+  const name = `${item.name} - ${item.color}`;
   variantId = new mongoose.Types.ObjectId(`${variantId}`);
 
   const updateResult = await VariantModel.findOneAndUpdate(
     {
       _id: variantId,
-      "attributes.size": size,
-      "attributes.inStock": { $gte: quantity }, // Đảm bảo đủ hàng trước khi trừ
+      attributes: {
+        $elemMatch: {
+          size: size,
+          inStock: { $gte: quantity },
+        },
+      },
     },
     {
-      $inc: { "attributes.$.inStock": -quantity }, // Giảm số lượng
+      $inc: { "attributes.$.inStock": -quantity },
     },
     {
       new: true,
-      session: session,
+      session,
+      runValidators: true,
     }
   );
 
   if (!updateResult) {
-    const actualVariant = await VariantModel.findOne({
-      _id: variantId,
-      "attributes.size": size,
-    }).lean();
+    const actualVariant = await VariantModel.findOne(
+      {
+        _id: variantId,
+        "attributes.size": size,
+      },
+      null,
+      { session }
+    ).lean();
 
     if (!actualVariant) {
       throw createHttpError(404, `Sản phẩm ${name}-${size} không tồn tại.`);
     }
 
-    const attribute = actualVariant.attributes.find(
-      (attr) => attr.size === size
-    );
+    const attribute = actualVariant.attributes.find((a) => a.size === size);
+    if (attribute && attribute.inStock === 0) {
+      throw createHttpError(400, `Sản phẩm ${name}, size ${size} đã hết hàng.`);
+    }
 
     if (attribute && attribute.inStock < quantity) {
       throw createHttpError(
@@ -101,10 +112,7 @@ const deductStockAtomic = async (item, session) => {
       );
     }
 
-    throw createHttpError(
-      400,
-      `Failed to update stock for item ${name} due to an unknown error.`
-    );
+    throw createHttpError(400, `Failed to update stock for item ${name}.`);
   }
 };
 

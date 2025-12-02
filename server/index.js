@@ -8,7 +8,6 @@ import cors from "cors";
 import categoryRouter from "./routes/category.route.js";
 import path from "path";
 import cartRouter from "./routes/cart.route.js";
-import adminRoutes from "./routes/admin.route.js";
 import couponRouter from "./routes/coupon.route.js";
 import productRouter from "./routes/product.route.js";
 import visitRouter from "./routes/visit.route.js";
@@ -60,6 +59,5 @@ server.listen(PORT, () => {
   console.log("Server is running at PORT :::", PORT);
   connectToDB();
 
-  // startNgrokAndConfirmWebhook();
-  //fakeDeliveryCron.start();
+  startNgrokAndConfirmWebhook();
 });

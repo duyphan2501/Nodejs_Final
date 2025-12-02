@@ -76,10 +76,10 @@ const Navbar = ({
 
   return (
     <div className="relative">
-      <div className="text-sm font-regular py-1 pr-2 block w-full text-gray-700 flex justify-end">
+      <div className="text-sm font-regular py-1 pr-2 w-full text-gray-700 flex justify-end">
         <span
           onClick={() => navigate("/order-tracker", { replace: true })}
-          className="cursor-pointer hover:text-black-900 hover:underline"
+          className="cursor-pointer hover:text-black-900 hover:underline italic"
         >
           Tra cứu đơn hàng
         </span>

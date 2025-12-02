@@ -38,6 +38,7 @@ const Search = () => {
           image: `${import.meta.env.VITE_API_URL}/${
             p.variants[0]?.images?.[0] || ""
           }`,
+          slug: p.slug,
         }));
         setFilteredProducts(filtered);
         setIsOpen(true);
@@ -56,9 +57,9 @@ const Search = () => {
     setIsOpen(false);
   };
 
-  const handleProductClick = (productId) => {
+  const handleProductClick = (slug) => {
     // Navigation logic - replace with your router
-    window.location.href = `/product/${productId}`;
+    window.location.href = `/product/${slug}`;
     setIsOpen(false);
     setSearchQuery("");
   };
@@ -146,7 +147,7 @@ const Search = () => {
                     {filteredProducts.slice(0, 3).map((product) => (
                       <div
                         key={product.id}
-                        onClick={() => handleProductClick(product.id)}
+                        onClick={() => handleProductClick(product.slug)}
                         className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
                       >
                         <div className="w-20 h-20 bg-gray-100 rounded flex-shrink-0 overflow-hidden">

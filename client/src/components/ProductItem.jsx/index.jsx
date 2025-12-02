@@ -51,7 +51,7 @@ const ProductItem = ({ product, addCart }) => {
       color: selectedVariant.color,
       image: selectedVariant.images[0],
       inStock: selectedAttr.inStock,
-      slug: product.slug
+      slug: product.slug,
     };
     const quantity = 1;
     await addCart(item, quantity);
@@ -77,6 +77,13 @@ const ProductItem = ({ product, addCart }) => {
               className="w-full h-full object-cover absolute opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all z-10 inset-0 duration-200"
             />
           )}
+          {selectedAttr.inStock === 0 && (
+            <div className="size-full bg-black/30 flex items-center inset-0 absolute justify-center z-20">
+              <p className="p-1 rounded-md bg-white text-red-500 title uppercase font-semibold">
+                Hết hàng
+              </p>
+            </div>
+          )}
         </a>
         <div className="bg-primary px-2 absolute top-2 left-2 z-20 title">
           Hàng mới
@@ -91,9 +98,9 @@ const ProductItem = ({ product, addCart }) => {
           />
         </div>
       </div>
-      <div className="absolute -top-20 right-2 z-10 space-y-2 group-hover:top-2 transition-all duration-200 opacity-0   group-hover:opacity-100 pt-2">
+      <div className="absolute -top-20 right-2 space-y-2 group-hover:top-2 transition-all duration-200 opacity-0   group-hover:opacity-100 pt-2 z-100">
         <div
-          className="p-1 rounded-full hover:text-primary cursor-pointer transition bg-white active:bg-gray-200"
+          className="p-1 rounded-full hover:text-primary cursor-pointer transition bg-white active:bg-gray-200 "
           onClick={() => setSelectedProduct(product)}
         >
           <MyTooltip label={"Xem nhanh"} position="bottom">

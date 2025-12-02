@@ -156,7 +156,7 @@ class UserService {
     } = query;
 
     // Build filter object
-    const filter = {};
+    const filter = { isAdmin: { $ne: true } };
 
     // Tìm kiếm theo name, email, phone
     if (search) {
