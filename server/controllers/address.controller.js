@@ -46,6 +46,10 @@ const createAddress = async (req, res, next) => {
       userId,
     };
 
+    if (isDefault) {
+      await AddressModel.updateMany({ userId }, { $set: { isDefault: false } });
+    }
+
     // Save the new address to the database
     const savedAddress = await AddressModel.create(newAddress);
 

@@ -58,7 +58,7 @@ const Checkout = () => {
   const handleSetAddress = (addr) => {
     if (checkValidAddress(addr)) {
       handleChange("address", addr);
-      handleSetStep(3);
+      handleSetStep(3, addr);
     }
   };
 
@@ -72,14 +72,15 @@ const Checkout = () => {
       addr.addressDetail
     );
   };
-  const handleSetStep = (step) => {
+  const handleSetStep = (step, tmpAddress=null) => {
     if (currentStep === 1 && step !== 1)
       if (!checkEmail(formData.email)) {
         toast.error("Email không hợp lệ");
         return;
       }
     if (currentStep === 2) {
-      if (!checkValidAddress(formData.address)) {
+      const address = tmpAddress || formData.address
+      if (!checkValidAddress(address)) {
         setCompletedStep(1);
         if (step === 3) {
           toast.error("Vui lòng cung cấp địa chỉ giao hàng");

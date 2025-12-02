@@ -46,6 +46,7 @@ const GuestAddress = ({ address = null, setAddress }) => {
 
   const handleSaveAddress = () => {
     if (validateForm()) {
+      console.log(formData)
       setAddress(formData);
     }
   };

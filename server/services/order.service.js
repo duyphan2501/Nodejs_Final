@@ -201,7 +201,7 @@ const createNewOrder = async (
           status: orderStatus,
           statusHistory: [
             {
-              status: orderStatus,
+              status: "pending",
               updatedAt: Date.now(),
             },
           ],

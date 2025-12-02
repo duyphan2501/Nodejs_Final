@@ -57,7 +57,7 @@ const OrderTracker = () => {
             <div className="h-10"></div>
 
             <StackButton
-              onClick={() => handleSubmit(orderId)}
+              handleClick={() => handleSubmit(orderId)}
               label={"Tra Cứu"}
               theme="dark"
             />

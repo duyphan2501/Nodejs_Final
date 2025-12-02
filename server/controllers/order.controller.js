@@ -145,6 +145,8 @@ const verifyWebhookData = async (req, res, next) => {
         {
           $set: {
             "payment.status": "paid",
+            status: "pending",
+            statusHistory,
             description: desc || ""
           },
         },
@@ -206,7 +208,6 @@ const canclePayment = async (req, res, next) => {
 const getOrders = async (req, res, next) => {
   try {
     const result = await getAllOrder();
-    console.log(result)
 
     return res.status(200).json({
       success: true,
