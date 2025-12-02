@@ -1,6 +1,6 @@
 import {
   getEvaluationsByProductId,
-  addEvaluation,
+  addEvaluationComment,
 } from "../services/evaluation.service.js";
 
 const getEvaluationController = async (req, res, next) => {

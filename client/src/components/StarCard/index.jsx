@@ -1,8 +1,9 @@
 import { Rating, Stack } from "@mui/material";
 import formatDate from "../../utils/DateFormat";
 
-const CommentCard = ({ comment }) => {
-  const date = formatDate(comment.createdAt);
+const StarCard = ({ starRateData }) => {
+  const date = formatDate(starRateData.createdAt);
+
   return (
     <div className="border-b py-4 border-gray-300 flex justify-between">
       <div className="flex gap-3 flex-1">
@@ -13,16 +14,23 @@ const CommentCard = ({ comment }) => {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="flex flex-col justify-between">
-          <div className="">
-            <p className="font-semibold">{comment.userName}</p>
-            <p className="text-sm">{date}</p>
+
+        <div className="flex flex-row justify-between items-center gap-3">
+          <div>
+            <p className="font-semibold">{starRateData.userName}</p>
+            <p className="text-sm text-gray-600">{date}</p>
           </div>
-          <p>{comment.comment}</p>
+
+          <Rating
+            value={starRateData.rating}
+            readOnly
+            precision={0.5}
+            size="medium"
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default CommentCard;
+export default StarCard;

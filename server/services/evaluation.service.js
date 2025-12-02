@@ -28,12 +28,11 @@ const getEvaluationsByProductId = async (productId) => {
   }
 };
 
-const addEvaluation = async (userName, rating, comment, productId) => {
+const addEvaluationComment = async (userName, comment, productId) => {
   const objectProductId = new mongoose.Types.ObjectId(`${productId}`);
   try {
     const result = await evaluationModel.create({
       userName,
-      rating,
       comment,
       productId: objectProductId,
     });
@@ -43,4 +42,32 @@ const addEvaluation = async (userName, rating, comment, productId) => {
   }
 };
 
-export { getEvaluationsByProductId, addEvaluation };
+const addEvaluationRating = async (userName, rating, productId) => {
+  const objectProductId = new mongoose.Types.ObjectId(`${productId}`);
+  try {
+    const isExist = await evaluationModel.findOne({
+      userName,
+      objectProductId,
+    });
+
+    let result;
+
+    if (!isExist) {
+      result = await evaluationModel.create({
+        userName,
+        rating,
+        productId: objectProductId,
+      });
+    } else {
+      isExist.rating = rating;
+      isExist.save();
+      result = isExist;
+    }
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export { getEvaluationsByProductId, addEvaluationComment, addEvaluationRating };

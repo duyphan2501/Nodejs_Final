@@ -1,6 +1,9 @@
 // socket.config.js
 import { Server } from "socket.io";
-import { addEvaluation } from "../services/evaluation.service.js";
+import {
+  addEvaluationComment,
+  addEvaluationRating,
+} from "../services/evaluation.service.js";
 
 let io;
 let initPromise;
@@ -23,15 +26,26 @@ export const initSocket = (server) => {
       socket.on("newComment", async (data) => {
         try {
           const { userName, rating, comment, productId } = data;
-          const result = await addEvaluation(
+          const result = await addEvaluationComment(
             userName,
-            rating,
             comment,
             productId
           );
           io.emit("commentAdded", data);
         } catch (error) {
           socket.emit("commentError", {
+            message: "Không thể thêm đánh giá. Vui lòng thử lại.",
+          });
+        }
+      });
+
+      socket.on("newRating", async (data) => {
+        try {
+          const { userName, rating, productId } = data;
+          const result = await addEvaluationRating(userName, rating, productId);
+          io.emit("ratingAdded", data);
+        } catch (error) {
+          socket.emit("ratingError", {
             message: "Không thể thêm đánh giá. Vui lòng thử lại.",
           });
         }
