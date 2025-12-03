@@ -1,0 +1,2131 @@
+[{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d5f8"
+  },
+  "email": "khachhang1@example.com",
+  "orderCode": 1021,
+  "orderId": "ORD-2025-1021",
+  "shippingInfo": {
+    "ward": "Phường Bến Thành",
+    "province": "TP. Hồ Chí Minh",
+    "addressDetail": "100 Lê Lợi, Quận 1",
+    "phone": "0901111222",
+    "receiver": "Nguyễn Văn An"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911fb9a6ac21b1822ede568"
+      },
+      "name": "Giày Samba OG",
+      "size": "36",
+      "price": 1700000,
+      "discount": 10,
+      "color": "White",
+      "image": "uploads\\images\\1762786202806-Giay_Samba_OG_trang_B75806_05_standard.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 1700000,
+  "itemsDiscounted": 1530000,
+  "payment": {
+    "provider": "VNPAY",
+    "status": "paid"
+  },
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2025-07-10T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-14T14:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d5f9"
+  },
+  "email": "khachhang2@example.com",
+  "orderCode": 1022,
+  "orderId": "ORD-2025-1022",
+  "shippingInfo": {
+    "ward": "Phường Hàng Bài",
+    "province": "Hà Nội",
+    "addressDetail": "25 Tràng Tiền, Hoàn Kiếm",
+    "phone": "0902222333",
+    "receiver": "Trần Thị Lan"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911f5716ac21b1822ede4e7"
+      },
+      "name": "Campus 00",
+      "size": "37",
+      "price": 1500000,
+      "discount": 0,
+      "color": "Beige",
+      "image": "uploads\\images\\1762784625812-Giay_Campus_00s_DJen_HQ8708_41_detail.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 1500000,
+  "itemsDiscounted": 1500000,
+  "payment": {
+    "provider": "COD",
+    "status": "unpaid"
+  },
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2025-07-25T11:20:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T15:13:57.630Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d5fa"
+  },
+  "email": "khachhang3@example.com",
+  "orderCode": 1023,
+  "orderId": "ORD-2025-1023",
+  "shippingInfo": {
+    "ward": "Phường Hải Châu I",
+    "province": "Đà Nẵng",
+    "addressDetail": "200 Bạch Đằng, Hải Châu",
+    "phone": "0903333444",
+    "receiver": "Lê Văn Hùng"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911fc4f6ac21b1822ede596"
+      },
+      "name": "Giày Superstar 82",
+      "size": "40",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Full Black",
+      "image": "uploads\\images\\1762786383521-Giay_Superstar_82_DJen_JQ3240_05_standard.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 2900000,
+  "itemsDiscounted": 2900000,
+  "payment": {
+    "provider": "MOMO",
+    "status": "paid"
+  },
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2025-08-05T14:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-09T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d5fb"
+  },
+  "email": "khachhang4@example.com",
+  "orderCode": 1024,
+  "orderId": "ORD-2025-1024",
+  "shippingInfo": {
+    "ward": "Phường 10",
+    "province": "Quận Gò Vấp, TP. Hồ Chí Minh",
+    "addressDetail": "50 Quang Trung",
+    "phone": "0904444555",
+    "receiver": "Phạm Thị Anh"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911fb2f6ac21b1822ede562"
+      },
+      "name": "GIÀY GAZELLE LO PRO",
+      "size": "38",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Classice",
+      "image": "uploads\\images\\1762786095256-GIAY_GAZELLE_LO_PRO_nau_HQ7317_15_hover_standard.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 2900000,
+  "itemsDiscounted": 2900000,
+  "payment": {
+    "provider": "COD",
+    "status": "unpaid"
+  },
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2025-08-20T09:15:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T15:13:37.274Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d5fc"
+  },
+  "email": "khachhang1@example.com",
+  "orderCode": 1025,
+  "orderId": "ORD-2025-1025",
+  "shippingInfo": {
+    "ward": "Phường Bến Thành",
+    "province": "TP. Hồ Chí Minh",
+    "addressDetail": "100 Lê Lợi, Quận 1",
+    "phone": "0901111222",
+    "receiver": "Nguyễn Văn An"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911f5716ac21b1822ede4e6"
+      },
+      "name": "Campus 00",
+      "size": "36",
+      "price": 1200000,
+      "discount": 20,
+      "color": "Đen",
+      "image": "uploads\\images\\1762784625805-Giay_Campus_00s_Xam_HQ8707_02_standard_hover.avif",
+      "quantity": 2
+    }
+  ],
+  "orderAmount": 2400000,
+  "itemsDiscounted": 1920000,
+  "payment": {
+    "provider": "VNPAY",
+    "status": "paid"
+  },
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2025-09-01T15:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-05T10:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d5fd"
+  },
+  "email": "khachhang5@example.com",
+  "orderCode": 1026,
+  "orderId": "ORD-2025-1026",
+  "shippingInfo": {
+    "ward": "Phường Tân Phong",
+    "province": "Quận 7, TP. Hồ Chí Minh",
+    "addressDetail": "400 Nguyễn Văn Linh",
+    "phone": "0905555666",
+    "receiver": "Võ Minh Đức"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911fb9a6ac21b1822ede568"
+      },
+      "name": "Giày Samba OG",
+      "size": "37",
+      "price": 1700000,
+      "discount": 10,
+      "color": "White",
+      "image": "uploads\\images\\1762786202806-Giay_Samba_OG_trang_B75806_05_standard.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 1700000,
+  "itemsDiscounted": 1530000,
+  "payment": {
+    "provider": "COD",
+    "status": "unpaid"
+  },
+  "status": "delivered",
+  "coupon": {
+    "code": "SALE50K",
+    "amountReduced": 50000
+  },
+  "createdAt": {
+    "$date": "2025-09-15T08:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T15:13:39.406Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d5fe"
+  },
+  "email": "khachhang6@example.com",
+  "orderCode": 1027,
+  "orderId": "ORD-2025-1027",
+  "shippingInfo": {
+    "ward": "Phường 1",
+    "province": "Quận Bình Thạnh, TP. Hồ Chí Minh",
+    "addressDetail": "150 Xô Viết Nghệ Tĩnh",
+    "phone": "0906666777",
+    "receiver": "Đặng Hoàng Yến"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911f5716ac21b1822ede4e7"
+      },
+      "name": "Campus 00",
+      "size": "35",
+      "price": 1500000,
+      "discount": 0,
+      "color": "Beige",
+      "image": "uploads\\images\\1762784625812-Giay_Campus_00s_DJen_HQ8708_41_detail.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 1500000,
+  "itemsDiscounted": 1500000,
+  "payment": {
+    "provider": "COD",
+    "status": "unpaid"
+  },
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2025-09-28T10:10:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T15:13:41.666Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d5ff"
+  },
+  "email": "khachhang2@example.com",
+  "orderCode": 1028,
+  "orderId": "ORD-2025-1028",
+  "shippingInfo": {
+    "ward": "Phường Hàng Bài",
+    "province": "Hà Nội",
+    "addressDetail": "25 Tràng Tiền, Hoàn Kiếm",
+    "phone": "0902222333",
+    "receiver": "Trần Thị Lan"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911fc4f6ac21b1822ede596"
+      },
+      "name": "Giày Superstar 82",
+      "size": "42",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Full Black",
+      "image": "uploads\\images\\1762786383521-Giay_Superstar_82_DJen_JQ3240_05_standard.avif",
+      "quantity": 1
+    },
+    {
+      "variantId": {
+        "$oid": "6911fb9a6ac21b1822ede568"
+      },
+      "name": "Giày Samba OG",
+      "size": "36",
+      "price": 1700000,
+      "discount": 10,
+      "color": "White",
+      "image": "uploads\\images\\1762786202806-Giay_Samba_OG_trang_B75806_05_standard.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 4600000,
+  "itemsDiscounted": 4430000,
+  "payment": {
+    "provider": "VNPAY",
+    "status": "paid"
+  },
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2025-10-05T11:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-10T14:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d600"
+  },
+  "email": "khachhang7@example.com",
+  "orderCode": 1029,
+  "orderId": "ORD-2025-1029",
+  "shippingInfo": {
+    "ward": "Phường An Khánh",
+    "province": "Cần Thơ",
+    "addressDetail": "80 Đường 3/2, Ninh Kiều",
+    "phone": "0907777888",
+    "receiver": "Mai Văn Tám"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911fb2f6ac21b1822ede562"
+      },
+      "name": "GIÀY GAZELLE LO PRO",
+      "size": "39",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Classice",
+      "image": "uploads\\images\\1762786095256-GIAY_GAZELLE_LO_PRO_nau_HQ7317_15_hover_standard.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 2900000,
+  "itemsDiscounted": 2900000,
+  "payment": {
+    "provider": "COD",
+    "status": "unpaid"
+  },
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2025-10-18T16:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T15:13:44.180Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d601"
+  },
+  "email": "khachhang1@example.com",
+  "orderCode": 1030,
+  "orderId": "ORD-2025-1030",
+  "shippingInfo": {
+    "ward": "Phường Bến Thành",
+    "province": "TP. Hồ Chí Minh",
+    "addressDetail": "100 Lê Lợi, Quận 1",
+    "phone": "0901111222",
+    "receiver": "Nguyễn Văn An"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911f5716ac21b1822ede4e6"
+      },
+      "name": "Campus 00",
+      "size": "35",
+      "price": 1200000,
+      "discount": 20,
+      "color": "Đen",
+      "image": "uploads\\images\\1762784625805-Giay_Campus_00s_Xam_HQ8707_02_standard_hover.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 1200000,
+  "itemsDiscounted": 960000,
+  "payment": {
+    "provider": "MOMO",
+    "status": "paid"
+  },
+  "status": "delivered",
+  "usedPoint": {
+    "point": 20000,
+    "amountReduced": 20000
+  },
+  "createdAt": {
+    "$date": "2025-10-25T13:30:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T15:13:46.674Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d602"
+  },
+  "email": "khachhang8@example.com",
+  "orderCode": 1031,
+  "orderId": "ORD-2025-1031",
+  "shippingInfo": {
+    "ward": "Phường Thạc Gián",
+    "province": "Đà Nẵng",
+    "addressDetail": "300 Điện Biên Phủ",
+    "phone": "0908888999",
+    "receiver": "Hồ Thị Kim"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911fc4f6ac21b1822ede596"
+      },
+      "name": "Giày Superstar 82",
+      "size": "38",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Full Black",
+      "image": "uploads\\images\\1762786383521-Giay_Superstar_82_DJen_JQ3240_05_standard.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 2900000,
+  "itemsDiscounted": 2900000,
+  "payment": {
+    "provider": "COD",
+    "status": "unpaid"
+  },
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2025-11-02T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T15:13:49.318Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6912008ff8bbf5223f14d603"
+  },
+  "email": "khachhang3@example.com",
+  "orderCode": 1032,
+  "orderId": "ORD-2025-1032",
+  "shippingInfo": {
+    "ward": "Phường Hải Châu I",
+    "province": "Đà Nẵng",
+    "addressDetail": "200 Bạch Đằng, Hải Châu",
+    "phone": "0903333444",
+    "receiver": "Lê Văn Hùng"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6911fb9a6ac21b1822ede568"
+      },
+      "name": "Giày Samba OG",
+      "size": "37",
+      "price": 1700000,
+      "discount": 10,
+      "color": "White",
+      "image": "uploads\\images\\1762786202806-Giay_Samba_OG_trang_B75806_05_standard.avif",
+      "quantity": 1
+    }
+  ],
+  "orderAmount": 1700000,
+  "itemsDiscounted": 1530000,
+  "payment": {
+    "provider": "COD",
+    "status": "unpaid"
+  },
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2025-11-10T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-10T15:13:51.728Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69256a5f86182aa5b2227b72"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 974378378,
+  "orderId": "ORD-251125-DJEN",
+  "shippingInfo": {
+    "ward": "Phường Tây Nam",
+    "province": "Thành phố Hồ Chí Minh",
+    "addressDetail": "ooo",
+    "phone": "0768157106",
+    "receiver": "52300012"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6912f2897bef65accab41093"
+      },
+      "name": "Bitis Hunter X",
+      "size": "38",
+      "price": 500000,
+      "discount": 2,
+      "color": "Black Full",
+      "image": "uploads\\images\\1762849417032-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large (1).jpg",
+      "quantity": 1,
+      "_id": {
+        "$oid": "69256a5f86182aa5b2227b73"
+      }
+    }
+  ],
+  "orderAmount": 490000,
+  "itemsDiscounted": 10000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "cancelled",
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-25T08:35:43.790Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T17:56:51.929Z"
+  },
+  "__v": 0,
+  "statusHistory": [
+    {
+      "status": "cancelled",
+      "updatedAt": {
+        "$date": "2025-11-25T17:56:51.929Z"
+      },
+      "_id": {
+        "$oid": "6925ede33e14d25a1e083252"
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6925cd4c6e621b56346d69c9"
+  },
+  "email": "tranthanhliemvvt@gmail.com",
+  "orderCode": 506857569,
+  "orderId": "ORD-251125-59EE",
+  "shippingInfo": {
+    "ward": "Xã Bình Lư",
+    "province": "Lai Châu",
+    "addressDetail": "HHHH",
+    "phone": "0768157106",
+    "receiver": "TLiem"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "691599881bf5cbae09471e45"
+      },
+      "name": "Dép Lightblaze",
+      "size": "35",
+      "price": 1500000,
+      "discount": 12,
+      "color": "Đen",
+      "image": "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925cd4c6e621b56346d69ca"
+      }
+    }
+  ],
+  "orderAmount": 1320000,
+  "itemsDiscounted": 180000,
+  "payment": {
+    "provider": "payos",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-25T15:37:48.575Z"
+      },
+      "_id": {
+        "$oid": "6925cd4c6e621b56346d69cb"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-25T16:20:00.477Z"
+      },
+      "_id": {
+        "$oid": "6925d7306e8b862c43117100"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-25T15:37:48.581Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T16:20:00.478Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6925cd636e621b56346d6a1f"
+  },
+  "email": "tranthanhliemvvt@gmail.com",
+  "orderCode": 509122919,
+  "orderId": "ORD-251125-9D8A",
+  "shippingInfo": {
+    "ward": "Xã Bình Lư",
+    "province": "Lai Châu",
+    "addressDetail": "HHHH",
+    "phone": "0768157106",
+    "receiver": "TLiem"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "691599881bf5cbae09471e45"
+      },
+      "name": "Dép Lightblaze",
+      "size": "35",
+      "price": 1500000,
+      "discount": 12,
+      "color": "Đen",
+      "image": "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925cd636e621b56346d6a20"
+      }
+    }
+  ],
+  "orderAmount": 1320000,
+  "itemsDiscounted": 180000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-25T15:38:11.229Z"
+      },
+      "_id": {
+        "$oid": "6925cd636e621b56346d6a21"
+      }
+    },
+    {
+      "updatedAt": {
+        "$date": "2025-11-25T15:43:48.657Z"
+      },
+      "_id": {
+        "$oid": "6925ceb434e8dc7300d6b2e5"
+      },
+      "status": "confirmed"
+    },
+    {
+      "status": "shipping",
+      "updatedAt": {
+        "$date": "2025-11-25T15:46:12.052Z"
+      },
+      "_id": {
+        "$oid": "6925cf4403d2759454e3fa9a"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-25T16:24:27.791Z"
+      },
+      "_id": {
+        "$oid": "6925d83b58f8f6a873a55d94"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-25T15:38:11.231Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T16:24:27.791Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6925d8d3c31cca8d72944bb8"
+  },
+  "email": "tranthanhliemvvt@gmail.com",
+  "orderCode": 801913950,
+  "orderId": "ORD-251125-8PF6",
+  "shippingInfo": {
+    "ward": "Xã Bình Lư",
+    "province": "Lai Châu",
+    "addressDetail": "HHHH",
+    "phone": "0768157106",
+    "receiver": "TLiem"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "691599881bf5cbae09471e45"
+      },
+      "name": "Dép Lightblaze",
+      "size": "35",
+      "price": 1500000,
+      "discount": 12,
+      "color": "Đen",
+      "image": "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925d8d3c31cca8d72944bb9"
+      }
+    }
+  ],
+  "orderAmount": 1320000,
+  "itemsDiscounted": 180000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-25T16:26:59.139Z"
+      },
+      "_id": {
+        "$oid": "6925d8d3c31cca8d72944bba"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-25T16:27:22.656Z"
+      },
+      "_id": {
+        "$oid": "6925d8eac31cca8d72944cc7"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-25T16:26:59.146Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T16:27:22.656Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6925dc8bed5cb542150017ce"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 897144913,
+  "orderId": "ORD-251125-2F4R",
+  "shippingInfo": {
+    "ward": "Phường Tây Nam",
+    "province": "Thành phố Hồ Chí Minh",
+    "addressDetail": "ooo",
+    "phone": "0768157106",
+    "receiver": "52300012"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6912f2897bef65accab41093"
+      },
+      "name": "Bitis Hunter X",
+      "size": "38",
+      "price": 500000,
+      "discount": 2,
+      "color": "Black Full",
+      "image": "uploads\\images\\1762849417032-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large (1).jpg",
+      "quantity": 2,
+      "_id": {
+        "$oid": "6925dc8bed5cb542150017cf"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "691304a41cbd9f29d0dd13e8"
+      },
+      "name": "Ba Lô Đa Năng 2 Trong 1",
+      "size": "35",
+      "price": 1200000,
+      "discount": 2,
+      "color": "Beige",
+      "image": "uploads\\images\\1762854052949-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_41_detail.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925dc8bed5cb542150017d0"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "691599881bf5cbae09471e45"
+      },
+      "name": "Dép Lightblaze",
+      "size": "35",
+      "price": 1500000,
+      "discount": 12,
+      "color": "Đen",
+      "image": "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925dc8bed5cb542150017d1"
+      }
+    }
+  ],
+  "orderAmount": 3476000,
+  "itemsDiscounted": 224000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-25T16:42:51.449Z"
+      },
+      "_id": {
+        "$oid": "6925dc8bed5cb542150017d2"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-25T16:42:58.433Z"
+      },
+      "_id": {
+        "$oid": "6925dc92ed5cb5421500186b"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-25T16:42:51.454Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T16:42:58.434Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6925ddbbed5cb5421500190a"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 927567833,
+  "orderId": "ORD-251125-1Z2W",
+  "shippingInfo": {
+    "ward": "Phường Tây Nam",
+    "province": "Thành phố Hồ Chí Minh",
+    "addressDetail": "ooo",
+    "phone": "0768157106",
+    "receiver": "52300012"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6912f2897bef65accab41093"
+      },
+      "name": "Bitis Hunter X",
+      "size": "38",
+      "price": 500000,
+      "discount": 2,
+      "color": "Black Full",
+      "image": "uploads\\images\\1762849417032-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large (1).jpg",
+      "quantity": 2,
+      "_id": {
+        "$oid": "6925ddbbed5cb5421500190b"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "691304a41cbd9f29d0dd13e8"
+      },
+      "name": "Ba Lô Đa Năng 2 Trong 1",
+      "size": "35",
+      "price": 1200000,
+      "discount": 2,
+      "color": "Beige",
+      "image": "uploads\\images\\1762854052949-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_41_detail.avif",
+      "quantity": 2,
+      "_id": {
+        "$oid": "6925ddbbed5cb5421500190c"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "691599881bf5cbae09471e45"
+      },
+      "name": "Dép Lightblaze",
+      "size": "35",
+      "price": 1500000,
+      "discount": 12,
+      "color": "Đen",
+      "image": "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925ddbbed5cb5421500190d"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "6911fc4f6ac21b1822ede596"
+      },
+      "name": "Giày Superstar 82",
+      "size": "35",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Full Black",
+      "image": "uploads\\images\\1762786383521-Giay_Superstar_82_DJen_JQ3240_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925ddbbed5cb5421500190e"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "6911fb2f6ac21b1822ede562"
+      },
+      "name": "GIÀY GAZELLE LO PRO",
+      "size": "37",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Classice",
+      "image": "uploads\\images\\1762786095256-GIAY_GAZELLE_LO_PRO_nau_HQ7317_15_hover_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925ddbbed5cb5421500190f"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "6911fb9a6ac21b1822ede568"
+      },
+      "name": "Giày Samba OG",
+      "size": "36",
+      "price": 1700000,
+      "discount": 10,
+      "color": "White",
+      "image": "uploads\\images\\1762786202806-Giay_Samba_OG_trang_B75806_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925ddbbed5cb54215001910"
+      }
+    }
+  ],
+  "orderAmount": 10682000,
+  "itemsDiscounted": 418000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-25T16:47:55.684Z"
+      },
+      "_id": {
+        "$oid": "6925ddbbed5cb54215001911"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-25T16:48:11.363Z"
+      },
+      "_id": {
+        "$oid": "6925ddcbed5cb542150019d5"
+      }
+    }
+  ],
+  "coupon": {
+    "code": "BLACKFRIDAY",
+    "amountReduced": 300000
+  },
+  "usedPoint": {
+    "point": 1000,
+    "amountReduced": 1000000
+  },
+  "createdAt": {
+    "$date": "2025-11-25T16:47:55.687Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T16:48:11.364Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6925de0eed5cb54215001a63"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 935801015,
+  "orderId": "ORD-251125-DI80",
+  "shippingInfo": {
+    "ward": "Phường Tây Nam",
+    "province": "Thành phố Hồ Chí Minh",
+    "addressDetail": "ooo",
+    "phone": "0768157106",
+    "receiver": "52300012"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6912f2897bef65accab41093"
+      },
+      "name": "Bitis Hunter X",
+      "size": "38",
+      "price": 500000,
+      "discount": 2,
+      "color": "Black Full",
+      "image": "uploads\\images\\1762849417032-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large (1).jpg",
+      "quantity": 2,
+      "_id": {
+        "$oid": "6925de0eed5cb54215001a64"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "691304a41cbd9f29d0dd13e8"
+      },
+      "name": "Ba Lô Đa Năng 2 Trong 1",
+      "size": "35",
+      "price": 1200000,
+      "discount": 2,
+      "color": "Beige",
+      "image": "uploads\\images\\1762854052949-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_41_detail.avif",
+      "quantity": 2,
+      "_id": {
+        "$oid": "6925de0eed5cb54215001a65"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "691599881bf5cbae09471e45"
+      },
+      "name": "Dép Lightblaze",
+      "size": "35",
+      "price": 1500000,
+      "discount": 12,
+      "color": "Đen",
+      "image": "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925de0eed5cb54215001a66"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "6911fc4f6ac21b1822ede596"
+      },
+      "name": "Giày Superstar 82",
+      "size": "35",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Full Black",
+      "image": "uploads\\images\\1762786383521-Giay_Superstar_82_DJen_JQ3240_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925de0eed5cb54215001a67"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "6911fb2f6ac21b1822ede562"
+      },
+      "name": "GIÀY GAZELLE LO PRO",
+      "size": "37",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Classice",
+      "image": "uploads\\images\\1762786095256-GIAY_GAZELLE_LO_PRO_nau_HQ7317_15_hover_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925de0eed5cb54215001a68"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "6911fb9a6ac21b1822ede568"
+      },
+      "name": "Giày Samba OG",
+      "size": "36",
+      "price": 1700000,
+      "discount": 10,
+      "color": "White",
+      "image": "uploads\\images\\1762786202806-Giay_Samba_OG_trang_B75806_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925de0eed5cb54215001a69"
+      }
+    }
+  ],
+  "orderAmount": 11982000,
+  "itemsDiscounted": 418000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-25T16:49:18.010Z"
+      },
+      "_id": {
+        "$oid": "6925de0eed5cb54215001a6a"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-25T16:49:23.697Z"
+      },
+      "_id": {
+        "$oid": "6925de13ed5cb54215001b30"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-25T16:49:18.014Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T16:49:23.698Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6925ebfa3e14d25a1e082d79"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 292229677,
+  "orderId": "ORD-251126-18AF",
+  "shippingInfo": {
+    "ward": "Phường Tây Nam",
+    "province": "Thành phố Hồ Chí Minh",
+    "addressDetail": "ooo",
+    "phone": "0768157106",
+    "receiver": "52300012"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "6912f2897bef65accab41093"
+      },
+      "name": "Bitis Hunter X",
+      "size": "38",
+      "price": 500000,
+      "discount": 2,
+      "color": "Black Full",
+      "image": "uploads\\images\\1762849417032-hsm012100den__5__cb011f35259046fc848da03a159b24cd_large (1).jpg",
+      "quantity": 2,
+      "_id": {
+        "$oid": "6925ebfa3e14d25a1e082d7a"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "691304a41cbd9f29d0dd13e8"
+      },
+      "name": "Ba Lô Đa Năng 2 Trong 1",
+      "size": "35",
+      "price": 1200000,
+      "discount": 2,
+      "color": "Beige",
+      "image": "uploads\\images\\1762854052949-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_41_detail.avif",
+      "quantity": 2,
+      "_id": {
+        "$oid": "6925ebfa3e14d25a1e082d7b"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "691599881bf5cbae09471e45"
+      },
+      "name": "Dép Lightblaze",
+      "size": "35",
+      "price": 1500000,
+      "discount": 12,
+      "color": "Đen",
+      "image": "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925ebfa3e14d25a1e082d7c"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "6911fc4f6ac21b1822ede596"
+      },
+      "name": "Giày Superstar 82",
+      "size": "35",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Full Black",
+      "image": "uploads\\images\\1762786383521-Giay_Superstar_82_DJen_JQ3240_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925ebfa3e14d25a1e082d7d"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "6911fb2f6ac21b1822ede562"
+      },
+      "name": "GIÀY GAZELLE LO PRO",
+      "size": "37",
+      "price": 2900000,
+      "discount": 0,
+      "color": "Classice",
+      "image": "uploads\\images\\1762786095256-GIAY_GAZELLE_LO_PRO_nau_HQ7317_15_hover_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925ebfa3e14d25a1e082d7e"
+      }
+    },
+    {
+      "variantId": {
+        "$oid": "6911fb9a6ac21b1822ede568"
+      },
+      "name": "Giày Samba OG",
+      "size": "36",
+      "price": 1700000,
+      "discount": 10,
+      "color": "White",
+      "image": "uploads\\images\\1762786202806-Giay_Samba_OG_trang_B75806_05_standard.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6925ebfa3e14d25a1e082d7f"
+      }
+    }
+  ],
+  "orderAmount": 11982000,
+  "itemsDiscounted": 418000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-25T17:48:42.296Z"
+      },
+      "_id": {
+        "$oid": "6925ebfa3e14d25a1e082d80"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-25T17:48:57.376Z"
+      },
+      "_id": {
+        "$oid": "6925ec093e14d25a1e082f0a"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-25T17:48:42.303Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T17:48:57.377Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6927fcb5440c3fb3694acdef"
+  },
+  "email": "tranthanhliemvvt@gmail.com",
+  "orderCode": 827773484,
+  "orderId": "ORD-251127-2YN1",
+  "shippingInfo": {
+    "ward": "Xã Bình Lư",
+    "province": "Lai Châu",
+    "addressDetail": "HHHH",
+    "phone": "0768157106",
+    "receiver": "TLiem"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "691599881bf5cbae09471e45"
+      },
+      "name": "Dép Lightblaze",
+      "size": "35",
+      "price": 1500000,
+      "discount": 12,
+      "color": "Đen",
+      "image": "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+      "quantity": 10,
+      "_id": {
+        "$oid": "6927fcb5440c3fb3694acdf0"
+      }
+    }
+  ],
+  "orderAmount": 13200000,
+  "itemsDiscounted": 1800000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "cancelled",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-27T07:24:37.735Z"
+      },
+      "_id": {
+        "$oid": "6927fcb5440c3fb3694acdf1"
+      }
+    },
+    {
+      "status": "cancelled",
+      "updatedAt": {
+        "$date": "2025-11-27T07:26:18.562Z"
+      },
+      "_id": {
+        "$oid": "6927fd1a440c3fb3694ad0d4"
+      }
+    },
+    {
+      "status": "cancelled",
+      "updatedAt": {
+        "$date": "2025-11-27T07:29:38.588Z"
+      },
+      "_id": {
+        "$oid": "6927fde243b3af54c396bb91"
+      }
+    },
+    {
+      "status": "cancelled",
+      "updatedAt": {
+        "$date": "2025-11-27T07:31:19.604Z"
+      },
+      "_id": {
+        "$oid": "6927fe47cdb72b06ba14746a"
+      }
+    },
+    {
+      "status": "cancelled",
+      "updatedAt": {
+        "$date": "2025-11-27T07:39:36.044Z"
+      },
+      "_id": {
+        "$oid": "69280038159e8b7469fc37b0"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-27T07:24:37.740Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T07:39:36.044Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69280076159e8b7469fc38df"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 923858035,
+  "orderId": "ORD-251127-CB1Y",
+  "shippingInfo": {
+    "ward": "Phường Đông Hải",
+    "province": "Thành phố Hải Phòng",
+    "addressDetail": "123213",
+    "phone": "0768157106",
+    "receiver": "Liem"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "691599881bf5cbae09471e45"
+      },
+      "name": "Dép Lightblaze",
+      "size": "35",
+      "price": 1500000,
+      "discount": 12,
+      "color": "Đen",
+      "image": "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+      "quantity": 10,
+      "_id": {
+        "$oid": "69280076159e8b7469fc38e0"
+      }
+    }
+  ],
+  "orderAmount": 13200000,
+  "itemsDiscounted": 1800000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "cancelled",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-27T07:40:38.581Z"
+      },
+      "_id": {
+        "$oid": "69280076159e8b7469fc38e1"
+      }
+    },
+    {
+      "status": "cancelled",
+      "updatedAt": {
+        "$date": "2025-11-27T07:41:29.761Z"
+      },
+      "_id": {
+        "$oid": "692800a9159e8b7469fc3b18"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-27T07:40:38.585Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T07:41:29.762Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692800d6159e8b7469fc3c1b"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 933492839,
+  "orderId": "ORD-251127-QQZB",
+  "shippingInfo": {
+    "ward": "Phường Đông Hải",
+    "province": "Thành phố Hải Phòng",
+    "addressDetail": "123213",
+    "phone": "0768157106",
+    "receiver": "Liem"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "691599881bf5cbae09471e45"
+      },
+      "name": "Dép Lightblaze",
+      "size": "35",
+      "price": 1500000,
+      "discount": 12,
+      "color": "Đen",
+      "image": "uploads\\images\\1763023240481-Dep_Lightblaze_DJen_JR1253_05_standard.avif",
+      "quantity": 10,
+      "_id": {
+        "$oid": "692800d6159e8b7469fc3c1c"
+      }
+    }
+  ],
+  "orderAmount": 13200000,
+  "itemsDiscounted": 1800000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-27T07:42:14.928Z"
+      },
+      "_id": {
+        "$oid": "692800d6159e8b7469fc3c1d"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-27T07:42:23.334Z"
+      },
+      "_id": {
+        "$oid": "692800df159e8b7469fc3d38"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-27T07:42:14.930Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T07:42:23.334Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69280116159e8b7469fc3ddf"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 939861175,
+  "orderId": "ORD-251127-YRCR",
+  "shippingInfo": {
+    "ward": "Phường Đông Hải",
+    "province": "Thành phố Hải Phòng",
+    "addressDetail": "123213",
+    "phone": "0768157106",
+    "receiver": "Liem"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "691304a41cbd9f29d0dd13e8"
+      },
+      "name": "Ba Lô Đa Năng 2 Trong 1",
+      "size": "36",
+      "price": 1200000,
+      "discount": 2,
+      "color": "Beige",
+      "image": "uploads\\images\\1762854052949-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_41_detail.avif",
+      "quantity": 2,
+      "_id": {
+        "$oid": "69280116159e8b7469fc3de0"
+      }
+    }
+  ],
+  "orderAmount": 1032000,
+  "itemsDiscounted": 48000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "cancelled",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-27T07:43:18.613Z"
+      },
+      "_id": {
+        "$oid": "69280116159e8b7469fc3de1"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 1320,
+    "amountReduced": 1320000
+  },
+  "createdAt": {
+    "$date": "2025-11-27T07:43:18.615Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T07:49:30.914Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6928039c8c9fa5ab9af9fe51"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 4413339,
+  "orderId": "ORD-251127-JU5O",
+  "shippingInfo": {
+    "ward": "Phường Đông Hải",
+    "province": "Thành phố Hải Phòng",
+    "addressDetail": "123213",
+    "phone": "0768157106",
+    "receiver": "Liem"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "691304a41cbd9f29d0dd13e8"
+      },
+      "name": "Ba Lô Đa Năng 2 Trong 1",
+      "size": "36",
+      "price": 1200000,
+      "discount": 2,
+      "color": "Beige",
+      "image": "uploads\\images\\1762854052949-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_41_detail.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6928039c8c9fa5ab9af9fe52"
+      }
+    }
+  ],
+  "orderAmount": 0,
+  "itemsDiscounted": 24000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "cancelled",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-27T07:54:04.136Z"
+      },
+      "_id": {
+        "$oid": "6928039c8c9fa5ab9af9fe53"
+      }
+    },
+    {
+      "status": "cancelled",
+      "updatedAt": {
+        "$date": "2025-11-27T07:54:41.958Z"
+      },
+      "_id": {
+        "$oid": "692803c18c9fa5ab9afa0177"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 1176,
+    "amountReduced": 1176000
+  },
+  "createdAt": {
+    "$date": "2025-11-27T07:54:04.141Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T07:54:41.958Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6928041a8c9fa5ab9afa022a"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 17057246,
+  "orderId": "ORD-251127-W3R5",
+  "shippingInfo": {
+    "ward": "Phường Tây Nam",
+    "province": "Thành phố Hồ Chí Minh",
+    "addressDetail": "ooo",
+    "phone": "0768157106",
+    "receiver": "52300012"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "691304a41cbd9f29d0dd13e8"
+      },
+      "name": "Ba Lô Đa Năng 2 Trong 1",
+      "size": "36",
+      "price": 1200000,
+      "discount": 2,
+      "color": "Beige",
+      "image": "uploads\\images\\1762854052949-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_41_detail.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "6928041a8c9fa5ab9afa022b"
+      }
+    }
+  ],
+  "orderAmount": 976000,
+  "itemsDiscounted": 24000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "cancelled",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-27T07:56:10.586Z"
+      },
+      "_id": {
+        "$oid": "6928041a8c9fa5ab9afa022c"
+      }
+    },
+    {
+      "status": "cancelled",
+      "updatedAt": {
+        "$date": "2025-11-27T08:05:02.114Z"
+      },
+      "_id": {
+        "$oid": "6928062e3e7f9c4ef8f8387f"
+      }
+    }
+  ],
+  "coupon": {
+    "code": "BLACK",
+    "amountReduced": 100000
+  },
+  "usedPoint": {
+    "point": 100,
+    "amountReduced": 100000
+  },
+  "createdAt": {
+    "$date": "2025-11-27T07:56:10.588Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T08:05:02.115Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692807273e7f9c4ef8f83ab8"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 95192164,
+  "orderId": "ORD-251127-UIZL",
+  "shippingInfo": {
+    "ward": "Phường Tây Nam",
+    "province": "Thành phố Hồ Chí Minh",
+    "addressDetail": "ooo",
+    "phone": "0768157106",
+    "receiver": "52300012"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "691304a41cbd9f29d0dd13e8"
+      },
+      "name": "Ba Lô Đa Năng 2 Trong 1",
+      "size": "36",
+      "price": 1200000,
+      "discount": 2,
+      "color": "Beige",
+      "image": "uploads\\images\\1762854052949-Ba_Lo_DJa_Nang_2_Trong_1_Be_JM7149_41_detail.avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "692807273e7f9c4ef8f83ab9"
+      }
+    }
+  ],
+  "orderAmount": 1176000,
+  "itemsDiscounted": 24000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-27T08:09:11.922Z"
+      },
+      "_id": {
+        "$oid": "692807273e7f9c4ef8f83aba"
+      }
+    },
+    {
+      "status": "confirmed",
+      "updatedAt": {
+        "$date": "2025-11-27T09:58:58.558Z"
+      },
+      "_id": {
+        "$oid": "692820e20efb2b910d720395"
+      }
+    },
+    {
+      "status": "shipping",
+      "updatedAt": {
+        "$date": "2025-11-27T10:01:25.974Z"
+      },
+      "_id": {
+        "$oid": "692821755c19ec3d070154a7"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-27T10:01:28.460Z"
+      },
+      "_id": {
+        "$oid": "692821785c19ec3d070154fe"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-27T08:09:11.927Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T10:01:28.460Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b354f5b8cadf507c702fc"
+  },
+  "email": "52300041@student.tdtu.edu.vn",
+  "orderCode": 937523814,
+  "orderId": "ORD-251130-0FMI",
+  "shippingInfo": {
+    "ward": "Phường Tân Phú",
+    "province": "Thành phố Hồ Chí Minh",
+    "addressDetail": "15 1C ",
+    "phone": "0768157106",
+    "receiver": "Thanh Liem"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "692b31735b8cadf507c6fe32"
+      },
+      "name": "PUMA Phase Backpack",
+      "size": "35",
+      "price": 2500000,
+      "discount": 0,
+      "color": "Black",
+      "image": "uploads\\images\\1764438387823-PUMA-Phase-Backpack (4).avif",
+      "quantity": 1,
+      "_id": {
+        "$oid": "692b354f5b8cadf507c702fd"
+      }
+    }
+  ],
+  "orderAmount": 2500000,
+  "itemsDiscounted": 0,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-29T18:02:55.239Z"
+      },
+      "_id": {
+        "$oid": "692b354f5b8cadf507c702fe"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-29T18:03:25.086Z"
+      },
+      "_id": {
+        "$oid": "692b356d5b8cadf507c70528"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-30T18:02:55.243Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:03:25.086Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b38115b8cadf507c70886"
+  },
+  "email": "gg@email.com",
+  "orderCode": 8141836,
+  "orderId": "ORD-251130-4EV8",
+  "shippingInfo": {
+    "ward": "Phường Trúc Lâm",
+    "province": "Thanh Hóa",
+    "addressDetail": "231",
+    "phone": "2121123213",
+    "receiver": "Tran NGOC HA"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "692b2e3a5b8cadf507c6fdd6"
+      },
+      "name": "Mostro Fey Satin Shoes Unisex",
+      "size": "35",
+      "price": 1500000,
+      "discount": 10,
+      "color": "Rose Gold",
+      "image": "uploads\\images\\1764437562621-Mostro-Fey-Satin-Shoes-Unisex (4).png",
+      "quantity": 1,
+      "_id": {
+        "$oid": "692b38115b8cadf507c70887"
+      }
+    }
+  ],
+  "orderAmount": 1350000,
+  "itemsDiscounted": 150000,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "delivered",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-29T18:14:41.418Z"
+      },
+      "_id": {
+        "$oid": "692b38115b8cadf507c70888"
+      }
+    },
+    {
+      "status": "delivered",
+      "updatedAt": {
+        "$date": "2025-11-29T18:16:02.694Z"
+      },
+      "_id": {
+        "$oid": "692b38625b8cadf507c70e31"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:14:41.419Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:16:02.695Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5ec8157b249368565928"
+  },
+  "email": "thuydiem274@gmail.com",
+  "orderCode": 552859420,
+  "orderId": "ORD-251130-60BZ",
+  "shippingInfo": {
+    "ward": "Phường Hiệp Bình",
+    "province": "Thành phố Hồ Chí Minh",
+    "addressDetail": "15",
+    "phone": "0768157106",
+    "receiver": "Liêm"
+  },
+  "items": [
+    {
+      "variantId": {
+        "$oid": "692b31735b8cadf507c6fe32"
+      },
+      "name": "PUMA Phase Backpack",
+      "size": "35",
+      "price": 2500000,
+      "discount": 0,
+      "color": "Black",
+      "image": "uploads\\images\\1764438387823-PUMA-Phase-Backpack (4).avif",
+      "quantity": 2,
+      "_id": {
+        "$oid": "692c5ec8157b249368565929"
+      }
+    }
+  ],
+  "orderAmount": 5000000,
+  "itemsDiscounted": 0,
+  "payment": {
+    "provider": "cod",
+    "status": "pending"
+  },
+  "status": "pending",
+  "statusHistory": [
+    {
+      "status": "pending",
+      "updatedAt": {
+        "$date": "2025-11-30T15:12:08.595Z"
+      },
+      "_id": {
+        "$oid": "692c5ec8157b24936856592a"
+      }
+    }
+  ],
+  "coupon": {
+    "amountReduced": 0
+  },
+  "usedPoint": {
+    "point": 0,
+    "amountReduced": 0
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:12:08.603Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:12:08.603Z"
+  },
+  "__v": 0
+}]

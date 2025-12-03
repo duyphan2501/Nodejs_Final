@@ -1,0 +1,8254 @@
+[{
+  "_id": {
+    "$oid": "692bfa5d60e7b4f79c3b49f7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:03:41.212Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:03:41.221Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:03:41.221Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfa5d60e7b4f79c3b49f9"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:03:41.231Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:03:41.231Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:03:41.231Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfa6260e7b4f79c3b4a1b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-11-30T08:03:46.190Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:03:46.191Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:03:46.191Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfa7a60e7b4f79c3b4a32"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-tracker",
+  "visitedAt": {
+    "$date": "2025-11-30T08:04:10.171Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:04:10.171Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:04:10.171Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfb4560e7b4f79c3b4a93"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-11-30T08:07:33.726Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:07:33.727Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:07:33.727Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfb4560e7b4f79c3b4a95"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-11-30T08:07:33.730Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:07:33.730Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:07:33.730Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfbbc60e7b4f79c3b4ab1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/sandal-dep-quai-ngang",
+  "visitedAt": {
+    "$date": "2025-11-30T08:09:32.163Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:09:32.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:09:32.164Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfbbc60e7b4f79c3b4ab3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/sandal-dep-quai-ngang",
+  "visitedAt": {
+    "$date": "2025-11-30T08:09:32.177Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:09:32.178Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:09:32.178Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfbd160e7b4f79c3b4af3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/shoe-superstar",
+  "visitedAt": {
+    "$date": "2025-11-30T08:09:53.615Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:09:53.616Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:09:53.616Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfbd160e7b4f79c3b4af5"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/shoe-superstar",
+  "visitedAt": {
+    "$date": "2025-11-30T08:09:53.623Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:09:53.624Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:09:53.624Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfbda60e7b4f79c3b4b35"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-11-30T08:10:02.037Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:10:02.038Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:10:02.038Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfbdb60e7b4f79c3b4b42"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:10:03.962Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:10:03.963Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:10:03.963Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfbdb60e7b4f79c3b4b44"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:10:03.968Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:10:03.968Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:10:03.968Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfc1c60e7b4f79c3b4b83"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-tracker",
+  "visitedAt": {
+    "$date": "2025-11-30T08:11:08.329Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:11:08.330Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:11:08.330Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfc5160e7b4f79c3b4baf"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T08:12:01.546Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:12:01.548Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:12:01.548Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfc5160e7b4f79c3b4bb1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T08:12:01.552Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:12:01.552Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:12:01.552Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfcc460e7b4f79c3b4c2d"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T08:13:56.698Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:13:56.699Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:13:56.699Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfcd560e7b4f79c3b4c36"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T08:14:13.290Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:14:13.290Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:14:13.290Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfcd560e7b4f79c3b4c38"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T08:14:13.301Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:14:13.301Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:14:13.301Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfd0060e7b4f79c3b4c4f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/6911fc4f6ac21b1822ede598",
+  "visitedAt": {
+    "$date": "2025-11-30T08:14:56.614Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:14:56.615Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:14:56.615Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfd0060e7b4f79c3b4c51"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/6911fc4f6ac21b1822ede598",
+  "visitedAt": {
+    "$date": "2025-11-30T08:14:56.617Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:14:56.617Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:14:56.617Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfd1960e7b4f79c3b4c84"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/692b31735b8cadf507c6fe34",
+  "visitedAt": {
+    "$date": "2025-11-30T08:15:21.196Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:15:21.196Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:15:21.196Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfd1960e7b4f79c3b4c86"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/692b31735b8cadf507c6fe34",
+  "visitedAt": {
+    "$date": "2025-11-30T08:15:21.201Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:15:21.201Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:15:21.201Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfd2d60e7b4f79c3b4cb4"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:15:41.549Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:15:41.550Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:15:41.550Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfd2d60e7b4f79c3b4cb2"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:15:41.546Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:15:41.546Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:15:41.546Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfd7b60e7b4f79c3b4cf3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-11-30T08:16:59.723Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:16:59.723Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:16:59.723Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfe0c60e7b4f79c3b4d4b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/shoe-nam",
+  "visitedAt": {
+    "$date": "2025-11-30T08:19:24.142Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:19:24.142Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:19:24.142Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfe0c60e7b4f79c3b4d4d"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/shoe-nam",
+  "visitedAt": {
+    "$date": "2025-11-30T08:19:24.167Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:19:24.168Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:19:24.168Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfe1c60e7b4f79c3b4d74"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/backpack-tui-deo-cheo",
+  "visitedAt": {
+    "$date": "2025-11-30T08:19:40.653Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:19:40.654Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:19:40.654Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfe1c60e7b4f79c3b4d76"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/backpack-tui-deo-cheo",
+  "visitedAt": {
+    "$date": "2025-11-30T08:19:40.670Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:19:40.671Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:19:40.671Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfe5660e7b4f79c3b4d99"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-11-30T08:20:38.556Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:20:38.556Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:20:38.556Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfe5660e7b4f79c3b4d9b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-11-30T08:20:38.558Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:20:38.558Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:20:38.558Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfe7360e7b4f79c3b4dd1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:21:07.576Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:21:07.577Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:21:07.577Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692bfe7360e7b4f79c3b4dd3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:21:07.582Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:21:07.583Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:21:07.583Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c077860e7b4f79c3b4e25"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:59:36.862Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:59:36.862Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:59:36.862Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c077860e7b4f79c3b4e27"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:59:36.908Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:59:36.909Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:59:36.909Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0d6560e7b4f79c3b4e4b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T09:24:53.639Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T09:24:53.640Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T09:24:53.640Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0d6560e7b4f79c3b4e4d"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T09:24:53.647Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T09:24:53.648Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T09:24:53.648Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c107a60e7b4f79c3b4e9b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/giay-samba-og",
+  "visitedAt": {
+    "$date": "2025-11-30T09:38:02.991Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T09:38:02.991Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T09:38:02.991Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c107b60e7b4f79c3b4e9d"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/giay-samba-og",
+  "visitedAt": {
+    "$date": "2025-11-30T09:38:03.005Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T09:38:03.006Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T09:38:03.006Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c108760e7b4f79c3b4eba"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-11-30T09:38:15.346Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T09:38:15.346Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T09:38:15.346Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c13eb60e7b4f79c3b4ed0"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T09:52:43.121Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T09:52:43.122Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T09:52:43.122Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c13eb60e7b4f79c3b4ed2"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T09:52:43.138Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T09:52:43.138Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T09:52:43.138Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c15fa60e7b4f79c3b4ef4"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T10:01:30.252Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:01:30.252Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:01:30.252Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c15fa60e7b4f79c3b4ef2"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T10:01:30.250Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:01:30.250Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:01:30.250Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c16ea60e7b4f79c3b4f84"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T10:05:30.773Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:05:30.773Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:05:30.773Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c16ea60e7b4f79c3b4f86"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T10:05:30.786Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:05:30.786Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:05:30.786Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c184860e7b4f79c3b4fae"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T10:11:20.988Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:11:20.989Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:11:20.989Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c184960e7b4f79c3b4fb0"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T10:11:21.027Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:11:21.028Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:11:21.028Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c184a60e7b4f79c3b4fcc"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T10:11:22.524Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:11:22.525Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:11:22.525Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c184a60e7b4f79c3b4fce"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T10:11:22.527Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:11:22.527Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:11:22.527Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c19ae60e7b4f79c3b5032"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T10:17:18.399Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:17:18.400Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:17:18.400Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c19ae60e7b4f79c3b5034"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T10:17:18.422Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:17:18.423Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:17:18.423Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c1cb160e7b4f79c3b5067"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-11-30T10:30:09.035Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:30:09.036Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:30:09.036Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c1cd360e7b4f79c3b5075"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T10:30:43.396Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:30:43.396Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:30:43.396Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c1cd360e7b4f79c3b5073"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T10:30:43.392Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:30:43.393Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:30:43.393Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c1d9460e7b4f79c3b5099"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/undefined",
+  "visitedAt": {
+    "$date": "2025-11-30T10:33:56.593Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:33:56.593Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:33:56.593Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c1d9460e7b4f79c3b5097"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/undefined",
+  "visitedAt": {
+    "$date": "2025-11-30T10:33:56.589Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:33:56.589Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:33:56.589Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c1f2e60e7b4f79c3b50b3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T10:40:46.357Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:40:46.357Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:40:46.357Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c1f2e60e7b4f79c3b50b1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T10:40:46.352Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:40:46.352Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:40:46.352Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c1f3660e7b4f79c3b50d6"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T10:40:54.569Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:40:54.569Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:40:54.569Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c1f3660e7b4f79c3b50d8"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T10:40:54.597Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T10:40:54.597Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T10:40:54.597Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c44d360e7b4f79c3b50fa"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T13:21:23.437Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:21:23.438Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:21:23.438Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c44d360e7b4f79c3b50fc"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T13:21:23.443Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:21:23.444Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:21:23.444Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c450260e7b4f79c3b5118"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T13:22:10.008Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:22:10.008Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:22:10.008Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c450260e7b4f79c3b511a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T13:22:10.019Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:22:10.019Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:22:10.019Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c450760e7b4f79c3b5133"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T13:22:15.237Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:22:15.237Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:22:15.237Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c451360e7b4f79c3b5139"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T13:22:27.068Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:22:27.069Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:22:27.069Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c451360e7b4f79c3b513b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T13:22:27.078Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:22:27.078Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:22:27.078Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4637a75020f60819a3c5"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T13:27:19.487Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:27:19.488Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:27:19.488Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4637a75020f60819a3c7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T13:27:19.510Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:27:19.511Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:27:19.511Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c463ea75020f60819a3e7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T13:27:26.105Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:27:26.105Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:27:26.105Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4644a75020f60819a3ee"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T13:27:32.052Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:27:32.053Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:27:32.053Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4644a75020f60819a3f1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T13:27:32.068Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:27:32.068Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:27:32.068Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c464da75020f60819a411"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T13:27:41.092Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:27:41.093Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:27:41.093Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c464da75020f60819a413"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T13:27:41.096Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:27:41.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:27:41.097Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4a250dbbaec7ee0cff3c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-11-30T13:44:05.368Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:44:05.369Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:44:05.369Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4a250dbbaec7ee0cff3e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-11-30T13:44:05.376Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:44:05.377Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:44:05.377Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4a3d0dbbaec7ee0cff56"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-11-30T13:44:29.160Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:44:29.161Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:44:29.161Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4a3d0dbbaec7ee0cff59"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-11-30T13:44:29.174Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:44:29.175Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:44:29.175Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4a640dbbaec7ee0cff8a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/api/order/ORD-251130-WPPL",
+  "visitedAt": {
+    "$date": "2025-11-30T13:45:08.426Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:45:08.428Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:45:08.428Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4ad80dbbaec7ee0cffb3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/addresses",
+  "visitedAt": {
+    "$date": "2025-11-30T13:47:04.881Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:47:04.881Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:47:04.881Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c4ad80dbbaec7ee0cffb1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/addresses",
+  "visitedAt": {
+    "$date": "2025-11-30T13:47:04.879Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T13:47:04.879Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T13:47:04.879Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5211bbfbedc933a0f6e2"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T14:17:53.455Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:17:53.466Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:17:53.466Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5217bbfbedc933a0f6e9"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T14:17:59.694Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:17:59.695Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:17:59.695Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5217bbfbedc933a0f6ec"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T14:17:59.705Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:17:59.706Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:17:59.706Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c53ee927a5fa8fb8faafc"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T14:25:50.710Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:25:50.711Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:25:50.711Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c53f1927a5fa8fb8fab25"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T14:25:53.809Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:25:53.809Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:25:53.809Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c53f1927a5fa8fb8fab23"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-11-30T14:25:53.805Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:25:53.806Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:25:53.806Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c540a927a5fa8fb8fab48"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-11-30T14:26:18.829Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:26:18.830Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:26:18.830Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c540a927a5fa8fb8fab46"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-11-30T14:26:18.827Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:26:18.828Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:26:18.828Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c540e927a5fa8fb8fab7b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:26:22.445Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:26:22.446Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:26:22.446Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c540e927a5fa8fb8fab7e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:26:22.458Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:26:22.459Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:26:22.459Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5568927a5fa8fb8fad05"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:32:08.478Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:32:08.479Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:32:08.479Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5568927a5fa8fb8fad08"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:32:08.495Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:32:08.496Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:32:08.496Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c56a591a5cf08f1e5a197"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:37:25.198Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:37:25.199Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:37:25.199Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c56a591a5cf08f1e5a19a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:37:25.232Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:37:25.233Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:37:25.233Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c57faa2bb503d8959fea4"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:43:06.884Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:43:06.885Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:43:06.885Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c57faa2bb503d8959fea7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:43:06.896Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:43:06.896Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:43:06.896Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c59455a2d586efcae6baf"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:48:37.750Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:48:37.750Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:48:37.750Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c59455a2d586efcae6bad"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:48:37.743Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:48:37.744Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:48:37.744Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c59e05e74d7499afeb725"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-11-30T14:51:12.848Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:51:12.848Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:51:12.848Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c59e05e74d7499afeb723"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-11-30T14:51:12.840Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:51:12.842Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:51:12.842Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c59e35e74d7499afeb73e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T14:51:15.174Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:51:15.175Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:51:15.175Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c59e35e74d7499afeb740"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T14:51:15.177Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:51:15.178Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:51:15.178Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5a425e74d7499afeb7aa"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T14:52:50.567Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:52:50.567Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:52:50.567Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5acadfd92718f2e13e0f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:55:06.355Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:55:06.356Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:55:06.356Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5acadfd92718f2e13e12"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T14:55:06.374Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T14:55:06.375Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T14:55:06.375Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c62a6dfd92718f2e13e85"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/sandal-nam",
+  "visitedAt": {
+    "$date": "2025-11-30T15:28:38.670Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:28:38.670Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:28:38.670Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c62a6dfd92718f2e13e87"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/sandal-nam",
+  "visitedAt": {
+    "$date": "2025-11-30T15:28:38.673Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:28:38.673Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:28:38.673Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c62abdfd92718f2e13eae"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T15:28:43.935Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:28:43.935Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:28:43.935Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c62abdfd92718f2e13eb1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T15:28:43.951Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:28:43.952Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:28:43.952Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c67e9cf54143260ba286f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T15:51:05.255Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:51:05.256Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:51:05.256Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c67e9cf54143260ba2872"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T15:51:05.268Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:51:05.268Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:51:05.268Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c6aeb29c0645a39095727"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:03:55.883Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:03:55.883Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:03:55.883Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c6aeb29c0645a39095729"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:03:55.889Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:03:55.890Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:03:55.890Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c6aef29c0645a3909574f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-one",
+  "visitedAt": {
+    "$date": "2025-11-30T16:03:59.943Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:03:59.943Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:03:59.943Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c6aef29c0645a39095753"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-one",
+  "visitedAt": {
+    "$date": "2025-11-30T16:03:59.968Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:03:59.969Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:03:59.969Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c6c4429c0645a390957b4"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:09:40.771Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:09:40.772Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:09:40.772Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c6c4429c0645a390957b7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:09:40.783Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:09:40.783Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:09:40.783Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c738d29c0645a390957dc"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T16:40:45.176Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:40:45.177Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:40:45.177Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c739929c0645a390957e7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:40:57.134Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:40:57.135Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:40:57.135Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c739929c0645a390957ea"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:40:57.144Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:40:57.144Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:40:57.144Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c74f029c0645a39095838"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:46:40.580Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:46:40.581Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:46:40.581Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c74f029c0645a3909583a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:46:40.601Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:46:40.601Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:46:40.601Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c750929c0645a3909585d"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T16:47:05.513Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:47:05.513Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:47:05.513Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c750e29c0645a39095864"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T16:47:10.325Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:47:10.325Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:47:10.325Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c750e29c0645a39095867"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T16:47:10.342Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:47:10.342Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:47:10.342Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c751329c0645a39095888"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-11-30T16:47:15.624Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:47:15.625Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:47:15.625Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c76631d0f5a1e6fc1cadd"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T16:52:51.451Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:52:51.460Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:52:51.460Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c76641d0f5a1e6fc1cae4"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T16:52:52.462Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:52:52.464Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:52:52.464Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c76641d0f5a1e6fc1cae7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T16:52:52.479Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:52:52.480Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:52:52.480Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c76681d0f5a1e6fc1cb01"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:52:56.402Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:52:56.402Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:52:56.402Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c76681d0f5a1e6fc1cb03"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:52:56.405Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:52:56.406Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:52:56.406Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c76821d0f5a1e6fc1cb6b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-11-30T16:53:22.847Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:53:22.848Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:53:22.848Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c77e8393ba4784dae81ac"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:59:20.107Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:59:20.108Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:59:20.108Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c77e8393ba4784dae81ae"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T16:59:20.113Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:59:20.113Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:59:20.113Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c77ed393ba4784dae81d1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T16:59:25.107Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:59:25.107Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:59:25.107Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c77ef393ba4784dae81d8"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T16:59:27.338Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:59:27.339Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:59:27.339Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c77ef393ba4784dae81db"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T16:59:27.372Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T16:59:27.374Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T16:59:27.374Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c7992e82f63d1294ff97a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T17:06:26.446Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:06:26.447Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:06:26.447Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c7992e82f63d1294ff97d"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T17:06:26.460Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:06:26.460Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:06:26.460Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c79ede82f63d1294ff9cd"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T17:07:57.556Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:07:57.557Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:07:57.557Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c79efe82f63d1294ff9d5"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T17:07:59.482Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:07:59.482Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:07:59.482Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c79efe82f63d1294ff9d7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T17:07:59.493Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:07:59.494Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:07:59.494Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c7bade82f63d1294ffa3a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T17:15:25.211Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:15:25.212Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:15:25.212Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c7bade82f63d1294ffa3d"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T17:15:25.216Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:15:25.217Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:15:25.217Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c7bb8e82f63d1294ffa56"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T17:15:36.504Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:15:36.505Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:15:36.505Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c7bb8e82f63d1294ffa58"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T17:15:36.510Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:15:36.511Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:15:36.511Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c7bc6e82f63d1294ffa7e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T17:15:50.901Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:15:50.902Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:15:50.902Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c7bd5e82f63d1294ffa8b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-11-30T17:16:05.240Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:16:05.241Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:16:05.241Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c7c85e82f63d1294ffac5"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/puma-phase-backpack",
+  "visitedAt": {
+    "$date": "2025-11-30T17:19:01.518Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:19:01.518Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:19:01.518Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c7c85e82f63d1294ffac7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/puma-phase-backpack",
+  "visitedAt": {
+    "$date": "2025-11-30T17:19:01.520Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T17:19:01.520Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T17:19:01.520Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dab13cadeab50583e7b43"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T14:49:55.971Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T14:49:55.971Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T14:49:55.971Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dab13cadeab50583e7b41"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T14:49:55.962Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T14:49:55.964Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T14:49:55.964Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dabcccadeab50583e7b6c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-12-01T14:53:00.121Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T14:53:00.122Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T14:53:00.122Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dad9ecadeab50583e7b78"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T15:00:46.645Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:00:46.646Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:00:46.646Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dad9ecadeab50583e7b7b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T15:00:46.664Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:00:46.667Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:00:46.667Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692daf29cadeab50583e7d05"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-12-01T15:07:21.490Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:07:21.491Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:07:21.491Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692daf5fcadeab50583e7d18"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/shoe-superstar",
+  "visitedAt": {
+    "$date": "2025-12-01T15:08:15.105Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:08:15.106Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:08:15.106Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692daf5fcadeab50583e7d1b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/shoe-superstar",
+  "visitedAt": {
+    "$date": "2025-12-01T15:08:15.126Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:08:15.127Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:08:15.127Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692daf82cadeab50583e7d45"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-12-01T15:08:50.909Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:08:50.909Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:08:50.909Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692daf9dcadeab50583e7d53"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-12-01T15:09:17.818Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:09:17.818Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:09:17.818Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692daf9dcadeab50583e7d55"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-12-01T15:09:17.822Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:09:17.822Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:09:17.822Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692daf9fcadeab50583e7d6f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-01T15:09:19.933Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:09:19.933Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:09:19.933Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692daf9fcadeab50583e7d72"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-01T15:09:19.948Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:09:19.949Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:09:19.949Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dafd6cadeab50583e7ef1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/api/order/ORD-251130-7I8C",
+  "visitedAt": {
+    "$date": "2025-12-01T15:10:14.845Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:10:14.846Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:10:14.846Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dafe3cadeab50583e7f22"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-01T15:10:27.959Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:10:27.960Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:10:27.960Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dafe3cadeab50583e7f24"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-01T15:10:27.962Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:10:27.962Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:10:27.962Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6910571e820e740d44d9d932"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.10",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-10T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910571e820e740d44d9d933"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.11",
+  "deviceType": "mobile",
+  "browser": "Safari",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-09-11T11:15:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910571e820e740d44d9d934"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.12",
+  "deviceType": "tablet",
+  "browser": "Firefox",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-09-12T09:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910571e820e740d44d9d935"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.13",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-15T14:45:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910571e820e740d44d9d936"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.14",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-09-18T16:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910571e820e740d44d9d937"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.15",
+  "deviceType": "desktop",
+  "browser": "Firefox",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-09-20T12:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910571e820e740d44d9d938"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.16",
+  "deviceType": "tablet",
+  "browser": "Safari",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-10-05T13:45:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910571e820e740d44d9d939"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.17",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-10-10T15:20:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910571e820e740d44d9d93a"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.18",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-10-15T17:10:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910571e820e740d44d9d93b"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.19",
+  "deviceType": "desktop",
+  "browser": "Firefox",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-10-25T09:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d93d"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.20",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-10-26T10:15:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d93e"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.21",
+  "deviceType": "desktop",
+  "browser": "Firefox",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-10-27T11:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d93f"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.22",
+  "deviceType": "tablet",
+  "browser": "Safari",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-10-28T09:45:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d940"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.23",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-10-29T14:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d941"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.24",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-10-30T15:15:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d942"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.25",
+  "deviceType": "desktop",
+  "browser": "Firefox",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-10-31T16:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d943"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.26",
+  "deviceType": "tablet",
+  "browser": "Safari",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-11-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d944"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.27",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-11-02T11:20:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d945"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.28",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-03T12:40:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d946"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.29",
+  "deviceType": "desktop",
+  "browser": "Firefox",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-11-04T09:15:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d947"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.30",
+  "deviceType": "tablet",
+  "browser": "Safari",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-11-05T13:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d948"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.31",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-06T14:45:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d949"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.32",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-11-06T16:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d94a"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.33",
+  "deviceType": "desktop",
+  "browser": "Firefox",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-11-07T10:10:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d94b"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.34",
+  "deviceType": "tablet",
+  "browser": "Safari",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-07T12:20:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d94c"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.35",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-11-08T09:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d94d"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.36",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-11-08T11:40:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d94e"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.37",
+  "deviceType": "desktop",
+  "browser": "Firefox",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-09T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d94f"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.38",
+  "deviceType": "tablet",
+  "browser": "Safari",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-11-09T11:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6910575f820e740d44d9d950"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.39",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-11-09T12:45:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691058d7820e740d44d9d952"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.01",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-21T09:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691058d7820e740d44d9d953"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.02",
+  "deviceType": "mobile",
+  "browser": "Firefox",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-09-22T10:15:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691058d7820e740d44d9d954"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.03",
+  "deviceType": "tablet",
+  "browser": "Safari",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-09-23T11:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691058d7820e740d44d9d955"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.04",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-24T12:45:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691058d7820e740d44d9d956"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.05",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-09-25T14:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691058d7820e740d44d9d957"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.06",
+  "deviceType": "desktop",
+  "browser": "Firefox",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-09-26T15:15:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691058d7820e740d44d9d958"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.07",
+  "deviceType": "tablet",
+  "browser": "Safari",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-27T16:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691058d7820e740d44d9d959"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.08",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-09-28T09:45:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691058d7820e740d44d9d95a"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.09",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-09-29T11:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "691058d7820e740d44d9d95b"
+  },
+  "userId": null,
+  "ipAddress": "192.168.1.10",
+  "deviceType": "desktop",
+  "browser": "Firefox",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-30T12:15:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69105a40820e740d44d9d95d"
+  },
+  "userId": null,
+  "ipAddress": "192.168.2.01",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-21T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69105a40820e740d44d9d95e"
+  },
+  "userId": null,
+  "ipAddress": "192.168.2.02",
+  "deviceType": "mobile",
+  "browser": "Firefox",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-21T11:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69105a40820e740d44d9d95f"
+  },
+  "userId": null,
+  "ipAddress": "192.168.2.03",
+  "deviceType": "tablet",
+  "browser": "Safari",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-21T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69105a40820e740d44d9d960"
+  },
+  "userId": null,
+  "ipAddress": "192.168.2.04",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-21T13:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69105a40820e740d44d9d961"
+  },
+  "userId": null,
+  "ipAddress": "192.168.2.05",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/home",
+  "visitedAt": {
+    "$date": "2025-09-21T14:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69105a40820e740d44d9d962"
+  },
+  "userId": null,
+  "ipAddress": "192.168.2.06",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-09-22T10:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69105a40820e740d44d9d963"
+  },
+  "userId": null,
+  "ipAddress": "192.168.2.07",
+  "deviceType": "mobile",
+  "browser": "Firefox",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-09-22T11:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69105a40820e740d44d9d964"
+  },
+  "userId": null,
+  "ipAddress": "192.168.2.08",
+  "deviceType": "tablet",
+  "browser": "Safari",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-09-22T12:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69105a40820e740d44d9d965"
+  },
+  "userId": null,
+  "ipAddress": "192.168.2.09",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-09-22T13:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69105a40820e740d44d9d966"
+  },
+  "userId": null,
+  "ipAddress": "192.168.2.10",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "page": "/product",
+  "visitedAt": {
+    "$date": "2025-09-22T14:30:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6925ff9dbc4bb652465b7b30"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-25T19:12:29.666Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-25T19:12:29.672Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T19:12:29.672Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6925ff9dbc4bb652465b7b38"
+  },
+  "userId": {
+    "$oid": "6916b5556b017549bf6b9403"
+  },
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-25T19:12:29.799Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-25T19:12:29.800Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T19:12:29.800Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6925ffd1bc4bb652465b7be9"
+  },
+  "userId": {
+    "$oid": "6916b5556b017549bf6b9403"
+  },
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products/sandal-dep-quai-ngang",
+  "visitedAt": {
+    "$date": "2025-11-25T19:13:21.719Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-25T19:13:21.720Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T19:13:21.720Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6925fff8b95bb47fcb7bd854"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products/sandal-dep-quai-ngang",
+  "visitedAt": {
+    "$date": "2025-11-26T19:14:00.448Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-25T19:14:00.455Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T19:14:00.455Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b34845b8cadf507c701e4"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-29T17:59:32.163Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T17:59:32.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T17:59:32.163Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b35105b8cadf507c702e4"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-29T18:01:52.123Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:01:52.124Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:01:52.124Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b35145b8cadf507c702e7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-29T18:01:56.220Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:01:56.220Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:01:56.220Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b354f5b8cadf507c70305"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-11-29T18:02:55.385Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:02:55.385Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:02:55.385Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b35945b8cadf507c70580"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-tracker",
+  "visitedAt": {
+    "$date": "2025-11-29T18:04:04.756Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:04:04.756Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:04:04.756Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b36dc5b8cadf507c70592"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-11-29T18:09:32.782Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:09:32.782Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:09:32.782Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b36eb5b8cadf507c7059e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-29T18:09:47.007Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:09:47.008Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:09:47.008Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b36f55b8cadf507c705be"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-tracker",
+  "visitedAt": {
+    "$date": "2025-11-29T18:09:57.958Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:09:57.958Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:09:57.958Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b37d35b8cadf507c7084f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/mostro-fey-satin-shoes-unisex",
+  "visitedAt": {
+    "$date": "2025-11-29T18:13:39.759Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:13:39.760Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:13:39.760Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b37db5b8cadf507c7086c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-29T18:13:47.613Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:13:47.613Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:13:47.613Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b37dc5b8cadf507c70870"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-29T18:13:48.729Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:13:48.729Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:13:48.729Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b37dc5b8cadf507c70872"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-29T18:13:48.730Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:13:48.731Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:13:48.731Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b38115b8cadf507c7088f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-11-29T18:14:41.507Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:14:41.507Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:14:41.507Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b3bad5b8cadf507c712ba"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-29T18:30:05.567Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:30:05.567Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:30:05.567Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b3c965b8cadf507c714b3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-29T18:33:58.565Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:33:58.565Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:33:58.565Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692b3c985b8cadf507c714b9"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-29T18:34:00.221Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-29T18:34:00.221Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-29T18:34:00.221Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0005685081985c298792"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:27:49.919Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:27:49.919Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:27:49.919Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0005685081985c298794"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T08:27:49.922Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:27:49.922Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:27:49.922Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c013d866ce57659e195e9"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:01.443Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:01.448Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:01.448Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0144866ce57659e195f5"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products/backpack-tui-deo-cheo",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:08.946Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:08.946Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:08.946Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0144866ce57659e195f7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products/backpack-tui-deo-cheo",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:08.950Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:08.950Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:08.950Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0148866ce57659e19620"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products/sandal-dep-the-thao",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:12.407Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:12.410Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:12.410Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0148866ce57659e19623"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products/sandal-dep-the-thao",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:12.420Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:12.420Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:12.420Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c014b866ce57659e1964c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products/sandal-dep-quai-ngang",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:15.287Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:15.288Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:15.288Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c014b866ce57659e1964f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products/sandal-dep-quai-ngang",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:15.292Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:15.293Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:15.293Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c014e866ce57659e19678"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products/backpack-tui-xach-the-thao",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:18.251Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:18.251Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:18.251Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c014e866ce57659e1967a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products/backpack-tui-xach-the-thao",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:18.257Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:18.257Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:18.257Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0153866ce57659e196c9"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:23.761Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:23.761Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:23.761Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0153866ce57659e196cc"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-11-30T08:33:23.767Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:33:23.767Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:33:23.767Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c021b866ce57659e19757"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/addresses",
+  "visitedAt": {
+    "$date": "2025-11-30T08:36:43.586Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:36:43.586Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:36:43.586Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c021b866ce57659e19759"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/addresses",
+  "visitedAt": {
+    "$date": "2025-11-30T08:36:43.587Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:36:43.588Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:36:43.588Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c021f866ce57659e1978e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-11-30T08:36:47.865Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:36:47.866Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:36:47.866Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c021f866ce57659e19791"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-11-30T08:36:47.872Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:36:47.872Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:36:47.872Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0220866ce57659e197b0"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T08:36:48.976Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:36:48.976Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:36:48.976Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0220866ce57659e197b3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-11-30T08:36:48.979Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:36:48.979Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:36:48.979Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0349866ce57659e19af9"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-11-30T08:41:45.334Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:41:45.334Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:41:45.334Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c034c866ce57659e19b03"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/nike-one",
+  "visitedAt": {
+    "$date": "2025-11-30T08:41:48.572Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:41:48.572Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:41:48.572Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c0363866ce57659e19b7a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T08:42:11.524Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:42:11.524Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:42:11.524Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c036b866ce57659e19b80"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/2",
+  "visitedAt": {
+    "$date": "2025-11-30T08:42:19.397Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:42:19.397Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:42:19.397Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c040d866ce57659e19caf"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/ba-lo-dja-nang-2-trong-1",
+  "visitedAt": {
+    "$date": "2025-11-30T08:45:01.095Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:45:01.095Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:45:01.095Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c040d866ce57659e19cb1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/ba-lo-dja-nang-2-trong-1",
+  "visitedAt": {
+    "$date": "2025-11-30T08:45:01.096Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T08:45:01.096Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T08:45:01.096Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5eb9157b2493685658e9"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T15:11:53.906Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:11:53.907Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:11:53.907Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5eb9157b2493685658eb"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T15:11:53.912Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:11:53.913Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:11:53.913Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5ec2157b24936856590c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-11-30T15:12:02.985Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:12:02.985Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:12:02.985Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5ec4157b249368565912"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-11-30T15:12:04.568Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:12:04.569Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:12:04.569Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c5ec8157b249368565931"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-11-30T15:12:08.746Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:12:08.746Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:12:08.746Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c60aa65b083e5bce1bd92"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T15:20:10.210Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:20:10.211Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:20:10.211Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c60aa65b083e5bce1bd94"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-11-30T15:20:10.218Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:20:10.218Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:20:10.218Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692c61fd50a326ad271d86fe"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-11-30T15:25:49.419Z"
+  },
+  "createdAt": {
+    "$date": "2025-11-30T15:25:49.425Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-30T15:25:49.425Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db49f99bef8de501a65ed"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-01T15:30:39.623Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:30:39.624Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:30:39.624Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db49f99bef8de501a65ef"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-01T15:30:39.633Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:30:39.634Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:30:39.634Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db4c199bef8de501a662a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-01T15:31:13.941Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:31:13.942Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:31:13.942Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db4c199bef8de501a662c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-01T15:31:13.947Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:31:13.947Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:31:13.947Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db56799bef8de501a66af"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-12-01T15:33:59.776Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:33:59.776Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:33:59.776Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db56799bef8de501a66b1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-12-01T15:33:59.780Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:33:59.780Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:33:59.780Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db56a99bef8de501a66cb"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T15:34:02.367Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:34:02.367Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:34:02.367Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db56a99bef8de501a66cd"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T15:34:02.369Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:34:02.369Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:34:02.369Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db57499bef8de501a66f0"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-12-01T15:34:12.157Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:34:12.157Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:34:12.157Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db57599bef8de501a66f3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-12-01T15:34:13.069Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:34:13.069Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:34:13.069Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db57799bef8de501a6700"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-12-01T15:34:15.436Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:34:15.437Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:34:15.437Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db57e99bef8de501a672a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/api/order/ORD-251201-5L5I",
+  "visitedAt": {
+    "$date": "2025-12-01T15:34:22.378Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:34:22.378Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:34:22.378Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db60b80d1a7fde0866fe1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-01T15:36:43.673Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:36:43.674Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:36:43.674Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db60b80d1a7fde0866fe3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-01T15:36:43.680Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:36:43.681Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:36:43.681Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db63380d1a7fde086722f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-01T15:37:23.935Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:37:23.935Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:37:23.935Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692db63380d1a7fde0867231"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-01T15:37:23.942Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:37:23.943Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:37:23.943Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbb0080d1a7fde0867350"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-12-01T15:57:52.967Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T15:57:52.967Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T15:57:52.967Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbbaa80d1a7fde086735b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:00:42.526Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:00:42.526Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:00:42.526Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbbaa80d1a7fde086735e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:00:42.534Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:00:42.534Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:00:42.534Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbc7180d1a7fde08673a1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-12-01T16:04:01.404Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:04:01.404Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:04:01.404Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbc7180d1a7fde08673a3"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-12-01T16:04:01.416Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:04:01.416Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:04:01.416Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbda980d1a7fde08673bf"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:09:13.573Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:09:13.574Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:09:13.574Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbda980d1a7fde08673bd"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:09:13.571Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:09:13.571Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:09:13.571Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbdfc80d1a7fde08673fd"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-12-01T16:10:36.267Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:10:36.268Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:10:36.268Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbdfc80d1a7fde08673ff"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-12-01T16:10:36.281Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:10:36.282Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:10:36.282Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbf6880d1a7fde0867436"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:16:40.183Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:16:40.183Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:16:40.183Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dbf6880d1a7fde0867438"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:16:40.200Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:16:40.200Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:16:40.200Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc0d480d1a7fde0867957"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:22:44.309Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:22:44.310Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:22:44.310Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc0d480d1a7fde0867959"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:22:44.312Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:22:44.312Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:22:44.312Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc10d80d1a7fde0867a4f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-12-01T16:23:41.096Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:23:41.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:23:41.097Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc10d80d1a7fde0867a4d"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/easy-rider-vintage-sneakers-unisex",
+  "visitedAt": {
+    "$date": "2025-12-01T16:23:41.094Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:23:41.094Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:23:41.094Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc11a80d1a7fde0867a92"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-01T16:23:54.100Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:23:54.101Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:23:54.101Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc11a80d1a7fde0867a95"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-01T16:23:54.116Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:23:54.116Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:23:54.116Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc17b80d1a7fde0867af6"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-12-01T16:25:31.156Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:25:31.157Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:25:31.157Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc1a480d1a7fde0867b0b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-12-01T16:26:12.941Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:26:12.941Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:26:12.941Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc1a480d1a7fde0867b0e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-12-01T16:26:12.953Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:26:12.953Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:26:12.953Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc2a780d1a7fde0867b7e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-12-01T16:30:31.459Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:30:31.459Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:30:31.459Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc53d80d1a7fde0867b8d"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-12-01T16:41:33.743Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:41:33.743Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:41:33.743Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc53d80d1a7fde0867b8b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-12-01T16:41:33.741Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:41:33.741Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:41:33.741Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc5a380d1a7fde0867bc6"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:43:15.641Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:43:15.641Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:43:15.641Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc5a380d1a7fde0867bc8"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:43:15.647Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:43:15.647Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:43:15.647Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc7e580d1a7fde0868385"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-12-01T16:52:53.175Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:52:53.176Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:52:53.176Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc8dc80d1a7fde08683ad"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-12-01T16:57:00.968Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:57:00.968Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:57:00.968Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc8dc80d1a7fde08683b0"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-sportswear-commute",
+  "visitedAt": {
+    "$date": "2025-12-01T16:57:00.979Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:57:00.979Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:57:00.979Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc8ea80d1a7fde08683cf"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:57:14.707Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:57:14.708Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:57:14.708Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dc8ea80d1a7fde08683d1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T16:57:14.711Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T16:57:14.712Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T16:57:14.712Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dcc00e4e86ee72178919c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-12-01T17:10:24.949Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T17:10:24.960Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T17:10:24.960Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dcc00e4e86ee72178919e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-12-01T17:10:24.970Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T17:10:24.971Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T17:10:24.971Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dcc01e4e86ee7217891a1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-01T17:10:25.035Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T17:10:25.036Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T17:10:25.036Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dcc58e4e86ee7217891ce"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-01T17:11:52.935Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T17:11:52.936Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T17:11:52.936Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692dcc58e4e86ee7217891d0"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-01T17:11:52.955Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-01T17:11:52.955Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T17:11:52.955Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e95b08f19f66288bb52fd"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T07:30:56.424Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:30:56.424Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:30:56.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e95b08f19f66288bb52fb"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T07:30:56.403Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:30:56.410Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:30:56.410Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e96078f19f66288bb5343"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/nike-one",
+  "visitedAt": {
+    "$date": "2025-12-02T07:32:23.547Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:32:23.548Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:32:23.548Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e96078f19f66288bb5345"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/nike-one",
+  "visitedAt": {
+    "$date": "2025-12-02T07:32:23.551Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:32:23.551Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:32:23.551Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e966f8f19f66288bb53a8"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products/shoe-superstar",
+  "visitedAt": {
+    "$date": "2025-12-02T07:34:07.925Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:34:07.926Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:34:07.926Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e96958f19f66288bb53df"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/puma-phase-backpack",
+  "visitedAt": {
+    "$date": "2025-12-02T07:34:45.136Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:34:45.136Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:34:45.136Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e96958f19f66288bb53e1"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/puma-phase-backpack",
+  "visitedAt": {
+    "$date": "2025-12-02T07:34:45.143Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:34:45.144Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:34:45.144Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e96c08f19f66288bb5400"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/6911f5716ac21b1822ede4e9",
+  "visitedAt": {
+    "$date": "2025-12-02T07:35:28.241Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:35:28.242Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:35:28.242Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e96c08f19f66288bb5402"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/6911f5716ac21b1822ede4e9",
+  "visitedAt": {
+    "$date": "2025-12-02T07:35:28.255Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:35:28.256Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:35:28.256Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e97758f19f66288bb542f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/undefined",
+  "visitedAt": {
+    "$date": "2025-12-02T07:38:29.123Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:38:29.123Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:38:29.123Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e97758f19f66288bb5431"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/undefined",
+  "visitedAt": {
+    "$date": "2025-12-02T07:38:29.125Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:38:29.125Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:38:29.125Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e989f4ada7b09d7e13e09"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T07:43:27.812Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:43:27.821Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:43:27.821Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e989f4ada7b09d7e13e0b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T07:43:27.833Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:43:27.834Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:43:27.834Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e98a44ada7b09d7e13e2e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/undefined",
+  "visitedAt": {
+    "$date": "2025-12-02T07:43:32.052Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:43:32.053Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:43:32.053Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e98a44ada7b09d7e13e2c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/undefined",
+  "visitedAt": {
+    "$date": "2025-12-02T07:43:32.045Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:43:32.046Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:43:32.046Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e9914b6d3eb2484d79586"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-02T07:45:24.623Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:45:24.630Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:45:24.630Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692e9914b6d3eb2484d79588"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-02T07:45:24.642Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T07:45:24.643Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T07:45:24.643Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ea4a809ec87212a6fd749"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T08:34:48.610Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T08:34:48.620Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T08:34:48.620Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ea4a809ec87212a6fd74b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T08:34:48.633Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T08:34:48.634Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T08:34:48.634Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f0eab9c4891805119ef01"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:07:07.009Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:07:07.024Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:07:07.024Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f0eab9c4891805119ef03"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:07:07.042Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:07:07.043Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:07:07.043Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f0ee49c4891805119ef23"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-one",
+  "visitedAt": {
+    "$date": "2025-12-02T16:08:04.964Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:08:04.965Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:08:04.965Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f0ee49c4891805119ef25"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/nike-one",
+  "visitedAt": {
+    "$date": "2025-12-02T16:08:04.979Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:08:04.980Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:08:04.980Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f10459c4891805119ef84"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:13:57.355Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:13:57.356Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:13:57.356Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f10459c4891805119ef86"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:13:57.372Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:13:57.372Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:13:57.372Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f11d09c4891805119f9ab"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:20:32.474Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:20:32.474Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:20:32.474Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f11d09c4891805119f9ae"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:20:32.490Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:20:32.490Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:20:32.490Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f14559c4891805119fae9"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:31:17.978Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:31:17.978Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:31:17.978Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f14559c4891805119fae7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:31:17.974Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:31:17.975Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:31:17.975Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f15ea9c4891805119fd28"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/nike-one",
+  "visitedAt": {
+    "$date": "2025-12-02T16:38:02.776Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:38:02.776Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:38:02.776Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f15ea9c4891805119fd2a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/nike-one",
+  "visitedAt": {
+    "$date": "2025-12-02T16:38:02.780Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:38:02.781Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:38:02.781Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f164f9c4891805119fd48"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-02T16:39:43.268Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:39:43.268Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:39:43.268Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f164f9c4891805119fd4a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-02T16:39:43.270Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:39:43.271Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:39:43.271Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f17009c4891805119fd67"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:42:40.080Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:42:40.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:42:40.080Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f17009c4891805119fd69"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:42:40.091Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:42:40.091Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:42:40.091Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f17079c4891805119fd8b"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-12-02T16:42:47.330Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:42:47.330Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:42:47.330Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f17089c4891805119fd8e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-12-02T16:42:48.962Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:42:48.962Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:42:48.962Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f17429c4891805119fdba"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/addresses",
+  "visitedAt": {
+    "$date": "2025-12-02T16:43:46.609Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:43:46.609Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:43:46.609Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f17429c4891805119fdbc"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/addresses",
+  "visitedAt": {
+    "$date": "2025-12-02T16:43:46.615Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:43:46.615Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:43:46.615Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f17449c4891805119fdd4"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-02T16:43:48.903Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:43:48.903Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:43:48.903Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f17449c4891805119fdd8"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-02T16:43:48.914Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:43:48.914Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:43:48.914Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f17479c4891805119fdf7"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-02T16:43:51.027Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:43:51.028Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:43:51.028Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f17479c4891805119fdf5"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-02T16:43:51.025Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:43:51.026Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:43:51.026Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f179b9c4891805119ff1f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-tracker",
+  "visitedAt": {
+    "$date": "2025-12-02T16:45:15.480Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:45:15.481Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:45:15.481Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f190e0639019da0e0a564"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:51:26.595Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:51:26.596Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:51:26.596Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f190e0639019da0e0a562"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:51:26.575Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:51:26.582Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:51:26.582Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1a2b0639019da0e0a589"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-12-02T16:56:11.175Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:56:11.176Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:56:11.176Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1a6b0639019da0e0a5ad"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-02T16:57:15.500Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:57:15.500Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:57:15.500Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1a6b0639019da0e0a5af"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-02T16:57:15.502Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:57:15.502Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:57:15.502Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1ac00639019da0e0a5f0"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:58:40.236Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:58:40.238Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:58:40.238Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1ac00639019da0e0a5f2"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T16:58:40.242Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:58:40.242Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:58:40.242Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1aea0639019da0e0a61c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-12-02T16:59:22.721Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:59:22.722Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:59:22.722Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1af70639019da0e0a61f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-12-02T16:59:35.624Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T16:59:35.625Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T16:59:35.625Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1cc70639019da0e0a63c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-12-02T17:07:19.900Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:07:19.900Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:07:19.900Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1cc70639019da0e0a63e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-12-02T17:07:19.925Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:07:19.925Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:07:19.925Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1e990639019da0e0a682"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-12-02T17:15:05.963Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:15:05.964Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:15:05.964Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1e990639019da0e0a684"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-12-02T17:15:05.984Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:15:05.984Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:15:05.984Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1fb60639019da0e0a6d2"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-12-02T17:19:50.424Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:19:50.424Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:19:50.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1fb60639019da0e0a6d4"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-12-02T17:19:50.433Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:19:50.433Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:19:50.433Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f1ff00639019da0e0a6ee"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-tracker",
+  "visitedAt": {
+    "$date": "2025-12-02T17:20:48.291Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:20:48.291Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:20:48.291Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f20710639019da0e0a723"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T17:22:57.593Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:22:57.594Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:22:57.594Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f20710639019da0e0a721"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T17:22:57.588Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:22:57.589Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:22:57.589Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f214bcf9f5a8397441ba9"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-tracker",
+  "visitedAt": {
+    "$date": "2025-12-02T17:26:35.410Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:26:35.419Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:26:35.419Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f214bcf9f5a8397441bab"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-tracker",
+  "visitedAt": {
+    "$date": "2025-12-02T17:26:35.427Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:26:35.427Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:26:35.427Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2159cf9f5a8397441be2"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-12-02T17:26:49.732Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:26:49.733Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:26:49.733Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2159cf9f5a8397441be4"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-12-02T17:26:49.748Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:26:49.749Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:26:49.749Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f22becf9f5a8397441c9c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-tracker",
+  "visitedAt": {
+    "$date": "2025-12-02T17:32:46.094Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:32:46.094Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:32:46.094Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f23ebd0511dd510b6bc15"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-12-02T17:37:47.740Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:37:47.747Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:37:47.747Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f23ebd0511dd510b6bc17"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-12-02T17:37:47.764Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:37:47.765Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:37:47.765Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2469d0511dd510b6bc31"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-tracker",
+  "visitedAt": {
+    "$date": "2025-12-02T17:39:53.171Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:39:53.171Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:39:53.171Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f263ed0511dd510b6bf8a"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T17:47:42.058Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:47:42.058Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:47:42.058Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f263ed0511dd510b6bf88"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T17:47:42.053Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:47:42.053Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:47:42.053Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2645d0511dd510b6bfaf"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-12-02T17:47:49.681Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:47:49.681Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:47:49.681Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2645d0511dd510b6bfb2"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/my-account",
+  "visitedAt": {
+    "$date": "2025-12-02T17:47:49.699Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:47:49.700Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:47:49.700Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f266bd0511dd510b6bfd2"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/addresses",
+  "visitedAt": {
+    "$date": "2025-12-02T17:48:27.255Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:48:27.255Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:48:27.255Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f266bd0511dd510b6bfd0"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/addresses",
+  "visitedAt": {
+    "$date": "2025-12-02T17:48:27.253Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:48:27.253Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:48:27.253Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f273d76115da463016167"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/products",
+  "visitedAt": {
+    "$date": "2025-12-02T17:51:57.109Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:51:57.110Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:51:57.110Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f274476115da463016171"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-12-02T17:52:04.588Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:52:04.588Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:52:04.588Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f274676115da463016174"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-12-02T17:52:06.747Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:52:06.748Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:52:06.748Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f276b76115da463016195"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-02T17:52:43.298Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:52:43.299Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:52:43.299Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f276b76115da463016198"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-02T17:52:43.313Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:52:43.313Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:52:43.313Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f27c576115da463016354"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T17:54:13.947Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:54:13.947Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:54:13.947Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f27c576115da463016356"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T17:54:13.955Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:54:13.956Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:54:13.956Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f280076115da463016391"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-12-02T17:55:12.989Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:55:12.990Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:55:12.990Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f284c76115da46301680f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-02T17:56:28.012Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:56:28.012Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:56:28.012Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f284c76115da46301680d"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-02T17:56:28.008Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:56:28.009Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:56:28.009Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f288676115da463016851"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-02T17:57:26.760Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:57:26.760Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:57:26.760Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f288676115da46301684f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Edge",
+  "page": "/product/campus-00",
+  "visitedAt": {
+    "$date": "2025-12-02T17:57:26.757Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T17:57:26.758Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T17:57:26.758Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f293576115da463016a9e"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T18:00:21.843Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:00:21.844Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:00:21.844Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f293576115da463016aa0"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T18:00:21.854Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:00:21.854Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:00:21.854Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f299676115da463016aeb"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/addresses",
+  "visitedAt": {
+    "$date": "2025-12-02T18:01:58.524Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:01:58.524Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:01:58.524Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f299676115da463016aee"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/addresses",
+  "visitedAt": {
+    "$date": "2025-12-02T18:01:58.539Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:01:58.539Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:01:58.539Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f29e076115da463016b2c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/cart",
+  "visitedAt": {
+    "$date": "2025-12-02T18:03:12.986Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:03:12.987Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:03:12.987Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f29e276115da463016b2f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/checkout",
+  "visitedAt": {
+    "$date": "2025-12-02T18:03:14.568Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:03:14.568Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:03:14.568Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f29fb76115da463016b43"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-success",
+  "visitedAt": {
+    "$date": "2025-12-02T18:03:39.251Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:03:39.253Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:03:39.253Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2a3d76115da463016b72"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-02T18:04:45.945Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:04:45.945Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:04:45.945Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2a3d76115da463016b70"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order",
+  "visitedAt": {
+    "$date": "2025-12-02T18:04:45.944Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:04:45.944Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:04:45.944Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2a5676115da463016e60"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-02T18:05:10.279Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:05:10.280Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:05:10.280Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2a5676115da463016e64"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/order-history",
+  "visitedAt": {
+    "$date": "2025-12-02T18:05:10.299Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:05:10.299Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:05:10.299Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2a9276115da463017075"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T18:06:10.050Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:06:10.050Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:06:10.050Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2a9276115da463017078"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T18:06:10.063Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:06:10.063Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:06:10.063Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2f9876115da463017a1c"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T18:27:36.512Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:27:36.513Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:27:36.513Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2f9876115da463017a1f"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-02T18:27:36.523Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:27:36.523Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:27:36.523Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2fa876115da463017a47"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "mobile",
+  "browser": "Mobile Safari",
+  "page": "/product/giay-superstar-ii",
+  "visitedAt": {
+    "$date": "2025-12-02T18:27:52.401Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:27:52.401Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:27:52.401Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2fa876115da463017a49"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "mobile",
+  "browser": "Mobile Safari",
+  "page": "/product/giay-superstar-ii",
+  "visitedAt": {
+    "$date": "2025-12-02T18:27:52.412Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-02T18:27:52.412Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T18:27:52.412Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692fd55ac7ce567247fff6ba"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-03T06:14:50.413Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-03T06:14:50.419Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T06:14:50.419Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692fd55ac7ce567247fff6bd"
+  },
+  "userId": null,
+  "ipAddress": "::1",
+  "deviceType": "desktop",
+  "browser": "Chrome",
+  "page": "/",
+  "visitedAt": {
+    "$date": "2025-12-03T06:14:50.445Z"
+  },
+  "createdAt": {
+    "$date": "2025-12-03T06:14:50.445Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T06:14:50.445Z"
+  },
+  "__v": 0
+}]

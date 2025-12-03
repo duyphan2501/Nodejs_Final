@@ -55,4 +55,36 @@ mongoimport \
   --file /data/shoesShop.categories.json \
   --writeConcern '{w: "majority"}'
 
-echo "🎉 MongoDB seed completed!"
+echo "Importing coupons..."
+mongoimport \
+  --uri "$URI" \
+  --collection coupons \
+  --jsonArray \
+  --file /data/shoesShop.coupons.json \
+  --writeConcern '{w: "majority"}'
+
+echo "Importing orders..."
+mongoimport \
+  --uri "$URI" \
+  --collection orders \
+  --jsonArray \
+  --file /data/shoesShop.orders.json \
+  --writeConcern '{w: "majority"}'
+
+echo "Importing users..."
+mongoimport \
+  --uri "$URI" \
+  --collection users \
+  --jsonArray \
+  --file /data/shoesShop.users.json \
+  --writeConcern '{w: "majority"}'
+
+echo "Importing visits..."
+mongoimport \
+  --uri "$URI" \
+  --collection visits \
+  --jsonArray \
+  --file /data/shoesShop.visits.json \
+  --writeConcern '{w: "majority"}'
+
+echo "MongoDB seed completed!"

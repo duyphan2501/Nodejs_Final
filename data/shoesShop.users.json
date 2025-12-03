@@ -1,0 +1,23 @@
+[{
+  "_id": {
+    "$oid": "692f25e4d0511dd510b6bf77"
+  },
+  "name": "duy phan",
+  "email": "duyneon09@gmail.com",
+  "purchasePoint": 100,
+  "password": "$2b$10$pFAPtZEJLv13ncxOCepwtO3Wfs.2rwH/BjLp0IG562p3TaG2o42qm",
+  "isVerified": true,
+  "status": "active",
+  "isAdmin": true,
+  "createdAt": {
+    "$date": "2025-12-02T17:46:12.020Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T06:19:16.246Z"
+  },
+  "__v": 0,
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTJmMjVlNGQwNTExZGQ1MTBiNmJmNzciLCJpYXQiOjE3NjQ3NDI3NTYsImV4cCI6MTc2NTM0NzU1Nn0.1oyey9Nm7dbQnOcFxtFLscPyvEqBgILbaaJ3txCebUo",
+  "refreshTokenExpireAt": {
+    "$date": "2025-12-10T06:19:16.245Z"
+  }
+}]

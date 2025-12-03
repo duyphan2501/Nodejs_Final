@@ -1,0 +1,38 @@
+[{
+  "_id": {
+    "$oid": "690a10c3a184f2eded3585a6"
+  },
+  "code": "SALE1",
+  "remainingUsage": 4,
+  "discountPercent": 10,
+  "discountAmount": 0,
+  "maxDiscountAmount": 50000,
+  "status": "active",
+  "discountType": "percent",
+  "order": [
+    "ORD-251105-0FE6",
+    "ORD-251105-UOZE",
+    "ORD-251105-GGXS",
+    "ORD-251105-4PTU",
+    "ORD-251203-4M1A",
+    "ORD-251203-WI41"
+  ],
+  "minOrderValue": 200000,
+  "updatedAt": {
+    "$date": "2025-12-02T18:03:38.788Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "690a10dda184f2eded3585a8"
+  },
+  "code": "FIX50K",
+  "remainingUsage": 5,
+  "discountPercent": 0,
+  "discountAmount": 50000,
+  "maxDiscountAmount": 0,
+  "status": "active",
+  "discountType": "fixed",
+  "order": [],
+  "minOrderValue": 300000
+}]
